@@ -3,8 +3,8 @@
 namespace Tests\Feature\Categories;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Category;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CategoryIndexTest extends TestCase
 {
