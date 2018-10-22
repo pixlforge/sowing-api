@@ -4,12 +4,9 @@ namespace Tests\Feature\Categories;
 
 use Tests\TestCase;
 use App\Models\Category;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CategoryIndexTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_returns_a_collection_of_categories()
     {
@@ -18,7 +15,7 @@ class CategoryIndexTest extends TestCase
         $response = $this->getJson(route('categories.index'));
 
         $response->assertJsonFragment([
-            'slug' => $category->slug
+            'en' => $category->slug_en,
         ]);
     }
 

@@ -3,13 +3,11 @@
 namespace Tests\Unit\Models\Categories;
 
 use Tests\TestCase;
+use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CategoryTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_has_many_children()
     {
@@ -46,5 +44,17 @@ class CategoryTest extends TestCase
         ]);
 
         $this->assertEquals($anotherCategory->name, Category::ordered()->first()->name);
+    }
+
+    /** @test */
+    public function it_has_many_products()
+    {
+        $category = factory(Category::class)->create();
+
+        $category->products()->save(
+            factory(Product::class)->create()
+        );
+
+        $this->assertInstanceOf(Product::class, $category->products->first());
     }
 }

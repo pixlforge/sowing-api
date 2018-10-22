@@ -13,43 +13,67 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         factory(Category::class)->create([
-            'name' => $name = 'Beauté & bien-être',
-            'slug' => str_slug($name)
+            'name_en' => $name_en = 'Beauty & Wellness',
+            'name_fr' => $name_fr = 'Beauté & bien-être',
+            'name_de' => $name_de = 'Schönheit & Wellness',
+            'name_it' => $name_it = 'Bellezza & benessere',
+            'slug' => str_slug($name_en),
         ]);
 
         factory(Category::class)->create([
-            'name' => $name = 'Bijoux & accessoires',
-            'slug' => str_slug($name)
+            'name_en' => $name_en = 'Jewelry & accessories',
+            'name_fr' => $name_fr = 'Bijoux & accessoires',
+            'name_de' => $name_de = 'Schmuck & Accessoires',
+            'name_it' => $name_it = 'Gioielli & accessori',
+            'slug' => str_slug($name_en),
         ]);
         
         factory(Category::class)->create([
-            'name' => $name = 'Vêtements',
-            'slug' => str_slug($name)
+            'name_en' => $name_en = 'Clothing',
+            'name_fr' => $name_fr = 'Vêtements',
+            'name_de' => $name_de = 'Kleidung',
+            'name_it' => $name_it = 'Vestiti',
+            'slug' => str_slug($name_en),
         ]);
         
         factory(Category::class)->create([
-            'name' => $name = 'Maison & ameublement',
-            'slug' => str_slug($name)
+            'name_en' => $name_en = 'Home & Furnishings',
+            'name_fr' => $name_fr = 'Maison & ameublement',
+            'name_de' => $name_de = 'Haus & Einrichtung',
+            'name_it' => $name_it = 'Casa & arredamento',
+            'slug' => str_slug($name_en),
         ]);
         
         factory(Category::class)->create([
-            'name' => $name = 'Jouets & divertissement',
-            'slug' => str_slug($name)
+            'name_en' => $name_en = 'Toys & Entertainment',
+            'name_fr' => $name_fr = 'Jouets & divertissement',
+            'name_de' => $name_de = 'Spielzeuge & Unterhaltung',
+            'name_it' => $name_it = 'Giocattoli & intrattenimento',
+            'slug' => str_slug($name_en),
         ]);
         
         factory(Category::class)->create([
-            'name' => $name = 'Art & collections',
-            'slug' => str_slug($name)
+            'name_en' => $name_en = 'Art & collections',
+            'name_fr' => $name_fr = 'Art & collections',
+            'name_de' => $name_de = 'Kunst & Sammlungen',
+            'name_it' => $name_it = 'Arte & collezioni',
+            'slug' => str_slug($name_en),
         ]);
         
         factory(Category::class)->create([
-            'name' => $name = 'Papeterie',
-            'slug' => str_slug($name)
+            'name_en' => $name_en = 'Stationery',
+            'name_fr' => $name_fr = 'Papeterie',
+            'name_de' => $name_de = 'Schreibwaren',
+            'name_it' => $name_it = 'Cartoleria',
+            'slug' => str_slug($name_en),
         ]);
         
         factory(Category::class)->create([
-            'name' => $name = 'Produits locaux',
-            'slug' => str_slug($name)
+            'name_en' => $name_en = 'Local products',
+            'name_fr' => $name_fr = 'Produits locaux',
+            'name_de' => $name_de = 'Lokale Produkte',
+            'name_it' => $name_it = 'Prodotti locali',
+            'slug' => str_slug($name_en),
         ]);
     }
 }

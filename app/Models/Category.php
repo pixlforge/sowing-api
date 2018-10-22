@@ -11,13 +11,24 @@ class Category extends Model
     use HasChildren, IsOrderable;
 
     protected $fillable = [
-        'name',
-        'slug',
+        'name_en',
+        'slug_en',
+        'name_fr',
+        'slug_fr',
+        'name_de',
+        'slug_de',
+        'name_it',
+        'slug_it',
         'order'
     ];
 
     public function children()
     {
         return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
     }
 }

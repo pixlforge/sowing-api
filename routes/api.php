@@ -16,3 +16,10 @@ Route::namespace('Categories')->group(function () {
         'index' => 'categories.index',
     ]);
 });
+
+Route::namespace('Products')->group(function () {
+    Route::resource('/products', 'ProductController')->names([
+        'index' => 'products.index',
+        'show' => 'products.show'
+    ]);
+});
