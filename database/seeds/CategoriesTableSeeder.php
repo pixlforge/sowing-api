@@ -75,5 +75,23 @@ class CategoriesTableSeeder extends Seeder
             'name_it' => $name_it = 'Prodotti locali',
             'slug' => str_slug($name_en),
         ]);
+
+        factory(Category::class)->create([
+            'name_en' => $name_en = 'Shoes',
+            'name_fr' => $name_fr = 'Chaussures',
+            'name_de' => $name_de = 'Schuhe',
+            'name_it' => $name_it = 'Scarpe',
+            'slug' => str_slug($name_en),
+            'parent_id' => 3
+        ]);
+
+        factory(Category::class)->create([
+            'name_en' => $name_en = 'Gloves',
+            'name_fr' => $name_fr = 'Gants',
+            'name_de' => $name_de = 'Handschuhe',
+            'name_it' => $name_it = 'Guanti',
+            'slug' => str_slug($name_en),
+            'parent_id' => 3
+        ]);
     }
 }

@@ -15,7 +15,7 @@ class CategoryIndexTest extends TestCase
         $response = $this->getJson(route('categories.index'));
 
         $response->assertJsonFragment([
-            'en' => $category->slug_en,
+            'slug' => $category->slug,
         ]);
     }
 

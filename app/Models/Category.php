@@ -10,15 +10,17 @@ class Category extends Model
 {
     use HasChildren, IsOrderable;
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     protected $fillable = [
         'name_en',
-        'slug_en',
         'name_fr',
-        'slug_fr',
         'name_de',
-        'slug_de',
         'name_it',
-        'slug_it',
+        'slug',
         'order'
     ];
 

@@ -14,12 +14,13 @@
 Route::namespace('Categories')->group(function () {
     Route::resource('/categories', 'CategoryController')->names([
         'index' => 'categories.index',
+        'show' => 'categories.show',
     ]);
 });
 
 Route::namespace('Products')->group(function () {
     Route::resource('/products', 'ProductController')->names([
         'index' => 'products.index',
-        'show' => 'products.show'
+        'show' => 'products.show',
     ]);
 });

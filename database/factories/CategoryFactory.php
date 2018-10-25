@@ -14,6 +14,10 @@ $factory->define(Category::class, function () use ($fakerEN, $fakerFR, $fakerDE,
         'name_fr' => $name_fr = $fakerFR->unique()->name,
         'name_de' => $name_de = $fakerDE->unique()->name,
         'name_it' => $name_it = $fakerIT->unique()->name,
+        'description_en' => $fakerEN->sentence,
+        'description_fr' => $fakerFR->sentence,
+        'description_de' => $fakerDE->sentence,
+        'description_it' => $fakerIT->sentence,
         'slug' => str_slug($name_en),
     ];
 });

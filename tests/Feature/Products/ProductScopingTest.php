@@ -19,7 +19,7 @@ class ProductScopingTest extends TestCase
 
         factory(Product::class)->create();
 
-        $response = $this->getJson(route('products.index', ['category' => $category->slug_en]));
+        $response = $this->getJson(route('products.index', ['category' => $category->slug]));
 
         $response->assertJsonCount(1, 'data');
     }

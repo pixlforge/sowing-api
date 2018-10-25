@@ -14,4 +14,11 @@ class CategoryController extends Controller
             Category::with('children')->parents()->ordered()->get()
         );
     }
+
+    public function show(Category $category)
+    {
+        return new CategoryResource(
+            Category::with('children')->where('slug', $category->slug)->first()
+        );
+    }
 }

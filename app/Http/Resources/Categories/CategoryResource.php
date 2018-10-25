@@ -21,6 +21,12 @@ class CategoryResource extends JsonResource
                 'de' => $this->name_de,
                 'it' => $this->name_it
             ],
+            'description' => [
+                'en' => $this->description_en,
+                'fr' => $this->description_fr,
+                'de' => $this->description_de,
+                'it' => $this->description_it
+            ],
             'slug' => $this->slug,
             'children' => CategoryResource::collection($this->whenLoaded('children'))
         ];
