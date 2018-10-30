@@ -23,7 +23,7 @@ class CategoriesTableSeeder extends Seeder
         factory(Category::class)->create([
             'name_en' => $name_en = 'Jewelry & accessories',
             'name_fr' => $name_fr = 'Bijoux & accessoires',
-            'name_de' => $name_de = 'Schmuck & Accessoires',
+            'name_de' => $name_de = 'Schmuck & Zubehör',
             'name_it' => $name_it = 'Gioielli & accessori',
             'slug' => str_slug($name_en),
         ]);
