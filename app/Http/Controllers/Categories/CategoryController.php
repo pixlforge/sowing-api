@@ -8,6 +8,11 @@ use App\Http\Resources\Categories\CategoryResource;
 
 class CategoryController extends Controller
 {
+    /**
+     * Returns a collection of categories along with their associated sub-categories.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         return CategoryResource::collection(
@@ -15,6 +20,12 @@ class CategoryController extends Controller
         );
     }
 
+    /**
+     * Returns a specific category along with its associated sub-categories.
+     *
+     * @param Category $category
+     * @return CategoryResource
+     */
     public function show(Category $category)
     {
         return new CategoryResource(

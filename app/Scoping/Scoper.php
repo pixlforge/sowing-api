@@ -10,11 +10,23 @@ class Scoper
 {
     protected $request;
 
+    /**
+     * Scoper constructor.
+     *
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
+    /**
+     * Apply the provided scopes to the query builder.
+     *
+     * @param Builder $builder
+     * @param array $scopes
+     * @return Builder
+     */
     public function apply(Builder $builder, array $scopes)
     {
         foreach ($scopes as $key => $scope) {
