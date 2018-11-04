@@ -93,5 +93,14 @@ class CategoriesTableSeeder extends Seeder
             'slug' => str_slug($name_en),
             'parent_id' => 3
         ]);
+
+        factory(Category::class)->create([
+            'name_en' => $name_en = 'Coffee',
+            'name_fr' => $name_fr = 'Café',
+            'name_de' => $name_de = 'Kaffee',
+            'name_it' => $name_it = 'Caffè',
+            'slug' => str_slug($name_en),
+            'parent_id' => 8
+        ]);
     }
 }

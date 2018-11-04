@@ -5,6 +5,7 @@ namespace Tests\Unit\Products;
 use Tests\TestCase;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Variation;
 
 class ProductTest extends TestCase
 {
@@ -26,5 +27,17 @@ class ProductTest extends TestCase
         );
 
         $this->assertInstanceOf(Category::class, $product->categories->first());
+    }
+
+    /** @test */
+    public function it_has_many_variations()
+    {
+        $product = factory(Product::class)->create();
+
+        $product->variations()->save(
+            factory(Variation::class)->create()
+        );
+
+        $this->assertInstanceOf(Variation::class, $product->variations->first());
     }
 }
