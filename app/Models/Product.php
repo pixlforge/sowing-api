@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use App\Scoping\Scoper;
+use App\Models\Traits\CanBeScoped;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, CanBeScoped;
     
     /**
      * Key attribute used in routing.
@@ -19,18 +18,6 @@ class Product extends Model
     public function getRouteKeyName()
     {
         return 'slug';
-    }
-
-    /**
-     * Scope products by the provided scopes.
-     *
-     * @param Builder $builder
-     * @param array $scopes
-     * @return Builder
-     */
-    public function scopeWithScopes(Builder $builder, $scopes = [])
-    {
-        return (new Scoper(request()))->apply($builder, $scopes);
     }
 
     /**
