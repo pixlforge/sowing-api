@@ -4,9 +4,10 @@ namespace Tests\Unit\Variations;
 
 use Tests\TestCase;
 use App\Models\Type;
+use App\Models\Product;
 use App\Models\Variation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\Product;
+use App\Money\Money;
 
 class VariationTest extends TestCase
 {
@@ -26,5 +27,53 @@ class VariationTest extends TestCase
         $variation = factory(Variation::class)->create();
 
         $this->assertInstanceOf(Product::class, $variation->product);
+    }
+
+    /** @test */
+    public function it_returns_a_money_instance_for_the_price()
+    {
+        $variation = factory(Variation::class)->create();
+
+        $this->assertInstanceOf(Money::class, $variation->price);
+    }
+
+    /** @test */
+    public function it_returns_a_formatted_price()
+    {
+        $variation = factory(Variation::class)->create();
+
+        $this->assertEquals('CHF10.00', $variation->formattedPrice);
+    }
+
+    /** @test */
+    public function it_returns_the_product_price_if_price_is_null()
+    {
+        $product = factory(Product::class)->create([
+            'price' => 1000
+        ]);
+
+        $product->variations()->save(
+            $variation = factory(Variation::class)->create([
+                'price' => null
+            ])
+        );
+
+        $this->assertEquals($product->price->amount(), $variation->price->amount());
+    }
+
+    /** @test */
+    public function it_can_check_if_the_variation_price_is_different_from_the_product()
+    {
+        $product = factory(Product::class)->create([
+            'price' => 1000
+        ]);
+
+        $product->variations()->save(
+            $variation = factory(Variation::class)->create([
+                'price' => 2000
+            ])
+        );
+
+        $this->assertTrue($variation->priceVaries());
     }
 }

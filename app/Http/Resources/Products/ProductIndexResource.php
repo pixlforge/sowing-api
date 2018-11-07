@@ -28,7 +28,8 @@ class ProductIndexResource extends JsonResource
                 'fr' => $this->description_fr,
                 'de' => $this->description_de,
                 'it' => $this->description_it,
-            ]
+            ],
+            'price' => $this->formattedPrice
         ];
     }
 }

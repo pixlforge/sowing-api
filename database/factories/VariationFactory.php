@@ -23,7 +23,7 @@ $factory->define(Variation::class, function () use ($fakerEN, $fakerFR, $fakerDE
         'description_fr' => $fakerFR->sentence,
         'description_de' => $fakerDE->sentence,
         'description_it' => $fakerIT->sentence,
-        'price' => 1000,
+        'price' => null,
         'type_id' => function () {
             return factory(Type::class)->create()->id;
         }

@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasPrice;
 use App\Models\Traits\CanBeScoped;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes, CanBeScoped;
+    use SoftDeletes, CanBeScoped, HasPrice;
     
     /**
      * Key attribute used in routing.
