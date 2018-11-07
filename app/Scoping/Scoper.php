@@ -40,6 +40,12 @@ class Scoper
         return $builder;
     }
 
+    /**
+     * Limit the scopes to those found in the request.
+     *
+     * @param array $scopes
+     * @return array
+     */
     protected function limitScopes(array $scopes)
     {
         return array_only($scopes, array_keys($this->request->all()));
