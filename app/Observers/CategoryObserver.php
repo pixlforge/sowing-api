@@ -15,7 +15,9 @@ class CategoryObserver
      */
     public function creating(Category $category)
     {
-        $category->slug = str_slug(request()->translations_name_en);
+        if (is_null($category->slug)) {
+            $category->slug = str_slug(request()->translations_name_en);
+        }
     }
 
     /**
