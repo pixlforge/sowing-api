@@ -13,6 +13,7 @@ use App\Nova\Metrics\CategoryCount;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Metrics\SubCategoryCount;
 use App\Nova\Metrics\CategoryTypes;
+use Laravel\Nova\Fields\Number;
 
 class Category extends Resource
 {
@@ -82,7 +83,9 @@ class Category extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+            ID::make()
+                ->sortable()
+                ->hideFromIndex(),
 
             Translatable::make([
                 Text::make('Nom', 'name')
@@ -93,10 +96,13 @@ class Category extends Resource
                     ->sortable()
                     ->rules('required', 'max:255'),
             ]),
-
+            
             HasMany::make('Sous-catégorie(s)', 'children', 'App\Nova\Category'),
-
+            
             BelongsTo::make('Catégorie parente', 'parent', 'App\Nova\Category'),
+
+            Number::make('Ordre', 'order')
+                ->sortable(),
         ];
     }
 
