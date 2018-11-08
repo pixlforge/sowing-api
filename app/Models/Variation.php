@@ -5,11 +5,32 @@ namespace App\Models;
 use App\Money\Money;
 use App\Models\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Variation extends Model
 {
-    use SoftDeletes, HasPrice;
+    use SoftDeletes, HasPrice, HasTranslations;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+
+    /**
+     * The attributes that are translatable.
+     *
+     * @var array
+     */
+    public $translatable = [
+        'name',
+        'description',
+    ];
 
     /**
      * Get the model's Money instance price attribute.

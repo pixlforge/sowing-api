@@ -15,17 +15,11 @@ class CreateVariationsTable extends Migration
     {
         Schema::create('variations', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('product_id')->index();
-            $table->string('name_en');
-            $table->string('name_fr');
-            $table->string('name_de');
-            $table->string('name_it');
-            $table->text('description_en')->nullable();
-            $table->text('description_fr')->nullable();
-            $table->text('description_de')->nullable();
-            $table->text('description_it')->nullable();
+            $table->json('name');
+            $table->json('description')->nullable();
             $table->integer('price')->nullable();
             $table->integer('order')->nullable();
+            $table->unsignedInteger('product_id')->index();
             $table->timestamps();
             $table->softDeletes();
 

@@ -13,10 +13,11 @@
         "beyondcode/laravel-self-diagnosis": "^1.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
+        "laravel/nova": "*",
         "laravel/telescope": "^0.1.5",
         "laravel/tinker": "^1.0",
-        "laravel/nova": "*",
-        "moneyphp/money": "^3.1"
+        "moneyphp/money": "^3.1",
+        "spatie/laravel-translatable": "^3.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

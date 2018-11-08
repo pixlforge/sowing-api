@@ -17,15 +17,19 @@ class ProductsTableSeeder extends Seeder
 
         $category->products()->save(
             factory(Product::class)->create([
-                'name_en' => 'Coffee',
-                'name_fr' => 'Café',
-                'name_de' => 'Kaffee',
-                'name_it' => 'Caffè',
-                'description_en' => 'Lorem ipsum dolor sit amet',
-                'description_fr' => 'Lorem ipsum dolor sit amet',
-                'description_de' => 'Lorem ipsum dolor sit amet',
-                'description_it' => 'Lorem ipsum dolor sit amet',
-                'slug' => 'coffee'
+                'name' => [
+                    'en' => $name = 'Coffee',
+                    'fr' => 'Café',
+                    'de' => 'Kaffee',
+                    'it' => 'Caffè',
+                ],
+                'description' => [
+                    'en' => 'Lorem ipsum dolor sit amet',
+                    'fr' => 'Lorem ipsum dolor sit amet',
+                    'de' => 'Lorem ipsum dolor sit amet',
+                    'it' => 'Lorem ipsum dolor sit amet',
+                ],
+                'slug' => str_slug($name)
             ])
         );
     }

@@ -22,16 +22,16 @@ class VariationResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => [
-                'en' => $this->name_en,
-                'fr' => $this->name_fr,
-                'de' => $this->name_de,
-                'it' => $this->name_it,
+                'en' => $this->getTranslation('name', 'en'),
+                'fr' => $this->getTranslation('name', 'fr'),
+                'de' => $this->getTranslation('name', 'de'),
+                'it' => $this->getTranslation('name', 'it')
             ],
             'description' => [
-                'en' => $this->description_en,
-                'fr' => $this->description_fr,
-                'de' => $this->description_de,
-                'it' => $this->description_it,
+                'en' => $this->getTranslation('description', 'en'),
+                'fr' => $this->getTranslation('description', 'fr'),
+                'de' => $this->getTranslation('description', 'de'),
+                'it' => $this->getTranslation('description', 'it')
             ],
             'price' => $this->price,
             'order' => $this->order,

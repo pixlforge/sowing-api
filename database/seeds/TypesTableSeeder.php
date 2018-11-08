@@ -13,17 +13,21 @@ class TypesTableSeeder extends Seeder
     public function run()
     {
         factory(Type::class)->create([
-            'name_en' => 'Whole beans',
-            'name_fr' => 'Grains entiers',
-            'name_de' => 'Ganze Körner',
-            'name_it' => 'Grani interi',
+            'name' => [
+                'en' => 'Whole beans',
+                'fr' => 'Grains entiers',
+                'de' => 'Ganze Körner',
+                'it' => 'Grani interi',
+            ],
         ]);
 
         factory(Type::class)->create([
-            'name_en' => 'Ground',
-            'name_fr' => 'Moulu',
-            'name_de' => 'Gemahlener',
-            'name_it' => 'Macinato',
+            'name' => [
+                'en' => 'Ground',
+                'fr' => 'Moulu',
+                'de' => 'Gemahlener',
+                'it' => 'Macinato',
+            ],
         ]);
     }
 }

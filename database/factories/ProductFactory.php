@@ -10,15 +10,19 @@ $fakerIT = Factory::create('it_IT');
 
 $factory->define(Product::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
     return [
-        'name_en' => $name_en = $fakerEN->unique()->name,
-        'name_fr' => $name_fr = $fakerFR->unique()->name,
-        'name_de' => $name_de = $fakerDE->unique()->name,
-        'name_it' => $name_it = $fakerIT->unique()->name,
-        'description_en' => $fakerEN->sentence,
-        'description_fr' => $fakerFR->sentence,
-        'description_de' => $fakerDE->sentence,
-        'description_it' => $fakerIT->sentence,
-        'slug' => str_slug($name_en),
+        'name' => [
+            'en' => $name = $fakerEN->unique()->name,
+            'fr' => $fakerFR->unique()->name,
+            'de' => $fakerDE->unique()->name,
+            'it' => $fakerIT->unique()->name,
+        ],
+        'description' => [
+            'en' => $fakerEN->sentence,
+            'fr' => $fakerFR->sentence,
+            'de' => $fakerDE->sentence,
+            'it' => $fakerIT->sentence,
+        ],
+        'slug' => str_slug($name),
         'price' => 1000
     ];
 });

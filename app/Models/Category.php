@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Models\Traits\HasChildren;
 use App\Models\Traits\IsOrderable;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Category extends Model
 {
-    use HasChildren, IsOrderable;
+    use HasChildren, IsOrderable, HasTranslations;
 
     /**
      * The attributes that are mass assignable.
@@ -16,15 +17,25 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name_en',
-        'name_fr',
-        'name_de',
-        'name_it',
+        'name',
+        'description',
         'slug',
         'order'
     ];
 
     /**
+     * The attributes that are translatable.
+     *
+     * @var array
+     */
+    public $translatable = [
+        'name',
+        'description'
+    ];
+
+    /**
+     * Key attribute used in routing.
+     *
      * @return string
      */
     public function getRouteKeyName()
@@ -33,6 +44,8 @@ class Category extends Model
     }
 
     /**
+     * Children relationship.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function children()
@@ -41,6 +54,8 @@ class Category extends Model
     }
 
     /**
+     * Products relationship.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function products()

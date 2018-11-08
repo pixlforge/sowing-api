@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Select;
 
 class User extends Resource
 {
@@ -48,7 +49,7 @@ class User extends Resource
 
             Gravatar::make(),
 
-            Text::make('Name')
+            Text::make('Nom', 'name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
@@ -58,10 +59,18 @@ class User extends Resource
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            Password::make('Password')
+            Password::make('Mot de passe', 'password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:6')
                 ->updateRules('nullable', 'string', 'min:6'),
+
+            Select::make('Rôle', 'role')
+                ->options([
+                    'user' => 'Utilisateur',
+                    'admin' => 'Admin'
+                ])
+                ->sortable()
+                ->rules('required'),
         ];
     }
 

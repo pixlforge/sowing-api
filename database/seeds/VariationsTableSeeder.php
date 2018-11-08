@@ -13,91 +13,115 @@ class VariationsTableSeeder extends Seeder
     public function run()
     {
         factory(Variation::class)->create([
-            'product_id' => 1,
-            'name_en' => '250g',
-            'name_fr' => '250g',
-            'name_de' => '250g',
-            'name_it' => '250g',
-            'description_en' => 'Lorem ipsum dolor sit amet.',
-            'description_fr' => 'Lorem ipsum dolor sit amet.',
-            'description_de' => 'Lorem ipsum dolor sit amet.',
-            'description_it' => 'Lorem ipsum dolor sit amet.',
+            'name' => [
+                'en' => '250g',
+                'fr' => '250g',
+                'de' => '250g',
+                'it' => '250g',
+            ],
+            'description' => [
+                'en' => 'Lorem ipsum dolor sit amet.',
+                'fr' => 'Lorem ipsum dolor sit amet.',
+                'de' => 'Lorem ipsum dolor sit amet.',
+                'it' => 'Lorem ipsum dolor sit amet.',
+            ],
+            'order' => 1,
             'type_id' => 1,
-            'order' => 1
+            'product_id' => 1,
         ]);
 
         factory(Variation::class)->create([
-            'product_id' => 1,
-            'name_en' => '500g',
-            'name_fr' => '500g',
-            'name_de' => '500g',
-            'name_it' => '500g',
-            'description_en' => 'Lorem ipsum dolor sit amet.',
-            'description_fr' => 'Lorem ipsum dolor sit amet.',
-            'description_de' => 'Lorem ipsum dolor sit amet.',
-            'description_it' => 'Lorem ipsum dolor sit amet.',
-            'type_id' => 1,
+            'name' => [
+                'en' => '500g',
+                'fr' => '500g',
+                'de' => '500g',
+                'it' => '500g',
+            ],
+            'description' => [
+                'en' => 'Lorem ipsum dolor sit amet.',
+                'fr' => 'Lorem ipsum dolor sit amet.',
+                'de' => 'Lorem ipsum dolor sit amet.',
+                'it' => 'Lorem ipsum dolor sit amet.',
+            ],
             'price' => 2000,
-            'order' => 2
-        ]);
-
-        factory(Variation::class)->create([
-            'product_id' => 1,
-            'name_en' => '1kg',
-            'name_fr' => '1kg',
-            'name_de' => '1kg',
-            'name_it' => '1kg',
-            'description_en' => 'Lorem ipsum dolor sit amet.',
-            'description_fr' => 'Lorem ipsum dolor sit amet.',
-            'description_de' => 'Lorem ipsum dolor sit amet.',
-            'description_it' => 'Lorem ipsum dolor sit amet.',
+            'order' => 2,
             'type_id' => 1,
+            'product_id' => 1,
+        ]);
+
+        factory(Variation::class)->create([
+            'name' => [
+                'en' => '1kg',
+                'fr' => '1kg',
+                'de' => '1kg',
+                'it' => '1kg',
+            ],
+            'description' => [
+                'en' => 'Lorem ipsum dolor sit amet.',
+                'fr' => 'Lorem ipsum dolor sit amet.',
+                'de' => 'Lorem ipsum dolor sit amet.',
+                'it' => 'Lorem ipsum dolor sit amet.',
+            ],
             'price' => 3000,
-            'order' => 3
+            'order' => 3,
+            'type_id' => 1,
+            'product_id' => 1,
         ]);
 
         factory(Variation::class)->create([
-            'product_id' => 1,
-            'name_en' => '250g',
-            'name_fr' => '250g',
-            'name_de' => '250g',
-            'name_it' => '250g',
-            'description_en' => 'Lorem ipsum dolor sit amet.',
-            'description_fr' => 'Lorem ipsum dolor sit amet.',
-            'description_de' => 'Lorem ipsum dolor sit amet.',
-            'description_it' => 'Lorem ipsum dolor sit amet.',
+            'name' => [
+                'en' => '250g',
+                'fr' => '250g',
+                'de' => '250g',
+                'it' => '250g',
+            ],
+            'description' => [
+                'en' => 'Lorem ipsum dolor sit amet.',
+                'fr' => 'Lorem ipsum dolor sit amet.',
+                'de' => 'Lorem ipsum dolor sit amet.',
+                'it' => 'Lorem ipsum dolor sit amet.',
+            ],
+            'order' => 1,
             'type_id' => 2,
-            'order' => 1
+            'product_id' => 1,
         ]);
 
         factory(Variation::class)->create([
-            'product_id' => 1,
-            'name_en' => '500g',
-            'name_fr' => '500g',
-            'name_de' => '500g',
-            'name_it' => '500g',
-            'description_en' => 'Lorem ipsum dolor sit amet.',
-            'description_fr' => 'Lorem ipsum dolor sit amet.',
-            'description_de' => 'Lorem ipsum dolor sit amet.',
-            'description_it' => 'Lorem ipsum dolor sit amet.',
-            'type_id' => 2,
+            'name' => [
+                'en' => '500g',
+                'fr' => '500g',
+                'de' => '500g',
+                'it' => '500g',
+            ],
+            'description' => [
+                'en' => 'Lorem ipsum dolor sit amet.',
+                'fr' => 'Lorem ipsum dolor sit amet.',
+                'de' => 'Lorem ipsum dolor sit amet.',
+                'it' => 'Lorem ipsum dolor sit amet.',
+            ],
             'price' => 2000,
-            'order' => 2
+            'order' => 2,
+            'type_id' => 2,
+            'product_id' => 1,
         ]);
 
         factory(Variation::class)->create([
-            'product_id' => 1,
-            'name_en' => '1kg',
-            'name_fr' => '1kg',
-            'name_de' => '1kg',
-            'name_it' => '1kg',
-            'description_en' => 'Lorem ipsum dolor sit amet.',
-            'description_fr' => 'Lorem ipsum dolor sit amet.',
-            'description_de' => 'Lorem ipsum dolor sit amet.',
-            'description_it' => 'Lorem ipsum dolor sit amet.',
-            'type_id' => 2,
+            'name' => [
+                'en' => '1kg',
+                'fr' => '1kg',
+                'de' => '1kg',
+                'it' => '1kg',
+            ],
+            'description' => [
+                'en' => 'Lorem ipsum dolor sit amet.',
+                'fr' => 'Lorem ipsum dolor sit amet.',
+                'de' => 'Lorem ipsum dolor sit amet.',
+                'it' => 'Lorem ipsum dolor sit amet.',
+            ],
             'price' => 3000,
-            'order' => 3
+            'order' => 3,
+            'product_id' => 1,
+            'type_id' => 2,
         ]);
     }
 }

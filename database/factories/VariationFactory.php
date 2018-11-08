@@ -12,20 +12,25 @@ $fakerIT = Factory::create('it_IT');
 
 $factory->define(Variation::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
     return [
+        'name' => [
+            'en' => $name = $fakerEN->unique()->name,
+            'fr' => $fakerFR->unique()->name,
+            'de' => $fakerDE->unique()->name,
+            'it' => $fakerIT->unique()->name,
+        ],
+        'description' => [
+            'en' => $fakerEN->sentence,
+            'fr' => $fakerFR->sentence,
+            'de' => $fakerDE->sentence,
+            'it' => $fakerIT->sentence,
+        ],
+        'price' => null,
+        'order' => null,
+        'type_id' => function () {
+            return factory(Type::class)->create()->id;
+        },
         'product_id' => function () {
             return factory(Product::class)->create()->id;
         },
-        'name_en' => $name_en = $fakerEN->unique()->name,
-        'name_fr' => $name_fr = $fakerFR->unique()->name,
-        'name_de' => $name_de = $fakerDE->unique()->name,
-        'name_it' => $name_it = $fakerIT->unique()->name,
-        'description_en' => $fakerEN->sentence,
-        'description_fr' => $fakerFR->sentence,
-        'description_de' => $fakerDE->sentence,
-        'description_it' => $fakerIT->sentence,
-        'price' => null,
-        'type_id' => function () {
-            return factory(Type::class)->create()->id;
-        }
     ];
 });

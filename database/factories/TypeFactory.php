@@ -10,9 +10,11 @@ $fakerIT = Factory::create('it_IT');
 
 $factory->define(Type::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
     return [
-        'name_en' => $name_en = $fakerEN->unique()->name,
-        'name_fr' => $name_fr = $fakerFR->unique()->name,
-        'name_de' => $name_de = $fakerDE->unique()->name,
-        'name_it' => $name_it = $fakerIT->unique()->name,
+        'name' => [
+            'en' => $fakerEN->unique()->name,
+            'fr' => $fakerFR->unique()->name,
+            'de' => $fakerDE->unique()->name,
+            'it' => $fakerIT->unique()->name,
+        ]
     ];
 });
