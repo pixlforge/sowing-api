@@ -7,6 +7,7 @@ use NumberFormatter;
 use Money\Money as BaseMoney;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\IntlMoneyFormatter;
+use Money\Formatter\DecimalMoneyFormatter;
 
 class Money
 {
@@ -25,6 +26,16 @@ class Money
     public function amount()
     {
         return $this->money->getAmount();
+    }
+
+    public function raw()
+    {
+        $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
+
+        return [
+            'amount' => $formatter->format($this->money),
+            'currency' => $this->money->getCurrency()->getCode()
+        ];
     }
 
     /**

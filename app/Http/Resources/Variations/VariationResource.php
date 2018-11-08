@@ -35,7 +35,7 @@ class VariationResource extends JsonResource
             ],
             'price' => $this->price,
             'order' => $this->order,
-            'price' => $this->formattedPrice,
+            'price' => $this->rawPrice,
             'price_varies' => $this->priceVaries()
         ];
     }

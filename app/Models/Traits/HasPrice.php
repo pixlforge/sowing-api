@@ -26,4 +26,9 @@ trait HasPrice
     {
         return $this->price->formatted();
     }
+
+    public function getRawPriceAttribute()
+    {
+        return $this->price->raw();
+    }
 }
