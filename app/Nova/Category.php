@@ -4,19 +4,24 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Spatie\NovaTranslatable\Translatable;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsTo;
+use App\Nova\Metrics\CategoryCount;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Metrics\SubCategoryCount;
+use App\Nova\Metrics\CategoryTypes;
 
-class User extends Resource
+class Category extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\User';
+    public static $model = 'App\\Models\\Category';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -32,8 +37,6 @@ class User extends Resource
      */
     public static $search = [
         'id',
-        'name',
-        'email',
     ];
 
     /**
@@ -43,7 +46,31 @@ class User extends Resource
      */
     public static function label()
     {
-        return 'Utilisateurs';
+        return 'Catégories';
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return 'Catégorie';
+    }
+
+    /**
+     * Build a "relatable" query for the given resource.
+     *
+     * This query determines which instances of the model may be attached to other resources.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function relatableQuery(NovaRequest $request, $query)
+    {
+        return $query->where('parent_id', null);
     }
 
     /**
@@ -57,30 +84,19 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(),
+            Translatable::make([
+                Text::make('Nom', 'name')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
 
-            Text::make('Nom', 'name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+                Textarea::make('Description')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
+            ]),
 
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
+            HasMany::make('Sous-catégorie(s)', 'children', 'App\Nova\Category'),
 
-            Password::make('Mot de passe', 'password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:6')
-                ->updateRules('nullable', 'string', 'min:6'),
-
-            Select::make('Rôle', 'role')
-                ->options([
-                    'user' => 'Utilisateur',
-                    'admin' => 'Admin'
-                ])
-                ->sortable()
-                ->rules('required'),
+            BelongsTo::make('Catégorie parente', 'parent', 'App\Nova\Category'),
         ];
     }
 
@@ -92,7 +108,11 @@ class User extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            (new CategoryCount)->width('1/4'),
+            (new SubCategoryCount)->width('1/4'),
+            (new CategoryTypes)->width('1/2'),
+        ];
     }
 
     /**

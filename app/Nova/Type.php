@@ -5,18 +5,16 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\Select;
+use Spatie\NovaTranslatable\Translatable;
 
-class User extends Resource
+class Type extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\User';
+    public static $model = 'App\\Models\\Type';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -32,8 +30,7 @@ class User extends Resource
      */
     public static $search = [
         'id',
-        'name',
-        'email',
+        'name'
     ];
 
     /**
@@ -43,7 +40,7 @@ class User extends Resource
      */
     public static function label()
     {
-        return 'Utilisateurs';
+        return 'Types';
     }
 
     /**
@@ -57,30 +54,9 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(),
-
-            Text::make('Nom', 'name')
-                ->sortable()
-                ->rules('required', 'max:255'),
-
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
-
-            Password::make('Mot de passe', 'password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:6')
-                ->updateRules('nullable', 'string', 'min:6'),
-
-            Select::make('Rôle', 'role')
-                ->options([
-                    'user' => 'Utilisateur',
-                    'admin' => 'Admin'
-                ])
-                ->sortable()
-                ->rules('required'),
+            Translatable::make([
+                Text::make('Nom', 'name'),
+            ]),
         ];
     }
 

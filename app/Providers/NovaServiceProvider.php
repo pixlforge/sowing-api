@@ -5,6 +5,8 @@ namespace App\Providers;
 use Laravel\Nova\Nova;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Spatie\NovaTranslatable\Translatable;
+use Laravel\Nova\Cards\Help;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -16,6 +18,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Translatable::defaultLocales(['en', 'fr', 'de', 'it']);
     }
 
     /**
@@ -41,8 +45,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-            return in_array($user->email, [
-                'celien@pixlforge.ch'
+            return in_array($user->role, [
+                'admin'
             ]);
         });
     }
@@ -54,7 +58,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function cards()
     {
-        return [];
+        return [
+            new Help
+        ];
     }
 
     /**
