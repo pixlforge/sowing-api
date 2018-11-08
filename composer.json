@@ -1,7 +1,10 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -12,6 +15,7 @@
         "laravel/framework": "5.7.*",
         "laravel/telescope": "^0.1.5",
         "laravel/tinker": "^1.0",
+        "laravel/nova": "*",
         "moneyphp/money": "^3.1"
     },
     "require-dev": {
@@ -36,10 +40,15 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./nova"
+        }
+    ],
     "extra": {
         "laravel": {
-            "dont-discover": [
-            ]
+            "dont-discover": []
         }
     },
     "scripts": {
