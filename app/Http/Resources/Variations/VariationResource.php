@@ -4,6 +4,7 @@ namespace App\Http\Resources\Variations;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
+use App\Http\Resources\TypeResource;
 
 class VariationResource extends JsonResource
 {
@@ -36,7 +37,8 @@ class VariationResource extends JsonResource
             'price' => $this->price,
             'order' => $this->order,
             'price' => $this->rawPrice,
-            'price_varies' => $this->priceVaries()
+            'price_varies' => $this->priceVaries(),
+            'type' => new TypeResource($this->type)
         ];
     }
 }

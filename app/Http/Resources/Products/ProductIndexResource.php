@@ -29,7 +29,7 @@ class ProductIndexResource extends JsonResource
                 'de' => $this->getTranslation('description', 'de'),
                 'it' => $this->getTranslation('description', 'it')
             ],
-            'price' => $this->rawPrice
+            'price' => $this->rawPrice,
         ];
     }
 }
