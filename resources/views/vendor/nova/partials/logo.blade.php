@@ -1,1 +1,1 @@
-<h1 class="text-xl font-semibold uppercase pl-8">Sowing</h1>
+<h1 class="text-xl font-semibold uppercase">Sowing</h1>

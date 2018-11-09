@@ -8,6 +8,11 @@ use Laravel\Nova\Metrics\Value;
 
 class SubCategoryCount extends Value
 {
+    /**
+     * The name displayed on the card.
+     *
+     * @return string
+     */
     public function name()
     {
         return 'Sous-catégories';

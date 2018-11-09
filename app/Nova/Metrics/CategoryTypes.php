@@ -8,6 +8,11 @@ use App\Models\Category;
 
 class CategoryTypes extends Partition
 {
+    /**
+     * The name displayed on the card.
+     *
+     * @return string
+     */
     public function name()
     {
         return 'Types de catégories';
