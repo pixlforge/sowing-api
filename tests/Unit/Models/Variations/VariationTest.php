@@ -3,16 +3,13 @@
 namespace Tests\Unit\Variations;
 
 use Tests\TestCase;
+use App\Money\Money;
 use App\Models\Type;
 use App\Models\Product;
 use App\Models\Variation;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Money\Money;
 
 class VariationTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_has_one_variation_type()
     {

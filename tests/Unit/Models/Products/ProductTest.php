@@ -3,10 +3,10 @@
 namespace Tests\Unit\Products;
 
 use Tests\TestCase;
+use App\Money\Money;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Variation;
-use App\Money\Money;
 
 class ProductTest extends TestCase
 {
