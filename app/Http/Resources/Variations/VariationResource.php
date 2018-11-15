@@ -38,7 +38,9 @@ class VariationResource extends JsonResource
             'order' => $this->order,
             'price' => $this->rawPrice,
             'price_varies' => $this->priceVaries(),
-            'type' => new TypeResource($this->type)
+            'type' => new TypeResource($this->type),
+            'stock_count' => (int) $this->stockCount(),
+            'in_stock' => $this->inStock(),
         ];
     }
 }

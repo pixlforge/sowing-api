@@ -47,9 +47,34 @@ class Variation extends Model
         return new Money($value);
     }
 
+    /**
+     * Checks whether the variation price varies from the base product.
+     *
+     * @return bool
+     */
     public function priceVaries()
     {
         return $this->price->amount() !== $this->product->price->amount();
+    }
+
+    /**
+     * Checks whether the variation is in stock.
+     *
+     * @return bool
+     */
+    public function inStock()
+    {
+        return $this->stockCount() > 0;
+    }
+
+    /**
+     * Returns the stock count.
+     *
+     * @return mixed
+     */
+    public function stockCount()
+    {
+        return $this->stock->sum('pivot.stock');
     }
 
     /**
@@ -80,5 +105,19 @@ class Variation extends Model
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+
+    /**
+     * Stock relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function stock()
+    {
+        return $this->belongsToMany(Variation::class, 'variation_stock_view')
+            ->withPivot([
+                'stock',
+                'in_stock'
+            ]);
     }
 }

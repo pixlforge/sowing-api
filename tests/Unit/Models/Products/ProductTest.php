@@ -7,6 +7,7 @@ use App\Money\Money;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Variation;
+use App\Models\Stock;
 
 class ProductTest extends TestCase
 {
@@ -58,5 +59,41 @@ class ProductTest extends TestCase
         ]);
 
         $this->assertEquals('CHF10.00', $product->formattedPrice);
+    }
+
+    /** @test */
+    public function it_can_check_if_it_is_in_stock()
+    {
+        $product = factory(Product::class)->create();
+
+        $product->variations()->save(
+            $variation = factory(Variation::class)->make()
+        );
+
+        $variation->stocks()->save(
+            factory(Stock::class)->make([
+                'quantity' => 50
+            ])
+        );
+
+        $this->assertTrue($product->inStock());
+    }
+
+    /** @test */
+    public function it_can_get_the_stock_count()
+    {
+        $product = factory(Product::class)->create();
+
+        $product->variations()->save(
+            $variation = factory(Variation::class)->make()
+        );
+
+        $variation->stocks()->save(
+            factory(Stock::class)->make([
+                'quantity' => $quantity = 50
+            ])
+        );
+
+        $this->assertEquals($quantity, $product->stockCount());
     }
 }

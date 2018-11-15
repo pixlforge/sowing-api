@@ -30,6 +30,8 @@ class ProductIndexResource extends JsonResource
                 'it' => $this->getTranslation('description', 'it')
             ],
             'price' => $this->rawPrice,
+            'stock_count' => $this->stockCount(),
+            'in_stock' => $this->inStock(),
         ];
     }
 }
