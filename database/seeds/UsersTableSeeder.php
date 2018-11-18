@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->states('admin')->create([
+        factory(User::class)->create([
             'name' => 'Célien',
             'email' => 'celien@pixlforge.ch',
             'password' => bcrypt('secret'),
