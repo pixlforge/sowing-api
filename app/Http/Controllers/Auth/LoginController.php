@@ -18,8 +18,6 @@ class LoginController extends Controller
     {
         $token = auth()->attempt($request->only('email', 'password'));
 
-        return response([$token], 200);
-
         if (!$token) {
             return response([
                 'errors' => [
