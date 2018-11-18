@@ -16,11 +16,7 @@ class LoginController extends Controller
      */
     public function __invoke(LoginRequest $request)
     {
-        $token = auth()->attempt($request->only('email', 'password'));
-
-        return response($token);
-
-        if (!$token) {
+        if (!$token = auth()->attempt($request->only('email', 'password'))) {
             return response([
                 'errors' => [
                     'email' => ['Could not sign you in with the credentials provided.']
