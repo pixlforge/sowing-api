@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\PrivateUserResource;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginController extends Controller
 {
@@ -16,7 +17,9 @@ class LoginController extends Controller
      */
     public function __invoke(LoginRequest $request)
     {
-        if (!$token = auth()->attempt($request->only('email', 'password'))) {
+        $token = JWTAuth::attempt($request->only('email', 'password'));
+
+        if (!$token) {
             return response([
                 'errors' => [
                     'email' => ['Could not sign you in with the credentials provided.']
