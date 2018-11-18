@@ -18,7 +18,7 @@ class LoginController extends Controller
     {
         $token = auth('api')->attempt($request->only('email', 'password'));
 
-        return response($token);
+        return response('toto');
 
         if (!$token) {
             return response([
