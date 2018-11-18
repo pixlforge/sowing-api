@@ -16,6 +16,8 @@ class LoginController extends Controller
      */
     public function __invoke(LoginRequest $request)
     {
+        return $request->only('email', 'password');
+
         $token = auth('api')->attempt($request->only('email', 'password'));
 
         if (!$token) {
