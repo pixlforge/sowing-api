@@ -15,7 +15,6 @@ class UserObserver
      */
     public function creating(User $user)
     {
-        // $user->password = bcrypt($user->password);
         $user->password = Hash::make($user->password);
     }
     
