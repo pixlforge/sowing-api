@@ -17,5 +17,17 @@ class UsersTableSeeder extends Seeder
             'email' => 'celien@pixlforge.ch',
             'password' => 'secret',
         ]);
+
+        factory(User::class)->create([
+            'name' => 'Raffaella',
+            'email' => 'raffaella@pixlforge.ch',
+            'password' => 'secret',
+        ]);
+
+        factory(User::class)->create([
+            'name' => 'Sophie',
+            'email' => 'sophie@sowing.ch',
+            'password' => 'secret',
+        ]);
     }
 }

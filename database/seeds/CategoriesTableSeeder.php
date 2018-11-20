@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Models\Category;
+use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -14,22 +14,13 @@ class CategoriesTableSeeder extends Seeder
     {
         factory(Category::class)->create([
             'name' => $name = [
-                'en' => 'Beauty & Wellness',
-                'fr' => 'Beauté & bien-être',
-                'de' => 'Schönheit & Wellness',
-                'it' => 'Bellezza & benessere',
-            ],
-            'slug' => str_slug($name['en']),
-        ]);
-
-        factory(Category::class)->create([
-            'name' => $name = [
                 'en' => 'Jewelry & accessories',
                 'fr' => 'Bijoux & accessoires',
                 'de' => 'Schmuck & Zubehör',
                 'it' => 'Gioielli & accessori',
             ],
             'slug' => str_slug($name['en']),
+            'order' => 1,
         ]);
 
         factory(Category::class)->create([
@@ -40,6 +31,18 @@ class CategoriesTableSeeder extends Seeder
                 'it' => 'Vestiti',
             ],
             'slug' => str_slug($name['en']),
+            'order' => 2,
+        ]);
+
+        factory(Category::class)->create([
+            'name' => $name = [
+                'en' => 'Beauty & Wellness',
+                'fr' => 'Beauté & bien-être',
+                'de' => 'Schönheit & Wellness',
+                'it' => 'Bellezza & benessere',
+            ],
+            'slug' => str_slug($name['en']),
+            'order' => 3,
         ]);
 
         factory(Category::class)->create([
@@ -50,6 +53,18 @@ class CategoriesTableSeeder extends Seeder
                 'it' => 'Casa & arredamento',
             ],
             'slug' => str_slug($name['en']),
+            'order' => 4,
+        ]);
+
+        factory(Category::class)->create([
+            'name' => $name = [
+                'en' => 'Stationery & Party',
+                'fr' => 'Papeterie & Fêtes',
+                'de' => 'Schreibwaren & Party',
+                'it' => 'Cartoleria e feste',
+            ],
+            'slug' => str_slug($name['en']),
+            'order' => 5,
         ]);
 
         factory(Category::class)->create([
@@ -60,26 +75,18 @@ class CategoriesTableSeeder extends Seeder
                 'it' => 'Giocattoli & intrattenimento',
             ],
             'slug' => str_slug($name['en']),
+            'order' => 6,
         ]);
 
         factory(Category::class)->create([
             'name' => $name = [
-                'en' => 'Art & collections',
-                'fr' => 'Art & collections',
-                'de' => 'Kunst & Sammlungen',
-                'it' => 'Arte & collezioni',
+                'en' => 'Art',
+                'fr' => 'Art',
+                'de' => 'Kunst',
+                'it' => 'Arte',
             ],
             'slug' => str_slug($name['en']),
-        ]);
-
-        factory(Category::class)->create([
-            'name' => $name = [
-                'en' => 'Stationery',
-                'fr' => 'Papeterie',
-                'de' => 'Schreibwaren',
-                'it' => 'Cartoleria',
-            ],
-            'slug' => str_slug($name['en']),
+            'order' => 7,
         ]);
 
         factory(Category::class)->create([
@@ -90,39 +97,7 @@ class CategoriesTableSeeder extends Seeder
                 'it' => 'Prodotti locali',
             ],
             'slug' => str_slug($name['en']),
-        ]);
-
-        factory(Category::class)->create([
-            'name' => $name = [
-                'en' => 'Shoes',
-                'fr' => 'Chaussures',
-                'de' => 'Schuhe',
-                'it' => 'Scarpe',
-            ],
-            'slug' => str_slug($name['en']),
-            'parent_id' => 3
-        ]);
-
-        factory(Category::class)->create([
-            'name' => $name = [
-                'en' => 'Gloves',
-                'fr' => 'Gants',
-                'de' => 'Handschuhe',
-                'it' => 'Guanti',
-            ],
-            'slug' => str_slug($name['en']),
-            'parent_id' => 3
-        ]);
-
-        factory(Category::class)->create([
-            'name' => $name = [
-                'en' => 'Coffee',
-                'fr' => 'Café',
-                'de' => 'Kaffee',
-                'it' => 'Caffè',
-            ],
-            'slug' => str_slug($name['en']),
-            'parent_id' => 8
+            'order' => 8,
         ]);
     }
 }
