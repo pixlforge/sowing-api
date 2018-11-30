@@ -16,6 +16,21 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
 
         factory(Category::class)->create([
             'name' => $name = [
+                'en' => 'Women',
+                'fr' => 'Femmes',
+                'de' => 'Frauen',
+                'it' => 'Donne',
+            ],
+            'slug' => 'section-' . str_slug($name['en']) . '-clothing',
+            'parent_id' => $parent->id,
+            'is_section' => true,
+            'order' => 1,
+        ]);
+
+        $parent = Category::whereSlug('section-women-clothing')->first();
+
+        factory(Category::class)->create([
+            'name' => $name = [
                 'en' => 'Dresses',
                 'fr' => 'Robes',
                 'de' => 'Kleider',

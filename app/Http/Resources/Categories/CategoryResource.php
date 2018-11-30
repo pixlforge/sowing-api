@@ -28,7 +28,8 @@ class CategoryResource extends JsonResource
                 'it' => $this->getTranslation('description', 'it')
             ],
             'slug' => $this->slug,
-            'children' => CategoryResource::collection($this->whenLoaded('children'))
+            'is_section' => $this->is_section,
+            'children' => CategoryResource::collection($this->whenLoaded('children')),
         ];
     }
 }

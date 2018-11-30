@@ -44,7 +44,7 @@ class Category extends Model
     }
 
     /**
-     * Children relationship.
+     * Children categories relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -52,7 +52,12 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id', 'id');
     }
-    
+
+    /**
+     * Parent category relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function parent()
     {
         return $this->belongsTo(Category::class);

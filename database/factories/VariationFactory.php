@@ -1,9 +1,9 @@
 <?php
 
 use Faker\Factory;
+use App\Models\Type;
 use App\Models\Product;
 use App\Models\Variation;
-use App\Models\Type;
 
 $fakerEN = Factory::create('en_US');
 $fakerFR = Factory::create('fr_CH');

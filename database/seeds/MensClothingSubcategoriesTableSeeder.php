@@ -16,6 +16,21 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
 
         factory(Category::class)->create([
             'name' => $name = [
+                'en' => 'Men',
+                'fr' => 'Hommes',
+                'de' => 'Menschen',
+                'it' => 'Uomini',
+            ],
+            'slug' => 'section-' . str_slug($name['en']) . '-clothing',
+            'parent_id' => $parent->id,
+            'is_section' => true,
+            'order' => 1,
+        ]);
+
+        $parent = Category::whereSlug('section-men-clothing')->first();
+
+        factory(Category::class)->create([
+            'name' => $name = [
                 'en' => 'Shirts',
                 'fr' => 'Chemises',
                 'de' => 'Hemden',

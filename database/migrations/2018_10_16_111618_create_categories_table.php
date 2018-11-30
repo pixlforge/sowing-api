@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->unsignedInteger('parent_id')->nullable()->index();
             $table->integer('order')->nullable();
+            $table->boolean('is_section')->default(false);
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('set null');

@@ -29,7 +29,7 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         return new CategoryResource(
-            Category::with('children')->where('slug', $category->slug)->first()
+            Category::with('children.children')->where('slug', $category->slug)->first()
         );
     }
 }
