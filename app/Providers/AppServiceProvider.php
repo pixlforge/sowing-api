@@ -8,6 +8,7 @@ use App\Observers\UserObserver;
 use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
+use App\Cart\Cart;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(Cart::class, function ($app) {
+            return new Cart($app->auth->user());
+        });
     }
 }
