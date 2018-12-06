@@ -23,6 +23,11 @@ class CartVariationResource extends VariationResource
         ]);
     }
 
+    /**
+     * Get the variation total.
+     *
+     * @return App\Money\Money
+     */
     protected function getTotal()
     {
         return new Money($this->pivot->quantity * $this->price->amount());
