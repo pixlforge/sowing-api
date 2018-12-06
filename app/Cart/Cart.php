@@ -55,6 +55,16 @@ class Cart
     }
 
     /**
+     * Remove all product variations from the cart.
+     *
+     * @return void
+     */
+    public function empty()
+    {
+        $this->user->cart()->detach();
+    }
+
+    /**
      * Get the product variations present in the cart and format them.
      *
      * @param array $variations
