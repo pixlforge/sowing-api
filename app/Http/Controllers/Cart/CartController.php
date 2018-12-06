@@ -43,4 +43,16 @@ class CartController extends Controller
     {
         $cart->update($variation->id, $request->quantity);
     }
+
+    /**
+     * Remove a product variation from the cart.
+     *
+     * @param Variation $variation
+     * @param Cart $cart
+     * @return void
+     */
+    public function destroy(Variation $variation, Cart $cart)
+    {
+        $cart->delete($variation->id);
+    }
 }

@@ -29,6 +29,13 @@ class Cart
         $this->user->cart()->syncWithoutDetaching($this->getStorePayload($variations));
     }
 
+    /**
+     * Update a product variation quantity.
+     *
+     * @param int $variationId
+     * @param int $quantity
+     * @return void
+     */
     public function update($variationId, $quantity)
     {
         $this->user->cart()->updateExistingPivot($variationId, [
@@ -37,10 +44,21 @@ class Cart
     }
 
     /**
-     * Get the product variations and format them.
+     * Remove a product variation from the cart.
+     *
+     * @param int $variationId
+     * @return void
+     */
+    public function delete($variationId)
+    {
+        $this->user->cart()->detach($variationId);
+    }
+
+    /**
+     * Get the product variations present in the cart and format them.
      *
      * @param array $variations
-     * @return \Illuminate\Support\Collection
+     * @return array
      */
     protected function getStorePayload($variations)
     {
@@ -51,6 +69,12 @@ class Cart
         })->toArray();
     }
 
+    /**
+     * Get the current quantity for a product variation present in the cart.
+     *
+     * @param int $variationId
+     * @return void
+     */
     protected function getCurrentQuantity($variationId)
     {
         if ($variation = $this->user->cart->where('id', $variationId)->first()) {
