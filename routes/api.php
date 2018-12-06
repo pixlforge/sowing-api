@@ -22,7 +22,11 @@ Route::prefix('/auth')->namespace('Auth')->name('auth.')->group(function () {
  * Cart
  */
 Route::namespace('Cart')->group(function () {
-    Route::resource('/cart', 'CartController');
+    Route::resource('/cart', 'CartController', [
+        'parameters' => [
+            'cart' => 'variation'
+        ]
+    ]);
 });
 
 /**

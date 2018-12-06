@@ -48,4 +48,21 @@ class CartTest extends TestCase
 
         $this->assertEquals(10, $user->fresh()->cart->first()->pivot->quantity);
     }
+
+    /** @test */
+    public function it_can_update_quantities_in_the_cart()
+    {
+        $cart = new Cart(
+            $user = factory(User::class)->create()
+        );
+
+        $user->cart()->attach(
+            $variation = factory(Variation::class)->create(),
+            ['quantity' => 1]
+        );
+
+        $cart->update($variation->id, 5);
+
+        $this->assertEquals(5, $user->fresh()->cart->first()->pivot->quantity);
+    }
 }

@@ -29,6 +29,13 @@ class Cart
         $this->user->cart()->syncWithoutDetaching($this->getStorePayload($variations));
     }
 
+    public function update($variationId, $quantity)
+    {
+        $this->user->cart()->updateExistingPivot($variationId, [
+            'quantity' => $quantity
+        ]);
+    }
+
     /**
      * Get the product variations and format them.
      *
