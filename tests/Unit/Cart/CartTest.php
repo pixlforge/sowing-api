@@ -10,7 +10,7 @@ use App\Models\Variation;
 class CartTest extends TestCase
 {
     /** @test */
-    public function it_can_add_products_to_the_cart()
+    public function it_can_add_product_variations_to_the_cart()
     {
         $cart = new Cart(
             $user = factory(User::class)->create()
@@ -23,5 +23,29 @@ class CartTest extends TestCase
         ]);
 
         $this->assertCount(1, $user->fresh()->cart);
+    }
+
+    /** @test */
+    public function it_increments_quantity_when_adding_more_product_variations()
+    {
+        $variation = factory(Variation::class)->create();
+
+        // First request
+        $cart = new Cart(
+            $user = factory(User::class)->create()
+        );
+
+        $cart->add([
+            ['id' => $variation->id, 'quantity' => 5]
+        ]);
+
+        // Second request
+        $cart = new Cart($user->fresh());
+
+        $cart->add([
+            ['id' => $variation->id, 'quantity' => 5]
+        ]);
+
+        $this->assertEquals(10, $user->fresh()->cart->first()->pivot->quantity);
     }
 }

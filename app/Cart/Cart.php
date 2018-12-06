@@ -39,8 +39,17 @@ class Cart
     {
         return collect($variations)->keyBy('id')->map(function ($variation) {
             return [
-                'quantity' => $variation['quantity']
+                'quantity' => $variation['quantity'] + $this->getCurrentQuantity($variation['id'])
             ];
         })->toArray();
+    }
+
+    protected function getCurrentQuantity($variationId)
+    {
+        if ($variation = $this->user->cart->where('id', $variationId)->first()) {
+            return $variation->pivot->quantity;
+        }
+
+        return 0;
     }
 }
