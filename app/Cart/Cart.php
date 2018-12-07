@@ -65,6 +65,16 @@ class Cart
     }
 
     /**
+     * Checks whether or not the cart is empty in regard to product quantity.
+     *
+     * @return boolean
+     */
+    public function isEmpty()
+    {
+        return $this->user->cart->sum('pivot.quantity') === 0;
+    }
+
+    /**
      * Get the product variations present in the cart and format them.
      *
      * @param array $variations

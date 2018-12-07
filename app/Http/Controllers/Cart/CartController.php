@@ -26,7 +26,7 @@ class CartController extends Controller
      * @param Request $request
      * @return App\Http\Resources\Cart\CartResource
      */
-    public function index(Request $request)
+    public function index(Request $request, Cart $cart)
     {
         $request->user()->load([
             'cart.product.variations.stock',
@@ -34,7 +34,10 @@ class CartController extends Controller
             'cart.type'
         ]);
 
-        return new CartResource($request->user());
+        return (new CartResource($request->user()))
+            ->additional([
+                'meta' => $this->meta($cart)
+            ]);
     }
     
     /**
@@ -72,5 +75,12 @@ class CartController extends Controller
     public function destroy(Variation $variation, Cart $cart)
     {
         $cart->delete($variation->id);
+    }
+
+    public function meta(Cart $cart)
+    {
+        return [
+            'is_empty' => $cart->isEmpty()
+        ];
     }
 }
