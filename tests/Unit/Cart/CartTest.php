@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Cart\Cart;
 use App\Models\User;
 use App\Models\Variation;
+use App\Money\Money;
 
 class CartTest extends TestCase
 {
@@ -120,5 +121,42 @@ class CartTest extends TestCase
         );
 
         $this->assertTrue($cart->isEmpty());
+    }
+
+    /** @test */
+    public function it_returns_a_money_instance_for_the_subtotal()
+    {
+        $cart = new Cart(
+            $user = factory(User::class)->create()
+        );
+
+        $this->assertInstanceOf(Money::class, $cart->subtotal());
+    }
+
+    /** @test */
+    public function it_returns_the_correct_amount_for_the_cart_subtotal()
+    {
+        $cart = new Cart(
+            $user = factory(User::class)->create()
+        );
+
+        $user->cart()->attach(
+            factory(Variation::class)->create([
+                'price' => 1000
+            ]),
+            ['quantity' => 2]
+        );
+
+        $this->assertEquals(2000, $cart->subtotal()->amount());
+    }
+
+    /** @test */
+    public function it_returns_a_money_instance_for_the_total()
+    {
+        $cart = new Cart(
+            $user = factory(User::class)->create()
+        );
+
+        $this->assertInstanceOf(Money::class, $cart->total());
     }
 }

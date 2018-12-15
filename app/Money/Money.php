@@ -23,11 +23,21 @@ class Money
         $this->money = new BaseMoney($value, new Currency('CHF'));
     }
 
+    /**
+     * Return the amount.
+     *
+     * @return integer
+     */
     public function amount()
     {
         return $this->money->getAmount();
     }
 
+    /**
+     * Returns an array containing the currency and the amount.
+     *
+     * @return array
+     */
     public function raw()
     {
         $formatter = new DecimalMoneyFormatter(new ISOCurrencies());

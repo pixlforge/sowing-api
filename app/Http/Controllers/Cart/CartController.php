@@ -77,10 +77,18 @@ class CartController extends Controller
         $cart->delete($variation->id);
     }
 
+    /**
+     * Return meta information about the state of the cart.
+     *
+     * @param Cart $cart
+     * @return array
+     */
     public function meta(Cart $cart)
     {
         return [
-            'is_empty' => $cart->isEmpty()
+            'is_empty' => $cart->isEmpty(),
+            'subtotal' => $cart->subtotal()->raw(),
+            'total' => $cart->total()->raw()
         ];
     }
 }
