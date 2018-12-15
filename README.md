@@ -11,3 +11,4 @@
 - Users can upgrade product quantities in the cart
 - Users can remove products from the cart
 - Users can empty the cart
+- The cart now returns the totals
