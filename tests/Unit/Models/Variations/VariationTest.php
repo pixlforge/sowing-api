@@ -5,9 +5,9 @@ namespace Tests\Unit\Variations;
 use Tests\TestCase;
 use App\Money\Money;
 use App\Models\Type;
+use App\Models\Stock;
 use App\Models\Product;
 use App\Models\Variation;
-use App\Models\Stock;
 
 class VariationTest extends TestCase
 {
@@ -149,5 +149,19 @@ class VariationTest extends TestCase
         );
 
         $this->assertEquals($quantity, $variation->stockCount());
+    }
+
+    /** @test */
+    public function it_can_get_the_minimum_stock_for_a_given_value()
+    {
+        $variation = factory(Variation::class)->create();
+
+        $variation->stocks()->save(
+            factory(Stock::class)->make([
+                'quantity' => $quantity = 5
+            ])
+        );
+
+        $this->assertEquals($quantity, $variation->minStock(200));
     }
 }

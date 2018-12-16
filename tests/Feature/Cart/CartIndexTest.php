@@ -72,4 +72,21 @@ class CartIndexTest extends TestCase
             ]
         ]);
     }
+
+    /** @test */
+    public function it_shows_if_the_cart_quantities_were_changed_after_syncing()
+    {
+        $user = factory(User::class)->create();
+
+        $user->cart()->attach(
+            $variation = factory(Variation::class)->create(),
+            ['quantity' => 1]
+        );
+
+        $response = $this->getJsonAs($user, route('cart.index'));
+
+        $response->assertJsonFragment([
+            'has_changed' => true
+        ]);
+    }
 }

@@ -58,6 +58,17 @@ class Variation extends Model
     }
 
     /**
+     * Determines which has the least amount of stock.
+     *
+     * @param integer $quantityInCart
+     * @return integer
+     */
+    public function minStock($quantityInCart)
+    {
+        return min($this->stockCount(), $quantityInCart);
+    }
+
+    /**
      * Checks whether the variation is in stock.
      *
      * @return bool

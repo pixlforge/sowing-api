@@ -7,7 +7,20 @@ use App\Money\Money;
 
 class Cart
 {
+    /**
+     * The user who owns this cart.
+     *
+     * @var User $user
+     */
     protected $user;
+
+    /**
+     * Set to true when one or more of the product variations
+     * quantities in the user's cart were changed.
+     *
+     * @var boolean
+     */
+    protected $changed = false;
     
     /**
      * Cart constructor.
@@ -73,6 +86,38 @@ class Cart
     public function isEmpty()
     {
         return $this->user->cart->sum('pivot.quantity') === 0;
+    }
+
+    /**
+     * Synchronize the cart's product variations quantities.
+     *
+     * @return void
+     */
+    public function sync()
+    {
+        $this->user->cart->each(function ($variation) {
+            $minimumStock = $variation->minStock($variation->pivot->quantity);
+
+            if ($minimumStock < $variation->pivot->quantity) {
+                $this->changed = true;
+            }
+
+            if ($this->hasChanged()) {
+                $variation->pivot->update([
+                    'quantity' => $minimumStock
+                ]);
+            }
+        });
+    }
+
+    /**
+     * Determines whether the user's cart quantities have been changed.
+     *
+     * @return boolean
+     */
+    public function hasChanged()
+    {
+        return $this->changed;
     }
 
     /**

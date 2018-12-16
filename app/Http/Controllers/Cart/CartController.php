@@ -28,6 +28,8 @@ class CartController extends Controller
      */
     public function index(Request $request, Cart $cart)
     {
+        $cart->sync();
+        
         $request->user()->load([
             'cart.product.variations.stock',
             'cart.stock',
@@ -41,7 +43,7 @@ class CartController extends Controller
     }
     
     /**
-     * Add product variations to the cart.
+     * Add product variations to the cart and sync it.
      *
      * @param CartStoreRequest $request
      * @param Cart $cart
@@ -50,6 +52,8 @@ class CartController extends Controller
     public function store(CartStoreRequest $request, Cart $cart)
     {
         $cart->add($request->variations);
+
+        $cart->sync();
     }
 
     /**
@@ -88,7 +92,8 @@ class CartController extends Controller
         return [
             'is_empty' => $cart->isEmpty(),
             'subtotal' => $cart->subtotal()->raw(),
-            'total' => $cart->total()->raw()
+            'total' => $cart->total()->raw(),
+            'has_changed' => $cart->hasChanged()
         ];
     }
 }
