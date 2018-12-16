@@ -4,7 +4,7 @@ namespace App\Http\Resources\Variations;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
-use App\Http\Resources\TypeResource;
+use App\Http\Resources\Types\TypeResource;
 
 class VariationResource extends JsonResource
 {

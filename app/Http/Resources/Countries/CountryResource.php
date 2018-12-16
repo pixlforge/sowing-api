@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Countries;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TypeResource extends JsonResource
+class CountryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,14 @@ class TypeResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
+            'code' => $this->code,
             'name' => [
                 'en' => $this->getTranslation('name', 'en'),
                 'fr' => $this->getTranslation('name', 'fr'),
                 'de' => $this->getTranslation('name', 'de'),
-                'it' => $this->getTranslation('name', 'it'),
-            ]
+                'it' => $this->getTranslation('name', 'it')
+            ],
         ];
     }
 }

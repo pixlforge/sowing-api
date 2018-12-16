@@ -30,6 +30,13 @@ Route::namespace('Cart')->group(function () {
 });
 
 /**
+ * Addresses
+ */
+Route::namespace('Addresses')->group(function () {
+    Route::resource('/addresses', 'AddressController');
+});
+
+/**
  * Categories
  */
 Route::namespace('Categories')->group(function () {

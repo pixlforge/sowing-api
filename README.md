@@ -12,3 +12,5 @@
 - Users can remove products from the cart
 - Users can empty the cart
 - The cart now returns the totals
+- Added the countries resource
+- Added addresses resource
