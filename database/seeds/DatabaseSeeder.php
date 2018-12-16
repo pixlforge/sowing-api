@@ -32,6 +32,11 @@ class DatabaseSeeder extends Seeder
         $this->call(BeautyWellnessSubcategoriesTableSeeder::class);
 
         /**
+         * Countries
+         */
+        $this->call(CountriesTableSeeder::class);
+
+        /**
          * Development
          */
         factory(Category::class)->create([

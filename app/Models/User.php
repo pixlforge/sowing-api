@@ -64,4 +64,14 @@ class User extends Authenticatable implements JWTSubject
             ->withPivot('quantity')
             ->withTimestamps();
     }
+
+    /**
+     * Addresses relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
 }
