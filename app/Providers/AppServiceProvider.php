@@ -2,13 +2,15 @@
 
 namespace App\Providers;
 
+use App\Cart\Cart;
 use App\Models\User;
+use App\Models\Address;
 use App\Models\Category;
 use App\Observers\UserObserver;
+use App\Observers\AddressObserver;
 use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
-use App\Cart\Cart;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
         Category::observe(CategoryObserver::class);
+        Address::observe(AddressObserver::class);
     }
 
     /**

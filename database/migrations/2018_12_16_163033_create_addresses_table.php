@@ -24,6 +24,7 @@ class CreateAddressesTable extends Migration
             $table->string('postal_code');
             $table->string('city');
             $table->unsignedInteger('country_id')->index()->nullable();
+            $table->boolean('is_default')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

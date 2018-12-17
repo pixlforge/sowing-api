@@ -25,6 +25,7 @@ class AddressResource extends JsonResource
             'postal_code' => $this->postal_code,
             'city' => $this->city,
             'country' => new CountryResource($this->country),
+            'is_default' => $this->is_default
         ];
     }
 }

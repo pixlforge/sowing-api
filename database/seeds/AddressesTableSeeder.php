@@ -17,7 +17,7 @@ class AddressesTableSeeder extends Seeder
         $user = User::where('name', 'Célien')->first();
         $country = Country::where('code', 'CH')->first();
 
-        factory(Address::class)->create([
+        factory(Address::class)->states('default')->create([
             'user_id' => $user->id,
             'first_name' => 'Célien',
             'last_name' => 'Boillat',

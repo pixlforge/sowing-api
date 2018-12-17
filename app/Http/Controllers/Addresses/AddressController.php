@@ -22,17 +22,23 @@ class AddressController extends Controller
      * Returns a collection of a all the addresses a user owns.
      *
      * @param Request $request
-     * @return \App\Http\Resources\Addresses\AddressResource
+     * @return AddressResource
      */
     public function index(Request $request)
     {
         return AddressResource::collection($request->user()->addresses);
     }
 
+    /**
+     * Store a new address and respond with an address resource.
+     *
+     * @param AddressStoreRequest $request
+     * @return AddressResource
+     */
     public function store(AddressStoreRequest $request)
     {
         $address = Address::make($request->only([
-            'first_name', 'last_name', 'company_name', 'address_line_1', 'address_line_2', 'postal_code', 'city', 'country_id',
+            'first_name', 'last_name', 'company_name', 'address_line_1', 'address_line_2', 'postal_code', 'city', 'country_id', 'is_default'
         ]));
 
         $request->user()->addresses()->save($address);

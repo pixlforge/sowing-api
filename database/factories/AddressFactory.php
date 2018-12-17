@@ -19,6 +19,13 @@ $factory->define(Address::class, function (Faker $faker) {
         'city' => $faker->city,
         'country_id' => function () {
             return factory(Country::class)->create()->id;
-        }
+        },
+        'is_default' => false
+    ];
+});
+
+$factory->state(Address::class, 'default', function () {
+    return [
+        'is_default' => true
     ];
 });
