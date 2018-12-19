@@ -44,6 +44,13 @@ Route::namespace('Categories')->group(function () {
 });
 
 /**
+ * Countries
+ */
+Route::namespace('Countries')->group(function () {
+    Route::resource('/countries', 'CountryController');
+});
+
+/**
  * Products
  */
 Route::namespace('Products')->group(function () {
