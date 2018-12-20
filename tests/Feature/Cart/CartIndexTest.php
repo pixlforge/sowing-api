@@ -5,6 +5,7 @@ namespace Tests\Feature\Cart;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Variation;
+use App\Models\ShippingMethod;
 
 class CartIndexTest extends TestCase
 {
@@ -87,6 +88,40 @@ class CartIndexTest extends TestCase
 
         $response->assertJsonFragment([
             'has_changed' => true
+        ]);
+    }
+
+    /** @test */
+    public function it_fails_if_shipping_method_is_invalid()
+    {
+        $user = factory(User::class)->create();
+
+        $user->cart()->attach(
+            $variation = factory(Variation::class)->create(),
+            ['quantity' => 1]
+        );
+
+        $response = $this->getJsonAs($user, route('cart.index', ['shipping_method_id' => 999]));
+
+        $response->assertJsonValidationErrors(['shipping_method_id']);
+    }
+
+    /** @test */
+    public function it_shows_a_formatted_total_with_shipping()
+    {
+        $user = factory(User::class)->create();
+
+        $shippingMethod = factory(ShippingMethod::class)->create([
+            'price' => 1000
+        ]);
+
+        $response = $this->getJsonAs($user, route('cart.index', ['shipping_method_id' => $shippingMethod->id]));
+
+        $response->assertJsonFragment([
+            'total' => [
+                'amount' => '10.00',
+                'currency' => 'CHF'
+            ]
         ]);
     }
 }

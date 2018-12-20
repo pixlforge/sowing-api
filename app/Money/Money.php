@@ -62,4 +62,27 @@ class Money
 
         return $formatter->format($this->money);
     }
+
+    /**
+     * Adds two Money instances.
+     *
+     * @param Money $money
+     * @return $this
+     */
+    public function add(Money $money)
+    {
+        $this->money = $this->money->add($money->instance());
+        
+        return $this;
+    }
+
+    /**
+     * Returns the underlying Money class instance.
+     *
+     * @return \Money\Money
+     */
+    public function instance()
+    {
+        return $this->money;
+    }
 }

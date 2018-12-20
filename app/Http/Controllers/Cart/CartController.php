@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Cart\CartStoreRequest;
 use App\Http\Requests\Cart\CartUpdateRequest;
+use App\Http\Requests\Cart\CartIndexRequest;
 
 class CartController extends Controller
 {
@@ -23,10 +24,10 @@ class CartController extends Controller
     /**
      * Get the cart's content.
      *
-     * @param Request $request
+     * @param CartIndexRequest $request
      * @return App\Http\Resources\Cart\CartResource
      */
-    public function index(Request $request, Cart $cart)
+    public function index(CartIndexRequest $request, Cart $cart)
     {
         $cart->sync();
         
@@ -38,7 +39,7 @@ class CartController extends Controller
 
         return (new CartResource($request->user()))
             ->additional([
-                'meta' => $this->meta($cart)
+                'meta' => $this->meta($cart, $request)
             ]);
     }
     
@@ -85,14 +86,15 @@ class CartController extends Controller
      * Return meta information about the state of the cart.
      *
      * @param Cart $cart
+     * @param Request $request
      * @return array
      */
-    public function meta(Cart $cart)
+    public function meta(Cart $cart, Request $request)
     {
         return [
             'is_empty' => $cart->isEmpty(),
             'subtotal' => $cart->subtotal()->raw(),
-            'total' => $cart->total()->raw(),
+            'total' => $cart->withShipping($request->shipping_method_id)->total()->raw(),
             'has_changed' => $cart->hasChanged()
         ];
     }

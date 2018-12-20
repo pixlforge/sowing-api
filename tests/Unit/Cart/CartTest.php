@@ -7,6 +7,7 @@ use App\Cart\Cart;
 use App\Models\User;
 use App\Models\Variation;
 use App\Money\Money;
+use App\Models\ShippingMethod;
 
 class CartTest extends TestCase
 {
@@ -158,6 +159,46 @@ class CartTest extends TestCase
         );
 
         $this->assertInstanceOf(Money::class, $cart->total());
+    }
+
+    /** @test */
+    public function it_returns_the_correct_total_without_shipping()
+    {
+        $cart = new Cart(
+            $user = factory(User::class)->create()
+        );
+
+        $user->cart()->attach(
+            factory(Variation::class)->create([
+                'price' => 1000
+            ]),
+            ['quantity' => 2]
+        );
+
+        $this->assertEquals(2000, $cart->total()->amount());
+    }
+
+    /** @test */
+    public function it_returns_the_correct_total_with_shipping()
+    {
+        $cart = new Cart(
+            $user = factory(User::class)->create()
+        );
+
+        $shippingMethod = factory(ShippingMethod::class)->create([
+            'price' => 1000
+        ]);
+
+        $user->cart()->attach(
+            factory(Variation::class)->create([
+                'price' => 1000
+            ]),
+            ['quantity' => 2]
+        );
+
+        $cart->withShipping($shippingMethod->id);
+
+        $this->assertEquals(3000, $cart->total()->amount());
     }
 
     /** @test */
