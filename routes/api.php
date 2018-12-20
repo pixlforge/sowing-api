@@ -34,6 +34,7 @@ Route::namespace('Cart')->group(function () {
  */
 Route::namespace('Addresses')->group(function () {
     Route::resource('/addresses', 'AddressController');
+    Route::get('/addresses/{address}/shipping', 'AddressShippingController')->name('addresses.shipping');
 });
 
 /**
