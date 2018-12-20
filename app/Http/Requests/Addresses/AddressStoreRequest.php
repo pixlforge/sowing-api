@@ -34,14 +34,4 @@ class AddressStoreRequest extends FormRequest
             'country_id' => 'required|exists:countries,id'
         ];
     }
-
-    /**
-     * Get custom messages for validator errors.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [];
-    }
 }
