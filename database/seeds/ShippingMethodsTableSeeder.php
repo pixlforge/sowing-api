@@ -18,7 +18,8 @@ class ShippingMethodsTableSeeder extends Seeder
 
         $switzerland->shippingMethods()->attach([
             factory(ShippingMethod::class)->create([
-                'name' => 'PostPac Priority'
+                'name' => 'PostPac Priority',
+                'price' => 2000
             ])->id,
     
             factory(ShippingMethod::class)->create([
@@ -26,21 +27,25 @@ class ShippingMethodsTableSeeder extends Seeder
             ])->id,
     
             factory(ShippingMethod::class)->create([
-                'name' => 'UPS'
+                'name' => 'UPS',
+                'price' => 3000
             ])->id,
     
             factory(ShippingMethod::class)->create([
-                'name' => 'DPD'
+                'name' => 'DPD',
+                'price' => 2500
             ])->id,
     
             factory(ShippingMethod::class)->create([
-                'name' => 'DHL'
+                'name' => 'DHL',
+                'price' => 2300
             ])->id
         ]);
 
         $uk->shippingMethods()->attach([
             factory(ShippingMethod::class)->create([
-                'name' => 'Royal Mail'
+                'name' => 'Royal Mail',
+                'price' => 1400
             ])->id
         ]);
     }
