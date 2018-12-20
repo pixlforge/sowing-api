@@ -5,6 +5,7 @@ namespace Tests\Unit\Models\ShippingMethods;
 use Tests\TestCase;
 use App\Money\Money;
 use App\Models\ShippingMethod;
+use App\Models\Country;
 
 class ShippingMethodTest extends TestCase
 {
@@ -34,5 +35,17 @@ class ShippingMethodTest extends TestCase
         ]);
 
         $this->assertEquals(['amount' => '10.00', 'currency' => 'CHF'], $shippingMethod->raw_price);
+    }
+
+    /** @test */
+    public function it_belongs_to_many_countries()
+    {
+        $shippingMethod = factory(ShippingMethod::class)->create();
+
+        $shippingMethod->countries()->attach(
+            $country = factory(Country::class)->create()
+        );
+
+        $this->assertInstanceOf(Country::class, $shippingMethod->countries->first());
     }
 }

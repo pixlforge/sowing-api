@@ -32,4 +32,14 @@ class Country extends Model
      * @var boolean
      */
     public $timestamps = false;
+
+    /**
+     * Shipping methods relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function shippingMethods()
+    {
+        return $this->belongsToMany(ShippingMethod::class);
+    }
 }

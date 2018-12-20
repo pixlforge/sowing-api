@@ -37,6 +37,11 @@ class DatabaseSeeder extends Seeder
         $this->call(CountriesTableSeeder::class);
 
         /**
+         * Shipping methods
+         */
+        $this->call(ShippingMethodsTableSeeder::class);
+
+        /**
          * Development
          */
         factory(Category::class)->create([
