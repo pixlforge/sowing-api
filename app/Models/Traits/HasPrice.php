@@ -20,13 +20,18 @@ trait HasPrice
     /**
      * Get the model's formatted Money instance price attribute.
      *
-     * @return mixed
+     * @return string
      */
     public function getFormattedPriceAttribute()
     {
         return $this->price->formatted();
     }
 
+    /**
+     * Returns an object which contains the amount and currency.
+     *
+     * @return array
+     */
     public function getRawPriceAttribute()
     {
         return $this->price->raw();
