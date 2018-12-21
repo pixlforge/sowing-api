@@ -7,6 +7,7 @@ use App\Models\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Collections\VariationCollection;
 
 class Variation extends Model
 {
@@ -130,5 +131,16 @@ class Variation extends Model
                 'stock',
                 'in_stock'
             ]);
+    }
+
+    /**
+     * Override the base Eloquent Collection.
+     *
+     * @param array $models
+     * @return App\Models\Collections\VariationCollection
+     */
+    public function newCollection(array $models = [])
+    {
+        return new VariationCollection($models);
     }
 }

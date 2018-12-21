@@ -17,22 +17,29 @@ class OrderController extends Controller
         $this->middleware(['auth:api']);
     }
 
+    /**
+     * Store a new order and sync the product variations contained in the cart.
+     *
+     * @param OrderStoreRequest $request
+     * @param Cart $cart
+     * @return void
+     */
     public function store(OrderStoreRequest $request, Cart $cart)
     {
         $order = $this->createOrder($request, $cart);
 
-        $variations = $cart->variations()
-            ->keyBy('id')
-            ->map(function ($variation) {
-                return [
-                    'quantity' => $variation->pivot->quantity
-                ];
-            })
-            ->toArray();
-        
-        $order->variations()->sync($variations);
+        $order->variations()->sync(
+            $cart->variations()->forSyncing()
+        );
     }
-
+    
+    /**
+     * Create the order using the cart's contents.
+     *
+     * @param Request $request
+     * @param Cart $cart
+     * @return App\Models\Order
+     */
     protected function createOrder(Request $request, Cart $cart)
     {
         return $request->user()->orders()->create(
