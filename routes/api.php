@@ -52,6 +52,13 @@ Route::namespace('Countries')->group(function () {
 });
 
 /**
+ * Orders
+ */
+Route::namespace('Orders')->group(function () {
+    Route::resource('/orders', 'OrderController');
+});
+
+/**
  * Products
  */
 Route::namespace('Products')->group(function () {
