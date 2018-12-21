@@ -152,4 +152,7 @@ return [
         'country_id' => 'country'
     ],
 
+    'rules' => [
+        'invalid_shipping_method_id' => 'The shipping method is invalid.',
+    ]
 ];

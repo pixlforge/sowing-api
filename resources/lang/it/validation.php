@@ -178,4 +178,8 @@ return [
         'postal_code' => 'codice postale',
         'country_id' => 'paese'
     ],
+
+    'rules' => [
+        'invalid_shipping_method_id' => 'Il metodo di spedizione non è valido.',
+    ]
 ];

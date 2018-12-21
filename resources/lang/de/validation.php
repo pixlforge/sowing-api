@@ -180,4 +180,8 @@ return [
         'postal_code' => 'Postleitzahl',
         'country_id' => 'Land'
     ],
+
+    'rules' => [
+        'invalid_shipping_method_id' => 'Die Versandart ist ungültig.',
+    ]
 ];
