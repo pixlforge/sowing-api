@@ -107,6 +107,10 @@ class OrderStoreTest extends TestCase
     {
         $user = factory(User::class)->create();
 
+        $user->cart()->sync(
+            $variation = $this->getVariationWithStock()
+        );
+
         list($address, $shippingMethod) = $this->getOrderDependencies($user);
 
         $response = $this->postJsonAs($user, route('orders.store'), [
@@ -114,7 +118,6 @@ class OrderStoreTest extends TestCase
             'shipping_method_id' => $shippingMethod->id
         ]);
 
-        $response->assertOk();
         $this->assertDatabaseHas('orders', [
             'user_id' => $user->id,
             'address_id' => $address->id,
@@ -201,7 +204,6 @@ class OrderStoreTest extends TestCase
             'shipping_method_id' => $shippingMethod->id
         ]);
 
-        $response->assertOk();
         $this->assertEmpty($user->cart);
     }
 
