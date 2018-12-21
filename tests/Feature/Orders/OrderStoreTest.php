@@ -4,7 +4,9 @@ namespace Tests\Feature\Orders;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Stock;
 use App\Models\Address;
+use App\Models\Variation;
 use App\Models\ShippingMethod;
 
 class OrderStoreTest extends TestCase
@@ -96,5 +98,59 @@ class OrderStoreTest extends TestCase
         ]);
 
         $response->assertJsonValidationErrors(['shipping_method_id']);
+    }
+
+    /** @test */
+    public function it_can_create_an_order()
+    {
+        $user = factory(User::class)->create();
+
+        list($address, $shippingMethod) = $this->getOrderDependencies($user);
+
+        $response = $this->postJsonAs($user, route('orders.store'), [
+            'address_id' => $address->id,
+            'shipping_method_id' => $shippingMethod->id
+        ]);
+
+        $response->assertOk();
+        $this->assertDatabaseHas('orders', [
+            'user_id' => $user->id,
+            'address_id' => $address->id,
+            'shipping_method_id' => $shippingMethod->id,
+        ]);
+    }
+
+    /**
+     * Returns a product variation with stock.
+     *
+     * @return App\Models\Variation
+     */
+    public function variationWithStock()
+    {
+        $variation = factory(Variation::class)->create([
+            'price' => 5000
+        ]);
+
+        factory(Stock::class)->create([
+            'variation_id' => $variation->id
+        ]);
+
+        return $variation;
+    }
+
+    /**
+     * Get the dependencies for the order.
+     *
+     * @param User $user
+     * @return array
+     */
+    protected function getOrderDependencies(User $user)
+    {
+        $address = factory(Address::class)->create(['user_id' => $user->id]);
+
+        $shippingMethod = factory(ShippingMethod::class)->create();
+        $shippingMethod->countries()->attach($address->country);
+
+        return [$address, $shippingMethod];
     }
 }
