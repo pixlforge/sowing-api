@@ -33,4 +33,12 @@ class OrderTest extends TestCase
 
         $this->assertInstanceOf(ShippingMethod::class, $order->shippingMethod);
     }
+
+    /** @test */
+    public function it_has_a_default_status_of_pending()
+    {
+        $order = factory(Order::class)->create();
+
+        $this->assertEquals(Order::PENDING, $order->status);
+    }
 }

@@ -7,6 +7,45 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     /**
+     * Pending order status
+     *
+     * @var PENDING
+     */
+    const PENDING = 'pending';
+
+    /**
+     * Processing order status
+     *
+     * @var PROCESSING
+     */
+    const PROCESSING = 'processing';
+
+    /**
+     * Payment failed order status
+     *
+     * @var PAYMENT_FAILED
+     */
+    const PAYMENT_FAILED = 'payment_failed';
+
+    /**
+     * Completed order status
+     *
+     * @var COMPLETED
+     */
+    const COMPLETED = 'completed';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'status',
+        'address_id',
+        'shipping_method_id'
+    ];
+
+    /**
      * User relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
