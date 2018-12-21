@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\Address;
 use App\Models\ShippingMethod;
+use App\Models\Variation;
 
 class OrderTest extends TestCase
 {
@@ -40,5 +41,39 @@ class OrderTest extends TestCase
         $order = factory(Order::class)->create();
 
         $this->assertEquals(Order::PENDING, $order->status);
+    }
+
+    /** @test */
+    public function it_has_many_product_variations()
+    {
+        $order = factory(Order::class)->create([
+            'user_id' => function () {
+                return factory(User::class)->create()->id;
+            }
+        ]);
+
+        $order->variations()->attach(
+            factory(Variation::class)->create(),
+            ['quantity' => 1]
+        );
+
+        $this->assertInstanceOf(Variation::class, $order->variations->first());
+    }
+
+    /** @test */
+    public function it_has_a_quantity_attached_to_the_product_variations()
+    {
+        $order = factory(Order::class)->create([
+            'user_id' => function () {
+                return factory(User::class)->create()->id;
+            }
+        ]);
+
+        $order->variations()->attach(
+            factory(Variation::class)->create(),
+            ['quantity' => $quantity = 5]
+        );
+
+        $this->assertEquals($quantity, $order->variations->first()->pivot->quantity);
     }
 }

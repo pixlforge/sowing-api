@@ -75,4 +75,16 @@ class Order extends Model
     {
         return $this->belongsTo(ShippingMethod::class);
     }
+
+    /**
+     * Variations relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function variations()
+    {
+        return $this->belongsToMany(Variation::class, 'order_variation')
+            ->withPivot(['quantity'])
+            ->withTimestamps();
+    }
 }
