@@ -87,7 +87,7 @@ class Cart
     }
 
     /**
-     * Checks whether or not the cart is empty in regard to product quantity.
+     * Checks whether or not the cart is empty in terms of product quantity.
      *
      * @return boolean
      */
