@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Orders;
 
 use App\Cart\Cart;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Orders\OrderStoreRequest;
 use App\Events\Orders\OrderCreated;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Orders\OrderResource;
+use App\Http\Requests\Orders\OrderStoreRequest;
 
 class OrderController extends Controller
 {
@@ -38,6 +39,8 @@ class OrderController extends Controller
         );
 
         event(new OrderCreated($order));
+
+        return new OrderResource($order);
     }
     
     /**

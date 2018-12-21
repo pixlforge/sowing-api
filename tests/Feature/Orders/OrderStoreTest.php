@@ -139,7 +139,7 @@ class OrderStoreTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('order_variation', [
-            'order_id' => 1,
+            'order_id' => $response->getData()->data->id,
             'variation_id' => $variation->id,
         ]);
     }
@@ -179,8 +179,10 @@ class OrderStoreTest extends TestCase
             'address_id' => $address->id,
             'shipping_method_id' => $shippingMethod->id
         ]);
-        
-        Event::assertDispatched(OrderCreated::class);
+
+        Event::assertDispatched(OrderCreated::class, function ($event) use ($response) {
+            return $event->order->id === $response->getData()->data->id;
+        });
     }
 
     /** @test */
