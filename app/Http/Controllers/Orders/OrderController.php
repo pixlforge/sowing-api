@@ -6,6 +6,7 @@ use App\Cart\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Orders\OrderStoreRequest;
+use App\Events\Orders\OrderCreated;
 
 class OrderController extends Controller
 {
@@ -35,6 +36,8 @@ class OrderController extends Controller
         $order->variations()->sync(
             $cart->variations()->forSyncing()
         );
+
+        event(new OrderCreated($order));
     }
     
     /**

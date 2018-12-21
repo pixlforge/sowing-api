@@ -8,6 +8,8 @@ use App\Models\Stock;
 use App\Models\Address;
 use App\Models\Variation;
 use App\Models\ShippingMethod;
+use Illuminate\Support\Facades\Event;
+use App\Events\Orders\OrderCreated;
 
 class OrderStoreTest extends TestCase
 {
@@ -158,6 +160,47 @@ class OrderStoreTest extends TestCase
             
         $response->assertStatus(400);
         $this->assertCount(0, $user->orders);
+    }
+
+    /** @test */
+    public function it_fires_an_order_created_event_upon_ordering()
+    {
+        Event::fake();
+
+        $user = factory(User::class)->create();
+
+        $user->cart()->sync(
+            $variation = $this->getVariationWithStock()
+        );
+
+        list($address, $shippingMethod) = $this->getOrderDependencies($user);
+
+        $response = $this->postJsonAs($user, route('orders.store'), [
+            'address_id' => $address->id,
+            'shipping_method_id' => $shippingMethod->id
+        ]);
+        
+        Event::assertDispatched(OrderCreated::class);
+    }
+
+    /** @test */
+    public function it_empties_the_cart_after_an_order_is_created()
+    {
+        $user = factory(User::class)->create();
+
+        $user->cart()->sync(
+            $variation = $this->getVariationWithStock()
+        );
+
+        list($address, $shippingMethod) = $this->getOrderDependencies($user);
+
+        $response = $this->postJsonAs($user, route('orders.store'), [
+            'address_id' => $address->id,
+            'shipping_method_id' => $shippingMethod->id
+        ]);
+
+        $response->assertOk();
+        $this->assertEmpty($user->cart);
     }
 
     /**
