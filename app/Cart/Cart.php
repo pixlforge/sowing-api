@@ -170,6 +170,16 @@ class Cart
     }
 
     /**
+     * Returns a collection of product variations.
+     *
+     * @return App\Models\Variation
+     */
+    public function variations()
+    {
+        return $this->user->cart;
+    }
+
+    /**
      * Get the product variations present in the cart and format them.
      *
      * @param array $variations

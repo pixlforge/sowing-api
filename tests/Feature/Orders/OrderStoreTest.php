@@ -120,12 +120,34 @@ class OrderStoreTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function it_attaches_the_product_variations_to_the_order()
+    {
+        $user = factory(User::class)->create();
+
+        $user->cart()->sync(
+            $variation = $this->getVariationWithStock()
+        );
+
+        list($address, $shippingMethod) = $this->getOrderDependencies($user);
+
+        $response = $this->postJsonAs($user, route('orders.store'), [
+            'address_id' => $address->id,
+            'shipping_method_id' => $shippingMethod->id
+        ]);
+
+        $this->assertDatabaseHas('order_variation', [
+            'order_id' => 1,
+            'variation_id' => $variation->id,
+        ]);
+    }
+
     /**
      * Returns a product variation with stock.
      *
      * @return App\Models\Variation
      */
-    public function variationWithStock()
+    public function getVariationWithStock()
     {
         $variation = factory(Variation::class)->create([
             'price' => 5000

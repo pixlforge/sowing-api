@@ -6,7 +6,6 @@ use App\Cart\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Orders\OrderStoreRequest;
-use App\Models\Variation;
 
 class OrderController extends Controller
 {
@@ -22,10 +21,16 @@ class OrderController extends Controller
     {
         $order = $this->createOrder($request, $cart);
 
-        // $order->variations()->attach(
-        //     factory(Variation::class)->create(),
-        //     ['quantity' => 5]
-        // );
+        $variations = $cart->variations()
+            ->keyBy('id')
+            ->map(function ($variation) {
+                return [
+                    'quantity' => $variation->pivot->quantity
+                ];
+            })
+            ->toArray();
+        
+        $order->variations()->sync($variations);
     }
 
     protected function createOrder(Request $request, Cart $cart)
