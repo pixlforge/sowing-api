@@ -183,5 +183,7 @@ return [
 
     'rules' => [
         'invalid_shipping_method_id' => 'Die Versandart ist ungültig.',
+        'cart_quantities_changed' => 'Ein oder mehrere Artikel in Ihrem Warenkorb wurden aktualisiert. Bitte überprüfen Sie sie vor der Bestellung.',
+        'cart_is_empty' => 'Ihr Warenkorb ist leer.'
     ]
 ];

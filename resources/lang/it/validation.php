@@ -181,5 +181,7 @@ return [
 
     'rules' => [
         'invalid_shipping_method_id' => 'Il metodo di spedizione non è valido.',
+        'cart_quantities_changed' => 'Uno o più articoli nel vostro carrello sono stati aggiornati, vi preghiamo di verificarli prima di ordinare.',
+        'cart_is_empty' => 'Il vostro carrello è vuoto.'
     ]
 ];

@@ -154,5 +154,7 @@ return [
 
     'rules' => [
         'invalid_shipping_method_id' => 'The shipping method is invalid.',
+        'cart_quantities_changed' => 'One or more items in your cart have been updated, please review them before ordering.',
+        'cart_is_empty' => 'Your cart is empty.'
     ]
 ];

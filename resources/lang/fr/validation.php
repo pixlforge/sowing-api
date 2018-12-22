@@ -183,5 +183,7 @@ return [
 
     'rules' => [
         'invalid_shipping_method_id' => 'La méthode de livraison est invalide.',
+        'cart_quantities_changed' => 'Un ou plusieurs objets de votre panier ont été modifiés, vous devriez les passer en revue avant de commander',
+        'cart_is_empty' => 'Votre panier est vide.'
     ]
 ];

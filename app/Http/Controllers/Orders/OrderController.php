@@ -16,7 +16,7 @@ class OrderController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth:api']);
+        $this->middleware(['auth:api', 'cart.sync', 'cart.empty']);
     }
 
     /**
@@ -24,14 +24,10 @@ class OrderController extends Controller
      *
      * @param OrderStoreRequest $request
      * @param Cart $cart
-     * @return void
+     * @return OrderResource
      */
     public function store(OrderStoreRequest $request, Cart $cart)
     {
-        if ($cart->isEmpty()) {
-            return response(null, 400);
-        }
-
         $order = $this->createOrder($request, $cart);
 
         $order->variations()->sync(
@@ -48,7 +44,7 @@ class OrderController extends Controller
      *
      * @param Request $request
      * @param Cart $cart
-     * @return App\Models\Order
+     * @return Order
      */
     protected function createOrder(Request $request, Cart $cart)
     {

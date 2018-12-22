@@ -7,9 +7,9 @@ use App\Models\Variation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart\CartResource;
+use App\Http\Requests\Cart\CartIndexRequest;
 use App\Http\Requests\Cart\CartStoreRequest;
 use App\Http\Requests\Cart\CartUpdateRequest;
-use App\Http\Requests\Cart\CartIndexRequest;
 
 class CartController extends Controller
 {
@@ -25,7 +25,7 @@ class CartController extends Controller
      * Get the cart's content.
      *
      * @param CartIndexRequest $request
-     * @return App\Http\Resources\Cart\CartResource
+     * @return CartResource
      */
     public function index(CartIndexRequest $request, Cart $cart)
     {

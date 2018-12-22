@@ -26,6 +26,10 @@ class OrderStoreTest extends TestCase
     {
         $user = factory(User::class)->create();
 
+        $user->cart()->sync(
+            $variation = $this->getVariationWithStock()
+        );
+
         $response = $this->postJsonAs($user, route('orders.store'));
 
         $response->assertJsonValidationErrors(['address_id']);
@@ -35,6 +39,10 @@ class OrderStoreTest extends TestCase
     public function it_requires_an_address_that_exists()
     {
         $user = factory(User::class)->create();
+
+        $user->cart()->sync(
+            $variation = $this->getVariationWithStock()
+        );
 
         $response = $this->postJsonAs($user, route('orders.store'), [
             'address_id' => 999
@@ -47,6 +55,10 @@ class OrderStoreTest extends TestCase
     public function it_requires_an_address_that_belongs_to_the_authenticated_user()
     {
         $user = factory(User::class)->create();
+
+        $user->cart()->sync(
+            $variation = $this->getVariationWithStock()
+        );
 
         $address = factory(Address::class)->create([
             'user_id' => function () {
@@ -66,6 +78,10 @@ class OrderStoreTest extends TestCase
     {
         $user = factory(User::class)->create();
 
+        $user->cart()->sync(
+            $variation = $this->getVariationWithStock()
+        );
+
         $response = $this->postJsonAs($user, route('orders.store'));
 
         $response->assertJsonValidationErrors(['shipping_method_id']);
@@ -75,6 +91,10 @@ class OrderStoreTest extends TestCase
     public function it_requires_a_shipping_method_that_exists()
     {
         $user = factory(User::class)->create();
+
+        $user->cart()->sync(
+            $variation = $this->getVariationWithStock()
+        );
 
         $response = $this->postJsonAs($user, route('orders.store'), [
             'shipping_method_id' => 999
@@ -87,6 +107,10 @@ class OrderStoreTest extends TestCase
     public function it_requires_a_valid_shipping_method_for_the_address()
     {
         $user = factory(User::class)->create();
+
+        $user->cart()->sync(
+            $variation = $this->getVariationWithStock()
+        );
 
         $address = factory(Address::class)->create([
             'user_id' => $user->id
