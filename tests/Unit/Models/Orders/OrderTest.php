@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Address;
 use App\Models\ShippingMethod;
 use App\Models\Variation;
+use App\Money\Money;
 
 class OrderTest extends TestCase
 {
@@ -75,5 +76,47 @@ class OrderTest extends TestCase
         );
 
         $this->assertEquals($quantity, $order->variations->first()->pivot->quantity);
+    }
+
+    /** @test */
+    public function it_returns_a_money_instance_for_the_subtotal()
+    {
+        $order = factory(Order::class)->create([
+            'user_id' => function () {
+                return factory(User::class)->create()->id;
+            }
+        ]);
+
+        $this->assertInstanceOf(Money::class, $order->subtotal);
+    }
+
+    /** @test */
+    public function it_returns_a_money_instance_for_the_total()
+    {
+        $order = factory(Order::class)->create([
+            'user_id' => function () {
+                return factory(User::class)->create()->id;
+            }
+        ]);
+
+        $this->assertInstanceOf(Money::class, $order->total());
+    }
+
+    /** @test */
+    public function it_adds_shipping_onto_the_total()
+    {
+        $order = factory(Order::class)->create([
+            'user_id' => function () {
+                return factory(User::class)->create()->id;
+            },
+            'subtotal' => 1000,
+            'shipping_method_id' => function () {
+                return factory(ShippingMethod::class)->create([
+                    'price' => 800
+                ])->id;
+            }
+        ]);
+
+        $this->assertEquals(1800, $order->total()->amount());
     }
 }

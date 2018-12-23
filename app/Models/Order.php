@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Money\Money;
 
 class Order extends Model
 {
@@ -45,6 +46,27 @@ class Order extends Model
         'shipping_method_id',
         'subtotal'
     ];
+
+    /**
+     * Get the order subtotal.
+     *
+     * @param integer $subtotal
+     * @return App\Money\Money
+     */
+    public function getSubtotalAttribute($subtotal)
+    {
+        return new Money($subtotal);
+    }
+
+    /**
+     * Get the order total.
+     *
+     * @return App\Money\Money
+     */
+    public function total()
+    {
+        return $this->subtotal->add($this->shippingMethod->price);
+    }
 
     /**
      * User relationship.
