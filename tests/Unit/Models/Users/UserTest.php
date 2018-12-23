@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Variation;
 use App\Models\Address;
 use App\Models\Order;
+use App\Models\Shop;
 
 class UserTest extends TestCase
 {
@@ -67,5 +68,17 @@ class UserTest extends TestCase
         ]);
 
         $this->assertInstanceOf(Order::class, $user->orders->first());
+    }
+
+    /** @test */
+    public function it_has_one_shop()
+    {
+        $user = factory(User::class)->create();
+
+        factory(Shop::class)->create([
+            'user_id' => $user->id
+        ]);
+
+        $this->assertInstanceOf(Shop::class, $user->shop);
     }
 }

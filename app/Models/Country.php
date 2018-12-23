@@ -42,4 +42,14 @@ class Country extends Model
     {
         return $this->belongsToMany(ShippingMethod::class);
     }
+
+    /**
+     * Shops relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function shops()
+    {
+        return $this->hasMany(Shop::class);
+    }
 }
