@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources\Variations;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 use App\Http\Resources\Types\TypeResource;
+use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Products\ProductIndexResource;
 
 class VariationResource extends JsonResource
 {
@@ -34,6 +35,7 @@ class VariationResource extends JsonResource
                 'de' => $this->getTranslation('description', 'de'),
                 'it' => $this->getTranslation('description', 'it')
             ],
+            'product' => new ProductIndexResource($this->whenLoaded('product')),
             'price' => $this->price,
             'order' => $this->order,
             'price' => $this->rawPrice,
