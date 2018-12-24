@@ -149,7 +149,11 @@ return [
         'address_line_2' => 'address line 2',
         'postal_code' => 'postal code',
         'city' => 'city',
-        'country_id' => 'country'
+        'country_id' => 'country',
+
+        'description_short' => 'short description',
+        'description_long' => 'long description',
+        'theme_color' => 'theme',
     ],
 
     'rules' => [

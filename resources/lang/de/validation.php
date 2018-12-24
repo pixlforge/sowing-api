@@ -178,7 +178,11 @@ return [
         'address_line_1' => 'Anschrift Zeile 1',
         'address_line_2' => 'Anschrift Zeile 2',
         'postal_code' => 'Postleitzahl',
-        'country_id' => 'Land'
+        'country_id' => 'Land',
+
+        'description_short' => 'Kurze Beschreibung',
+        'description_long' => 'Lange Beschreibung',
+        'theme_color' => 'Thema',
     ],
 
     'rules' => [

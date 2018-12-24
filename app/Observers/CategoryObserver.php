@@ -13,7 +13,7 @@ class CategoryObserver
      * @param  \App\Category  $category
      * @return void
      */
-    public function creating(Category $category) : void
+    public function creating(Category $category)
     {
         if (is_null($category->slug)) {
             $category->slug = str_slug(request()->translations_name_en);

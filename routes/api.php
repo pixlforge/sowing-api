@@ -64,3 +64,10 @@ Route::namespace('Orders')->group(function () {
 Route::namespace('Products')->group(function () {
     Route::resource('/products', 'ProductController');
 });
+
+/**
+ * Shops
+ */
+Route::namespace('Shops')->group(function () {
+    Route::resource('/shops', 'ShopController');
+});

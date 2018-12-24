@@ -178,7 +178,11 @@ return [
         'address_line_1' => 'adresse ligne 1',
         'address_line_2' => 'adresse ligne 2',
         'postal_code' => 'code postal',
-        'country_id' => 'pays'
+        'country_id' => 'pays',
+
+        'description_short' => 'description courte',
+        'description_long' => 'description longue',
+        'theme_color' => 'thème',
     ],
 
     'rules' => [

@@ -17,7 +17,6 @@ $factory->define(Shop::class, function (Faker $faker) use ($fakerEN, $fakerFR, $
             return factory(User::class)->create()->id;
         },
         'name' => $name = $faker->sentence,
-        'slug' => str_slug($name),
         'description_short' => [
             'en' => $descriptionShort = $fakerEN->unique()->name,
             'fr' => $fakerFR->unique()->name,

@@ -13,6 +13,8 @@ use App\Observers\AddressObserver;
 use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Shop;
+use App\Observers\ShopObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Category::observe(CategoryObserver::class);
         Order::observe(OrderObserver::class);
         User::observe(UserObserver::class);
+        Shop::observe(ShopObserver::class);
     }
 
     /**

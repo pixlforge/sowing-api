@@ -24,4 +24,14 @@ class ShopTest extends TestCase
 
         $this->assertInstanceOf(Country::class, $shop->country);
     }
+
+    /** @test */
+    public function it_generates_a_slug_based_on_the_name()
+    {
+        $shop = factory(Shop::class)->create([
+            'name' => 'My awesome shop'
+        ]);
+
+        $this->assertEquals('my-awesome-shop', $shop->slug);
+    }
 }

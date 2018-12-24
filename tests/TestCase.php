@@ -2,9 +2,9 @@
 
 namespace Tests;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
 abstract class TestCase extends BaseTestCase
 {

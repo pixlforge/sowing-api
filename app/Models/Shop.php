@@ -77,7 +77,8 @@ class Shop extends Model
         'description_long',
         'theme_color',
         'postal_code',
-        'city'
+        'city',
+        'country_id'
     ];
 
     /**

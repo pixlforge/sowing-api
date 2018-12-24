@@ -176,7 +176,11 @@ return [
         'address_line_1' => 'indirizzo linea 1',
         'address_line_2' => 'indirizzo linea 2',
         'postal_code' => 'codice postale',
-        'country_id' => 'paese'
+        'country_id' => 'paese',
+
+        'description_short' => 'descrizione breve',
+        'description_long' => 'descrizione lunga',
+        'theme_color' => 'tema',
     ],
 
     'rules' => [
