@@ -106,7 +106,7 @@ class Cart
         $this->user->cart->each(function ($variation) {
             $minimumStock = $variation->minStock($variation->pivot->quantity);
 
-            if ($minimumStock < $variation->pivot->quantity) {
+            if ($minimumStock != $variation->pivot->quantity) {
                 $this->changed = true;
             }
 
