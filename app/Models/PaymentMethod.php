@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasDefault;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PaymentMethod extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasDefault;
 
     /**
      * The attributes that are mass assignable.
@@ -29,27 +30,6 @@ class PaymentMethod extends Model
     protected $casts = [
         'is_default' => 'boolean'
     ];
-
-    /**
-     * Cast the is_default attribute to a boolean.
-     *
-     * @param mixed $value
-     * @return void
-     */
-    public function setIsDefaultAttribute($value)
-    {
-        $this->attributes['is_default'] = ($value === 'true' || $value === true || $value == 1 ? true : false);
-    }
-
-    /**
-     * Checks whether or not the address is the default one.
-     *
-     * @return boolean
-     */
-    public function isDefault()
-    {
-        return $this->is_default;
-    }
 
     /**
      * User relationship.
