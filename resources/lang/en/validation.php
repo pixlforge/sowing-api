@@ -154,6 +154,8 @@ return [
         'description_short' => 'short description',
         'description_long' => 'long description',
         'theme_color' => 'theme',
+
+        'payment_method_id' => 'payment method',
     ],
 
     'rules' => [

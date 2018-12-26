@@ -3,8 +3,9 @@
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Address;
-use App\Models\ShippingMethod;
 use Faker\Generator as Faker;
+use App\Models\PaymentMethod;
+use App\Models\ShippingMethod;
 
 $factory->define(Order::class, function (Faker $faker) {
     return [
@@ -16,6 +17,9 @@ $factory->define(Order::class, function (Faker $faker) {
         },
         'shipping_method_id' => function () {
             return factory(ShippingMethod::class)->create()->id;
+        },
+        'payment_method_id' => function () {
+            return factory(PaymentMethod::class)->create()->id;
         },
         'subtotal' => 1000
     ];
