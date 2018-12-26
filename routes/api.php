@@ -59,6 +59,13 @@ Route::namespace('Orders')->group(function () {
 });
 
 /**
+ * Payment methods
+ */
+Route::namespace('PaymentMethods')->group(function () {
+    Route::resource('/payment-methods', 'PaymentMethodController');
+});
+
+/**
  * Products
  */
 Route::namespace('Products')->group(function () {

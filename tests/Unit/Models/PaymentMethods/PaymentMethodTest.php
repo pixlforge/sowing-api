@@ -21,6 +21,14 @@ class PaymentMethodTest extends TestCase
     }
 
     /** @test */
+    public function it_can_check_a_payment_method_is_set_as_default()
+    {
+        $paymentMethod = factory(PaymentMethod::class)->states('default')->create();
+
+        $this->assertTrue($paymentMethod->isDefault());
+    }
+
+    /** @test */
     public function it_unsets_old_payment_methods_as_default_upon_creation()
     {
         $user = factory(User::class)->create();

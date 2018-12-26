@@ -28,8 +28,6 @@ class AddressTest extends TestCase
     /** @test */
     public function it_can_check_an_address_is_set_as_default()
     {
-        $user = factory(User::class)->create();
-
         $address = factory(Address::class)->states('default')->create();
 
         $this->assertTrue($address->isDefault());
