@@ -14,7 +14,7 @@ class AddressObserver
      */
     public function creating(Address $address) : void
     {
-        if ($address->is_default) {
+        if ($address->isDefault()) {
             $address->user->addresses()->update([
                 'is_default' => false
             ]);

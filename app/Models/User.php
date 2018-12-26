@@ -86,6 +86,16 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Payment methods relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function paymentMethods()
+    {
+        return $this->hasMany(PaymentMethod::class);
+    }
+
+    /**
      * Shop relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
