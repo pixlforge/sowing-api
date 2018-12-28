@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Shop extends Model
+class Shop extends Model implements HasMedia
 {
-    use HasTranslations, SoftDeletes;
+    use HasTranslations, SoftDeletes, HasMediaTrait;
 
     /**
      * Green theme color.
