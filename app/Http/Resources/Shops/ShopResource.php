@@ -33,7 +33,8 @@ class ShopResource extends JsonResource
             'theme_color' => $this->theme_color,
             'postal_code' => $this->postal_code,
             'city' => $this->city,
-            'country' => new CountryResource($this->country)
+            'country' => new CountryResource($this->whenLoaded('country')),
+            'country_id' => $this->country->id,
         ];
     }
 }
