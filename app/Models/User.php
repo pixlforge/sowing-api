@@ -54,6 +54,16 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Checks whether or not the user owns a shop.
+     *
+     * @return boolean
+     */
+    public function hasShop()
+    {
+        return (bool) $this->shop;
+    }
+
+    /**
      * User cart relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

@@ -82,6 +82,18 @@ class UserTest extends TestCase
 
         $this->assertInstanceOf(Shop::class, $user->shop);
     }
+    
+    /** @test */
+    public function it_can_check_if_the_user_has_a_shop()
+    {
+        $user = factory(User::class)->create();
+
+        factory(Shop::class)->create([
+            'user_id' => $user->id
+        ]);
+
+        $this->assertTrue($user->hasShop());
+    }
 
     /** @test */
     public function it_has_many_payment_methods()

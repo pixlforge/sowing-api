@@ -24,6 +24,10 @@ class UserShopController extends Controller
      */
     public function __invoke(Request $request)
     {
+        if (!$request->user()->hasShop()) {
+            return response(null, 204);
+        }
+
         $shop = $request->user()->shop;
         
         return new ShopResource($shop);
