@@ -20,6 +20,7 @@
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/laravel-translatable": "^3.0",
         "spatie/nova-translatable": "^1.0",
+        "stripe/stripe-php": "^6.27",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
