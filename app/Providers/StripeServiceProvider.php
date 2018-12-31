@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Stripe\Stripe;
 use Illuminate\Support\ServiceProvider;
+use App\PaymentGateways\Contracts\PaymentGateway;
+use App\PaymentGateways\Stripe\StripePaymentGateway;
 
 class StripeServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,8 @@ class StripeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(PaymentGateway::class, function () {
+            return new StripePaymentGateway();
+        });
     }
 }
