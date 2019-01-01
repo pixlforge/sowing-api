@@ -18,6 +18,7 @@ class ShopResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'slug' => $this->slug,
             'description_short' => [
                 'en' => $this->getTranslation('description_short', 'en'),
                 'fr' => $this->getTranslation('description_short', 'fr'),

@@ -79,4 +79,6 @@ Route::namespace('Shops')->group(function () {
     Route::resource('/shops', 'ShopController');
     Route::get('/user/shop', 'UserShopController')->name('user.shop');
     Route::post('/shops/checker', 'ShopCheckerController')->name('shop.checker');
+
+    Route::post('/shops/{shop}/image', 'ShopImageController@store')->name('shop.image.store');
 });
