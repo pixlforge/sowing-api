@@ -36,6 +36,10 @@ class ShopResource extends JsonResource
             'city' => $this->city,
             'country' => new CountryResource($this->whenLoaded('country')),
             'country_id' => $this->country->id,
+            'media' => [
+                'avatar' => optional($this->getFirstMedia('avatar'))->getFullUrl(),
+                'cover' => optional($this->getFirstMedia('cover'))->getFullUrl()
+            ]
         ];
     }
 }

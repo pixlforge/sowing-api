@@ -52,6 +52,17 @@ Route::namespace('Countries')->group(function () {
 });
 
 /**
+ * Images
+ */
+Route::namespace('Images')->group(function () {
+    
+    /**
+     * Shops
+     */
+    Route::post('/images/{shop}/upload', 'ShopImageController@store')->name('shop.image.store');
+});
+
+/**
  * Orders
  */
 Route::namespace('Orders')->group(function () {
@@ -79,6 +90,4 @@ Route::namespace('Shops')->group(function () {
     Route::resource('/shops', 'ShopController');
     Route::get('/user/shop', 'UserShopController')->name('user.shop');
     Route::post('/shops/checker', 'ShopCheckerController')->name('shop.checker');
-
-    Route::post('/shops/{shop}/image', 'ShopImageController@store')->name('shop.image.store');
 });

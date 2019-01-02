@@ -43,6 +43,7 @@ return [
         ],
 
         'expose_headers' => [
+            'Origin',
             'Cache-Control',
             'Content-Language',
             'Content-Type',
