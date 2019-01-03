@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Shops\ShopResource;
 use App\Http\Requests\Shops\ShopStoreRequest;
+use App\Http\Requests\Shops\ShopUpdateRequest;
 
 class ShopController extends Controller
 {
@@ -35,7 +36,7 @@ class ShopController extends Controller
         return new ShopResource($shop);
     }
 
-    public function update(Request $request, Shop $shop)
+    public function update(ShopUpdateRequest $request, Shop $shop)
     {
         $shop->update($request->only([
             'description_short', 'description_long', 'theme_color', 'postal_code', 'city', 'country_id'

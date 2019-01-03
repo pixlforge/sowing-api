@@ -83,7 +83,7 @@ class ShopStoreTest extends TestCase
         $user = factory(User::class)->create();
 
         $response = $this->postJsonAs($user, route('shops.store'), [
-            'short_description' => 'A'
+            'description_short' => 'A'
         ]);
 
         $response->assertJsonValidationErrors(['description_short']);
@@ -95,7 +95,7 @@ class ShopStoreTest extends TestCase
         $user = factory(User::class)->create();
 
         $response = $this->postJsonAs($user, route('shops.store'), [
-            'short_description' => str_repeat('a', 3000)
+            'description_short' => str_repeat('a', 3001)
         ]);
 
         $response->assertJsonValidationErrors(['description_short']);

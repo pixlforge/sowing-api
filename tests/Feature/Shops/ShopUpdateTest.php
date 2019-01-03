@@ -18,6 +18,317 @@ class ShopUpdateTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_a_short_description()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+
+        $response->assertJsonValidationErrors(['description_short']);
+    }
+
+    /** @test */
+    public function it_requires_a_short_description_of_at_least_2_characters()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'description_short' => 'A'
+        ]);
+
+        $response->assertJsonValidationErrors(['description_short']);
+    }
+
+    /** @test */
+    public function it_requires_a_short_description_of_at_most_3000_characters()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'description_short' => str_repeat('a', 3001)
+        ]);
+
+        $response->assertJsonValidationErrors(['description_short']);
+    }
+
+    /** @test */
+    public function it_requires_a_long_description()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+
+        $response->assertJsonValidationErrors(['description_long']);
+    }
+
+    /** @test */
+    public function it_requires_a_long_description_of_at_least_2_characters()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'description_long' => 'A'
+        ]);
+
+        $response->assertJsonValidationErrors(['description_long']);
+    }
+
+    /** @test */
+    public function it_requires_a_long_description_of_at_most_50000_characters()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'description_long' => str_repeat('a', 50001)
+        ]);
+
+        $response->assertJsonValidationErrors(['description_long']);
+    }
+
+    /** @test */
+    public function it_requires_a_theme_color()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+
+        $response->assertJsonValidationErrors(['theme_color']);
+    }
+
+    /** @test */
+    public function it_requires_a_postal_code()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+
+        $response->assertJsonValidationErrors(['postal_code']);
+    }
+
+    /** @test */
+    public function it_requires_a_postal_code_in_string_format()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'theme_color' => 123
+        ]);
+
+        $response->assertJsonValidationErrors(['postal_code']);
+    }
+
+    /** @test */
+    public function it_requires_a_postal_code_of_at_least_4_characters()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'postal_code' => '123'
+        ]);
+
+        $response->assertJsonValidationErrors(['postal_code']);
+    }
+
+    /** @test */
+    public function it_requires_a_postal_code_of_at_most_10_characters()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'postal_code' => str_repeat('1', 11)
+        ]);
+
+        $response->assertJsonValidationErrors(['postal_code']);
+    }
+
+    /** @test */
+    public function it_requires_a_city()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+
+        $response->assertJsonValidationErrors(['city']);
+    }
+
+    /** @test */
+    public function it_requires_a_city_in_string_format()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'city' => 123
+        ]);
+
+        $response->assertJsonValidationErrors(['city']);
+    }
+
+    /** @test */
+    public function it_requires_a_city_of_at_least_2_characters()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'city' => 'A'
+        ]);
+
+        $response->assertJsonValidationErrors(['city']);
+    }
+
+    /** @test */
+    public function it_requires_a_city_of_at_most_255_characters()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'city' => str_repeat('a', 256)
+        ]);
+
+        $response->assertJsonValidationErrors(['city']);
+    }
+
+    /** @test */
+    public function it_requires_a_country()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+
+        $response->assertJsonValidationErrors(['country_id']);
+    }
+
+    /** @test */
+    public function it_requires_a_valid_country()
+    {
+        $user = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'country_id' => 999
+        ]);
+
+        $response->assertJsonValidationErrors(['country_id']);
+    }
+
+    /** @test */
     public function it_can_update_a_shop()
     {
         $user = factory(User::class)->create();
