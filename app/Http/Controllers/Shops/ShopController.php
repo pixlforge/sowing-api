@@ -34,4 +34,13 @@ class ShopController extends Controller
 
         return new ShopResource($shop);
     }
+
+    public function update(Request $request, Shop $shop)
+    {
+        $shop->update($request->only([
+            'description_short', 'description_long', 'theme_color', 'postal_code', 'city', 'country_id'
+        ]));
+
+        return new ShopResource($shop);
+    }
 }
