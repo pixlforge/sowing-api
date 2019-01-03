@@ -36,8 +36,17 @@ class ShopController extends Controller
         return new ShopResource($shop);
     }
 
+    /**
+     * Update an existing shop.
+     *
+     * @param ShopUpdateRequest $request
+     * @param Shop $shop
+     * @return ShopResource
+     */
     public function update(ShopUpdateRequest $request, Shop $shop)
     {
+        $this->authorize('update', $shop);
+        
         $shop->update($request->only([
             'description_short', 'description_long', 'theme_color', 'postal_code', 'city', 'country_id'
         ]));

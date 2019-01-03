@@ -329,6 +329,41 @@ class ShopUpdateTest extends TestCase
     }
 
     /** @test */
+    public function it_fails_if_the_user_does_not_own_the_shop()
+    {
+        $user = factory(User::class)->create();
+        $anotherUser = factory(User::class)->create();
+
+        $country = factory(Country::class)->create();
+
+        $shop = factory(Shop::class)->create([
+            'user_id' => $anotherUser->id,
+            'country_id' => $country->id
+        ]);
+
+        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+            'description_short' => [
+                'en' => 'Lorem ipsum dolor sit amet',
+                'fr' => 'Lorem ipsum dolor sit amet',
+                'de' => 'Lorem ipsum dolor sit amet',
+                'it' => 'Lorem ipsum dolor sit amet'
+            ],
+            'description_long' => [
+                'en' => 'Lorem ipsum dolor sit amet',
+                'fr' => 'Lorem ipsum dolor sit amet',
+                'de' => 'Lorem ipsum dolor sit amet',
+                'it' => 'Lorem ipsum dolor sit amet'
+            ],
+            'theme_color' => $theme = Shop::THEME_PINK,
+            'postal_code' => '2950',
+            'city' => 'Courgenay',
+            'country_id' => $country->id
+        ]);
+
+        $response->assertForbidden();
+    }
+
+    /** @test */
     public function it_can_update_a_shop()
     {
         $user = factory(User::class)->create();

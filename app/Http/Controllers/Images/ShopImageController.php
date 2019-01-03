@@ -25,6 +25,8 @@ class ShopImageController extends Controller
      */
     public function store(Shop $shop, Request $request)
     {
+        $this->authorize('update', $shop);
+        
         $type = $request->query('type');
 
         if ($shop->hasMedia($type)) {
