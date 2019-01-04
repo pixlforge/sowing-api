@@ -128,7 +128,7 @@ class ShopUpdateTest extends TestCase
     }
 
     /** @test */
-    public function it_requires_a_theme_color()
+    public function it_requires_a_theme()
     {
         $user = factory(User::class)->create();
 
@@ -141,7 +141,7 @@ class ShopUpdateTest extends TestCase
 
         $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
 
-        $response->assertJsonValidationErrors(['theme_color']);
+        $response->assertJsonValidationErrors(['theme']);
     }
 
     /** @test */
@@ -354,7 +354,7 @@ class ShopUpdateTest extends TestCase
                 'de' => 'Lorem ipsum dolor sit amet',
                 'it' => 'Lorem ipsum dolor sit amet'
             ],
-            'theme_color' => $theme = Shop::THEME_PINK,
+            'theme' => 'pink',
             'postal_code' => '2950',
             'city' => 'Courgenay',
             'country_id' => $country->id
@@ -372,7 +372,7 @@ class ShopUpdateTest extends TestCase
 
         $shop = factory(Shop::class)->create([
             'user_id' => $user->id,
-            'theme_color' => $theme = Shop::THEME_GREEN,
+            'theme' => $theme = 'green',
         ]);
 
         $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
@@ -388,7 +388,7 @@ class ShopUpdateTest extends TestCase
                 'de' => 'Lorem ipsum dolor sit amet',
                 'it' => 'Lorem ipsum dolor sit amet'
             ],
-            'theme_color' => $theme = Shop::THEME_PINK,
+            'theme' => $theme = 'pink',
             'postal_code' => $postal_code = '2950',
             'city' => $city = 'Courgenay',
             'country_id' => $country->id
@@ -397,7 +397,7 @@ class ShopUpdateTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('shops', [
-            'theme_color' => $theme,
+            'theme' => $theme,
             'postal_code' => $postal_code,
             'city' => $city,
             'country_id' => $country->id

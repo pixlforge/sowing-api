@@ -136,13 +136,13 @@ class ShopStoreTest extends TestCase
     }
 
     /** @test */
-    public function it_requires_a_theme_color()
+    public function it_requires_a_theme()
     {
         $user = factory(User::class)->create();
 
         $response = $this->postJsonAs($user, route('shops.store'));
 
-        $response->assertJsonValidationErrors(['theme_color']);
+        $response->assertJsonValidationErrors(['theme']);
     }
 
     /** @test */
@@ -280,7 +280,7 @@ class ShopStoreTest extends TestCase
                 'de' => 'Lorem ipsum dolor sit amet',
                 'it' => 'Lorem ipsum dolor sit amet'
             ],
-            'theme_color' => $theme = Shop::THEME_PINK,
+            'theme' => $theme = 'green',
             'postal_code' => $postal_code = '2950',
             'city' => $city = 'Courgenay',
             'country_id' => $country->id
@@ -290,7 +290,7 @@ class ShopStoreTest extends TestCase
         $this->assertDatabaseHas('shops', [
             'name' => $name,
             'slug' => str_slug($name),
-            'theme_color' => $theme,
+            'theme' => $theme,
             'postal_code' => $postal_code,
             'city' => $city,
             'country_id' => $country->id

@@ -28,7 +28,7 @@ class ShopController extends Controller
     public function store(ShopStoreRequest $request)
     {
         $shop = Shop::make($request->only([
-            'name', 'description_short', 'description_long', 'theme_color', 'postal_code', 'city', 'country_id'
+            'name', 'description_short', 'description_long', 'theme', 'postal_code', 'city', 'country_id'
         ]));
 
         $request->user()->shop()->save($shop);
@@ -48,7 +48,7 @@ class ShopController extends Controller
         $this->authorize('update', $shop);
         
         $shop->update($request->only([
-            'description_short', 'description_long', 'theme_color', 'postal_code', 'city', 'country_id'
+            'description_short', 'description_long', 'theme', 'postal_code', 'city', 'country_id'
         ]));
 
         return new ShopResource($shop);

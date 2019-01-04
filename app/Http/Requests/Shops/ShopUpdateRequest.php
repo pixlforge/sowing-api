@@ -26,7 +26,7 @@ class ShopUpdateRequest extends FormRequest
         return [
             'description_short' => 'required|min:2|max:3000',
             'description_long' => 'required|min:2|max:50000',
-            'theme_color' => 'required',
+            'theme' => 'required',
             'postal_code' => 'required|string|min:4|max:10',
             'city' => 'required|string|min:2|max:255',
             'country_id' => 'required|exists:countries,id'

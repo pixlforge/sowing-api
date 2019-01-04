@@ -153,7 +153,7 @@ return [
 
         'description_short' => 'short description',
         'description_long' => 'long description',
-        'theme_color' => 'theme',
+        'theme' => 'theme',
 
         'payment_method_id' => 'payment method',
     ],

@@ -20,7 +20,7 @@ class CreateShopsTable extends Migration
             $table->string('slug')->unique()->index();
             $table->json('description_short');
             $table->json('description_long');
-            $table->string('theme_color')->default('#5FB881');
+            $table->string('theme')->default('green');
             $table->string('postal_code');
             $table->string('city');
             $table->unsignedInteger('country_id')->index();

@@ -31,7 +31,7 @@ class ShopResource extends JsonResource
                 'de' => $this->getTranslation('description_long', 'de'),
                 'it' => $this->getTranslation('description_long', 'it')
             ],
-            'theme_color' => $this->theme_color,
+            'theme' => $this->theme,
             'postal_code' => $this->postal_code,
             'city' => $this->city,
             'country' => new CountryResource($this->whenLoaded('country')),

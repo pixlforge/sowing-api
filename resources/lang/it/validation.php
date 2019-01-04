@@ -180,7 +180,7 @@ return [
 
         'description_short' => 'descrizione breve',
         'description_long' => 'descrizione lunga',
-        'theme_color' => 'tema',
+        'theme' => 'tema',
 
         'payment_method_id' => 'Metodo di pagamento',
     ],

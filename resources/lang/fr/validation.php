@@ -182,7 +182,7 @@ return [
 
         'description_short' => 'description courte',
         'description_long' => 'description longue',
-        'theme_color' => 'thème',
+        'theme' => 'thème',
 
         'payment_method_id' => 'moyen de paiement',
     ],
