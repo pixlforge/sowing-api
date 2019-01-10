@@ -19,7 +19,7 @@ class PaymentMethodResource extends JsonResource
             'card_type' => $this->card_type,
             'card_type_slug' => $this->card_type_slug,
             'last_four' => $this->last_four,
-            'is_default' => $this->is_default
+            'is_default' => $this->isDefault()
         ];
     }
 }

@@ -4,11 +4,17 @@ namespace App\Http\Controllers\PaymentMethods;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PaymentMethods\PaymentMethodResource;
 use App\PaymentGateways\Contracts\PaymentGateway;
+use App\Http\Resources\PaymentMethods\PaymentMethodResource;
+use App\Http\Requests\PaymentMethods\PaymentMethodStoreRequest;
 
 class PaymentMethodController extends Controller
 {
+    /**
+     * The paymentGateway property.
+     *
+     * @var PaymentGateway
+     */
     public $paymentGateway;
     
     /**
@@ -34,12 +40,18 @@ class PaymentMethodController extends Controller
         return PaymentMethodResource::collection($request->user()->paymentMethods);
     }
 
-    public function store(Request $request)
+    /**
+     * Store a new payment resource.
+     *
+     * @param PaymentMethodStoreRequest $request
+     * @return PaymentMethodResource
+     */
+    public function store(PaymentMethodStoreRequest $request)
     {
         $card = $this->paymentGateway->withUser($request->user())
             ->createCustomer()
             ->addCard($request->token);
 
-        dd($card);
+        return new PaymentMethodResource($card);
     }
 }

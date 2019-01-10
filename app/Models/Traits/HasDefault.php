@@ -22,6 +22,6 @@ trait HasDefault
      */
     public function isDefault()
     {
-        return $this->is_default;
+        return (bool) $this->is_default;
     }
 }

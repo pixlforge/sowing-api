@@ -63,7 +63,7 @@ class StripeGatewayCustomer implements PaymentGatewayCustomer
 
         $this->setCardAsDefault($card);
 
-        $this->createPaymentMethodFromCard($card);
+        return $this->createPaymentMethodFromCard($card);
     }
 
     /**
@@ -75,7 +75,7 @@ class StripeGatewayCustomer implements PaymentGatewayCustomer
      */
     public function createPaymentMethodFromCard(Card $card)
     {
-        $this->gateway->user()->paymentMethods()->create([
+        return $this->gateway->user()->paymentMethods()->create([
             'card_type' => $card->brand,
             'card_type_slug' => str_slug($card->brand),
             'last_four' => $card->last4,
