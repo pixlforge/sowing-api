@@ -22,4 +22,11 @@ interface PaymentGatewayCustomer
      * @return void
      */
     public function addCard($token);
+
+    /**
+     * Get the Gateway Customer id.
+     *
+     * @return integer
+     */
+    public function id();
 }

@@ -60,6 +60,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VariationsTableSeeder::class);
         $this->call(StocksTableSeeder::class);
         $this->call(AddressesTableSeeder::class);
-        $this->call(PaymentMethodsTableSeeder::class);
+        // $this->call(PaymentMethodsTableSeeder::class);
     }
 }

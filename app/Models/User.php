@@ -21,6 +21,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'role',
         'password',
+        'gateway_customer_id'
     ];
 
     /**
@@ -61,6 +62,26 @@ class User extends Authenticatable implements JWTSubject
     public function hasShop()
     {
         return (bool) $this->shop;
+    }
+
+    /**
+     * Checks whether or not the user already has a gateway customer id.
+     *
+     * @return boolean
+     */
+    public function hasGatewayCustomerId()
+    {
+        return (bool) $this->gateway_customer_id;
+    }
+
+    /**
+     * Get the gateway customer id.
+     *
+     * @return string
+     */
+    public function getGatewayCustomerId()
+    {
+        return $this->gateway_customer_id;
     }
 
     /**

@@ -17,6 +17,7 @@ class CreatePaymentMethodsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->index();
             $table->string('card_type')->nullable();
+            $table->string('card_type_slug')->nullable();
             $table->string('last_four')->nullable();
             $table->boolean('is_default')->default(true);
             $table->string('provider_id')->unique();

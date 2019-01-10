@@ -17,6 +17,7 @@ class PaymentMethod extends Model
      */
     protected $fillable = [
         'card_type',
+        'card_type_slug',
         'last_four',
         'provider_id',
         'is_default',
