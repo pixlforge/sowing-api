@@ -4,6 +4,7 @@ namespace App\PaymentGateways\Stripe;
 
 use Stripe\Card;
 use App\Models\PaymentMethod;
+use Stripe\Charge as StripeCharge;
 use Stripe\Customer as StripeCustomer;
 use App\PaymentGateways\Contracts\PaymentGateway;
 use App\PaymentGateways\Contracts\PaymentGatewayCustomer;
@@ -46,7 +47,12 @@ class StripeGatewayCustomer implements PaymentGatewayCustomer
      */
     public function charge(PaymentMethod $paymentMethod, $amount)
     {
-        //
+        StripeCharge::create([
+            'currency' => 'chf',
+            'amount' => $amount,
+            'customer' => $this->customer->id,
+            'source' => $paymentMethod->provider_id
+        ]);
     }
 
     /**

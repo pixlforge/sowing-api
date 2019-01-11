@@ -63,7 +63,7 @@ class StripePaymentGateway implements PaymentGateway
      *
      * @return StripeGatewayCustomer
      */
-    protected function getCustomer()
+    public function getCustomer()
     {
         return new StripeGatewayCustomer(
             $this,
