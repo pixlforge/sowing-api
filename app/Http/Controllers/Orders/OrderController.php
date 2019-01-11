@@ -20,6 +20,12 @@ class OrderController extends Controller
         $this->middleware(['cart.sync', 'cart.empty'])->only('store');
     }
 
+    /**
+     * List all orders for a particular user.
+     *
+     * @param Request $request
+     * @return OrderResource
+     */
     public function index(Request $request)
     {
         $orders = $request->user()->orders()
