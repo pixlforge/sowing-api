@@ -296,6 +296,14 @@ class OrderStoreTest extends TestCase
      */
     protected function getOrderDependencies(User $user)
     {
+        $stripeCustomer = \Stripe\Customer::create([
+            'email' => $user->email
+        ]);
+
+        $user->update([
+            'gateway_customer_id' => $stripeCustomer->id
+        ]);
+        
         $address = factory(Address::class)->create(['user_id' => $user->id]);
         $paymentMethod = factory(PaymentMethod::class)->states('default')->create([
             'user_id' => $user->id
