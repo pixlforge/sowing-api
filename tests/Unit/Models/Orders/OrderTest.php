@@ -9,6 +9,7 @@ use App\Models\Address;
 use App\Models\ShippingMethod;
 use App\Models\Variation;
 use App\Money\Money;
+use App\Models\PaymentMethod;
 
 class OrderTest extends TestCase
 {
@@ -34,6 +35,14 @@ class OrderTest extends TestCase
         $order = factory(Order::class)->create();
 
         $this->assertInstanceOf(ShippingMethod::class, $order->shippingMethod);
+    }
+
+    /** @test */
+    public function it_belongs_to_a_payment_method()
+    {
+        $order = factory(Order::class)->create();
+
+        $this->assertInstanceOf(PaymentMethod::class, $order->paymentMethod);
     }
 
     /** @test */
