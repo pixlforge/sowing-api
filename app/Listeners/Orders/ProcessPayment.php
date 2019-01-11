@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Listeners\Order;
+namespace App\Listeners\Orders;
 
 use App\Events\Orders\OrderCreated;
+use App\Events\Orders\OrderPaymentFailed;
+use App\Exceptions\PaymentFailedException;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Events\Orders\OrderPaymentSuccessful;
 use App\PaymentGateways\Contracts\PaymentGateway;
 
 class ProcessPayment implements ShouldQueue
@@ -35,11 +38,17 @@ class ProcessPayment implements ShouldQueue
     {
         $order = $event->order;
 
-        $this->gateway->withUser($order->user)
+        try {
+            $this->gateway->withUser($order->user)
             ->getCustomer()
             ->charge(
                 $order->paymentMethod,
                 $order->total()->amount()
             );
+
+            event(new OrderPaymentSuccessful($order));
+        } catch (PaymentFailedException $e) {
+            event(new OrderPaymentFailed($order));
+        }
     }
 }
