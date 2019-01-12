@@ -10,6 +10,7 @@ use App\Models\ShippingMethod;
 use App\Models\Variation;
 use App\Money\Money;
 use App\Models\PaymentMethod;
+use App\Models\Transaction;
 
 class OrderTest extends TestCase
 {
@@ -43,6 +44,18 @@ class OrderTest extends TestCase
         $order = factory(Order::class)->create();
 
         $this->assertInstanceOf(PaymentMethod::class, $order->paymentMethod);
+    }
+
+    /** @test */
+    public function it_has_many_transactions()
+    {
+        $order = factory(Order::class)->create();
+
+        $transaction = factory(Transaction::class)->create([
+            'order_id' => $order->id
+        ]);
+
+        $this->assertInstanceOf(Transaction::class, $order->transactions->first());
     }
 
     /** @test */
