@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\Orders\ProcessPayment;
 use App\Events\Orders\OrderPaymentFailed;
+use App\Listeners\Orders\CreateTransaction;
 use App\Events\Orders\OrderPaymentSuccessful;
 use App\Listeners\Orders\MarkOrderAsProcessing;
 use App\Listeners\Orders\MarkOrderAsPaymentFailed;
@@ -33,6 +34,7 @@ class EventServiceProvider extends ServiceProvider
             MarkOrderAsPaymentFailed::class
         ],
         OrderPaymentSuccessful::class => [
+            CreateTransaction::class,
             MarkOrderAsProcessing::class
         ]
     ];

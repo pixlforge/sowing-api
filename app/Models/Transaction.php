@@ -14,5 +14,5 @@ class Transaction extends Model
      *
      * @var array
      */
-    protected $fillable = ['amount'];
+    protected $fillable = ['total'];
 }
