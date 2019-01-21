@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "40ed41ed9cecc62a78b3fef98101fe78",
+    "content-hash": "97d5b237fe75dbe65b8050c7b218eee7",
     "packages": [
         {
             "name": "beyondcode/laravel-self-diagnosis",
