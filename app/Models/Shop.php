@@ -24,7 +24,9 @@ class Shop extends Model implements HasMedia
         'theme',
         'postal_code',
         'city',
-        'country_id'
+        'country_id',
+        'stripe_user_id',
+        'stripe_publishable_key'
     ];
 
     /**
