@@ -90,4 +90,9 @@ Route::namespace('Shops')->group(function () {
     Route::resource('/shops', 'ShopController');
     Route::get('/user/shop', 'UserShopController')->name('user.shop');
     Route::post('/shops/checker', 'ShopCheckerController')->name('shop.checker');
+
+    /**
+     * Connect
+     */
+    Route::post('/shops/connect', 'ConnectShopController@store')->name('shops.connect');
 });
