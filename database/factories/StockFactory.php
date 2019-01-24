@@ -6,9 +6,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Stock::class, function (Faker $faker) {
     return [
-        'variation_id' => function () {
-            return factory(Variation::class)->create()->id;
-        },
+        'variation_id' => factory(Variation::class),
         'quantity' => 1
     ];
 });

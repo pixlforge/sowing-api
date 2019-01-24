@@ -7,9 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Address::class, function (Faker $faker) {
     return [
-        'user_id' => function () {
-            return factory(User::class)->create()->id;
-        },
+        'user_id' => factory(User::class),
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'company_name' => $faker->company,
@@ -17,9 +15,7 @@ $factory->define(Address::class, function (Faker $faker) {
         'address_line_2' => array_random(range(1, 100)),
         'postal_code' => array_random(range(1000, 4000)),
         'city' => $faker->city,
-        'country_id' => function () {
-            return factory(Country::class)->create()->id;
-        },
+        'country_id' => factory(Country::class),
         'is_default' => false
     ];
 });

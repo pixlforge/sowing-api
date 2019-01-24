@@ -26,11 +26,7 @@ $factory->define(Variation::class, function () use ($fakerEN, $fakerFR, $fakerDE
         ],
         'price' => null,
         'order' => null,
-        'type_id' => function () {
-            return factory(Type::class)->create()->id;
-        },
-        'product_id' => function () {
-            return factory(Product::class)->create()->id;
-        },
+        'type_id' => factory(Type::class),
+        'product_id' => factory(Product::class),
     ];
 });

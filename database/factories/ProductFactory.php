@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Factory;
+use App\Models\Shop;
 use App\Models\Product;
 
 $fakerEN = Factory::create('en_US');
@@ -10,6 +11,7 @@ $fakerIT = Factory::create('it_IT');
 
 $factory->define(Product::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
     return [
+        'shop_id' => factory(Shop::class),
         'name' => [
             'en' => $name = $fakerEN->unique()->name,
             'fr' => $fakerFR->unique()->name,

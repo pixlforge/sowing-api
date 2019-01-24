@@ -6,9 +6,7 @@ use App\Models\PaymentMethod;
 
 $factory->define(PaymentMethod::class, function (Faker $faker) {
     return [
-        'user_id' => function () {
-            return factory(User::class)->create()->id;
-        },
+        'user_id' => factory(User::class),
         'card_type' => 'Mastercard',
         'last_four' => '4242',
         'provider_id' => str_random(10)

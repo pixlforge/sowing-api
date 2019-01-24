@@ -9,18 +9,10 @@ use App\Models\ShippingMethod;
 
 $factory->define(Order::class, function (Faker $faker) {
     return [
-        'user_id' => function () {
-            return factory(User::class)->create()->id;
-        },
-        'address_id' => function () {
-            return factory(Address::class)->create()->id;
-        },
-        'shipping_method_id' => function () {
-            return factory(ShippingMethod::class)->create()->id;
-        },
-        'payment_method_id' => function () {
-            return factory(PaymentMethod::class)->create()->id;
-        },
+        'user_id' => factory(User::class),
+        'address_id' => factory(Address::class),
+        'shipping_method_id' => factory(ShippingMethod::class),
+        'payment_method_id' => factory(PaymentMethod::class),
         'subtotal' => 1000
     ];
 });
