@@ -55,6 +55,7 @@ class DatabaseSeeder extends Seeder
             'parent_id' => Category::whereSlug('local-products')->first()->id,
         ]);
 
+        $this->call(ShopsTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
         $this->call(TypesTableSeeder::class);
         $this->call(VariationsTableSeeder::class);

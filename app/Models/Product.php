@@ -42,6 +42,11 @@ class Product extends Model
         return 'slug';
     }
 
+    /**
+     * Checks whether or not the product has any variation in stock.
+     *
+     * @return void
+     */
     public function inStock()
     {
         return $this->stockCount() > 0;
@@ -77,5 +82,15 @@ class Product extends Model
     public function variations()
     {
         return $this->hasMany(Variation::class)->orderBy('order', 'asc');
+    }
+
+    /**
+     * Shop relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class);
     }
 }

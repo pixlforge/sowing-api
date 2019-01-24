@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Shop;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -14,9 +15,11 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         $category = Category::where('slug', 'coffee')->first();
+        $shop = Shop::first();
 
         $category->products()->save(
             factory(Product::class)->create([
+                'shop_id' => $shop->id,
                 'name' => [
                     'en' => $name = 'Coffee',
                     'fr' => 'Café',

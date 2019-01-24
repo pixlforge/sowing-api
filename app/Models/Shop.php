@@ -68,4 +68,14 @@ class Shop extends Model implements HasMedia
     {
         return $this->belongsTo(Country::class);
     }
+
+    /**
+     * Products relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Variation;
 use App\Models\Stock;
+use App\Models\Shop;
 
 class ProductTest extends TestCase
 {
@@ -41,6 +42,14 @@ class ProductTest extends TestCase
         );
 
         $this->assertInstanceOf(Variation::class, $product->variations->first());
+    }
+
+    /** @test */
+    public function it_belongs_to_a_shop()
+    {
+        $product = factory(Product::class)->create();
+
+        $this->assertInstanceOf(Shop::class, $product->shop);
     }
 
     /** @test */

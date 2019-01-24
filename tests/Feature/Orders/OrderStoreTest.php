@@ -229,7 +229,7 @@ class OrderStoreTest extends TestCase
     /** @test */
     public function it_fires_an_order_created_event_upon_ordering()
     {
-        Event::fake();
+        Event::fake(OrderCreated::class);
 
         $user = factory(User::class)->create();
 

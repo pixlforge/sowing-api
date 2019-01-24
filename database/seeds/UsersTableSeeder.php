@@ -29,5 +29,23 @@ class UsersTableSeeder extends Seeder
             'email' => 'sophie@sowing.ch',
             'password' => 'secret',
         ]);
+
+        factory(User::class)->create([
+            'name' => 'Test User 1',
+            'email' => 'testuser1@example.com',
+            'password' => 'secret',
+        ]);
+
+        factory(User::class)->create([
+            'name' => 'Test User 2',
+            'email' => 'testuser2@example.com',
+            'password' => 'secret',
+        ]);
+
+        factory(User::class)->create([
+            'name' => 'Test User 3',
+            'email' => 'testuser3@example.com',
+            'password' => 'secret',
+        ]);
     }
 }

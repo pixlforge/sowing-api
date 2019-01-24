@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\Shop;
 use App\Models\User;
 use App\Models\Country;
+use App\Models\Product;
 
 class ShopTest extends TestCase
 {
@@ -23,6 +24,18 @@ class ShopTest extends TestCase
         $shop = factory(Shop::class)->create();
 
         $this->assertInstanceOf(Country::class, $shop->country);
+    }
+
+    /** @test */
+    public function it_has_many_products()
+    {
+        $shop = factory(Shop::class)->create();
+
+        $shop->products()->save(
+            factory(Product::class)->create()
+        );
+
+        $this->assertInstanceOf(Product::class, $shop->products()->first());
     }
 
     /** @test */
