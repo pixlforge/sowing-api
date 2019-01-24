@@ -27,6 +27,8 @@ class ShopController extends Controller
      */
     public function show(Shop $shop)
     {
+        $shop->load(['country']);
+        
         return new ShopResource($shop);
     }
 
