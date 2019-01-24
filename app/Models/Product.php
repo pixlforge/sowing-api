@@ -6,11 +6,13 @@ use App\Models\Traits\HasPrice;
 use App\Models\Traits\CanBeScoped;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use SoftDeletes, CanBeScoped, HasPrice, HasTranslations;
+    use SoftDeletes, CanBeScoped, HasPrice, HasTranslations, HasMediaTrait;
 
     /**
      * The attributes that are mass assignable.

@@ -17,7 +17,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['variations.stock'])
+        $products = Product::with([
+                'shop',
+                'variations.stock',
+            ])
             ->withScopes($this->scopes())
             ->paginate(10);
 

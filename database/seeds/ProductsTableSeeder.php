@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Shop;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Shop;
+use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -33,6 +33,46 @@ class ProductsTableSeeder extends Seeder
                     'it' => 'Lorem ipsum dolor sit amet',
                 ],
                 'slug' => str_slug($name)
+            ])
+        );
+
+        $category->products()->save(
+            factory(Product::class)->create([
+                'shop_id' => $shop->id,
+                'name' => [
+                    'en' => $name = 'Super coffee',
+                    'fr' => 'Super Café',
+                    'de' => 'Super Kaffee',
+                    'it' => 'Super Caffè',
+                ],
+                'description' => [
+                    'en' => 'Lorem ipsum dolor sit amet',
+                    'fr' => 'Lorem ipsum dolor sit amet',
+                    'de' => 'Lorem ipsum dolor sit amet',
+                    'it' => 'Lorem ipsum dolor sit amet',
+                ],
+                'slug' => str_slug($name),
+                'price' => 1500
+            ])
+        );
+
+        $category->products()->save(
+            factory(Product::class)->create([
+                'shop_id' => $shop->id,
+                'name' => [
+                    'en' => $name = 'Awesome coffee',
+                    'fr' => 'Café impressionnant',
+                    'de' => 'Genial Kaffee',
+                    'it' => 'Caffè eccezionale',
+                ],
+                'description' => [
+                    'en' => 'Lorem ipsum dolor sit amet',
+                    'fr' => 'Lorem ipsum dolor sit amet',
+                    'de' => 'Lorem ipsum dolor sit amet',
+                    'it' => 'Lorem ipsum dolor sit amet',
+                ],
+                'slug' => str_slug($name),
+                'price' => 2700
             ])
         );
     }
