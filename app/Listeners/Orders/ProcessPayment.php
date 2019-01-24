@@ -39,12 +39,15 @@ class ProcessPayment implements ShouldQueue
         $order = $event->order;
 
         try {
-            $this->gateway->withUser($order->user)
+            $charge = $this->gateway->withUser($order->user)
             ->getCustomer()
             ->charge(
                 $order->paymentMethod,
                 $order->total()->amount()
             );
+
+            // The charge contains the id used necessary for the transfer_group
+            // dump($charge);
 
             event(new OrderPaymentSuccessful($order));
         } catch (PaymentFailedException $e) {

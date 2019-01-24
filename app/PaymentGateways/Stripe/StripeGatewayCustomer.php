@@ -50,11 +50,11 @@ class StripeGatewayCustomer implements PaymentGatewayCustomer
     public function charge(PaymentMethod $paymentMethod, $amount)
     {
         try {
-            StripeCharge::create([
-                'currency' => 'chf',
+            return StripeCharge::create([
                 'amount' => $amount,
+                'currency' => 'chf',
                 'customer' => $this->customer->id,
-                'source' => $paymentMethod->provider_id
+                'source' => $paymentMethod->provider_id,
             ]);
         } catch (Exception $e) {
             throw new PaymentFailedException();
