@@ -16,7 +16,18 @@ class ShopController extends Controller
      */
     public function __construct()
     {
-        return $this->middleware(['auth:api']);
+        return $this->middleware(['auth:api'])->except(['show']);
+    }
+
+    /**
+     * Get a single shop.
+     *
+     * @param Shop $shop
+     * @return ShopResource
+     */
+    public function show(Shop $shop)
+    {
+        return new ShopResource($shop);
     }
 
     /**
