@@ -26,10 +26,10 @@ class ShopResource extends JsonResource
                 'it' => $this->getTranslation('description_short', 'it')
             ],
             'description_long' => [
-                'en' => $this->getTranslation('description_long', 'en'),
-                'fr' => $this->getTranslation('description_long', 'fr'),
-                'de' => $this->getTranslation('description_long', 'de'),
-                'it' => $this->getTranslation('description_long', 'it')
+                'en' => nl2br(e($this->getTranslation('description_long', 'en'))),
+                'fr' => nl2br(e($this->getTranslation('description_long', 'fr'))),
+                'de' => nl2br(e($this->getTranslation('description_long', 'de'))),
+                'it' => nl2br(e($this->getTranslation('description_long', 'it')))
             ],
             'theme' => $this->theme,
             'postal_code' => $this->postal_code,
