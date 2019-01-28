@@ -28,7 +28,7 @@ class UserShopController extends Controller
             return response(null, 204);
         }
 
-        $shop = $request->user()->shop;
+        $shop = $request->user()->shop->with(['country'])->first();
         
         return new ShopResource($shop);
     }
