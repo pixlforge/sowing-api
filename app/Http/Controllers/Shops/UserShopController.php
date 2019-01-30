@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Shops;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Shops\ShopResource;
+use App\Http\Resources\Shops\UserShopResource;
 
 class UserShopController extends Controller
 {
@@ -20,7 +20,7 @@ class UserShopController extends Controller
      * Get the authenticated user's shop details.
      *
      * @param Request $request
-     * @return ShopResource
+     * @return UserShopResource
      */
     public function __invoke(Request $request)
     {
@@ -30,6 +30,6 @@ class UserShopController extends Controller
 
         $shop = $request->user()->shop->load(['country']);
         
-        return new ShopResource($shop);
+        return new UserShopResource($shop);
     }
 }
