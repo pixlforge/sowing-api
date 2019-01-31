@@ -63,6 +63,13 @@ Route::namespace('Images')->group(function () {
 });
 
 /**
+ * Newsletters
+ */
+Route::namespace('Newsletters')->group(function () {
+    Route::post('/newsletter/subscribe', 'NewsletterController@store')->name('newsletter.subscriber.store');
+});
+
+/**
  * Orders
  */
 Route::namespace('Orders')->group(function () {
