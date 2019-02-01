@@ -21,7 +21,7 @@ class LoginController extends Controller
         if (!$token) {
             return response([
                 'errors' => [
-                    'email' => ['Could not sign you in with the credentials provided.']
+                    'email' => __('auth.failed')
                 ]
             ], 422);
         }
