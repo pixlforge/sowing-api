@@ -46,6 +46,32 @@ class Product extends Model implements HasMedia
     }
 
     /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = [
+            'name' => [
+                'en' => $this->getTranslation('name', 'en'),
+                'fr' => $this->getTranslation('name', 'fr'),
+                'de' => $this->getTranslation('name', 'de'),
+                'it' => $this->getTranslation('name', 'it')
+            ],
+            'slug' => $this->slug,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
+        ];
+        
+        // Applies Scout Extended default transformations:
+        $array = $this->transform($array);
+            
+        return $array;
+    }
+
+    /**
      * Checks whether or not the product has any variation in stock.
      *
      * @return void

@@ -51,6 +51,27 @@ class Shop extends Model implements HasMedia
     }
 
     /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = [
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
+        ];
+        
+        // Applies Scout Extended default transformations:
+        $array = $this->transform($array);
+            
+        return $array;
+    }
+
+    /**
      * User relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
