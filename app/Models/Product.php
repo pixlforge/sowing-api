@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use App\Models\Traits\HasPrice;
 use App\Models\Traits\CanBeScoped;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Product extends Model implements HasMedia
 {
-    use SoftDeletes, CanBeScoped, HasPrice, HasTranslations, HasMediaTrait;
+    use SoftDeletes, CanBeScoped, HasPrice, HasTranslations, HasMediaTrait, Searchable;
 
     /**
      * The attributes that are mass assignable.

@@ -34,7 +34,6 @@ class EventServiceProvider extends ServiceProvider
             MarkOrderAsPaymentFailed::class
         ],
         OrderPaymentSuccessful::class => [
-            CreateTransfers::class,
             CreateTransaction::class,
             MarkOrderAsProcessing::class
         ]
