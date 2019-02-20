@@ -59,6 +59,12 @@ class Product extends Model implements HasMedia
                 'de' => $this->getTranslation('name', 'de'),
                 'it' => $this->getTranslation('name', 'it')
             ],
+            'description' => [
+                'en' => $this->getTranslation('description', 'en'),
+                'fr' => $this->getTranslation('description', 'fr'),
+                'de' => $this->getTranslation('description', 'de'),
+                'it' => $this->getTranslation('description', 'it')
+            ],
             'slug' => $this->slug,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

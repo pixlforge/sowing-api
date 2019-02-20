@@ -60,6 +60,13 @@ class Shop extends Model implements HasMedia
         $array = [
             'name' => $this->name,
             'slug' => $this->slug,
+            'description_short' => [
+                'en' => $this->getTranslation('description_short', 'en'),
+                'fr' => $this->getTranslation('description_short', 'fr'),
+                'de' => $this->getTranslation('description_short', 'de'),
+                'it' => $this->getTranslation('description_short', 'it')
+            ],
+            'theme' => $this->theme,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
