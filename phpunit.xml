@@ -33,9 +33,9 @@
         <env name="TELESCOPE_ENABLED" value="false"/>
     </php>
     <logging>
-        <log type="tap" target="build/report.tap"/>
-        <log type="junit" target="build/report.junit.xml"/>
-        <log type="coverage-text" target="build/coverage.txt"/>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="tap" target="storage/app/build/report.tap"/>
+        <log type="junit" target="storage/app/build/report.junit.xml"/>
+        <log type="coverage-text" target="storage/app/build/coverage.txt"/>
+        <log type="coverage-clover" target="storage/app/build/logs/clover.xml"/>
   </logging>
 </phpunit>
