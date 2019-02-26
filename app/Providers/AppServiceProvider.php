@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Shop;
 use App\Models\Order;
 use App\Models\Address;
+use App\Models\Product;
 use App\Models\Category;
 use App\Models\PaymentMethod;
 use App\Observers\UserObserver;
@@ -33,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Shop::observe(ShopObserver::class);
         PaymentMethod::observe(PaymentMethodObserver::class);
+
+        $this->disableSearchSyncingInDev();
     }
 
     /**
@@ -49,5 +52,18 @@ class AppServiceProvider extends ServiceProvider
             
             return new Cart($app->auth->user());
         });
+    }
+
+    /**
+     * Disable Algolia search syncing while not in production.
+     *
+     * @return void
+     */
+    protected function disableSearchSyncingInDev()
+    {
+        if (config('app.env') !== 'production') {
+            Shop::disableSearchSyncing();
+            Product::disableSearchSyncing();
+        }
     }
 }

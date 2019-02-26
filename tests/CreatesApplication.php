@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+use App\Models\Shop;
+use App\Models\Product;
 use Illuminate\Contracts\Console\Kernel;
 
 trait CreatesApplication
@@ -13,10 +15,23 @@ trait CreatesApplication
      */
     public function createApplication()
     {
-        $app = require __DIR__.'/../bootstrap/app.php';
+        $this->disableSearchSyncingForTests();
+        
+        $app = require __DIR__ . '/../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    /**
+     * Disable Algolia search syncing while running tests.
+     *
+     * @return void
+     */
+    protected function disableSearchSyncingForTests()
+    {
+        Shop::disableSearchSyncing();
+        Product::disableSearchSyncing();
     }
 }
