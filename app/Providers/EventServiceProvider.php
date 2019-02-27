@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\Orders\OrderCreated;
 use App\Listeners\Orders\EmptyCart;
+use App\Events\Users\AccountCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\Orders\ProcessPayment;
@@ -14,6 +15,7 @@ use App\Listeners\Orders\MarkOrderAsProcessing;
 use App\Listeners\Orders\MarkOrderAsPaymentFailed;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Listeners\Users\SendAccountCreationConfirmationEmail;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,8 +25,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        AccountCreated::class => [
+            SendAccountCreationConfirmationEmail::class,
         ],
         OrderCreated::class => [
             ProcessPayment::class,
@@ -36,7 +38,10 @@ class EventServiceProvider extends ServiceProvider
         OrderPaymentSuccessful::class => [
             CreateTransaction::class,
             MarkOrderAsProcessing::class
-        ]
+        ],
+        // Registered::class => [
+        //     SendEmailVerificationNotification::class,
+        // ],
     ];
 
     /**
