@@ -7,7 +7,7 @@ use App\Events\Users\AccountCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Mail\Account\AccountCreationConfirmationEmail;
 
-class SendAccountCreationConfirmationEmail implements ShouldQueue
+class SendConfirmationEmail implements ShouldQueue
 {
     /**
      * Handle the event.

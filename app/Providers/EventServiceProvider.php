@@ -11,11 +11,11 @@ use App\Listeners\Orders\ProcessPayment;
 use App\Events\Orders\OrderPaymentFailed;
 use App\Listeners\Orders\CreateTransaction;
 use App\Events\Orders\OrderPaymentSuccessful;
+use App\Listeners\Users\SendConfirmationEmail;
 use App\Listeners\Orders\MarkOrderAsProcessing;
 use App\Listeners\Orders\MarkOrderAsPaymentFailed;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use App\Listeners\Users\SendAccountCreationConfirmationEmail;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -26,7 +26,8 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         AccountCreated::class => [
-            SendAccountCreationConfirmationEmail::class,
+            SendConfirmationEmail::class,
+            // SendVerificationEmail::class
         ],
         OrderCreated::class => [
             ProcessPayment::class,
