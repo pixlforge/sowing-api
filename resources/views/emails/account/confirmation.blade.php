@@ -1,24 +1,21 @@
 @component('mail::message')
-# Confirmation de création de compte
-## @lang('emails.welcome') {{ config('app.name') }}, {{ $event->user->name }}!
+<h1>@lang('emails.confirmation.title')</h1>
+<h2>@lang('emails.confirmation.welcome') {{ config('app.name') }}, {{ $event->user->name }}!</h2>
 
-Votre compte Sowing a bien été créé et nous vous en remercions.
+<p>@lang('emails.confirmation.thank_you')</p>
+<p>@lang('emails.confirmation.have_fun')</p>
+<p>@lang('emails.confirmation.second_email')</p>
 
-Nous espérons que vous vous sentirez comme chez vous chez Sowing et que votre expérience sera des plus plaisante.
-
-Vous allez bientôt recevoir un deuxième email vous demandant de confirmer que vous êtes bien le propriétaire de l'adresse e-mail qui a été entrée lors de la création de compte.
-
-@component('mail::panel')    
-  Vous pouvez ignorer cet e-mail si vous n'êtes pas à l'origine de la création de ce compte.
+@component('mail::panel')
+  @lang('emails.confirmation.ignore')
 @endcomponent
 
 @component('mail::button', [
   'url' => config('app.client.url') . '/' . App::getLocale() . '/search',
   'color' => 'green'
 ])
-Connectez-vous à votre compte
+  @lang('emails.confirmation.connexion')
 @endcomponent
 
-Bien à vous,<br>
-L'équipe de {{ config('app.name') }}.
+<p>@lang('emails.confirmation.team')</p>
 @endcomponent
