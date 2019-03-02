@@ -6,8 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use App\Events\Users\AccountCreated;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AccountCreationConfirmationEmail extends Mailable
+class AccountCreationConfirmationEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

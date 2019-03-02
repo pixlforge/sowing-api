@@ -2,9 +2,9 @@
 
 namespace App\Events\Users;
 
+use App\Models\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
-use App\Models\User;
 
 class AccountCreated
 {
