@@ -11,7 +11,7 @@
 @endcomponent
 
 @component('mail::button', [
-  'url' => config('app.client.url') . '/' . App::getLocale() . '/search',
+  'url' => config('app.client.url') . '/' . App::getLocale() . '/login',
   'color' => 'green'
 ])
   @lang('emails.confirmation.connexion')
