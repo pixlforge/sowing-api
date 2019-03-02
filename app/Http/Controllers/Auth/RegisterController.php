@@ -22,7 +22,7 @@ class RegisterController extends Controller
             'name', 'email', 'password'
         ]));
 
-        event(new AccountCreated($user));
+        event(new AccountCreated($user, $request->client_locale));
 
         return new PrivateUserResource($user);
     }

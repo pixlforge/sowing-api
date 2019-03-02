@@ -2,8 +2,8 @@
 
 namespace App\Listeners\Users;
 
-use App\Events\Users\AccountCreated;
 use Illuminate\Support\Facades\Mail;
+use App\Events\Users\AccountCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Mail\Account\AccountCreationConfirmationEmail;
 
@@ -18,6 +18,7 @@ class SendAccountCreationConfirmationEmail implements ShouldQueue
     public function handle(AccountCreated $event)
     {
         Mail::to($event->user)
+            ->locale($event->client_locale)
             ->queue(new AccountCreationConfirmationEmail($event));
     }
 }

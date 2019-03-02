@@ -18,12 +18,21 @@ class AccountCreated
     public $user;
 
     /**
+     * The client locale property.
+     *
+     * @var $client_locale
+     */
+    public $client_locale;
+
+    /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $client_locale)
     {
         $this->user = $user;
+        
+        $this->client_locale = $client_locale;
     }
 }

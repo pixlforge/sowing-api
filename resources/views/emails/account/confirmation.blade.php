@@ -1,10 +1,10 @@
 @component('mail::message')
 # Confirmation de création de compte
-## Bienvenue chez Sowing, {{ $event->user->name }}!
+## @lang('emails.welcome') {{ config('app.name') }}, {{ $event->user->name }}!
 
-Votre compte {{ config('app.name') }} a bien été créé et nous vous en remercions.
+Votre compte Sowing a bien été créé et nous vous en remercions.
 
-Nous espérons que vous vous sentirez comme chez vous chez {{ config('app.name') }} et que votre expérience sera des plus plaisante.
+Nous espérons que vous vous sentirez comme chez vous chez Sowing et que votre expérience sera des plus plaisante.
 
 Vous allez bientôt recevoir un deuxième email vous demandant de confirmer que vous êtes bien le propriétaire de l'adresse e-mail qui a été entrée lors de la création de compte.
 
