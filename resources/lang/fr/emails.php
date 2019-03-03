@@ -10,6 +10,6 @@ return [
         'second_email' => "Vous allez bientôt recevoir un email vous demandant de confirmer que vous êtes bien le propriétaire de l'adresse e-mail qui a été entrée lors du processus d'inscription.",
         'ignore' => "Vous pouvez ignorer cet e-mail si vous n'êtes pas à l'origine de la création de ce compte.",
         'connexion' => 'Connectez-vous à votre compte',
-        'team' => "Toute l'équipe de Sowing."
+        'team' => "L'équipe de Sowing."
     ]
 ];

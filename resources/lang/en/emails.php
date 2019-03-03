@@ -10,6 +10,6 @@ return [
         'second_email' => 'You will soon receive an email asking you to confirm that you are the owner of the email address that was entered during the registration process.',
         'ignore' => 'You can safely ignore this email if you did not create this account.',
         'connexion' => 'Sign in to your account',
-        'team' => 'The Sowing staff.'
+        'team' => 'The Sowing team.'
     ]
 ];
