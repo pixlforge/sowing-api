@@ -3,11 +3,13 @@
 <h2>@lang('emails.confirmation.welcome') {{ config('app.name') }}, {{ $event->user->name }}!</h2>
 
 <p>@lang('emails.confirmation.thank_you')</p>
+
 <p>@lang('emails.confirmation.have_fun')</p>
+
 <p>@lang('emails.confirmation.second_email')</p>
 
 @component('mail::panel')
-  @lang('emails.confirmation.ignore')
+  @lang('emails.ignore')
 @endcomponent
 
 @component('mail::button', [
@@ -17,5 +19,5 @@
   @lang('emails.confirmation.connexion')
 @endcomponent
 
-<p>@lang('emails.confirmation.team')</p>
+<p>@lang('emails.team')</p>
 @endcomponent

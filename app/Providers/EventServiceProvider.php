@@ -12,6 +12,7 @@ use App\Events\Orders\OrderPaymentFailed;
 use App\Listeners\Orders\CreateTransaction;
 use App\Events\Orders\OrderPaymentSuccessful;
 use App\Listeners\Users\SendConfirmationEmail;
+use App\Listeners\Users\SendVerificationEmail;
 use App\Listeners\Orders\MarkOrderAsProcessing;
 use App\Listeners\Orders\MarkOrderAsPaymentFailed;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -27,7 +28,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         AccountCreated::class => [
             SendConfirmationEmail::class,
-            // SendVerificationEmail::class
+            SendVerificationEmail::class
         ],
         OrderCreated::class => [
             ProcessPayment::class,
