@@ -5,6 +5,7 @@ return [
     'ignore' => 'Sie können diese E-Mail ignorieren, wenn Sie dieses Konto nicht erstellt haben.',
     'team' => 'Das Sowing Team.',
     'confirmation' => [
+        'subject' => 'Herzlich willkommen bei Sowing!',
         'title' => 'Kontoerstellung Bestätigung',
         'welcome' => 'Herzlich willkommen bei',
         'thank_you' => 'Vielen Dank! Ihr Sowing-Konto wurde erfolgreich erstellt.',
@@ -13,6 +14,7 @@ return [
         'connexion' => 'Melden Sie sich bei Ihrem Konto an',
     ],
     'verification' => [
+        'subject' => 'Überprüfung Ihrer E-Mail-Adresse',
         'title' => 'Kontoerstellung Bestätigung',
         'subtitle' => 'Herzlich willkommen bei',
         'one_more_step' => "Plus qu'une étape pour terminer la création de votre compte.",

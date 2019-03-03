@@ -5,6 +5,7 @@ return [
     'ignore' => 'You can safely ignore this email if you did not create this account.',
     'team' => 'The Sowing team.',
     'confirmation' => [
+        'subject' => 'Welcome to Sowing!',
         'title' => 'Account creation confirmation',
         'welcome' => 'Welcome to',
         'thank_you' => 'Thank you! Your Sowing account has been created successfully.',
@@ -13,6 +14,7 @@ return [
         'connexion' => 'Sign in to your account',
     ],
     'verification' => [
+        'subject' => 'Verification of your e-mail address',
         'title' => 'Account creation confirmation',
         'subtitle' => 'Welcome to',
         'one_more_step' => "Plus qu'une étape pour terminer la création de votre compte.",

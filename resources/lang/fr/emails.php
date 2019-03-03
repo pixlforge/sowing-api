@@ -5,6 +5,7 @@ return [
     'ignore' => "Vous pouvez ignorer cet e-mail si vous n'êtes pas à l'origine de la création de ce compte.",
     'team' => "L'équipe de Sowing.",
     'confirmation' => [
+        'subject' => 'Bienvenue sur Sowing!',
         'title' => 'Confirmation de création de compte',
         'welcome' => 'Bienvenue chez',
         'thank_you' => 'Merci! Votre compte Sowing a été créé avec succès.',
@@ -13,6 +14,7 @@ return [
         'connexion' => 'Connectez-vous à votre compte',
     ],
     'verification' => [
+        'subject' => 'Vérification de votre adressse e-mail',
         'title' => 'Confirmez votre compte',
         'subtitle' => 'Vérification de votre adresse e-mail',
         'one_more_step' => "Plus qu'une étape pour terminer la création de votre compte.",
