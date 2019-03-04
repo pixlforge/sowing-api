@@ -17,8 +17,8 @@ return [
         'subject' => 'Verifica del vostro indirizzo e-mail',
         'title' => 'Confermazione di creazione dell\'account',
         'subtitle' => 'Benvenuti da',
-        'one_more_step' => "Plus qu'une étape pour terminer la création de votre compte.",
-        'confirm' => "Aidez-nous à confirmer que vous êtes bien le propriétaire de l'adresse e-mail qui a été entrée lors de la création de votre compte Sowing en cliquant sur le bouton ci-dessous.",
+        'one_more_step' => 'Un ultimo passaggio per completare la creazione del vostro account.',
+        'confirm' => "Confermate che siete il proprietario dell'indirizzo email inserito durante il processo di creazione del vostro account Sowing clicando sul pulsante in basso.",
         'verify' => 'Accedete al vostro account',
     ],
 ];

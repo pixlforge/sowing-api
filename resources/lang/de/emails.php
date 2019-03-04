@@ -17,8 +17,8 @@ return [
         'subject' => 'Überprüfung Ihrer E-Mail-Adresse',
         'title' => 'Kontoerstellung Bestätigung',
         'subtitle' => 'Herzlich willkommen bei',
-        'one_more_step' => "Plus qu'une étape pour terminer la création de votre compte.",
-        'confirm' => "Aidez-nous à confirmer que vous êtes bien le propriétaire de l'adresse e-mail qui a été entrée lors de la création de votre compte Sowing en cliquant sur le bouton ci-dessous.",
+        'one_more_step' => 'Ein letzter Schritt, um die Erstellung Ihres Kontos abzuschließen.',
+        'confirm' => 'Helfen Sie uns zu bestätigen, dass Sie der Eigentümer der E-Mail-Adresse sind, die Sie beim Erstellen Ihres Sowing-Kontos eingegeben haben, indem Sie auf die Schaltfläche unten klicken.',
         'verify' => 'Melden Sie sich bei Ihrem Konto an',
     ],
 ];

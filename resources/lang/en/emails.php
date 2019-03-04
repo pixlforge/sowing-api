@@ -17,8 +17,8 @@ return [
         'subject' => 'Verification of your e-mail address',
         'title' => 'Account creation confirmation',
         'subtitle' => 'Welcome to',
-        'one_more_step' => "Plus qu'une étape pour terminer la création de votre compte.",
-        'confirm' => "Aidez-nous à confirmer que vous êtes bien le propriétaire de l'adresse e-mail qui a été entrée lors de la création de votre compte Sowing en cliquant sur le bouton ci-dessous.",
+        'one_more_step' => 'One last step to complete the creation of your account.',
+        'confirm' => 'Help us confirm that you are the owner of the email address that was entered during the creation process of your Sowing account by clicking the button below.',
         'verify' => 'Sign in to your account',
     ],
 ];

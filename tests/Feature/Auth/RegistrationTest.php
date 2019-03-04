@@ -164,4 +164,18 @@ class RegistrationTest extends TestCase
             'email' => $email,
         ]);
     }
+
+    /** @test */
+    public function it_generates_a_random_confirmation_token_on_registration()
+    {
+        $response = $this->postJson(route('auth.register'), [
+            'name' => 'John',
+            'email' => 'john@example.com',
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
+        ]);
+
+        $response->assertSuccessful();
+        $this->assertNotNull(User::first()->confirmation_token);
+    }
 }
