@@ -86,6 +86,27 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Generate a random confirmation token used in email verification.
+     *
+     * @param string $attribute
+     * @return string
+     */
+    public static function generateConfirmationToken($attribute)
+    {
+        return md5($attribute);
+    }
+
+    /**
+     * Get the user confirmation token.
+     *
+     * @return void
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmation_token;
+    }
+
+    /**
      * User cart relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

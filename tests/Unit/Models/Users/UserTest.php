@@ -106,4 +106,14 @@ class UserTest extends TestCase
 
         $this->assertInstanceOf(PaymentMethod::class, $user->paymentMethods->first());
     }
+
+    /** @test */
+    public function it_can_get_the_users_confirmation_token()
+    {
+        $user = factory(User::class)->create();
+
+        $user->confirmation_token = User::generateConfirmationToken($user->email);
+
+        $this->assertNotNull($user->getConfirmationToken());
+    }
 }

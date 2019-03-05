@@ -22,7 +22,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
-            'confirmation_token' => md5($request->email)
+            'confirmation_token' => User::generateConfirmationToken($request->email)
         ]);
 
         event(new AccountCreated($user, $request->client_locale));
