@@ -297,3 +297,7 @@ img {
     letter-spacing: .75px;
     text-transform: uppercase;
 }
+
+.text-center {
+    text-align: center;
+}

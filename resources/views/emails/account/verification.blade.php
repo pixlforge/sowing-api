@@ -17,9 +17,11 @@
   @lang('emails.verification.verify')
 @endcomponent
 
-<a href="{{ config('app.client.url') . '/' . App::getLocale() . '/account/verify?token=' . $event->user->confirmation_token }}">
-  {{ config('app.client.url') . '/' . App::getLocale() . '/account/verify?token=' . $event->user->confirmation_token }}
-</a>
+<p class="text-center">
+  <a href="{{ config('app.client.url') . '/' . App::getLocale() . '/account/verify?token=' . $event->user->confirmation_token }}">
+    {{ config('app.client.url') . '/' . App::getLocale() . '/account/verify?token=' . $event->user->confirmation_token }}
+  </a>
+</p>
 
 <p>@lang('emails.team')</p>
 @endcomponent
