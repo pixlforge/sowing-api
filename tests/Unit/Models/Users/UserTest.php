@@ -100,7 +100,7 @@ class UserTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $paymentMethod = factory(PaymentMethod::class)->create([
+        factory(PaymentMethod::class)->create([
             'user_id' => $user->id
         ]);
 
