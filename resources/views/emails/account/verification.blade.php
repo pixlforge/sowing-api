@@ -1,20 +1,20 @@
 @component('mail::message')
-<h1>@lang('emails.verification.title')</h1>
-<h2>@lang('emails.verification.subtitle') {{ $event->user->email }}</h2>
+<h1>@lang('auth.verification.title')</h1>
+<h2>@lang('auth.verification.subtitle') {{ $event->user->email }}</h2>
 
-<p>@lang('emails.verification.one_more_step')</p>
+<p>@lang('auth.verification.one_more_step')</p>
 
-<p>@lang('emails.verification.confirm')</p>
+<p>@lang('auth.verification.confirm')</p>
 
 @component('mail::panel')
-  @lang('emails.ignore')
+  @lang('auth.ignore')
 @endcomponent
 
 @component('mail::button', [
   'url' => config('app.client.url') . '/' . App::getLocale() . '/account/verify?token=' . $event->user->confirmation_token,
   'color' => 'green'
 ])
-  @lang('emails.verification.verify')
+  @lang('auth.verification.verify')
 @endcomponent
 
 <p class="text-center">
@@ -23,5 +23,5 @@
   </a>
 </p>
 
-<p>@lang('emails.team')</p>
+<p>@lang('auth.team')</p>
 @endcomponent
