@@ -14,4 +14,8 @@ return [
 
     'failed' => 'Credenziali non corrispondenti ai dati registrati.',
     'throttle' => 'Troppi tentativi di accesso. Riprova tra :seconds secondi.',
+
+    'verification' => [
+        'failed' => 'Siamo spiacenti, il gettone di conferma non corrisponde. Vi preghiamo di riprovare o di contattare un rappresentante di Sowing.',
+    ]
 ];

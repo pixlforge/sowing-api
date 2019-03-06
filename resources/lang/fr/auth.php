@@ -14,4 +14,8 @@ return [
 
     'failed' => 'Adresse e-mail et/ou mot de passe incorrect(s).',
     'throttle' => 'Nombre de tentatives de connexion épuisé. Veuillez réessayer dans :seconds secondes.',
+
+    'verification' => [
+        'failed' => 'Désolé, le jeton de confirmation ne correspond pas. Veuillez réessayer ou contacter un représentant de Sowing.',
+    ]
 ];

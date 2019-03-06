@@ -16,4 +16,7 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+    'verification' => [
+        'failed' => 'Sorry, the confirmation token does not match. Please try again or contact a Sowing representative.',
+    ]
 ];

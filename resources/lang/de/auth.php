@@ -14,4 +14,8 @@ return [
 
     'failed' => 'Diese Kombination aus Zugangsdaten wurde nicht in unserer Datenbank gefunden.',
     'throttle' => 'Zu viele Loginversuche. Versuchen Sie es bitte in :seconds Sekunden nochmal.',
+
+    'verification' => [
+        'failed' => 'Entschuldigung, das Bestätigungstoken stimmt nicht überein. Bitte versuchen Sie es erneut oder wenden Sie sich an einen Aussaat-Vertreter.',
+    ]
 ];

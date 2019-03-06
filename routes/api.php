@@ -16,6 +16,9 @@ Route::prefix('/auth')->namespace('Auth')->name('auth.')->group(function () {
 
     // Me
     Route::get('/me', 'MeController')->name('me');
+
+    // Verify
+    Route::post('/verify', 'VerificationController')->name('verify');
 });
 
 /**
