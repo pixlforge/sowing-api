@@ -37,7 +37,7 @@ class AccountCreationVerificationEmail extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->from('no-reply@sowing.ch')
-            ->subject(__('emails.verification.subject'))
+            ->subject(__('auth.verification.subject'))
             ->markdown('emails.account.verification');
     }
 }

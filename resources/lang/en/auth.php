@@ -25,7 +25,7 @@ return [
         'subtitle' => 'Welcome to',
         'one_more_step' => 'One last step to complete the creation of your account.',
         'confirm' => 'Help us confirm that you are the owner of the email address that was entered during the creation process of your Sowing account by clicking the button below.',
-        'verify' => 'Sign in to your account',
+        'verify' => 'Confirm your email address',
         'failed' => 'Sorry, the confirmation token does not match. Please try again or contact a Sowing representative.',
     ],
 ];

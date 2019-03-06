@@ -25,7 +25,7 @@ return [
         'subtitle' => 'Vérification de votre adresse e-mail',
         'one_more_step' => "Plus qu'une étape pour terminer la création de votre compte.",
         'confirm' => "Aidez-nous à confirmer que vous êtes bien le propriétaire de l'adresse e-mail qui a été entrée lors de la création de votre compte Sowing en cliquant sur le bouton ci-dessous.",
-        'verify' => 'Connectez-vous à votre compte',
+        'verify' => 'Confirmer votre adresse e-mail',
         'failed' => 'Désolé, le jeton de confirmation ne correspond pas. Veuillez réessayer ou contacter un représentant de Sowing.',
     ],
 ];

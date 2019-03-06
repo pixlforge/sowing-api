@@ -24,7 +24,7 @@ return [
         'subtitle' => 'Herzlich willkommen bei',
         'one_more_step' => 'Ein letzter Schritt, um die Erstellung Ihres Kontos abzuschließen.',
         'confirm' => 'Helfen Sie uns zu bestätigen, dass Sie der Eigentümer der E-Mail-Adresse sind, die Sie beim Erstellen Ihres Sowing-Kontos eingegeben haben, indem Sie auf die Schaltfläche unten klicken.',
-        'verify' => 'Melden Sie sich bei Ihrem Konto an',
+        'verify' => 'Bestätigen Sie Ihre E-Mail-Adresse',
         'failed' => 'Entschuldigung, das Bestätigungstoken stimmt nicht überein. Bitte versuchen Sie es erneut oder wenden Sie sich an einen Aussaat-Vertreter.',
     ],
 ];

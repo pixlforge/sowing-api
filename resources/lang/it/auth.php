@@ -25,7 +25,7 @@ return [
         'subtitle' => 'Benvenuti da',
         'one_more_step' => 'Un ultimo passaggio per completare la creazione del vostro account.',
         'confirm' => "Confermate che siete il proprietario dell'indirizzo email inserito durante il processo di creazione del vostro account Sowing clicando sul pulsante in basso.",
-        'verify' => 'Accedete al vostro account',
+        'verify' => 'Confermate il vostro indirizzo email',
         'failed' => 'Siamo spiacenti, il gettone di conferma non corrisponde. Vi preghiamo di riprovare o di contattare un rappresentante di Sowing.',
     ],
 ];
