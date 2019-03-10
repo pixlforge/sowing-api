@@ -36,6 +36,8 @@ class VerificationController extends Controller
         }
 
         $this->verifyAccount($user);
+
+        return response(null, 204);
     }
 
     /**
