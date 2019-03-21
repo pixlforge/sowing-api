@@ -19,6 +19,9 @@ Route::prefix('/auth')->namespace('Auth')->name('auth.')->group(function () {
 
     // Verify
     Route::post('/verify', 'VerificationController')->name('verify');
+
+    // Forgot password
+    Route::post('/forgot', 'ForgotPasswordController')->name('forgot');
 });
 
 /**
