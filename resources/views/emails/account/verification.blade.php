@@ -5,6 +5,7 @@
 
 @lang('emails.verification.one_more_step')
 
+
 @lang('emails.verification.confirm')
 
 @component('mail::panel')
@@ -18,7 +19,7 @@
   @lang('emails.verification.verify')
 @endcomponent
 
-<p class="text-center">
+<p class="small-link">
   <a href="{{ config('app.client.url') . '/' . App::getLocale() . '/account/verify?token=' . $event->user->confirmation_token }}">
     {{ config('app.client.url') . '/' . App::getLocale() . '/account/verify?token=' . $event->user->confirmation_token }}
   </a>

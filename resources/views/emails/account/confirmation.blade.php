@@ -5,7 +5,9 @@
 
 @lang('emails.confirmation.thank_you')
 
+
 @lang('emails.confirmation.have_fun')
+
 
 @lang('emails.confirmation.second_email')
 
