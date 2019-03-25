@@ -11,6 +11,14 @@ class ForgotPasswordController extends Controller
     use SendsPasswordResetEmails;
 
     /**
+     * ForgotPasswordController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware(['guest']);
+    }
+
+    /**
      * Send a reset link to the address provided by the user.
      *
      * @param Request $request
@@ -31,8 +39,8 @@ class ForgotPasswordController extends Controller
     protected function sendResetLinkResponse(Request $request, $response)
     {
         return response([
-            'message' => 'Password reset email sent'
-        ]);
+            'message' => __('passwords.sent')
+        ], 200);
     }
 
     /**
@@ -45,7 +53,7 @@ class ForgotPasswordController extends Controller
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
         return response([
-            'message' => 'Password reset email NOT sent'
-        ]);
+            'message' => __('passwords.user')
+        ], 422);
     }
 }
