@@ -37,7 +37,7 @@ class AccountCreationConfirmationEmail extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->from('no-reply@sowing.ch')
-            ->subject(__('auth.confirmation.subject'))
+            ->subject(__('emails.confirmation.subject'))
             ->markdown('emails.account.confirmation');
     }
 }

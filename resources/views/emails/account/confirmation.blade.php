@@ -1,23 +1,24 @@
 @component('mail::message')
-<h1>@lang('auth.confirmation.title')</h1>
-<h2>@lang('auth.confirmation.welcome') {{ config('app.name') }}, {{ $event->user->name }}!</h2>
+# @lang('emails.confirmation.title')
 
-<p>@lang('auth.confirmation.thank_you')</p>
+## @lang('emails.confirmation.welcome') {{ config('app.name') }}, {{ $event->user->name }}!
 
-<p>@lang('auth.confirmation.have_fun')</p>
+@lang('emails.confirmation.thank_you')
 
-<p>@lang('auth.confirmation.second_email')</p>
+@lang('emails.confirmation.have_fun')
+
+@lang('emails.confirmation.second_email')
 
 @component('mail::panel')
-  @lang('auth.ignore')
+  @lang('emails.ignore')
 @endcomponent
 
 @component('mail::button', [
   'url' => config('app.client.url') . '/' . App::getLocale() . '/login',
   'color' => 'green'
 ])
-  @lang('auth.confirmation.connexion')
+  @lang('emails.confirmation.connexion')
 @endcomponent
 
-<p>@lang('auth.team')</p>
+@lang('emails.team')
 @endcomponent

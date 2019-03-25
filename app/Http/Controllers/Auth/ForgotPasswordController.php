@@ -10,6 +10,12 @@ class ForgotPasswordController extends Controller
 {
     use SendsPasswordResetEmails;
 
+    /**
+     * Send a reset link to the address provided by the user.
+     *
+     * @param Request $request
+     * @return void
+     */
     public function __invoke(Request $request)
     {
         return $this->sendResetLinkEmail($request);
