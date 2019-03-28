@@ -80,7 +80,7 @@ class ForgotPasswordTest extends TestCase
     }
 
     /** @test */
-    public function it_responds_with_a_200_status_code_when_it_fails()
+    public function it_responds_with_a_422_status_code_when_it_fails()
     {
         $response = $this->postJson(route('auth.forgot'), [
             'email' => 'john@example.com'
