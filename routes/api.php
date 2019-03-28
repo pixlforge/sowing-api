@@ -22,6 +22,9 @@ Route::prefix('/auth')->namespace('Auth')->name('auth.')->group(function () {
 
     // Forgot password
     Route::post('/forgot', 'ForgotPasswordController')->name('forgot');
+
+    // Reset password
+    Route::post('/reset', 'ResetPasswordController')->name('reset');
 });
 
 /**
