@@ -4,11 +4,12 @@ namespace Tests\Feature\Passwords;
 
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\Password\ForgotPasswordRequestEmail;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Event;
+use App\Events\Passwords\PasswordReset;
+use App\Mail\Password\ForgotPasswordRequestEmail;
+use App\Mail\Password\PasswordResetConfirmationEmail;
 
 class ResetPasswordTest extends TestCase
 {
@@ -186,5 +187,37 @@ class ResetPasswordTest extends TestCase
         ]);
 
         $response->assertJsonValidationErrors(['email']);
+    }
+
+    /** @test */
+    public function it_sends_a_confirmation_email_after_the_password_has_been_reset()
+    {
+        Mail::fake();
+
+        $user = factory(User::class)->create([
+            'email' => $email = 'john@example.com'
+        ]);
+
+        $this->postJson(route('auth.forgot'), [
+            'email' => $user->email
+        ]);
+
+        $token = '';
+
+        Mail::assertQueued(ForgotPasswordRequestEmail::class, function ($mail) use (&$token) {
+            $token = $mail->token;
+            return true;
+        });
+
+        $this->postJson(route('auth.reset'), [
+            'email' => $email,
+            'password' => 'secret',
+            'password_confirmation' => 'secret',
+            'token' => $token
+        ]);
+
+        Mail::assertQueued(PasswordResetConfirmationEmail::class, function ($mail) use ($user) {
+            return $mail->event->user->email === $user->email;
+        });
     }
 }
