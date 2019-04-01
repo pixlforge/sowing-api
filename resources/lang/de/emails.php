@@ -3,6 +3,7 @@
 return [
 
     'account' => 'Konto',
+    'contact_representative' => 'Wenden Sie sich an einen Sowing-Vertreter, wenn Sie nicht hinter dieser Aktion stehen und glauben, dass Ihr Konto gehackt wurde.',
     'copyrights' => 'Alle Rechte vorbehalten.',
     'ignore' => 'Sie können diese E-Mail ignorieren, wenn Sie nicht der Absender sind.',
     'team' => 'Das Sowing Team.',
@@ -42,6 +43,16 @@ return [
         'intro' => 'Wir haben eine Anfrage zum Zurücksetzen des Passworts für Ihr Konto erhalten.',
         'subject' => 'Zurücksetzen des Passworts für Ihrem Sowing-Konto',
         'title' => 'Passwort vergessen',
+    ],
+
+    /**
+     * Password reset confirmation email
+     */
+    'reset' => [
+        'changed' => 'Das Passwort für Ihr Konto wurde erfolgreich aktualisiert.',
+        'sign_in' => 'Sie können sich mit Ihrem Konto anmelden, indem Sie auf die Schaltfläche unten klicken.',
+        'subject' => 'Das Passwort für Ihr Sowing-Konto wurde aktualisiert',
+        'title' => 'Das Passwort für Ihr Sowing-Konto wurde aktualisiert',
     ],
     
 ];

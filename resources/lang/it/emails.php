@@ -3,6 +3,7 @@
 return [
 
     'account' => 'Conto',
+    'contact_representative' => 'Contattate un rappresentante di Sowing se non siete responsabile di questa azione e ritenete che il vostro account sia stato violato.',
     'copyrights' => 'Tutti i diritti riservati.',
     'ignore' => 'Potete tranquillamente ignorare questa email se non siete il mittente.',
     'team' => 'La squadra di Sowing.',
@@ -42,6 +43,16 @@ return [
         'intro' => 'Abbiamo ricevuto una richiesta di reimpostazione della password per il vostro account.',
         'subject' => 'Reimpostazione della password del vostro account Sowing',
         'title' => 'Password dimenticata',
+    ],
+
+    /**
+     * Password reset confirmation email
+     */
+    'reset' => [
+        'changed' => 'La password per il vostro account è stata aggiornata con successo.',
+        'sign_in' => 'Potete accedere al vostro account facendo un clic sul pulsante qui sotto.',
+        'subject' => 'La password per il vostro account Sowing è stata aggiornata',
+        'title' => 'La password per il vostro account Sowing è stata aggiornata',
     ],
 
 ];

@@ -3,6 +3,7 @@
 return [
 
     'account' => 'Compte',
+    'contact_representative' => "Contactez un représentant de Sowing si vous n'êtes pas à l'origine de cette action et que vous pensez que votre compte a été piraté.",
     'copyrights' => 'Tous droits réservés.',
     'ignore' => "Vous pouvez ignorer cet e-mail en toute sécurité si vous n'en êtes pas à l'origine.",
     'team' => "L'équipe de Sowing.",
@@ -42,6 +43,16 @@ return [
         'intro' => 'Nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.',
         'subject' => 'Réinitialisation du mot de passe de votre compte Sowing',
         'title' => 'Mot de passe oublié',
+    ],
+
+    /**
+     * Password reset confirmation email
+     */
+    'reset' => [
+        'changed' => 'Le mot de passe de votre compte a été mis à jour avec succès.',
+        'sign_in' => 'Vous pouvez vous connecter à votre compte en cliquant sur le bouton ci-dessous.',
+        'subject' => 'Le mot de passe de votre compte Sowing a été mis à jour',
+        'title' => 'Le mot de passe de votre compte Sowing a été mis à jour',
     ],
     
 ];

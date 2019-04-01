@@ -3,6 +3,7 @@
 return [
 
     'account' => 'Account',
+    'contact_representative' => 'Contact a Sowing representative if you are not behind this action and you believe that your account has been hacked.',
     'copyrights' => 'All rights reserved.',
     'ignore' => 'You can safely ignore this email if you are not the originator.',
     'team' => 'The Sowing team.',
@@ -42,6 +43,16 @@ return [
         'intro' => 'We have received a password reset request for your account.',
         'subject' => 'Resetting your Sowing account password',
         'title' => 'Password forgotten',
+    ],
+
+    /**
+     * Password reset confirmation email
+     */
+    'reset' => [
+        'changed' => 'The password for your account has been successfully updated.',
+        'sign_in' => 'You can login to your account by clicking the button below.',
+        'subject' => 'The password for your Sowing account has been updated',
+        'title' => 'The password for your Sowing account has been updated',
     ],
     
 ];

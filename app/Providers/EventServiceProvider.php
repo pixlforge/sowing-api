@@ -5,8 +5,7 @@ namespace App\Providers;
 use App\Events\Orders\OrderCreated;
 use App\Listeners\Orders\EmptyCart;
 use App\Events\Users\AccountCreated;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Auth\Events\Registered;
+use App\Events\Passwords\PasswordReset;
 use App\Listeners\Orders\ProcessPayment;
 use App\Events\Orders\OrderPaymentFailed;
 use App\Listeners\Orders\CreateTransaction;
@@ -15,7 +14,7 @@ use App\Listeners\Users\SendConfirmationEmail;
 use App\Listeners\Users\SendVerificationEmail;
 use App\Listeners\Orders\MarkOrderAsProcessing;
 use App\Listeners\Orders\MarkOrderAsPaymentFailed;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use App\Listeners\Passwords\SendPasswordResetConfirmationEmail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -30,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
             SendConfirmationEmail::class,
             SendVerificationEmail::class
         ],
+        PasswordReset::class => [
+            SendPasswordResetConfirmationEmail::class
+        ],
         OrderCreated::class => [
             ProcessPayment::class,
             EmptyCart::class
@@ -41,9 +43,6 @@ class EventServiceProvider extends ServiceProvider
             CreateTransaction::class,
             MarkOrderAsProcessing::class
         ],
-        // Registered::class => [
-        //     SendEmailVerificationNotification::class,
-        // ],
     ];
 
     /**
