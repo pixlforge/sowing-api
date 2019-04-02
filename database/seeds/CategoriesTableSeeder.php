@@ -38,7 +38,7 @@ class CategoriesTableSeeder extends Seeder
             ],
             'description' => [
                 'en' => 'For style from head to toe, check out all our categories of clothing.',
-                'fr' => 'Pour avoir du style de la tête aux pieds, consultez toutes nos catégories de vêtement.',
+                'fr' => 'Pour avoir du style de la tête aux pieds, consultez toutes nos catégories de vêtements.',
                 'de' => 'Schauen Sie sich alle unsere Kleidungskategorien an.',
                 'it' => 'Per lo stile dalla testa ai piedi, controllate tutte le nostre categorie di abbigliamento.',
             ],
@@ -106,7 +106,7 @@ class CategoriesTableSeeder extends Seeder
             ],
             'description' => [
                 'en' => 'Discover the categories of clothing and games reserved for toddlers.',
-                'fr' => 'Découvrez les catégories de vêtements et de jeux réservées aux tout-petits.',
+                'fr' => 'Découvrez les catégories de vêtements et de jeux réservés aux tout-petits.',
                 'de' => 'Entdecken Sie die Kategorien von Kleidung und Spielen für Kleinkinder.',
                 'it' => 'Scopri le categorie di abbigliamento e giochi riservati ai più piccoli.',
             ],
