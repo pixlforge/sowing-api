@@ -28,8 +28,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return new CategoryResource(
-            Category::with('children.children')->where('slug', $category->slug)->first()
-        );
+        $categories = Category::with('children.children')->where('slug', $category->slug)->first();
+        
+        $categories->children = $categories->children->sortBy('order');
+
+        return new CategoryResource($categories);
     }
 }
