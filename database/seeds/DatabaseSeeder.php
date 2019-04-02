@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Models\Category;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,11 +22,10 @@ class DatabaseSeeder extends Seeder
          */
         $this->call(CategoriesTableSeeder::class);
         $this->call(JewelrySubcategoriesTableSeeder::class);
-        $this->call(WomensClothingSubcategoriesTableSeeder::class);
-        $this->call(MensClothingSubcategoriesTableSeeder::class);
+        $this->call(ClothingSubcategoriesTableSeeder::class);
         $this->call(HomeFurnishingsSubcategoriesTableSeeder::class);
         $this->call(StationerySubcategoriesTableSeeder::class);
-        $this->call(ToysSubcategoriesTableSeeder::class);
+        $this->call(ChildrenSubcategoriesTableSeeder::class);
         $this->call(ArtSubcategoriesTableSeeder::class);
         $this->call(LocalProductsSubcategoriesTableSeeder::class);
         $this->call(BeautyWellnessSubcategoriesTableSeeder::class);
