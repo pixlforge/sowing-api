@@ -3,6 +3,7 @@
 use Faker\Factory;
 use App\Models\Shop;
 use App\Models\Product;
+use Illuminate\Support\Str;
 
 $fakerEN = Factory::create('en_US');
 $fakerFR = Factory::create('fr_CH');
@@ -24,7 +25,7 @@ $factory->define(Product::class, function () use ($fakerEN, $fakerFR, $fakerDE, 
             'de' => $fakerDE->sentence,
             'it' => $fakerIT->sentence,
         ],
-        'slug' => str_slug($name),
+        'slug' => Str::slug($name),
         'price' => 1000
     ];
 });

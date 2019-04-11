@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class GirlsChildrenSubcategoriesTableSeeder extends Seeder
@@ -21,7 +22,7 @@ class GirlsChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Mädchen',
                 'it' => 'Ragazze',
             ],
-            'slug' => 'section-' . str_slug($name['en']) . '-children',
+            'slug' => 'section-' . Str::slug($name['en']) . '-children',
             'parent_id' => $parent->id,
             'is_section' => true,
             'order' => 2,
@@ -36,7 +37,7 @@ class GirlsChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Kleider',
                 'it' => 'Vestiti',
             ],
-            'slug' => 'girls-' . str_slug($name['en']),
+            'slug' => 'girls-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 1,
         ]);
@@ -48,7 +49,7 @@ class GirlsChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Röcke',
                 'it' => 'Gonne',
             ],
-            'slug' => 'girls-' . str_slug($name['en']),
+            'slug' => 'girls-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 2,
         ]);
@@ -60,7 +61,7 @@ class GirlsChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Tops',
                 'it' => 'Top',
             ],
-            'slug' => 'girls-' . str_slug($name['en']),
+            'slug' => 'girls-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 3,
         ]);
@@ -72,7 +73,7 @@ class GirlsChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Jacken und Mäntel',
                 'it' => 'Giacche e cappotti',
             ],
-            'slug' => 'girls-' . str_slug($name['en']),
+            'slug' => 'girls-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 4,
         ]);

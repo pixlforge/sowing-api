@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Shop;
 use App\Models\Country;
+use Illuminate\Support\Str;
 
 class ShopStoreTest extends TestCase
 {
@@ -289,7 +290,7 @@ class ShopStoreTest extends TestCase
         $response->assertSuccessful();
         $this->assertDatabaseHas('shops', [
             'name' => $name,
-            'slug' => str_slug($name),
+            'slug' => Str::slug($name),
             'theme' => $theme,
             'postal_code' => $postal_code,
             'city' => $city,

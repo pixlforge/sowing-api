@@ -4,6 +4,7 @@ namespace App\PaymentGateways\Stripe;
 
 use Exception;
 use Stripe\Card;
+use Illuminate\Support\Str;
 use App\Models\PaymentMethod;
 use Stripe\Charge as StripeCharge;
 use Stripe\Customer as StripeCustomer;
@@ -89,7 +90,7 @@ class StripeGatewayCustomer implements PaymentGatewayCustomer
     {
         return $this->gateway->user()->paymentMethods()->create([
             'card_type' => $card->brand,
-            'card_type_slug' => str_slug($card->brand),
+            'card_type_slug' => Str::slug($card->brand),
             'last_four' => $card->last4,
             'provider_id' => $card->id,
             'is_default' => true

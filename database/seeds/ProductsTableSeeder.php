@@ -3,6 +3,7 @@
 use App\Models\Shop;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder
@@ -32,7 +33,7 @@ class ProductsTableSeeder extends Seeder
                     'de' => 'Lorem ipsum dolor sit amet',
                     'it' => 'Lorem ipsum dolor sit amet',
                 ],
-                'slug' => str_slug($name)
+                'slug' => Str::slug($name)
             ])
         );
 
@@ -51,7 +52,7 @@ class ProductsTableSeeder extends Seeder
                     'de' => 'Lorem ipsum dolor sit amet',
                     'it' => 'Lorem ipsum dolor sit amet',
                 ],
-                'slug' => str_slug($name),
+                'slug' => Str::slug($name),
                 'price' => 1500
             ])
         );
@@ -71,7 +72,7 @@ class ProductsTableSeeder extends Seeder
                     'de' => 'Lorem ipsum dolor sit amet',
                     'it' => 'Lorem ipsum dolor sit amet',
                 ],
-                'slug' => str_slug($name),
+                'slug' => Str::slug($name),
                 'price' => 2700
             ])
         );

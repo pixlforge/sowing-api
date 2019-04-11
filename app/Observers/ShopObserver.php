@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Shop;
+use Illuminate\Support\Str;
 
 class ShopObserver
 {
@@ -14,6 +15,6 @@ class ShopObserver
      */
     public function creating(Shop $shop)
     {
-        $shop->slug = str_slug($shop->name);
+        $shop->slug = Str::slug($shop->name);
     }
 }

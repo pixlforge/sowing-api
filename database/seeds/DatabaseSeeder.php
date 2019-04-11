@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -50,7 +51,7 @@ class DatabaseSeeder extends Seeder
                 'de' => 'Kaffee',
                 'it' => 'Caffè',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => Category::whereSlug('local-products')->first()->id,
         ]);
 

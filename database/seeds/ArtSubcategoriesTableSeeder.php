@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class ArtSubcategoriesTableSeeder extends Seeder
@@ -21,7 +22,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
                 'de' => 'Malerei',
                 'it' => 'Pittura',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 1,
         ]);
@@ -33,7 +34,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
                 'de' => 'Fotografie',
                 'it' => 'Fotografia',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 2,
         ]);
@@ -45,7 +46,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
                 'de' => 'Skulptur',
                 'it' => 'Scultura',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 3,
         ]);
@@ -57,7 +58,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
                 'de' => 'Gravur',
                 'it' => 'Incisione',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 4,
         ]);
@@ -69,7 +70,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
                 'de' => 'Zeichnungen & Illustrationen',
                 'it' => 'Disegni e illustrazioni',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 5,
         ]);

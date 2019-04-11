@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
@@ -21,7 +22,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Wohnzimmer',
                 'it' => 'Soggiorno',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 1,
         ]);
@@ -33,7 +34,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Esszimmer',
                 'it' => 'Sala da pranzo',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 2,
         ]);
@@ -45,7 +46,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Küche',
                 'it' => 'Cucina',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 3,
         ]);
@@ -57,7 +58,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Büro',
                 'it' => 'Ufficio',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 4,
         ]);
@@ -69,7 +70,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Erwachsenenzimmer',
                 'it' => 'Stanze per adulti',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 5,
         ]);
@@ -81,7 +82,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Kinderzimmer',
                 'it' => 'Stanze per bambini',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 6,
         ]);
@@ -93,7 +94,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Babyzimmer',
                 'it' => 'Stanze per neonati',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 7,
         ]);
@@ -105,7 +106,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Badezimmer',
                 'it' => 'Bagno',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 8,
         ]);
@@ -117,7 +118,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Dekoration',
                 'it' => 'Decorazioni',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 9,
         ]);
@@ -129,7 +130,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Pflanzen',
                 'it' => 'Piante',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 10,
         ]);
@@ -141,7 +142,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Bettwäsche',
                 'it' => 'Biancheria',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 11,
         ]);
@@ -153,7 +154,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Teppich',
                 'it' => 'Tappeti',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 12,
         ]);
@@ -165,7 +166,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Garten',
                 'it' => 'Giardino',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 13,
         ]);

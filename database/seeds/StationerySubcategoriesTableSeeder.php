@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class StationerySubcategoriesTableSeeder extends Seeder
@@ -21,7 +22,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
                 'de' => 'Karten',
                 'it' => 'Carte',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 1,
         ]);
@@ -33,7 +34,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
                 'de' => 'Einladungen',
                 'it' => 'Inviti',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 2,
         ]);
@@ -45,7 +46,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
                 'de' => 'Dekorationen',
                 'it' => 'Decorazioni',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 3,
         ]);
@@ -57,7 +58,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
                 'de' => 'Schachteln',
                 'it' => 'Scatole',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 4,
         ]);
@@ -69,7 +70,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
                 'de' => 'Hochzeitskissen',
                 'it' => 'Cuscini da sposa',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 5,
         ]);
@@ -81,7 +82,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
                 'de' => 'Schablonen',
                 'it' => 'Matrice',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 6,
         ]);
@@ -93,7 +94,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
                 'de' => 'Notebooks',
                 'it' => 'Taccuini',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 7,
         ]);

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Shops;
 
+use App\Models\Shop;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop;
 
 class ShopCheckerController extends Controller
 {
@@ -25,7 +26,7 @@ class ShopCheckerController extends Controller
     public function __invoke(Request $request)
     {
         $originalName = $request->name;
-        $slugifiedName = str_slug($request->name);
+        $slugifiedName = Str::slug($request->name);
 
         $result = Shop::where('name', $originalName)->orWhere('slug', $slugifiedName)->first();
 

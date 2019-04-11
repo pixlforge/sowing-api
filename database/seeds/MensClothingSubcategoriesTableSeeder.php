@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class MensClothingSubcategoriesTableSeeder extends Seeder
@@ -21,7 +22,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
                 'de' => 'Menschen',
                 'it' => 'Uomini',
             ],
-            'slug' => 'section-' . str_slug($name['en']) . '-clothing',
+            'slug' => 'section-' . Str::slug($name['en']) . '-clothing',
             'parent_id' => $parent->id,
             'is_section' => true,
             'order' => 1,
@@ -36,7 +37,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
                 'de' => 'Hemden',
                 'it' => 'Camicie',
             ],
-            'slug' => 'mens-' . str_slug($name['en']),
+            'slug' => 'mens-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 1,
         ]);
@@ -48,7 +49,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
                 'de' => 'T-Shirts & Polos',
                 'it' => 'Magliette & Polo',
             ],
-            'slug' => 'mens-' . str_slug($name['en']),
+            'slug' => 'mens-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 2,
         ]);
@@ -60,7 +61,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
                 'de' => 'Pullover',
                 'it' => 'Maglioni',
             ],
-            'slug' => 'mens-' . str_slug($name['en']),
+            'slug' => 'mens-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 3,
         ]);
@@ -72,7 +73,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
                 'de' => 'Hose',
                 'it' => 'Pantaloni',
             ],
-            'slug' => 'mens-' . str_slug($name['en']),
+            'slug' => 'mens-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 4,
         ]);
@@ -84,7 +85,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
                 'de' => 'Kurze Hose',
                 'it' => 'Pantaloncini',
             ],
-            'slug' => 'mens-' . str_slug($name['en']),
+            'slug' => 'mens-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 5,
         ]);
@@ -96,7 +97,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
                 'de' => 'Jacken',
                 'it' => 'Giacche',
             ],
-            'slug' => 'mens-' . str_slug($name['en']),
+            'slug' => 'mens-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 6,
         ]);
@@ -108,7 +109,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
                 'de' => 'Coats',
                 'it' => 'Cappotti',
             ],
-            'slug' => 'mens-' . str_slug($name['en']),
+            'slug' => 'mens-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 7,
         ]);
@@ -120,7 +121,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
                 'de' => 'Anzüge',
                 'it' => 'Completi',
             ],
-            'slug' => 'mens-' . str_slug($name['en']),
+            'slug' => 'mens-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 8,
         ]);
@@ -132,7 +133,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
                 'de' => 'Unterwäsche',
                 'it' => 'Intimo',
             ],
-            'slug' => 'mens-' . str_slug($name['en']),
+            'slug' => 'mens-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 9,
         ]);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
@@ -25,7 +26,7 @@ class CategoriesTableSeeder extends Seeder
                 'de' => 'Finden Sie alle Accessoires, um Ihren Look zu perfektionieren, egal ob Sie ein Mann oder eine Frau sind.',
                 'it' => 'Trova tutti gli accessori per perfezionare il vostro look sia che vi siete un uomo o una donna.',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'order' => 1,
         ]);
 
@@ -42,7 +43,7 @@ class CategoriesTableSeeder extends Seeder
                 'de' => 'Schauen Sie sich alle unsere Kleidungskategorien an.',
                 'it' => 'Per lo stile dalla testa ai piedi, controllate tutte le nostre categorie di abbigliamento.',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'order' => 2,
         ]);
 
@@ -59,7 +60,7 @@ class CategoriesTableSeeder extends Seeder
                 'de' => 'Müssen Sie auf sich aufpassen Möchten Sie Wohlbefinden bieten? Wir bieten eine große Auswahl an Ideen, um einen Moment der Entspannung zu verbringen.',
                 'it' => 'Hai bisogno di prenderti cura di te? Vuoi offrire benessere? Offriamo una vasta scelta di idee per trascorrere un ottimo momento di relax.',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'order' => 3,
         ]);
 
@@ -76,7 +77,7 @@ class CategoriesTableSeeder extends Seeder
                 'de' => 'Schauen Sie sich die originellen Kreationen unserer Handwerker an, um Ihr Interieur so einzigartig wie Sie zu gestalten.',
                 'it' => 'Scopri le creazioni originali dei nostri artigiani per rendere i tuoi interni unici come te.',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'order' => 4,
         ]);
 
@@ -93,7 +94,7 @@ class CategoriesTableSeeder extends Seeder
                 'de' => 'Um eine Nachricht in aller Originalität zu vermitteln, sind Sie an der richtigen Stelle.',
                 'it' => "Per comunicare un messaggio in tutta l'originalità, sei nel posto giusto.",
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'order' => 5,
             ]);
             
@@ -110,7 +111,7 @@ class CategoriesTableSeeder extends Seeder
                 'de' => 'Entdecken Sie die Kategorien von Kleidung und Spielen für Kleinkinder.',
                 'it' => 'Scopri le categorie di abbigliamento e giochi riservati ai più piccoli.',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'order' => 6,
         ]);
 
@@ -127,7 +128,7 @@ class CategoriesTableSeeder extends Seeder
                 'de' => 'Für diejenigen, die die Schönheit der Werke unserer oft verborgenen Talente zu schätzen wissen.',
                 'it' => 'Per coloro che sanno apprezzare la bellezza delle opere dei nostri talenti spesso nascosti.',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'order' => 7,
         ]);
 
@@ -144,7 +145,7 @@ class CategoriesTableSeeder extends Seeder
                 'de' => 'Entdecken oder anbieten: Hier finden Sie eine Vielzahl handgefertigter Produkte, die Ihren Gaumen erfreuen werden.',
                 'it' => 'Per scoprire o offrire, ecco una moltitudine di prodotti artigianali che delizieranno le vostre papille gustative.',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'order' => 8,
         ]);
     }

@@ -2,6 +2,7 @@
 
 use Faker\Factory;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 $fakerEN = Factory::create('en_US');
 $fakerFR = Factory::create('fr_CH');
@@ -22,6 +23,6 @@ $factory->define(Category::class, function () use ($fakerEN, $fakerFR, $fakerDE,
             'de' => null,
             'it' => null,
         ],
-        'slug' => str_slug($name),
+        'slug' => Str::slug($name),
     ];
 });

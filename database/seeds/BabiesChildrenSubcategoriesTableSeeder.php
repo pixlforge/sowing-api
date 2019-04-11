@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class BabiesChildrenSubcategoriesTableSeeder extends Seeder
@@ -21,7 +22,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Babys',
                 'it' => 'Bambini',
             ],
-            'slug' => 'section-' . str_slug($name['en']) . '-children',
+            'slug' => 'section-' . Str::slug($name['en']) . '-children',
             'parent_id' => $parent->id,
             'is_section' => true,
             'order' => 1,
@@ -36,7 +37,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Tops',
                 'it' => 'Top',
             ],
-            'slug' => 'babies-' . str_slug($name['en']),
+            'slug' => 'babies-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 1,
         ]);
@@ -48,7 +49,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Boden',
                 'it' => 'Pantaloni',
             ],
-            'slug' => 'babies-' . str_slug($name['en']),
+            'slug' => 'babies-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 2,
         ]);
@@ -60,7 +61,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Kleider',
                 'it' => 'Vestiti',
             ],
-            'slug' => 'babies-' . str_slug($name['en']),
+            'slug' => 'babies-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 3,
         ]);
@@ -72,7 +73,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Sets',
                 'it' => 'Set',
             ],
-            'slug' => 'babies-' . str_slug($name['en']),
+            'slug' => 'babies-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 4,
         ]);
@@ -84,7 +85,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Bodys',
                 'it' => 'Bodys',
             ],
-            'slug' => 'babies-' . str_slug($name['en']),
+            'slug' => 'babies-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 5,
         ]);
@@ -96,7 +97,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Nachtwäsche',
                 'it' => 'Pigiami',
             ],
-            'slug' => 'babies-' . str_slug($name['en']),
+            'slug' => 'babies-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 6,
         ]);
@@ -108,7 +109,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Bademäntel',
                 'it' => 'Accappatoi',
             ],
-            'slug' => 'babies-' . str_slug($name['en']),
+            'slug' => 'babies-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 7,
         ]);
@@ -120,7 +121,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Overall und Mäntel',
                 'it' => 'Tute e cappotti',
             ],
-            'slug' => 'babies-' . str_slug($name['en']),
+            'slug' => 'babies-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 8,
         ]);
@@ -132,7 +133,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Schlafsäcke',
                 'it' => 'Sacchi a pelo',
             ],
-            'slug' => 'babies-' . str_slug($name['en']),
+            'slug' => 'babies-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 9,
         ]);
@@ -144,7 +145,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
                 'de' => 'Pantoffeln',
                 'it' => 'Pantofole',
             ],
-            'slug' => 'babies-' . str_slug($name['en']),
+            'slug' => 'babies-' . Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 10,
         ]);

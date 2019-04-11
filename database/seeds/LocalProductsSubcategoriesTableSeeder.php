@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class LocalProductsSubcategoriesTableSeeder extends Seeder
@@ -21,7 +22,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Pasta',
                 'it' => 'Pasta',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 1,
         ]);
@@ -33,7 +34,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Alkoholfreie Getränke',
                 'it' => 'Bevande analcoliche',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 2,
         ]);
@@ -45,7 +46,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Alkoholische Getränke',
                 'it' => 'Bevande alcoliche',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 3,
         ]);
@@ -57,7 +58,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Fleisch',
                 'it' => 'Carne',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 4,
         ]);
@@ -69,7 +70,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Kaffee & Tee',
                 'it' => 'Caffè & tè',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 5,
         ]);
@@ -81,7 +82,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Eingemachtes',
                 'it' => 'Conserve',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 6,
         ]);
@@ -93,7 +94,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Konfitüren',
                 'it' => 'Marmellate',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 7,
         ]);
@@ -105,7 +106,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Sossen',
                 'it' => 'Salse',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 8,
         ]);
@@ -117,7 +118,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Kräuter & Gewürze',
                 'it' => 'Erbe, spezie e condimenti',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 9,
         ]);
@@ -129,7 +130,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Süsswaren',
                 'it' => 'Pasticceria',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 10,
         ]);
@@ -141,7 +142,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Gebäck',
                 'it' => 'Biscotti',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 11,
         ]);
@@ -153,7 +154,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
                 'de' => 'Getrocknete Früchte',
                 'it' => 'Frutta secca',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 12,
         ]);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class JewelrySubcategoriesTableSeeder extends Seeder
@@ -21,7 +22,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Halsketten',
                 'it' => 'Collane',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 1,
         ]);
@@ -33,7 +34,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Armbänder',
                 'it' => 'Bracciali',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 2,
         ]);
@@ -45,7 +46,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Ohrringe',
                 'it' => 'Orecchini',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 3,
         ]);
@@ -57,7 +58,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Ringe',
                 'it' => 'Anelli',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 4,
         ]);
@@ -69,7 +70,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Hüte & Mutzen',
                 'it' => 'Cappelli',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 5,
         ]);
@@ -81,7 +82,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Schals',
                 'it' => 'Sciarpe',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 6,
         ]);
@@ -93,7 +94,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Handschuhe',
                 'it' => 'Guanti',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 7,
         ]);
@@ -105,7 +106,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Gürtel & Hosenträger',
                 'it' => 'Cinture & bretelle',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 8,
         ]);
@@ -117,7 +118,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Taschen',
                 'it' => 'Borse',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 9,
         ]);
@@ -129,7 +130,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Knoten & Krawatten',
                 'it' => 'Nodi & cravatte',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 10,
         ]);
@@ -141,7 +142,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Haarschmuck',
                 'it' => 'Accessori per capelli',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 11,
         ]);
@@ -153,7 +154,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Schlüsselanhänger',
                 'it' => 'Portachiavi',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 12,
         ]);
@@ -165,7 +166,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
                 'de' => 'Brieftaschen & Koffer',
                 'it' => 'Portafogli & Custodie',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 13,
         ]);

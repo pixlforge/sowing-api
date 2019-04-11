@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class BeautyWellnessSubcategoriesTableSeeder extends Seeder
@@ -21,7 +22,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
                 'de' => 'Gesichtsbehandlung',
                 'it' => 'Trattamento viso',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 1,
         ]);
@@ -33,7 +34,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
                 'de' => 'Körperpflege',
                 'it' => 'Cura del corpo',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 2,
         ]);
@@ -45,7 +46,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
                 'de' => 'Haarpflege',
                 'it' => 'Cura dei capelli',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 3,
         ]);
@@ -57,7 +58,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
                 'de' => 'Parfüm',
                 'it' => 'Profumo',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 4,
         ]);
@@ -69,7 +70,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
                 'de' => 'Make-up',
                 'it' => 'Trucco',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 5,
         ]);
@@ -81,7 +82,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
                 'de' => 'Seifen',
                 'it' => 'Sapone',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 6,
         ]);
@@ -93,7 +94,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
                 'de' => 'Natürliche Haushaltsprodukte',
                 'it' => 'Prodotti per la casa naturali',
             ],
-            'slug' => str_slug($name['en']),
+            'slug' => Str::slug($name['en']),
             'parent_id' => $parent->id,
             'order' => 7,
         ]);

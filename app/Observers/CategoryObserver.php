@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryObserver
 {
@@ -16,7 +16,7 @@ class CategoryObserver
     public function creating(Category $category)
     {
         if (is_null($category->slug)) {
-            $category->slug = str_slug(request()->translations_name_en);
+            $category->slug = Str::slug(request()->translations_name_en);
         }
     }
 }
