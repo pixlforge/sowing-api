@@ -2,7 +2,7 @@
     <div>
         <default-field :field="field" :show-errors="false" :field-name="fieldName">
             <select
-                :disabled="isLocked"
+                :disabled="isLocked || isReadonly"
                 :data-testid="`${field.attribute}-type`"
                 :dusk="`${field.attribute}-type`"
                 slot="field"
@@ -10,12 +10,8 @@
                 @change="refreshResourcesForTypeChange"
                 class="block w-full form-control form-input form-input-bordered form-select mb-3"
             >
-                <option
-                    value=""
-                    selected
-                    :disabled="!field.nullable"
-                >
-                    {{__('Choose Type')}}
+                <option value="" selected :disabled="!field.nullable">
+                    {{ __('Choose Type') }}
                 </option>
 
                 <option
@@ -29,29 +25,39 @@
             </select>
         </default-field>
 
-        <default-field :field="field" :errors="errors" :show-help-text="false" :field-name="fieldTypeName">
+        <default-field
+            :field="field"
+            :errors="errors"
+            :show-help-text="false"
+            :field-name="fieldTypeName"
+        >
             <template slot="field">
                 <search-input
-                    v-if="isSearchable && !isLocked"
+                    v-if="isSearchable && !isLocked && !isReadonly"
                     :data-testid="`${field.attribute}-search-input`"
+                    :disabled="!resourceType || isLocked || isReadonly"
                     @input="performSearch"
                     @clear="clearSelection"
                     @selected="selectResource"
-                    :value='selectedResource'
-                    :data='availableResources'
-                    trackBy='value'
-                    searchBy='display'
+                    :value="selectedResource"
+                    :data="availableResources"
+                    :clearable="field.nullable"
+                    trackBy="value"
+                    searchBy="display"
                     class="mb-3"
                 >
                     <div slot="default" v-if="selectedResource" class="flex items-center">
                         <div v-if="selectedResource.avatar" class="mr-3">
-                            <img :src="selectedResource.avatar" class="w-8 h-8 rounded-full block" />
+                            <img
+                                :src="selectedResource.avatar"
+                                class="w-8 h-8 rounded-full block"
+                            />
                         </div>
 
                         {{ selectedResource.display }}
                     </div>
 
-                    <div slot="option" slot-scope="{option, selected}" class="flex items-center">
+                    <div slot="option" slot-scope="{ option, selected }" class="flex items-center">
                         <div v-if="option.avatar" class="mr-3">
                             <img :src="option.avatar" class="w-8 h-8 rounded-full block" />
                         </div>
@@ -60,42 +66,35 @@
                     </div>
                 </search-input>
 
-                <select
+                <select-control
                     v-if="!isSearchable || isLocked"
-                    :data-testid="`${field.attribute}-select`"
-                    :dusk="`${field.attribute}-select`"
                     class="form-control form-select mb-3 w-full"
                     :class="{ 'border-danger': hasError }"
-                    :disabled="!resourceType || isLocked"
+                    :dusk="`${field.attribute}-select`"
                     @change="selectResourceFromSelectControl"
+                    :disabled="!resourceType || isLocked || isReadonly"
+                    :options="availableResources"
+                    :selected="selectedResourceId"
+                    label="display"
                 >
                     <option
                         value=""
                         :disabled="!field.nullable"
                         :selected="selectedResourceId == ''"
                     >
-                        {{__('Choose')}} {{ fieldTypeName }}
+                        {{ __('Choose') }} {{ fieldTypeName }}
                     </option>
-
-                    <option
-                        v-for="resource in availableResources"
-                        :key="resource.value"
-                        :value="resource.value"
-                        :selected="selectedResourceId == resource.value"
-                    >
-                        {{ resource.display }}
-                    </option>
-                </select>
+                </select-control>
 
                 <!-- Trashed State -->
                 <div v-if="softDeletes && !isLocked">
-                    <label class="flex items-center" @input="toggleWithTrashed" @keydown.prevent.space.enter="toggleWithTrashed">
-                        <checkbox :dusk="field.attribute + '-with-trashed-checkbox'" :checked="withTrashed" />
-
-                        <span class="ml-2">
-                            {{__('With Trashed')}}
-                        </span>
-                    </label>
+                    <checkbox-with-label
+                        :dusk="field.attribute + '-with-trashed-checkbox'"
+                        :checked="withTrashed"
+                        @change="toggleWithTrashed"
+                    >
+                        {{ __('With Trashed') }}
+                    </checkbox-with-label>
                 </div>
             </template>
         </default-field>
@@ -299,7 +298,7 @@ export default {
          * Determine if the field is locked
          */
         isLocked() {
-            return Boolean(this.viaResource)
+            return Boolean(this.viaResource && this.field.reverse)
         },
 
         /**
@@ -320,6 +319,13 @@ export default {
             }
 
             return ''
+        },
+
+        /**
+         * Determine if the field is set to readonly.
+         */
+        isReadonly() {
+            return this.field.readonly || _.get(this.field, 'extraAttributes.readonly')
         },
     },
 }

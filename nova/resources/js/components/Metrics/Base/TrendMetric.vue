@@ -12,7 +12,7 @@
                     v-for="option in ranges"
                     :key="option.value"
                     :value="option.value"
-                    :selected="option.value == selectedRangeKey"
+                    :selected="selectedRangeKey == option.value"
                 >
                     {{ option.label }}
                 </option>
@@ -24,11 +24,7 @@
             <span v-if="suffix" class="ml-2 text-sm font-bold text-80">{{ formattedSuffix }}</span>
         </p>
 
-        <div
-            ref="chart"
-            class="z-40 absolute pin rounded-b-lg ct-chart"
-            style="top: 60%"
-        />
+        <div ref="chart" class="absolute pin rounded-b-lg ct-chart" style="top: 60%" />
     </loading-card>
 </template>
 
@@ -61,6 +57,10 @@ export default {
         suffix: '',
         ranges: { type: Array, default: () => [] },
         selectedRangeKey: [String, Number],
+        format: {
+            type: String,
+            default: '(0[.]00a)',
+        },
     },
 
     data: () => ({ chartist: null }),
@@ -100,10 +100,6 @@ export default {
                 offset: 0,
             },
             plugins: [
-                // Chartist.plugins.tooltip({
-                //     anchorToPoint: true,
-                // }),
-
                 Chartist.plugins.tooltip({
                     anchorToPoint: true,
                     transformTooltipTextFnc: value => {
@@ -113,6 +109,7 @@ export default {
 
                         if (this.suffix) {
                             const suffix = SingularOrPlural(value, this.suffix)
+
                             return `${value} ${suffix}`
                         }
 
@@ -140,11 +137,7 @@ export default {
 
         formattedValue() {
             if (!this.isNullValue) {
-                const numeralValue = numeral(this.value)
-
-                return numeralValue.value() > 1000
-                    ? this.prefix + numeralValue.format('(0.00a)')
-                    : this.prefix + this.value
+                return this.prefix + numeral(this.value).format(this.format)
             }
 
             return ''

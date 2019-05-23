@@ -25,11 +25,16 @@ export default {
         value: { type: String },
         placeholder: { type: String },
         withFiles: { type: Boolean, default: true },
+        disabled: { type: Boolean, default: false },
     },
 
     methods: {
         initialize() {
             this.$refs.theEditor.editor.insertHTML(this.value)
+
+            if (this.disabled) {
+                this.$refs.theEditor.setAttribute('contenteditable', false)
+            }
         },
 
         handleChange() {

@@ -5,44 +5,40 @@
             v-if="shouldShowAttachButton"
             dusk="attach-button"
             :class="classes"
-            tag="button"
             :to="{
                 name: 'attach',
                 params: {
                     resourceName: viaResource,
                     resourceId: viaResourceId,
-                    relatedResourceName: resourceName
+                    relatedResourceName: resourceName,
                 },
                 query: {
                     viaRelationship: viaRelationship,
-                    polymorphic: relationshipType == 'morphToMany' ? '1' : '0'
-                }
+                    polymorphic: relationshipType == 'morphToMany' ? '1' : '0',
+                },
             }"
         >
-            <slot>
-                {{ __('Attach') }} {{ singularName }}
-            </slot>
+            <slot> {{ __('Attach :resource', { resource: singularName }) }}</slot>
         </router-link>
 
         <!-- Create Related Models -->
         <router-link
             v-else-if="shouldShowCreateButton"
-            tag="button"
             dusk="create-button"
             :class="classes"
             :to="{
                 name: 'create',
                 params: {
-                    resourceName: resourceName
+                    resourceName: resourceName,
                 },
                 query: {
                     viaResource: viaResource,
                     viaResourceId: viaResourceId,
-                    viaRelationship: viaRelationship
-                }
+                    viaRelationship: viaRelationship,
+                },
             }"
         >
-            {{ __('Create') }} {{ singularName }}
+            {{ __('Create :resource', { resource: singularName }) }}
         </router-link>
     </div>
 </template>

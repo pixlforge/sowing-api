@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Products;
 
 use App\Models\Product;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Scoping\Scopes\CategoryScope;
 use App\Http\Resources\Products\ProductResource;
@@ -42,6 +43,11 @@ class ProductController extends Controller
         ]);
 
         return new ProductResource($product);
+    }
+
+    public function store(Request $request)
+    {
+        return response($request->all(), 200);
     }
 
     /**

@@ -1,16 +1,20 @@
 <template>
     <default-field :field="field" :errors="errors" :full-width-content="true">
         <template slot="field">
-            <trix
-                name="trixman"
-                :value="field.value"
-                placeholder=""
-                @change="handleChange"
-                @file-add="handleFileAdd"
-                @file-remove="handleFileRemove"
-                :class="{'border-danger': hasError}"
-                :with-files="field.withFiles"
-            />
+            <div class="rounded-lg" :class="{ disabled: isReadonly }">
+                <trix
+                    name="trixman"
+                    :value="field.value"
+                    @change="handleChange"
+                    @file-add="handleFileAdd"
+                    @file-remove="handleFileRemove"
+                    :class="{ 'border-danger': hasError }"
+                    :with-files="field.withFiles"
+                    v-bind="extraAttributes"
+                    :disabled="isReadonly"
+                    class="rounded-lg"
+                />
+            </div>
         </template>
     </default-field>
 </template>
@@ -100,6 +104,23 @@ export default {
                     )
                     .then(response => console.log(response))
                     .catch(error => {})
+            }
+        },
+    },
+
+    computed: {
+        defaultAttributes() {
+            return {
+                placeholder: this.field.placeholder || this.field.name,
+            }
+        },
+
+        extraAttributes() {
+            const attrs = this.field.extraAttributes
+
+            return {
+                ...this.defaultAttributes,
+                ...attrs,
             }
         },
     },

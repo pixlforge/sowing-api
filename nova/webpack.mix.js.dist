@@ -15,6 +15,7 @@ let tailwindcss = require('tailwindcss')
 mix
     .js('resources/js/app.js', 'public')
     .extract([
+        'autosize',
         'codemirror',
         'chartist',
         'chartist-plugin-tooltips',
@@ -25,7 +26,6 @@ mix
         'marked',
         'moment',
         'numeral',
-        'pikaday',
         'places.js',
         'popper.js',
         'vue-async-computed',

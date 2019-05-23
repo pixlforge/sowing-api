@@ -204,7 +204,7 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
      */
     public static function label()
     {
-        return Str::plural(class_basename(get_called_class()));
+        return Str::plural(Str::title(Str::snake(class_basename(get_called_class()), ' ')));
     }
 
     /**
@@ -230,11 +230,11 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     /**
      * Get the search result subtitle for the resource.
      *
-     * @return string
+     * @return string|null
      */
     public function subtitle()
     {
-        return null;
+        //
     }
 
     /**
@@ -256,7 +256,18 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
      */
     public static function uriKey()
     {
-        return Str::plural(Str::snake(class_basename(get_called_class()), '-'));
+        return Str::plural(Str::kebab(class_basename(get_called_class())));
+    }
+
+    /**
+     * Get meta information about this resource for client side comsumption.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public static function additionalInformation(Request $request)
+    {
+        return [];
     }
 
     /**
@@ -364,7 +375,7 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     public function jsonSerialize()
     {
         $this->serializeWithId($this->resolveFields(
-            resolve(Request::class)
+            resolve(NovaRequest::class)
         ));
     }
 
@@ -380,5 +391,29 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
             'id' => $fields->whereInstanceOf(ID::class)->first() ?: ID::forModel($this->resource),
             'fields' => $fields->all(),
         ];
+    }
+
+    /**
+     * Return the location to redirect the user after creation.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \App\Nova\Resource $resource
+     * @return string
+     */
+    public static function redirectAfterCreate(NovaRequest $request, $resource)
+    {
+        return '/resources/'.static::uriKey().'/'.$resource->getKey();
+    }
+
+    /**
+     * Return the location to redirect the user after update.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param \App\Nova\Resource $resource
+     * @return string
+     */
+    public static function redirectAfterUpdate(NovaRequest $request, $resource)
+    {
+        return '/resources/'.static::uriKey().'/'.$resource->getKey();
     }
 }

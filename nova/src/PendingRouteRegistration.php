@@ -33,6 +33,15 @@ class PendingRouteRegistration
                 Route::post('/login', 'LoginController@login')->name('login');
             });
 
+        Route::namespace('Laravel\Nova\Http\Controllers')
+            ->domain(config('nova.domain', null))
+            ->middleware(config('nova.middleware', []))
+            ->as('nova.')
+            ->prefix(Nova::path())
+            ->group(function () {
+                Route::get('/logout', 'LoginController@logout')->name('logout');
+            });
+
         return $this;
     }
 
@@ -70,20 +79,11 @@ class PendingRouteRegistration
     {
         $this->registered = true;
 
-        Route::namespace('Laravel\Nova\Http\Controllers')
-            ->domain(config('nova.domain', null))
-            ->middleware(config('nova.middleware', []))
-            ->as('nova.')
-            ->prefix(Nova::path())
-            ->group(function () {
-                Route::get('/logout', 'LoginController@logout')->name('logout');
-            });
-
         Event::listen(NovaServiceProviderRegistered::class, function () {
-            Route::domain(config('nova.domain', null))
-                ->middleware(config('nova.middleware', []))
+            Route::middleware(config('nova.middleware', []))
+                ->domain(config('nova.domain', null))
                 ->group(function () {
-                    Route::view(Nova::path(), 'nova::router')->name('nova.index');
+                    Route::get(Nova::path(), 'Laravel\Nova\Http\Controllers\RouterController@show')->name('nova.index');
                 });
 
             Route::middleware(config('nova.middleware', []))

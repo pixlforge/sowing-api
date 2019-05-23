@@ -7,6 +7,11 @@ Vue.component('field-wrapper', require('./components/Form/FieldWrapper.vue'))
 Vue.component('panel', require('./components/Detail/Panel.vue'))
 Vue.component('relationship-panel', require('./components/Detail/RelationshipPanel.vue'))
 
+// Info Field...
+Vue.component('index-heading-field', require('./components/Index/HeadingField.vue'))
+Vue.component('detail-heading-field', require('./components/Detail/HeadingField.vue'))
+Vue.component('form-heading-field', require('./components/Form/HeadingField.vue'))
+
 // Text Field...
 Vue.component('index-text-field', require('./components/Index/TextField.vue'))
 Vue.component('detail-text-field', require('./components/Detail/TextField.vue'))
@@ -26,6 +31,10 @@ Vue.component('form-textarea-field', require('./components/Form/TextareaField.vu
 Vue.component('index-code-field', require('./components/Index/TextField.vue'))
 Vue.component('detail-code-field', require('./components/Detail/CodeField.vue'))
 Vue.component('form-code-field', require('./components/Form/CodeField.vue'))
+
+// KeyValue Field...
+Vue.component('detail-key-value-field', require('./components/Detail/KeyValueField.vue'))
+Vue.component('form-key-value-field', require('./components/Form/KeyValueField/KeyValueField.vue'))
 
 // Date Field
 Vue.component('index-date', require('./components/Index/DateField.vue'))

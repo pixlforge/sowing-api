@@ -25,7 +25,7 @@ class ID extends Field
     }
 
     /**
-     * Create a new, resolved ID field for the givne model.
+     * Create a new, resolved ID field for the given model.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return static
@@ -33,5 +33,19 @@ class ID extends Field
     public static function forModel($model)
     {
         return tap(static::make('ID', $model->getKeyName()))->resolve($model);
+    }
+
+    /**
+     * Resolve a BIGINT ID field as a string for compatibility with JavaScript.
+     *
+     * @return $this
+     */
+    public function asBigInt()
+    {
+        $this->resolveCallback = function ($id) {
+            return (string) $id;
+        };
+
+        return $this;
     }
 }

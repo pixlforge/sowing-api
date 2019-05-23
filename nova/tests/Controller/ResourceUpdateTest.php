@@ -8,10 +8,11 @@ use Laravel\Nova\Tests\Fixtures\Post;
 use Laravel\Nova\Tests\Fixtures\User;
 use Laravel\Nova\Tests\IntegrationTest;
 use Laravel\Nova\Tests\Fixtures\UserPolicy;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class ResourceUpdateTest extends IntegrationTest
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -230,5 +231,61 @@ class ResourceUpdateTest extends IntegrationTest
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['user']);
+    }
+
+    public function test_action_event_should_honor_custom_polymorphic_type_for_resource_update()
+    {
+        Relation::morphMap(['post' => Post::class]);
+
+        $post = factory(Post::class)->create();
+
+        $response = $this->withExceptionHandling()
+                        ->putJson('/nova-api/posts/'.$post->id, [
+                            'user' => $post->user_id,
+                            'title' => 'Fake Title',
+                        ]);
+
+        $actionEvent = ActionEvent::first();
+
+        $this->assertEquals('Update', $actionEvent->name);
+
+        $this->assertEquals('post', $actionEvent->actionable_type);
+        $this->assertEquals($post->id, $actionEvent->actionable_id);
+
+        $this->assertEquals('post', $actionEvent->target_type);
+        $this->assertEquals($post->id, $actionEvent->target_id);
+
+        $this->assertEquals('post', $actionEvent->model_type);
+        $this->assertEquals($post->id, $actionEvent->model_id);
+
+        Relation::morphMap([], false);
+    }
+
+    public function test_resource_can_redirect_to_default_uri_on_update()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->withExceptionHandling()
+            ->putJson('/nova-api/users/'.$user->id, [
+                'name' => 'Taylor Otwell',
+                'email' => 'taylor@laravel.com',
+                'password' => 'secret',
+            ]);
+
+        $response->assertJson(['redirect' => '/resources/users/1']);
+    }
+
+    public function test_resource_can_redirect_to_custom_uri_on_update()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->withExceptionHandling()
+            ->putJson('/nova-api/users-with-redirects/'.$user->id, [
+                'name' => 'Taylor Otwell',
+                'email' => 'taylor@laravel.com',
+                'password' => 'secret',
+            ]);
+
+        $response->assertJson(['redirect' => 'https://google.com']);
     }
 }

@@ -4,11 +4,12 @@
             <input
                 :id="field.attribute"
                 :dusk="field.attribute"
-                type="search"
+                type="text"
                 v-model="value"
                 class="w-full form-control form-input form-input-bordered"
                 :class="errorClasses"
                 :placeholder="field.name"
+                :disabled="isReadonly"
             />
         </template>
     </default-field>
@@ -78,6 +79,9 @@ export default {
                         this.field.country + '-value',
                         e.suggestion.countryCode.toUpperCase()
                     )
+
+                    Nova.$emit(this.field.latitude + '-value', e.suggestion.latlng.lat)
+                    Nova.$emit(this.field.longitude + '-value', e.suggestion.latlng.lng)
                 })
             })
 
@@ -90,6 +94,8 @@ export default {
                     Nova.$emit(this.field.state + '-value', '')
                     Nova.$emit(this.field.postalCode + '-value', '')
                     Nova.$emit(this.field.country + '-value', '')
+                    Nova.$emit(this.field.latitude + '-value', '')
+                    Nova.$emit(this.field.longitude + '-value', '')
                 })
             })
         },

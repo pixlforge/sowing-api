@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use Laravel\Nova\TrashedStatus;
 use Laravel\Nova\Rules\Relatable;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Laravel\Nova\Http\Requests\ResourceIndexRequest;
 
 class BelongsTo extends Field
 {
     use FormatsRelatableDisplayValues;
+    use ResolvesReverseRelation;
 
     /**
      * The field's component.
@@ -55,11 +58,11 @@ class BelongsTo extends Field
     public $display;
 
     /**
-     * Indicates if the field is nullable.
+     * Indicates if the related resource can be viewed.
      *
      * @var bool
      */
-    public $nullable = false;
+    public $viewable = true;
 
     /**
      * Indicates if this relationship is searchable.
@@ -131,8 +134,7 @@ class BelongsTo extends Field
      */
     public function isNotRedundant(Request $request)
     {
-        return (! $request->isMethod('GET') || ! $request->viaResource) ||
-               ($this->resourceName !== $request->viaResource);
+        return ! $request instanceof ResourceIndexRequest || ! $this->isReverseRelation($request);
     }
 
     /**
@@ -144,13 +146,38 @@ class BelongsTo extends Field
      */
     public function resolve($resource, $attribute = null)
     {
-        $value = $resource->{$this->attribute}()->withoutGlobalScopes()->first();
+        $value = null;
+
+        if ($resource->relationLoaded($this->attribute)) {
+            $value = $resource->getRelation($this->attribute);
+        }
+
+        if (! $value) {
+            $value = $resource->{$this->attribute}()->withoutGlobalScopes()->getResults();
+        }
 
         if ($value) {
             $this->belongsToId = $value->getKey();
 
-            $this->value = $this->formatDisplayValue($value);
+            $resource = new $this->resourceClass($value);
+
+            $this->value = $this->formatDisplayValue($resource);
+
+            $this->viewable = $this->viewable
+                && $resource->authorizedToView(request());
         }
+    }
+
+    /**
+     * Resolve the field's value for display.
+     *
+     * @param  mixed  $resource
+     * @param  string|null  $attribute
+     * @return void
+     */
+    public function resolveForDisplay($resource, $attribute = null)
+    {
+        //
     }
 
     /**
@@ -168,7 +195,7 @@ class BelongsTo extends Field
         return array_merge_recursive(parent::getRules($request), [
             $this->attribute => array_filter([
                 $this->nullable ? 'nullable' : 'required',
-                new Relatable($request, $query)
+                new Relatable($request, $query),
             ]),
         ]);
     }
@@ -182,10 +209,42 @@ class BelongsTo extends Field
      */
     public function fill(NovaRequest $request, $model)
     {
-        parent::fillInto($request, $model, $model->{$this->attribute}()->getForeignKey());
+        $foreignKey = $this->getRelationForeignKeyName($model->{$this->attribute}());
+
+        parent::fillInto($request, $model, $foreignKey);
+
+        if ($model->isDirty($foreignKey)) {
+            $model->unsetRelation($this->attribute);
+        }
 
         if ($this->filledCallback) {
             call_user_func($this->filledCallback, $request, $model);
+        }
+    }
+
+    /**
+     * Hydrate the given attribute on the model based on the incoming request.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  string  $requestAttribute
+     * @param  object  $model
+     * @param  string  $attribute
+     * @return mixed
+     */
+    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
+    {
+        if ($request->exists($requestAttribute)) {
+            $value = $request[$requestAttribute];
+
+            $relation = Relation::noConstraints(function () use ($model) {
+                return $model->{$this->attribute}();
+            });
+
+            if ($this->isNullValue($value)) {
+                $relation->dissociate();
+            } else {
+                $relation->associate($relation->getQuery()->withoutGlobalScopes()->find($value));
+            }
         }
     }
 
@@ -274,6 +333,19 @@ class BelongsTo extends Field
     }
 
     /**
+     * Specify if the related resource can be viewed.
+     *
+     * @param  bool  $value
+     * @return $this
+     */
+    public function viewable($value = true)
+    {
+        $this->viewable = $value;
+
+        return $this;
+    }
+
+    /**
      * Specify a callback that should be run when the field is filled.
      *
      * @param  \Closure  $callback
@@ -295,19 +367,6 @@ class BelongsTo extends Field
     public function inverse($inverse)
     {
         $this->inverse = $inverse;
-
-        return $this;
-    }
-
-    /**
-     * Indicate that the field should be nullable.
-     *
-     * @param  bool  $nullable
-     * @return $this
-     */
-    public function nullable($nullable = true)
-    {
-        $this->nullable = $nullable;
 
         return $this;
     }
@@ -337,8 +396,9 @@ class BelongsTo extends Field
             'singularLabel' => $this->singularLabel ?? $this->name ?? forward_static_call([$this->resourceClass, 'singularLabel']),
             'belongsToRelationship' => $this->belongsToRelationship,
             'belongsToId' => $this->belongsToId,
-            'nullable' => $this->nullable,
             'searchable' => $this->searchable,
+            'viewable' => $this->viewable,
+            'reverse' => $this->isReverseRelation(app(NovaRequest::class)),
         ], $this->meta);
     }
 }

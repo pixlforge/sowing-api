@@ -17,7 +17,7 @@
                     @keydown.up.prevent="move(-1)"
                     v-model="searchTerm"
                     type="search"
-                    :placeholder="__('Search')"
+                    :placeholder="__('Press / to search')"
                     class="pl-search form-control form-input form-input-bordered w-full"
                 />
             </div>
@@ -66,11 +66,17 @@
                                     'bg-20': highlightedResultIndex == item.index,
                                 }"
                             >
-                                <img v-if="item.avatar" :src="item.avatar" class="h-8 w-8 rounded-full mr-3" />
+                                <img
+                                    v-if="item.avatar"
+                                    :src="item.avatar"
+                                    class="h-8 w-8 rounded-full mr-3"
+                                />
 
                                 <div>
                                     <p class="text-90">{{ item.title }}</p>
-                                    <p v-if="item.subTitle" class="text-xs mt-1 text-80">{{ item.subTitle }}</p>
+                                    <p v-if="item.subTitle" class="text-xs mt-1 text-80">
+                                        {{ item.subTitle }}
+                                    </p>
                                 </div>
                             </a>
                         </li>

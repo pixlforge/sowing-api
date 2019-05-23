@@ -1,5 +1,7 @@
 import Vue from 'vue'
+Vue.config.ignoredElements = ['trix-editor']
 
+import Add from '@/components/Icons/Add'
 import ActionSelector from '@/components/ActionSelector'
 import BasePartitionMetric from '@/components/Metrics/Base/PartitionMetric'
 import BaseTrendMetric from '@/components/Metrics/Base/TrendMetric'
@@ -9,6 +11,7 @@ import Card from '@/components/Card'
 import Cards from '@/components/Cards'
 import CardWrapper from '@/components/CardWrapper'
 import Checkbox from '@/components/Index/Checkbox'
+import CheckboxWithLabel from '@/components/CheckboxWithLabel'
 import ConfirmActionModal from '@/components/Modals/ConfirmActionModal'
 import ConfirmUploadRemovalModal from '@/components/Modals/ConfirmUploadRemovalModal'
 import CreateResourceButton from '@/components/CreateResourceButton'
@@ -17,6 +20,7 @@ import CustomDetailToolbar from '@/components/CustomDetailToolbar'
 import CustomIndexHeader from '@/components/CustomIndexHeader'
 import CustomIndexToolbar from '@/components/CustomIndexToolbar'
 import Delete from '@/components/Icons/Delete'
+import Menu from '@/components/Icons/Menu'
 import DeleteMenu from '@/components/DeleteMenu'
 import DeleteResourceModal from '@/components/Modals/DeleteResourceModal'
 import Download from '@/components/Icons/Download'
@@ -29,8 +33,6 @@ import Error404 from '@/views/Error404'
 import Excerpt from '@/components/Excerpt'
 import FakeCheckbox from '@/components/Index/FakeCheckbox'
 import Filter from '@/components/Icons/Filter'
-import FilterSelect from '@/components/FilterSelect'
-import FilterSelector from '@/components/FilterSelector'
 import FilterMenu from '@/components/FilterMenu'
 import ForceDelete from '@/components/Icons/ForceDelete'
 import FullScreen from '@/components/Icons/Editor/FullScreen'
@@ -50,10 +52,12 @@ import Loader from '@/components/Icons/Loader'
 import LoadingCard from '@/components/LoadingCard'
 import LoadingView from '@/components/LoadingView'
 import Modal from '@/components/Modal'
-import PaginationLinks from '@/components/PaginationLinks'
+import PaginationLinks from '@/components/Pagination/PaginationLinks'
+import PaginationSimple from '@/components/Pagination/PaginationSimple'
 import PanelItem from '@/components/PanelItem'
 import PartitionMetric from '@/components/Metrics/PartitionMetric'
 import Play from '@/components/Icons/Play'
+import ProgressButton from '@/components/ProgressButton'
 import Refresh from '@/components/Icons/Refresh'
 import ResourceTable from '@/components/ResourceTable'
 import ResourceTableRow from '@/components/Index/ResourceTableRow'
@@ -68,6 +72,13 @@ import ValidationErrors from '@/components/ValidationErrors'
 import ValueMetric from '@/components/Metrics/ValueMetric'
 import View from '@/components/Icons/View'
 
+import SelectFilter from '@/components/Filters/SelectFilter'
+import BooleanFilter from '@/components/Filters/BooleanFilter'
+import DateFilter from '@/components/Filters/DateFilter'
+
+import SelectControl from '@/components/Controls/SelectControl'
+import DateTimePicker from '@/components/DateTimePicker'
+
 Vue.component('action-selector', ActionSelector)
 Vue.component('base-partition-metric', BasePartitionMetric)
 Vue.component('base-trend-metric', BaseTrendMetric)
@@ -76,6 +87,7 @@ Vue.component('card', Card)
 Vue.component('card-wrapper', CardWrapper)
 Vue.component('cards', Cards)
 Vue.component('checkbox', Checkbox)
+Vue.component('checkbox-with-label', CheckboxWithLabel)
 Vue.component('confirm-action-modal', ConfirmActionModal)
 Vue.component('confirm-upload-removal-modal', ConfirmUploadRemovalModal)
 Vue.component('create-resource-button', CreateResourceButton)
@@ -97,8 +109,6 @@ Vue.component('error-403', Error403)
 Vue.component('error-404', Error404)
 Vue.component('excerpt', Excerpt)
 Vue.component('fake-checkbox', FakeCheckbox)
-Vue.component('filter-select', FilterSelect)
-Vue.component('filter-selector', FilterSelector)
 Vue.component('filter-menu', FilterMenu)
 Vue.component('form-label', Label)
 Vue.component('global-search', GlobalSearch)
@@ -106,6 +116,7 @@ Vue.component('heading', Heading)
 Vue.component('help', HelpCard)
 Vue.component('help-text', HelpText)
 Vue.component('icon', Icon)
+Vue.component('icon-add', Add)
 Vue.component('icon-delete', Delete)
 Vue.component('icon-download', Download)
 Vue.component('icon-edit', Edit)
@@ -116,6 +127,7 @@ Vue.component('icon-refresh', Refresh)
 Vue.component('icon-restore', Restore)
 Vue.component('icon-search', Search)
 Vue.component('icon-view', View)
+Vue.component('icon-menu', Menu)
 Vue.component('lens', Lens)
 Vue.component('lens-selector', LensSelector)
 Vue.component('loader', Loader)
@@ -123,8 +135,10 @@ Vue.component('loading-card', LoadingCard)
 Vue.component('loading-view', LoadingView)
 Vue.component('modal', Modal)
 Vue.component('pagination-links', PaginationLinks)
+Vue.component('pagination-simple', PaginationSimple)
 Vue.component('panel-item', PanelItem)
 Vue.component('partition-metric', PartitionMetric)
+Vue.component('progress-button', ProgressButton)
 Vue.component('resource-index', Index)
 Vue.component('resource-table', ResourceTable)
 Vue.component('resource-table-row', ResourceTableRow)
@@ -135,3 +149,10 @@ Vue.component('sortable-icon', SortableIcon)
 Vue.component('trend-metric', TrendMetric)
 Vue.component('validation-errors', ValidationErrors)
 Vue.component('value-metric', ValueMetric)
+
+Vue.component('date-filter', DateFilter)
+Vue.component('select-filter', SelectFilter)
+Vue.component('boolean-filter', BooleanFilter)
+
+Vue.component('select-control', SelectControl)
+Vue.component('date-time-picker', DateTimePicker)
