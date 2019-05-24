@@ -16,7 +16,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     public function register()
     {
-        // Telescope::night();
+        Telescope::night();
 
         Telescope::filter(function (IncomingEntry $entry) {
             if ($this->app->isLocal() || !$this->app->isLocal()) {
@@ -41,7 +41,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     {
         Gate::define('viewTelescope', function ($user) {
             return in_array($user->email, [
-                'celien@pixlforge.ch'
+                'celien@pixlforge.ch',
             ]);
         });
     }
