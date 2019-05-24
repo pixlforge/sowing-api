@@ -5,6 +5,7 @@ namespace App\Providers;
 use Laravel\Horizon\Horizon;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
+use Illuminate\Http\Request;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
@@ -35,8 +36,23 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
     {
         Gate::define('viewHorizon', function ($user) {
             return in_array($user->email, [
-                'celien@pixlforge.ch',
+                //
             ]);
+        });
+    }
+
+    /**
+     * Configure the Horizon authorization services.
+     *
+     * @return void
+     */
+    protected function authorization()
+    {
+        $this->gate();
+
+        Horizon::auth(function ($request) {
+            return app()->environment('local') ||
+                $request->user('web')->email === 'celien@pixlforge.ch';
         });
     }
 }
