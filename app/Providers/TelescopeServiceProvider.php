@@ -16,10 +16,10 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     public function register()
     {
-        Telescope::night();
+        // Telescope::night();
 
         Telescope::filter(function (IncomingEntry $entry) {
-            if ($this->app->isLocal() || !$this->app->isLocal()) {
+            if ($this->app->isLocal()) {
                 return true;
             }
 
@@ -43,22 +43,6 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
             return in_array($user->email, [
                 'celien@pixlforge.ch',
             ]);
-        });
-    }
-
-    /**
-     * Configure the Telescope authorization services.
-     *
-     * @return void
-     */
-    protected function authorization()
-    {
-        auth()->setDefaultDriver('web');
-
-        $this->gate();
-
-        Telescope::auth(function ($request) {
-            return Gate::check('viewTelescope', [$request->user()]);
         });
     }
 }
