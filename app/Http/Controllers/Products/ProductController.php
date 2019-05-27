@@ -19,8 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with([
-                'shop',
-                'variations.stock',
+                'shop', 'variations.stock',
             ])
             ->withScopes($this->scopes())
             ->paginate(10);
@@ -37,9 +36,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->load([
-            'variations.type',
-            'variations.stock',
-            'variations.product',
+            'variations.type', 'variations.stock', 'variations.product',
         ]);
 
         return new ProductResource($product);

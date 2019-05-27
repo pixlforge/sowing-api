@@ -16,7 +16,14 @@ class ConnectShopController extends Controller
         $this->middleware(['auth:api']);
     }
 
-    public function store(Request $request, Guzzle $guzzle)
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param Guzzle $guzzle
+     * @return void
+     */
+    public function __invoke(Request $request, Guzzle $guzzle)
     {
         abort_if(!$request->user()->hasShop(), 403);
 

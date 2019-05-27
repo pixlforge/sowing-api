@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Orders;
 
 use App\Cart\Cart;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Events\Orders\OrderCreated;
 use App\Http\Controllers\Controller;
@@ -57,7 +58,7 @@ class OrderController extends Controller
             $cart->variations()->forSyncing()
         );
 
-        event(new OrderCreated($order));
+        OrderCreated::dispatch($order);
 
         return new OrderResource($order);
     }
@@ -69,7 +70,7 @@ class OrderController extends Controller
      * @param Cart $cart
      * @return Order
      */
-    protected function createOrder(Request $request, Cart $cart)
+    protected function createOrder(Request $request, Cart $cart): Order
     {
         return $request->user()->orders()->create(
             array_merge($request->only(['address_id', 'shipping_method_id', 'payment_method_id']), [
