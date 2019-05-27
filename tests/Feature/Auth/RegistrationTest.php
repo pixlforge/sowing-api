@@ -100,7 +100,7 @@ class RegistrationTest extends TestCase
     public function password_must_be_confirmed()
     {
         $response = $this->postJson(route('auth.register'), [
-            'password' => 'secret',
+            'password' => 'password',
             'password_confirmation' => null
         ]);
 
@@ -108,11 +108,11 @@ class RegistrationTest extends TestCase
     }
 
     /** @test */
-    public function password_must_be_at_least_6_characters_long()
+    public function password_must_be_at_least_8_characters_long()
     {
         $response = $this->postJson(route('auth.register'), [
-            'password' => 'secre',
-            'password_confirmation' => 'secre'
+            'password' => 'passwor',
+            'password_confirmation' => 'passwor'
         ]);
 
         $response->assertJsonValidationErrors(['password']);
@@ -135,8 +135,8 @@ class RegistrationTest extends TestCase
         $response = $this->postJson(route('auth.register'), [
             'name' => $name = 'John',
             'email' => $email = 'john@example.com',
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ]);
 
         $response->assertSuccessful();
@@ -153,8 +153,8 @@ class RegistrationTest extends TestCase
         $response = $this->postJson(route('auth.register'), [
             'name' => $name = 'John',
             'email' => $email = 'john@example.com',
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ]);
 
         $response->assertSuccessful();
@@ -171,8 +171,8 @@ class RegistrationTest extends TestCase
         $response = $this->postJson(route('auth.register'), [
             'name' => 'John',
             'email' => 'john@example.com',
-            'password' => 'secret',
-            'password_confirmation' => 'secret'
+            'password' => 'password',
+            'password_confirmation' => 'password'
         ]);
 
         $response->assertSuccessful();

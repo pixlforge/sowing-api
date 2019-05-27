@@ -25,7 +25,7 @@ class RegisterController extends Controller
             'confirmation_token' => User::generateConfirmationToken($request->email)
         ]);
 
-        event(new AccountCreated($user, $request->client_locale));
+        AccountCreated::dispatch($user, $request->client_locale);
 
         return new PrivateUserResource($user);
     }
