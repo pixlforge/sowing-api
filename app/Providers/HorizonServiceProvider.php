@@ -5,7 +5,6 @@ namespace App\Providers;
 use Laravel\Horizon\Horizon;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
-use Illuminate\Http\Request;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
@@ -20,7 +19,10 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
 
         // Horizon::routeSmsNotificationsTo('15556667777');
         // Horizon::routeMailNotificationsTo('example@example.com');
-        // Horizon::routeSlackNotificationsTo('slack-webhook-url', '#channel');
+        Horizon::routeSlackNotificationsTo(
+            'https://hooks.slack.com/services/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',
+            '#sowing'
+        );
         
         // Horizon::night();
     }
