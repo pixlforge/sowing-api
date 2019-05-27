@@ -31,7 +31,7 @@ Route::prefix('/auth')->namespace('Auth')->name('auth.')->group(function () {
  * Cart
  */
 Route::namespace('Cart')->group(function () {
-    Route::resource('/cart', 'CartController', [
+    Route::apiResource('/cart', 'CartController', [
         'parameters' => [
             'cart' => 'variation'
         ]
@@ -42,7 +42,7 @@ Route::namespace('Cart')->group(function () {
  * Addresses
  */
 Route::namespace('Addresses')->group(function () {
-    Route::resource('/addresses', 'AddressController');
+    Route::apiResource('/addresses', 'AddressController');
     Route::get('/addresses/{address}/shipping', 'AddressShippingController')->name('addresses.shipping');
 });
 
@@ -50,14 +50,14 @@ Route::namespace('Addresses')->group(function () {
  * Categories
  */
 Route::namespace('Categories')->group(function () {
-    Route::resource('/categories', 'CategoryController');
+    Route::apiResource('/categories', 'CategoryController');
 });
 
 /**
  * Countries
  */
 Route::namespace('Countries')->group(function () {
-    Route::resource('/countries', 'CountryController');
+    Route::apiResource('/countries', 'CountryController');
 });
 
 /**
@@ -82,33 +82,33 @@ Route::namespace('Newsletters')->group(function () {
  * Orders
  */
 Route::namespace('Orders')->group(function () {
-    Route::resource('/orders', 'OrderController');
+    Route::apiResource('/orders', 'OrderController');
 });
 
 /**
  * Payment methods
  */
 Route::namespace('PaymentMethods')->group(function () {
-    Route::resource('/payment-methods', 'PaymentMethodController');
+    Route::apiResource('/payment-methods', 'PaymentMethodController');
 });
 
 /**
  * Products
  */
 Route::namespace('Products')->group(function () {
-    Route::resource('/products', 'ProductController');
+    Route::apiResource('/products', 'ProductController');
 });
 
 /**
  * Shops
  */
 Route::namespace('Shops')->group(function () {
-    Route::resource('/shops', 'ShopController');
+    Route::apiResource('/shops', 'ShopController');
     Route::get('/user/shop', 'UserShopController')->name('user.shop');
     Route::post('/shops/checker', 'ShopCheckerController')->name('shop.checker');
 
     /**
      * Connect
      */
-    Route::post('/shops/connect', 'ConnectShopController@store')->name('shops.connect');
+    Route::post('/shops/connect', 'ConnectShopController')->name('shops.connect');
 });
