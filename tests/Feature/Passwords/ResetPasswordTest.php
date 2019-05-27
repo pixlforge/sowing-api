@@ -112,8 +112,8 @@ class ResetPasswordTest extends TestCase
 
         $this->postJson(route('auth.reset'), [
             'email' => $email,
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
+            'password' => 'password',
+            'password_confirmation' => 'password',
             'token' => $token
         ]);
 
@@ -143,8 +143,8 @@ class ResetPasswordTest extends TestCase
 
         $response = $this->postJson(route('auth.reset'), [
             'email' => $email,
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
+            'password' => 'password',
+            'password_confirmation' => 'password',
             'token' => $token
         ]);
 
@@ -166,8 +166,8 @@ class ResetPasswordTest extends TestCase
 
         $response = $this->postJson(route('auth.reset'), [
             'email' => $email,
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
+            'password' => 'password',
+            'password_confirmation' => 'password',
             'token' => 'something-wrong'
         ]);
 
@@ -181,8 +181,8 @@ class ResetPasswordTest extends TestCase
 
         $response = $this->postJson(route('auth.reset'), [
             'email' => 'inexistent-email',
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
+            'password' => 'password',
+            'password_confirmation' => 'password',
             'token' => 'something-wrong'
         ]);
 
@@ -211,8 +211,8 @@ class ResetPasswordTest extends TestCase
 
         $this->postJson(route('auth.reset'), [
             'email' => $email,
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
+            'password' => 'password',
+            'password_confirmation' => 'password',
             'token' => $token
         ]);
 

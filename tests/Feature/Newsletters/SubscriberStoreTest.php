@@ -18,7 +18,7 @@ class SubscriberStoreTest extends TestCase
     public function it_requires_a_valid_email()
     {
         $response = $this->postJson(route('newsletter.subscriber.store'), [
-            'email' => 'john@example'
+            'email' => 'nope'
         ]);
 
         $response->assertJsonValidationErrors(['email']);

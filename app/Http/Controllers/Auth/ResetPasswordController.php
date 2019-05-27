@@ -44,7 +44,7 @@ class ResetPasswordController extends Controller
         $user->password = Hash::make($password);
         $user->save();
 
-        event(new PasswordReset($user, request('client_locale')));
+        PasswordReset::dispatch($user, request('client_locale'));
     }
 
     /**
