@@ -14,9 +14,9 @@ class CreateOrderVariationTable extends Migration
     public function up()
     {
         Schema::create('order_variation', function (Blueprint $table) {
-            $table->unsignedInteger('order_id')->index();
-            $table->unsignedInteger('variation_id')->index();
-            $table->unsignedInteger('quantity');
+            $table->unsignedBigInteger('order_id')->index();
+            $table->unsignedBigInteger('variation_id')->index();
+            $table->unsignedBigInteger('quantity');
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders');

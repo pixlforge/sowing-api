@@ -14,8 +14,8 @@ class CreateShopsTable extends Migration
     public function up()
     {
         Schema::create('shops', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id')->index();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id')->index();
             $table->string('name')->unique()->index();
             $table->string('slug')->unique()->index();
             $table->json('description_short');
@@ -23,7 +23,7 @@ class CreateShopsTable extends Migration
             $table->string('theme')->default('green');
             $table->string('postal_code');
             $table->string('city');
-            $table->unsignedInteger('country_id')->index();
+            $table->unsignedBigInteger('country_id')->index();
             $table->string('stripe_user_id')->nullable();
             $table->string('stripe_publishable_key')->nullable();
             $table->timestamps();

@@ -14,7 +14,7 @@ class AddShopIdToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->unsignedInteger('shop_id')->after('id')->index();
+            $table->unsignedBigInteger('shop_id')->after('id')->index();
 
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
         });

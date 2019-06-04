@@ -14,8 +14,8 @@ class CreateCountryShippingMethodTable extends Migration
     public function up()
     {
         Schema::create('country_shipping_method', function (Blueprint $table) {
-            $table->unsignedInteger('country_id')->index();
-            $table->unsignedInteger('shipping_method_id')->index();
+            $table->unsignedBigInteger('country_id')->index();
+            $table->unsignedBigInteger('shipping_method_id')->index();
 
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->foreign('shipping_method_id')->references('id')->on('shipping_methods')->onDelete('cascade');

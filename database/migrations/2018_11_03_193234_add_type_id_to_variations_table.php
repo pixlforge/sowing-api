@@ -14,7 +14,7 @@ class AddTypeIdToVariationsTable extends Migration
     public function up()
     {
         Schema::table('variations', function (Blueprint $table) {
-            $table->unsignedInteger('type_id')->after('product_id')->nullable()->index();
+            $table->unsignedBigInteger('type_id')->after('product_id')->nullable()->index();
 
             $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
         });
