@@ -15,37 +15,37 @@ class UsersTableSeeder extends Seeder
         factory(User::class)->create([
             'name' => 'Célien',
             'email' => 'celien@pixlforge.ch',
-            'password' => 'secret',
+            'password' => 'password',
         ]);
 
         factory(User::class)->create([
             'name' => 'Raffaella',
             'email' => 'raffaella@pixlforge.ch',
-            'password' => 'secret',
+            'password' => 'password',
         ]);
 
         factory(User::class)->create([
             'name' => 'Sophie',
             'email' => 'sophie@sowing.ch',
-            'password' => 'secret',
+            'password' => 'password',
         ]);
 
         factory(User::class)->create([
             'name' => 'Test User 1',
             'email' => 'testuser1@example.com',
-            'password' => 'secret',
+            'password' => 'password',
         ]);
 
         factory(User::class)->create([
             'name' => 'Test User 2',
             'email' => 'testuser2@example.com',
-            'password' => 'secret',
+            'password' => 'password',
         ]);
 
         factory(User::class)->create([
             'name' => 'Test User 3',
             'email' => 'testuser3@example.com',
-            'password' => 'secret',
+            'password' => 'password',
         ]);
     }
 }
