@@ -20,7 +20,7 @@ return [
         'allow_credentials' => false,
 
         'allow_origins' => [
-            'http://localhost:3000',
+            'http://localhost:8871',
             'https://www.sowing.ch'
         ],
 

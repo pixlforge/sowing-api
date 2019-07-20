@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="h-screen bg-grey-lightest pt-100">
+  <div class="h-screen bg-gray-200 pt-100">
     <div class="container h-full flex flex-col">
       <form
         method="POST"
@@ -12,7 +12,7 @@
         <h1 class="text-24 text-center">Connexion à votre compte</h1>
   
         {{-- Email --}}
-        <div class="mt-40">
+        <div class="mt-48">
           <label
             for="email"
             class="text-14 font-bold uppercase">
@@ -22,12 +22,12 @@
             id="email"
             type="email"
             name="email"
-            class="w-full bg-grey-lightest rounded-lg outline-none focus:shadow-outline h-40 pl-20 mt-10"
+            class="w-full bg-gray-200 rounded-lg outline-none focus:shadow-outline h-40 pl-20 mt-10"
             value="{{ old('email') ? old('email') : '' }}"
             required>
           @if ($errors->has('email'))
             <div
-              class="text-12 text-red mt-10"
+              class="text-12 text-red-400 mt-10"
               role="alert">
               <strong>{{ $errors->first('email') }}</strong>
             </div>
@@ -35,7 +35,7 @@
         </div>
   
         {{-- Password --}}
-        <div class="mt-40">
+        <div class="mt-48">
           <label
             for="password"
             class="text-14 font-bold uppercase">
@@ -45,7 +45,7 @@
             id="password"
             type="password"
             name="password"
-            class="w-full bg-grey-lightest rounded-lg outline-none focus:shadow-outline h-40 pl-20 mt-10"
+            class="w-full bg-gray-200 rounded-lg outline-none focus:shadow-outline h-40 pl-20 mt-10"
             required>
         </div>
 
@@ -56,7 +56,7 @@
 
         <button
           type="submit"
-          class="bg-green hover:bg-green-dark rounded-lg text-14 text-white font-bold uppercase px-20 py-10 mt-40">
+          class="bg-green-400 hover:bg-green-600 rounded-lg text-14 text-white font-bold uppercase px-20 py-10 mt-48">
           Connexion
         </button>
       </form>
