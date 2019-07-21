@@ -30,7 +30,7 @@ class VerificationController extends Controller
         if (!$token || !$user || !$this->compareTokens($user, $token)) {
             return response([
                 'errors' => [
-                    'token' => __('auth.verification.failed')
+                    'token' => __('emails.verification.failed')
                 ]
             ], 422);
         }
