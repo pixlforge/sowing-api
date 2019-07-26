@@ -72,7 +72,7 @@ class ResetPasswordController extends Controller
     {
         return response([
             'errors' => [
-                Str::after($response, '.') => __($response)
+                Str::after($response, '.') => [__($response)]
             ]
         ], 422);
     }

@@ -54,7 +54,7 @@ class ForgotPasswordController extends Controller
     {
         return response([
             'errors' => [
-                'email' => __('passwords.user')
+                'email' => [__('passwords.user')]
             ]
         ], 422);
     }

@@ -49,7 +49,7 @@ class LoginController extends Controller
 
             return response([
                 'errors' => [
-                    'email' => __('auth.failed')
+                    'email' => [__('auth.failed')]
                 ]
             ], 422);
         }
