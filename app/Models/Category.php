@@ -6,10 +6,12 @@ use App\Models\Traits\HasChildren;
 use App\Models\Traits\IsOrderable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Category extends Model
+class Category extends Model implements HasMedia
 {
-    use HasChildren, IsOrderable, HasTranslations;
+    use HasChildren, IsOrderable, HasTranslations, HasMediaTrait;
 
     /**
      * The attributes that are mass assignable.

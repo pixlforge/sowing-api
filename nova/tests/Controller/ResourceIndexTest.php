@@ -38,6 +38,7 @@ class ResourceIndexTest extends IntegrationTest
         $this->assertTrue($response->original['resources'][0]['authorizedToUpdate']);
         $this->assertTrue($response->original['resources'][0]['authorizedToDelete']);
         $this->assertTrue($response->original['resources'][0]['softDeletes']);
+        $this->assertEquals([25, 50, 100], $response->original['per_page_options']);
 
         $fields = $response->original['resources'][0]['fields'];
         $nameField = collect($fields)->where('attribute', 'name')->first();

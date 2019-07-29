@@ -1,55 +1,48 @@
 <template>
-    <div v-if="!loading">
-        <heading class="mb-3">{{ __('Edit :resource', { resource: singularName }) }}</heading>
+    <loading-view :loading="loading">
+        <form v-if="panels" @submit.prevent="updateResource" autocomplete="off">
+            <form-panel
+                v-for="panel in panelsWithFields"
+                @update-last-retrieved-at-timestamp="updateLastRetrievedAtTimestamp"
+                :panel="panel"
+                :name="panel.name"
+                :key="panel.name"
+                :resource-id="resourceId"
+                :resource-name="resourceName"
+                :fields="panel.fields"
+                mode="form"
+                class="mb-6"
+                :validation-errors="validationErrors"
+                :via-resource="viaResource"
+                :via-resource-id="viaResourceId"
+                :via-relationship="viaRelationship"
+            />
 
-        <card class="overflow-hidden">
-            <form v-if="fields" @submit.prevent="updateResource" autocomplete="off">
-                <!-- Validation Errors -->
-                <validation-errors :errors="validationErrors" />
+            <!-- Update Button -->
+            <div class="flex items-center">
+                <cancel-button />
 
-                <!-- Fields -->
-                <div v-for="field in fields">
-                    <component
-                        @file-deleted="updateLastRetrievedAtTimestamp"
-                        :is="'form-' + field.component"
-                        :errors="validationErrors"
-                        :resource-id="resourceId"
-                        :resource-name="resourceName"
-                        :field="field"
-                    />
-                </div>
+                <progress-button
+                    class="mr-3"
+                    dusk="update-and-continue-editing-button"
+                    @click.native="updateAndContinueEditing"
+                    :disabled="isWorking"
+                    :processing="submittedViaUpdateAndContinueEditing"
+                >
+                    {{ __('Update & Continue Editing') }}
+                </progress-button>
 
-                <!-- Update Button -->
-                <div class="bg-30 flex items-center px-8 py-4">
-                    <a
-                        @click="$router.back()"
-                        class="btn btn-link dim cursor-pointer text-80 ml-auto mr-6"
-                    >
-                        {{ __('Cancel') }}
-                    </a>
-
-                    <progress-button
-                        class="mr-3"
-                        dusk="update-and-continue-editing-button"
-                        @click.native="updateAndContinueEditing"
-                        :disabled="isWorking"
-                        :processing="submittedViaUpdateAndContinueEditing"
-                    >
-                        {{ __('Update & Continue Editing') }}
-                    </progress-button>
-
-                    <progress-button
-                        dusk="update-button"
-                        type="submit"
-                        :disabled="isWorking"
-                        :processing="submittedViaUpdateResource"
-                    >
-                        {{ __('Update :resource', { resource: singularName }) }}
-                    </progress-button>
-                </div>
-            </form>
-        </card>
-    </div>
+                <progress-button
+                    dusk="update-button"
+                    type="submit"
+                    :disabled="isWorking"
+                    :processing="submittedViaUpdateResource"
+                >
+                    {{ __('Update :resource', { resource: singularName }) }}
+                </progress-button>
+            </div>
+        </form>
+    </loading-view>
 </template>
 
 <script>
@@ -83,6 +76,7 @@ export default {
         submittedViaUpdateAndContinueEditing: false,
         submittedViaUpdateResource: false,
         fields: [],
+        panels: [],
         validationErrors: new Errors(),
         lastRetrievedAt: null,
     }),
@@ -100,7 +94,6 @@ export default {
         }
 
         this.getFields()
-
         this.updateLastRetrievedAtTimestamp()
     },
 
@@ -111,9 +104,12 @@ export default {
         async getFields() {
             this.loading = true
 
+            this.panels = []
             this.fields = []
 
-            const { data: fields } = await Nova.request()
+            const {
+                data: { panels, fields },
+            } = await Nova.request()
                 .get(`/nova-api/${this.resourceName}/${this.resourceId}/update-fields`, {
                     params: {
                         editing: true,
@@ -130,8 +126,8 @@ export default {
                     }
                 })
 
+            this.panels = panels
             this.fields = fields
-
             this.loading = false
         },
 
@@ -273,6 +269,15 @@ export default {
          */
         isWorking() {
             return this.submittedViaUpdateResource || this.submittedViaUpdateAndContinueEditing
+        },
+
+        panelsWithFields() {
+            return _.map(this.panels, panel => {
+                return {
+                    name: panel.name,
+                    fields: _.filter(this.fields, field => field.panel == panel.name),
+                }
+            })
         },
     },
 }

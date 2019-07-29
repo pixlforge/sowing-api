@@ -98,9 +98,7 @@ export default {
             if (this.field.withFiles) {
                 Nova.request()
                     .delete(
-                        `/nova-api/${this.resourceName}/trix-attachment/${this.field.attribute}/${
-                            this.draftId
-                        }`
+                        `/nova-api/${this.resourceName}/trix-attachment/${this.field.attribute}/${this.draftId}`
                     )
                     .then(response => console.log(response))
                     .catch(error => {})

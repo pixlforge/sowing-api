@@ -20,7 +20,7 @@ class CategoryFeaturedController extends Controller
             'featured_categories',
             now()->addDay(),
             function () {
-                return Category::with('parent')
+                return Category::with(['parent', 'media'])
                     ->childrenOnly()
                     ->excludeSections()
                     ->inRandomOrder()

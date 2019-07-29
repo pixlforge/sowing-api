@@ -72,11 +72,17 @@ class UserResource extends Resource
                             ->updateRules('required', 'string', 'max:255'),
             ]),
 
-            Text::make('Email')->rules('required', 'email', 'max:254')
-                                ->creationRules(function ($request) {
-                                    return ['unique:users,email'];
-                                })
-                                ->updateRules('unique:users,email,{{resourceId}}'),
+            Text::make('Email')
+                ->rules('required', 'email', 'max:254')
+                ->creationRules('unique:users,email')
+                ->updateRules('unique:users,email,{{resourceId}}'),
+
+            Text::make('Weight')
+                ->rules('required')
+                ->readonly($_SERVER['weight-field.readonly'] ?? true)
+                ->canSee(function () {
+                    return $_SERVER['weight-field.canSee'] ?? true;
+                }),
 
             Text::make('Password')
                                 ->onlyOnForms()
@@ -103,6 +109,8 @@ class UserResource extends Resource
                     }),
                 ];
             }),
+
+            BelongsToMany::make('Related Users', 'relatedUsers', self::class),
 
             Text::make('Index')->onlyOnIndex(),
             Text::make('Detail')->onlyOnDetail(),
@@ -133,6 +141,24 @@ class UserResource extends Resource
 
             KeyValue::make('Meta'),
         ];
+    }
+
+    /**
+     * Return the email field for the resource.
+     *
+     * @return \Laravel\Nova\Fields\Text
+     */
+    public function emailField()
+    {
+        return Text::make('Email')
+            ->rules('required', 'email', 'max:254')
+            ->creationRules(function ($request) {
+                return ['unique:users,email'];
+            })
+            ->updateRules('unique:users,email,{{resourceId}}')
+            ->canSee(function () {
+                return $_SERVER['email-field.canSee'] ?? true;
+            });
     }
 
     /**

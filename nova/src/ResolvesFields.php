@@ -17,7 +17,6 @@ use Laravel\Nova\Fields\FieldCollection;
 use Laravel\Nova\Contracts\ListableField;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Laravel\Nova\Http\Requests\ResourceDetailRequest;
 
 trait ResolvesFields
 {
@@ -74,6 +73,20 @@ trait ResolvesFields
     }
 
     /**
+     * Resolve the detail fields and assign them to their associated panel.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @return \Illuminate\Support\Collection
+     */
+    public function detailFieldsWithinPanels(NovaRequest $request)
+    {
+        return $this->assignToPanels(
+            Panel::defaultNameForDetail($request->newResource()),
+            $this->detailFields($request)
+        );
+    }
+
+    /**
      * Resolve the creation fields.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
@@ -84,6 +97,34 @@ trait ResolvesFields
         return $this->resolveFields($request, function ($fields) {
             return $this->removeNonCreationFields($fields);
         });
+    }
+
+    /**
+     * Return the creation fields excluding any readonly ones.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @return \Illuminate\Support\Collection
+     */
+    public function creationFieldsWithoutReadonly(NovaRequest $request)
+    {
+        return $this->creationFields($request)
+                    ->reject(function ($field) use ($request) {
+                        return $field->isReadonly($request);
+                    });
+    }
+
+    /**
+     * Resolve the creation fields and assign them to their associated panel.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @return \Illuminate\Support\Collection
+     */
+    public function creationFieldsWithinPanels(NovaRequest $request)
+    {
+        return $this->assignToPanels(
+            Panel::defaultNameForCreate($request->newResource()),
+            $this->creationFields($request)
+        );
     }
 
     /**
@@ -128,6 +169,34 @@ trait ResolvesFields
         return $this->resolveFields($request, function ($fields) {
             return $this->removeNonUpdateFields($fields);
         });
+    }
+
+    /**
+     * Return the update fields excluding any readonly ones.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @return \Illuminate\Support\Collection
+     */
+    public function updateFieldsWithoutReadonly(NovaRequest $request)
+    {
+        return $this->updateFields($request)
+                    ->reject(function ($field) use ($request) {
+                        return $field->isReadonly($request);
+                    });
+    }
+
+    /**
+     * Resolve the update fields and assign them to their associated panel.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @return \Illuminate\Support\Collection
+     */
+    public function updateFieldsWithinPanels(NovaRequest $request)
+    {
+        return $this->assignToPanels(
+            Panel::defaultNameForUpdate($request->newResource()),
+            $this->updateFields($request)
+        );
     }
 
     /**
@@ -253,21 +322,36 @@ trait ResolvesFields
     }
 
     /**
-     * Get the panels that are available for the given request.
+     * Get the panels that are available for the given create request.
      *
-     * @param  \Laravel\Nova\Http\Requests\ResourceDetailRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return \Illuminate\Support\Collection
      */
-    public function availablePanels(ResourceDetailRequest $request)
+    public function availablePanelsForCreate($request)
     {
-        $panels = collect(array_values($this->fields($request)))
-                ->whereInstanceOf(Panel::class)->values();
+        return $this->panelsWithDefaultLabel(Panel::defaultNameForCreate($request->newResource()), $request);
+    }
 
-        $default = Panel::defaultNameFor($request->newResource());
+    /**
+     * Get the panels that are available for the given update request.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @return \Illuminate\Support\Collection
+     */
+    public function availablePanelsForUpdate($request)
+    {
+        return $this->panelsWithDefaultLabel(Panel::defaultNameForUpdate($request->newResource()), $request);
+    }
 
-        return $panels->when($panels->where('name', $default)->isEmpty(), function ($panels) use ($default) {
-            return $panels->push((new Panel($default))->withToolbar());
-        })->all();
+    /**
+     * Get the panels that are available for the given detail request.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @return \Illuminate\Support\Collection
+     */
+    public function availablePanelsForDetail($request)
+    {
+        return $this->panelsWithDefaultLabel(Panel::defaultNameForDetail($request->newResource()), $request);
     }
 
     /**
@@ -400,5 +484,42 @@ trait ResolvesFields
         if (isset($field->pivotName)) {
             return $field->pivotName;
         }
+    }
+
+    /**
+     * Return the panels for this request with the default label.
+     *
+     * @param string $label
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @return \Illuminate\Support\Collection
+     */
+    protected function panelsWithDefaultLabel($label, NovaRequest $request)
+    {
+        return with(
+            collect(array_values($this->fields($request)))->whereInstanceOf(Panel::class)->values(),
+            function ($panels) use ($label) {
+                return $panels->when($panels->where('name', $label)->isEmpty(), function ($panels) use ($label) {
+                    return $panels->prepend((new Panel($label))->withToolbar());
+                })->all();
+            }
+        );
+    }
+
+    /**
+     * Assign the fields with the given panels to their parent panel.
+     *
+     * @param string $label
+     * @param \Illuminate\Support\Collection $panels
+     * @return \Illuminate\Support\Collection
+     */
+    protected function assignToPanels($label, Collection $panels)
+    {
+        return $panels->map(function ($field) use ($label) {
+            if (! $field->panel) {
+                $field->panel = $label;
+            }
+
+            return $field;
+        });
     }
 }

@@ -67,6 +67,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Related users with each other via email.
+     */
+    public function relatedUsers()
+    {
+        return $this->belongsToMany(self::class, 'user_emails_xref', 'email_to', 'email_from', 'email', 'email')
+            ->using(UserEmailRelationship::class);
+    }
+
+    /**
      * Send the password reset notification.
      *
      * @param  string  $token

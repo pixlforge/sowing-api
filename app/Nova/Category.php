@@ -14,6 +14,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Metrics\SubCategoryCount;
 use App\Nova\Metrics\CategoryTypes;
 use Laravel\Nova\Fields\Number;
+use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 
 class Category extends Resource
 {
@@ -103,6 +104,8 @@ class Category extends Resource
 
             Number::make('Ordre', 'order')
                 ->sortable(),
+            
+            Medialibrary::make('Image', 'category_image'),
         ];
     }
 

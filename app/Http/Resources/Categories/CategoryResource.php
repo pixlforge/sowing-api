@@ -30,7 +30,8 @@ class CategoryResource extends JsonResource
             'slug' => $this->slug,
             'is_section' => $this->is_section,
             'children' => CategoryResource::collection($this->whenLoaded('children')),
-            'parent' => new CategoryResource($this->whenLoaded('parent'))
+            'parent' => new CategoryResource($this->whenLoaded('parent')),
+            'media' => optional($this->getFirstMedia('category_image'))->getFullUrl(),
         ];
     }
 }

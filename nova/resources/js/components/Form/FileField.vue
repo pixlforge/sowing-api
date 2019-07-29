@@ -103,7 +103,7 @@ export default {
 
     methods: {
         /**
-         * Responsd to the file change
+         * Respond to the file change
          */
         fileChange(event) {
             let path = event.target.value

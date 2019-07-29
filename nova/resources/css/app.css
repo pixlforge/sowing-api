@@ -25,8 +25,16 @@
   --60: #bacad6;
   --70: #b3b9bf;
   --80: #7c858e;
-  --90: #252d37;
+  --90: #3c4b5f;
   --90-half: rgba(40, 54, 61, 0.5);
+  --warning-light: #fefcbf;
+  --warning-dark: #b7791f;
+  --success-light: #c6f6d5;
+  --success-dark: #38a169;
+  --danger-light: #fed7d7;
+  --danger-dark: #e53e3e;
+  --info-light: #bee3f8;
+  --info-dark: #3182ce;
 }
 
 /* Vue
@@ -459,12 +467,6 @@ textarea.form-input:read-only,
   background-size: 10px 6px;
   background-repeat: no-repeat;
   background-position: center right 0.75rem;
-}
-
-/* White Fade for excerpts
----------------------------------------------------------------------------- */
-.white-fade {
-  background: url('/img/white-fade.png');
 }
 
 /* Rotate

@@ -44,7 +44,7 @@
                 :panel="panel"
             >
                 <div v-if="panel.showToolbar" class="flex items-center mb-3">
-                    <h4 class="text-90 font-normal text-2xl flex-no-shrink">{{ panel.name }}</h4>
+                    <heading :level="1" class="flex-no-shrink">{{ panel.name }}</heading>
 
                     <div class="ml-3 w-full flex items-center">
                         <custom-detail-toolbar
