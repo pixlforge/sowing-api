@@ -17,10 +17,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'description',
-        'slug',
-        'order'
+        'name', 'description', 'slug', 'order'
     ];
 
     /**
@@ -29,8 +26,7 @@ class Category extends Model
      * @var array
      */
     public $translatable = [
-        'name',
-        'description'
+        'name', 'description'
     ];
 
     /**

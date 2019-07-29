@@ -26,3 +26,9 @@ $factory->define(Category::class, function () use ($fakerEN, $fakerFR, $fakerDE,
         'slug' => Str::slug($name),
     ];
 });
+
+$factory->state(Category::class, 'hasParent', function () {
+    return [
+        'parent_id' => factory(Category::class)
+    ];
+});

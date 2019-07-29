@@ -50,6 +50,7 @@ Route::namespace('Addresses')->group(function () {
  * Categories
  */
 Route::namespace('Categories')->group(function () {
+    Route::get('/categories/featured', 'CategoryFeaturedController')->name('categories.featured');
     Route::apiResource('/categories', 'CategoryController');
 });
 
