@@ -32,7 +32,7 @@ trait HasPrice
      *
      * @return array
      */
-    public function getRawPriceAttribute()
+    public function getDetailedPriceAttribute()
     {
         return $this->price->raw();
     }

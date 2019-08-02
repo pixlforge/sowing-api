@@ -38,7 +38,10 @@ class VariationResource extends JsonResource
             'product' => new ProductIndexResource($this->whenLoaded('product')),
             'price' => $this->price,
             'order' => $this->order,
-            'price' => $this->rawPrice,
+            'price' => [
+                'detailed' => $this->detailedPrice,
+                'formatted' => $this->formattedPrice
+            ],
             'price_varies' => $this->priceVaries(),
             'type' => new TypeResource($this->type),
             'stock_count' => (int) $this->stockCount(),

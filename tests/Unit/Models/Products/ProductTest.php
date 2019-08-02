@@ -67,7 +67,7 @@ class ProductTest extends TestCase
             'price' => 1000
         ]);
 
-        $this->assertEquals('CHF10.00', $product->formattedPrice);
+        $this->assertEquals((new Money(1000))->formatted(), $product->formattedPrice);
     }
 
     /** @test */

@@ -30,7 +30,10 @@ class ProductIndexResource extends JsonResource
                 'de' => $this->getTranslation('description', 'de'),
                 'it' => $this->getTranslation('description', 'it')
             ],
-            'price' => $this->rawPrice,
+            'price' => [
+                'detailed' => $this->detailedPrice,
+                'formatted' => $this->formattedPrice
+            ],
             'stock_count' => $this->stockCount(),
             'in_stock' => $this->inStock(),
             'shop' => new ShopResource($this->shop)

@@ -24,17 +24,17 @@ class ShippingMethodTest extends TestCase
             'price' => 1000
         ]);
 
-        $this->assertEquals('CHF10.00', $shippingMethod->formatted_price);
+        $this->assertEquals((new Money(1000))->formatted(), $shippingMethod->formatted_price);
     }
 
     /** @test */
-    public function it_returns_a_raw_price()
+    public function it_returns_a_detailed_price()
     {
         $shippingMethod = factory(ShippingMethod::class)->create([
             'price' => 1000
         ]);
 
-        $this->assertEquals(['amount' => '10.00', 'currency' => 'CHF'], $shippingMethod->raw_price);
+        $this->assertEquals(['amount' => '10.00', 'currency' => 'CHF'], $shippingMethod->detailedPrice);
     }
 
     /** @test */

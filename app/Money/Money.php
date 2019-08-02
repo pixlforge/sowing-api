@@ -44,7 +44,7 @@ class Money
 
         return [
             'amount' => $formatter->format($this->money),
-            'currency' => $this->money->getCurrency()->getCode()
+            'currency' => $this->money->getCurrency()
         ];
     }
 
