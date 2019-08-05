@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Collections\VariationCollection;
+use App\Models\Pivots\ProductVariationStockPivot;
 
 class Variation extends Model
 {
@@ -127,9 +128,9 @@ class Variation extends Model
     public function stock()
     {
         return $this->belongsToMany(Variation::class, 'variation_stock_view')
+            ->using(ProductVariationStockPivot::class)
             ->withPivot([
-                'stock',
-                'in_stock'
+                'stock', 'in_stock'
             ]);
     }
 
