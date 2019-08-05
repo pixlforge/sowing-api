@@ -14,9 +14,13 @@ class AddPaymentMethodIdToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->unsignedBigInteger('payment_method_id')->after('shipping_method_id')->index();
+            $table->unsignedBigInteger('payment_method_id')->after('shipping_method_id')->nullable()->index();
 
             $table->foreign('payment_method_id')->references('id')->on('payment_methods');
+        });
+
+        Schema::table('orders', function (Blueprint $table) {
+            $table->unsignedBigInteger('payment_method_id')->nullable(false)->change();
         });
     }
 

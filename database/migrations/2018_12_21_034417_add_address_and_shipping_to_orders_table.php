@@ -14,8 +14,8 @@ class AddAddressAndShippingToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->unsignedBigInteger('address_id')->after('user_id')->index();
-            $table->unsignedBigInteger('shipping_method_id')->after('address_id')->index();
+            $table->unsignedBigInteger('address_id')->after('user_id')->nullable()->index();
+            $table->unsignedBigInteger('shipping_method_id')->after('address_id')->nullable()->index();
 
             $table->foreign('address_id')->references('id')->on('addresses');
             $table->foreign('shipping_method_id')->references('id')->on('shipping_methods');
