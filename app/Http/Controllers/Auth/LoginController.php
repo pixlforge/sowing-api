@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Resources\Users\PrivateUserResource;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use App\Http\Resources\Users\PrivateUserResource;
 
 class LoginController extends Controller
 {

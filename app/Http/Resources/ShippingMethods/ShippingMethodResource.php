@@ -17,7 +17,7 @@ class ShippingMethodResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'price' => $this->rawPrice
+            'price' => $this->detailedPrice
         ];
     }
 }
