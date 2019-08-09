@@ -1,115 +1,110 @@
 <?php
 
+use App\Http\Controllers\Auth\MeController;
+use App\Http\Controllers\Cart\CartController;
+use App\Http\Controllers\Shops\ShopController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Orders\OrderController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Shops\UserShopController;
+use App\Http\Controllers\Products\ProductController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Addresses\AddressController;
+use App\Http\Controllers\Countries\CountryController;
+use App\Http\Controllers\Shops\ShopCheckerController;
+use App\Http\Controllers\Shops\ConnectShopController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Categories\CategoryController;
+use App\Http\Controllers\Images\ShopImageStoreController;
+use App\Http\Controllers\Newsletters\NewsletterController;
+use App\Http\Controllers\Addresses\AddressShippingController;
+use App\Http\Controllers\Categories\CategoryFeaturedController;
+use App\Http\Controllers\PaymentMethods\PaymentMethodController;
+
 /**
  * Auth
  */
-Route::prefix('/auth')->namespace('Auth')->name('auth.')->group(function () {
+Route::prefix('/auth')->name('auth.')->group(function () {
 
     // Register
-    Route::post('/register', 'RegisterController')->name('register');
+    Route::post('/register', RegisterController::class)->name('register');
 
     // Login
-    Route::post('/login', 'LoginController')->name('login');
+    Route::post('/login', LoginController::class)->name('login');
 
     // Logout
-    Route::post('/logout', 'LogoutController')->name('logout');
+    Route::post('/logout', LogoutController::class)->name('logout');
 
     // Me
-    Route::get('/me', 'MeController')->name('me');
+    Route::get('/me', MeController::class)->name('me');
 
     // Verify
-    Route::post('/verify', 'VerificationController')->name('verify');
+    Route::post('/verify', VerificationController::class)->name('verify');
 
     // Forgot password
-    Route::post('/forgot', 'ForgotPasswordController')->name('forgot');
+    Route::post('/forgot', ForgotPasswordController::class)->name('forgot');
 
     // Reset password
-    Route::post('/reset', 'ResetPasswordController')->name('reset');
+    Route::post('/reset', ResetPasswordController::class)->name('reset');
 });
 
 /**
  * Cart
  */
-Route::namespace('Cart')->group(function () {
-    Route::apiResource('/cart', 'CartController', [
-        'parameters' => [
-            'cart' => 'variation'
-        ]
-    ]);
-});
+Route::apiResource('/cart', CartController::class, [
+    'parameters' => [
+        'cart' => 'variation'
+    ]
+]);
 
 /**
  * Addresses
  */
-Route::namespace('Addresses')->group(function () {
-    Route::apiResource('/addresses', 'AddressController');
-    Route::get('/addresses/{address}/shipping', 'AddressShippingController')->name('addresses.shipping');
-});
+Route::apiResource('/addresses', AddressController::class);
+Route::get('/addresses/{address}/shipping', AddressShippingController::class)->name('addresses.shipping');
 
 /**
  * Categories
  */
-Route::namespace('Categories')->group(function () {
-    Route::get('/categories/featured', 'CategoryFeaturedController')->name('categories.featured');
-    Route::apiResource('/categories', 'CategoryController');
-});
+Route::get('/categories/featured', CategoryFeaturedController::class)->name('categories.featured');
+Route::apiResource('/categories', CategoryController::class);
 
 /**
  * Countries
  */
-Route::namespace('Countries')->group(function () {
-    Route::apiResource('/countries', 'CountryController');
-});
+Route::apiResource('/countries', CountryController::class);
 
 /**
  * Images
  */
-Route::namespace('Images')->group(function () {
-    
-    /**
-     * Shops
-     */
-    Route::post('/images/{shop}/upload', 'ShopImageController@store')->name('shop.image.store');
-});
+Route::post('/images/{shop}/upload', ShopImageStoreController::class)->name('shop.image.store');
 
 /**
  * Newsletters
  */
-Route::namespace('Newsletters')->group(function () {
-    Route::post('/newsletter/subscribe', 'NewsletterController@store')->name('newsletter.subscriber.store');
-});
+Route::post('/newsletter/subscribe', NewsletterController::class)->name('newsletter.subscriber.store');
 
 /**
  * Orders
  */
-Route::namespace('Orders')->group(function () {
-    Route::apiResource('/orders', 'OrderController');
-});
+Route::apiResource('/orders', OrderController::class);
 
 /**
  * Payment methods
  */
-Route::namespace('PaymentMethods')->group(function () {
-    Route::apiResource('/payment-methods', 'PaymentMethodController');
-});
+Route::apiResource('/payment-methods', PaymentMethodController::class);
 
 /**
  * Products
  */
-Route::namespace('Products')->group(function () {
-    Route::apiResource('/products', 'ProductController');
-});
+Route::apiResource('/products', ProductController::class);
 
 /**
  * Shops
  */
-Route::namespace('Shops')->group(function () {
-    Route::apiResource('/shops', 'ShopController');
-    Route::get('/user/shop', 'UserShopController')->name('user.shop');
-    Route::post('/shops/checker', 'ShopCheckerController')->name('shop.checker');
-
-    /**
-     * Connect
-     */
-    Route::post('/shops/connect', 'ConnectShopController')->name('shops.connect');
-});
+Route::apiResource('/shops', ShopController::class);
+Route::get('/user/shop', UserShopController::class)->name('user.shop');
+Route::post('/shops/checker', ShopCheckerController::class)->name('shop.checker');
+Route::post('/shops/connect', ConnectShopController::class)->name('shops.connect');

@@ -16,7 +16,7 @@ class NewsletterController extends Controller
      * @param SubscriberStoreRequest $request
      * @return void
      */
-    public function store(SubscriberStoreRequest $request)
+    public function __invoke(SubscriberStoreRequest $request)
     {
         try {
             $result = Newsletter::subscribeOrUpdate($request->email);

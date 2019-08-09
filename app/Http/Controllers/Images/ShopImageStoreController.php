@@ -6,7 +6,7 @@ use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ShopImageController extends Controller
+class ShopImageStoreController extends Controller
 {
     /**
      * ShopImageController constructor.
@@ -23,7 +23,7 @@ class ShopImageController extends Controller
      * @param Request $request
      * @return string
      */
-    public function store(Shop $shop, Request $request)
+    public function __invoke(Shop $shop, Request $request)
     {
         $this->authorize('update', $shop);
         
