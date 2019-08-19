@@ -8,11 +8,23 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use App\Events\Passwords\PasswordReset;
+use Illuminate\Foundation\Testing\WithFaker;
 use App\Mail\Password\ForgotPasswordRequestEmail;
 use App\Mail\Password\PasswordResetConfirmationEmail;
 
 class ResetPasswordTest extends TestCase
 {
+    use WithFaker;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create([
+            'email' => $this->email = $this->faker->safeEmail
+        ]);
+    }
+
     /** @test */
     public function it_fails_if_authenticated()
     {
@@ -20,7 +32,7 @@ class ResetPasswordTest extends TestCase
 
         $response = $this->postJsonAs($user, route('auth.reset'));
         
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /** @test */
@@ -58,11 +70,11 @@ class ResetPasswordTest extends TestCase
     }
 
     /** @test */
-    public function it_requires_a_password_of_at_least_6_characters()
+    public function it_requires_a_password_of_at_least_8_characters()
     {
         $response = $this->postJson(route('auth.reset'), [
-            'password' => 'abc',
-            'password_confirmation' => 'abc'
+            'password' => $password = $this->faker->password(7, 7),
+            'password_confirmation' => $password
         ]);
 
         $response->assertJsonValidationErrors(['password']);
@@ -80,7 +92,7 @@ class ResetPasswordTest extends TestCase
     public function it_requires_passwords_to_match()
     {
         $response = $this->postJson(route('auth.reset'), [
-            'password' => 'something',
+            'password' => $this->faker->password(8),
             'password_confirmation' => 'something-else'
         ]);
 
@@ -93,12 +105,8 @@ class ResetPasswordTest extends TestCase
         Mail::fake();
         Event::fake();
 
-        $user = factory(User::class)->create([
-            'email' => $email = 'john@example.com'
-        ]);
-
         $this->postJson(route('auth.forgot'), [
-            'email' => $user->email
+            'email' => $this->user->email
         ]);
 
         $token = '';
@@ -111,13 +119,14 @@ class ResetPasswordTest extends TestCase
         $this->assertNotEmpty(DB::table('password_resets')->get());
 
         $this->postJson(route('auth.reset'), [
-            'email' => $email,
+            'email' => $this->email,
             'password' => 'password',
             'password_confirmation' => 'password',
             'token' => $token
         ]);
 
         Event::assertDispatched(PasswordReset::class);
+
         $this->assertEmpty(DB::table('password_resets')->get());
     }
 
@@ -126,12 +135,8 @@ class ResetPasswordTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(User::class)->create([
-            'email' => $email = 'john@example.com'
-        ]);
-
         $this->postJson(route('auth.forgot'), [
-            'email' => $user->email
+            'email' => $this->user->email
         ]);
 
         $token = '';
@@ -142,7 +147,7 @@ class ResetPasswordTest extends TestCase
         });
 
         $response = $this->postJson(route('auth.reset'), [
-            'email' => $email,
+            'email' => $this->email,
             'password' => 'password',
             'password_confirmation' => 'password',
             'token' => $token
@@ -156,16 +161,12 @@ class ResetPasswordTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(User::class)->create([
-            'email' => $email = 'john@example.com'
-        ]);
-
         $this->postJson(route('auth.forgot'), [
-            'email' => $user->email
+            'email' => $this->user->email
         ]);
 
         $response = $this->postJson(route('auth.reset'), [
-            'email' => $email,
+            'email' => $this->email,
             'password' => 'password',
             'password_confirmation' => 'password',
             'token' => 'something-wrong'
@@ -194,12 +195,8 @@ class ResetPasswordTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(User::class)->create([
-            'email' => $email = 'john@example.com'
-        ]);
-
         $this->postJson(route('auth.forgot'), [
-            'email' => $user->email
+            'email' => $this->user->email
         ]);
 
         $token = '';
@@ -210,14 +207,14 @@ class ResetPasswordTest extends TestCase
         });
 
         $this->postJson(route('auth.reset'), [
-            'email' => $email,
+            'email' => $this->email,
             'password' => 'password',
             'password_confirmation' => 'password',
             'token' => $token
         ]);
 
-        Mail::assertQueued(PasswordResetConfirmationEmail::class, function ($mail) use ($user) {
-            return $mail->event->user->email === $user->email;
+        Mail::assertQueued(PasswordResetConfirmationEmail::class, function ($mail) {
+            return $mail->event->user->email === $this->user->email;
         });
     }
 }

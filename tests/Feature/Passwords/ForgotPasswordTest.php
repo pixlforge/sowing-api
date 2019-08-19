@@ -16,7 +16,7 @@ class ForgotPasswordTest extends TestCase
 
         $response = $this->postJsonAs($user, route('auth.forgot'));
         
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /** @test */
