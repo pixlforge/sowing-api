@@ -13,7 +13,7 @@ class PaymentMethodIndexTest extends TestCase
     {
         $response = $this->getJson(route('payment-methods.index'));
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /** @test */
