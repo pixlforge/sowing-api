@@ -9,35 +9,38 @@ use App\Models\ShippingMethod;
 
 class CartIndexTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create();
+        $this->variation = factory(Variation::class)->create();
+    }
+
     /** @test */
     public function it_fails_is_unauthenticated()
     {
         $response = $this->getJson(route('cart.index'));
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /** @test */
     public function it_shows_product_variations_in_the_user_cart()
     {
-        $user = factory(User::class)->create();
+        $this->user->cart()->sync($this->variation);
 
-        $user->cart()->sync(
-            $variation = factory(Variation::class)->create()
-        );
+        $response = $this->getJsonAs($this->user, route('cart.index'));
 
-        $response = $this->getJsonAs($user, route('cart.index'));
         $response->assertJsonFragment([
-            'id' => $variation->id
+            'id' => $this->variation->id
         ]);
     }
 
     /** @test */
     public function it_shows_if_the_cart_is_empty()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->getJsonAs($user, route('cart.index'));
+        $response = $this->getJsonAs($this->user, route('cart.index'));
 
         $response->assertJsonFragment([
             'is_empty' => true
@@ -47,9 +50,7 @@ class CartIndexTest extends TestCase
     /** @test */
     public function it_shows_a_raw_subtotal()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->getJsonAs($user, route('cart.index'));
+        $response = $this->getJsonAs($this->user, route('cart.index'));
 
         $response->assertJsonFragment([
             'subtotal' => [
@@ -62,9 +63,7 @@ class CartIndexTest extends TestCase
     /** @test */
     public function it_shows_a_raw_total()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->getJsonAs($user, route('cart.index'));
+        $response = $this->getJsonAs($this->user, route('cart.index'));
 
         $response->assertJsonFragment([
             'total' => [
@@ -77,14 +76,11 @@ class CartIndexTest extends TestCase
     /** @test */
     public function it_shows_if_the_cart_quantities_were_changed_after_syncing()
     {
-        $user = factory(User::class)->create();
+        $this->user->cart()->attach($this->variation, [
+            'quantity' => 1
+        ]);
 
-        $user->cart()->attach(
-            $variation = factory(Variation::class)->create(),
-            ['quantity' => 1]
-        );
-
-        $response = $this->getJsonAs($user, route('cart.index'));
+        $response = $this->getJsonAs($this->user, route('cart.index'));
 
         $response->assertJsonFragment([
             'has_changed' => true
@@ -94,14 +90,13 @@ class CartIndexTest extends TestCase
     /** @test */
     public function it_fails_if_shipping_method_is_invalid()
     {
-        $user = factory(User::class)->create();
+        $this->user->cart()->attach($this->variation, [
+            'quantity' => 1
+        ]);
 
-        $user->cart()->attach(
-            $variation = factory(Variation::class)->create(),
-            ['quantity' => 1]
-        );
-
-        $response = $this->getJsonAs($user, route('cart.index', ['shipping_method_id' => 999]));
+        $response = $this->getJsonAs($this->user, route('cart.index', [
+            'shipping_method_id' => 999
+        ]));
 
         $response->assertJsonValidationErrors(['shipping_method_id']);
     }
@@ -109,13 +104,13 @@ class CartIndexTest extends TestCase
     /** @test */
     public function it_shows_a_formatted_total_with_shipping()
     {
-        $user = factory(User::class)->create();
-
         $shippingMethod = factory(ShippingMethod::class)->create([
             'price' => 1000
         ]);
 
-        $response = $this->getJsonAs($user, route('cart.index', ['shipping_method_id' => $shippingMethod->id]));
+        $response = $this->getJsonAs($this->user, route('cart.index', [
+            'shipping_method_id' => $shippingMethod->id
+        ]));
 
         $response->assertJsonFragment([
             'total' => [

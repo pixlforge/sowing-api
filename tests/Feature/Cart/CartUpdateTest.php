@@ -8,32 +8,34 @@ use App\Models\Variation;
 
 class CartUpdateTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create();
+        $this->variation = factory(Variation::class)->create();
+    }
+
     /** @test */
     public function it_fails_if_unauthenticated()
     {
         $response = $this->patchJson(route('cart.update', 1));
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /** @test */
     public function it_fails_if_the_product_variation_cannot_be_found()
     {
-        $user = factory(User::class)->create();
+        $response = $this->patchJsonAs($this->user, route('cart.update', 999));
 
-        $response = $this->patchJsonAs($user, route('cart.update', 999));
-
-        $response->assertStatus(404);
+        $response->assertNotFound();
     }
 
     /** @test */
     public function it_requires_a_quantity()
     {
-        $user = factory(User::class)->create();
-
-        $variation = factory(Variation::class)->create();
-
-        $response = $this->patchJsonAs($user, route('cart.update', "$variation->id"), []);
+        $response = $this->patchJsonAs($this->user, route('cart.update', $this->variation->id), []);
 
         $response->assertJsonValidationErrors(['quantity']);
     }
@@ -41,11 +43,7 @@ class CartUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_numeric_quantity()
     {
-        $user = factory(User::class)->create();
-
-        $variation = factory(Variation::class)->create();
-
-        $response = $this->patchJsonAs($user, route('cart.update', "$variation->id"), [
+        $response = $this->patchJsonAs($this->user, route('cart.update', $this->variation->id), [
             'quantity' => 'five'
         ]);
 
@@ -55,11 +53,7 @@ class CartUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_quantity_of_at_least_one()
     {
-        $user = factory(User::class)->create();
-
-        $variation = factory(Variation::class)->create();
-
-        $response = $this->patchJsonAs($user, route('cart.update', "$variation->id"), [
+        $response = $this->patchJsonAs($this->user, route('cart.update', $this->variation->id), [
             'quantity' => 0
         ]);
 
@@ -69,20 +63,17 @@ class CartUpdateTest extends TestCase
     /** @test */
     public function it_can_update_a_product_variation_quantity()
     {
-        $user = factory(User::class)->create();
+        $this->user->cart()->attach($this->variation, [
+            'quantity' => 1
+        ]);
 
-        $user->cart()->attach(
-            $variation = factory(Variation::class)->create(),
-            ['quantity' => 1]
-        );
-
-        $response = $this->patchJsonAs($user, route('cart.update', "$variation->id"), [
+        $this->patchJsonAs($this->user, route('cart.update', $this->variation->id), [
             'quantity' => 5
         ]);
 
         $this->assertDatabaseHas('cart_user', [
-            'user_id' => $user->id,
-            'variation_id' => $variation->id,
+            'user_id' => $this->user->id,
+            'variation_id' => $this->variation->id,
             'quantity' => 5,
         ]);
     }
