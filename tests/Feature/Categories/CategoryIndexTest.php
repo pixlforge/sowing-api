@@ -7,24 +7,27 @@ use App\Models\Category;
 
 class CategoryIndexTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        
+        $this->category = factory(Category::class)->create();
+    }
+    
     /** @test */
     public function it_returns_a_collection_of_categories()
     {
-        $category = factory(Category::class)->create();
-
         $response = $this->getJson(route('categories.index'));
 
         $response->assertJsonFragment([
-            'slug' => $category->slug,
+            'slug' => $this->category->slug,
         ]);
     }
 
     /** @test */
     public function it_returns_only_parent_categories()
     {
-        $category = factory(Category::class)->create();
-
-        $category->children()->save(
+        $this->category->children()->save(
             factory(Category::class)->create()
         );
 

@@ -4,9 +4,6 @@ namespace Tests\Feature\Categories;
 
 use Tests\TestCase;
 use App\Models\Category;
-use Illuminate\Support\Facades\Cache;
-use Mockery;
-use Illuminate\Cache\ArrayStore;
 
 class FeaturedCategoryIndexTest extends TestCase
 {
