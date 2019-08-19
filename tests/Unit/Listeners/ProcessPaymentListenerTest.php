@@ -30,7 +30,7 @@ class ProcessPaymentListenerTest extends TestCase
         $customer->shouldReceive('charge')
             ->with(
                 $order->paymentMethod,
-                $order->total()->amount()
+                $order->total()->getAmount()
             );
 
         $listener = new ProcessPayment($gateway);
@@ -49,7 +49,7 @@ class ProcessPaymentListenerTest extends TestCase
         $customer->shouldReceive('charge')
             ->with(
                 $order->paymentMethod,
-                $order->total()->amount()
+                $order->total()->getAmount()
             );
 
         $listener = new ProcessPayment($gateway);
@@ -72,7 +72,7 @@ class ProcessPaymentListenerTest extends TestCase
         $customer->shouldReceive('charge')
             ->with(
                 $order->paymentMethod,
-                $order->total()->amount()
+                $order->total()->getAmount()
             )
             ->andThrow(PaymentFailedException::class);
 

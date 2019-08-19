@@ -139,6 +139,6 @@ class OrderTest extends TestCase
             }
         ]);
 
-        $this->assertEquals(1800, $order->total()->amount());
+        $this->assertEquals(1800, $order->total()->getAmount());
     }
 }

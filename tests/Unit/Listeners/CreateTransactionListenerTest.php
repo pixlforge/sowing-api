@@ -26,7 +26,7 @@ class CreateTransactionListenerTest extends TestCase
 
         $this->assertDatabaseHas('transactions', [
             'order_id' => $order->id,
-            'total' => $order->total()->amount()
+            'total' => $order->total()->getAmount()
         ]);
     }
 }

@@ -28,7 +28,7 @@ class Money
      *
      * @return integer
      */
-    public function amount()
+    public function getAmount()
     {
         return $this->money->getAmount();
     }

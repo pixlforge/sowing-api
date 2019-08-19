@@ -41,7 +41,7 @@ class VariationTest extends TestCase
         $variation = factory(Variation::class)->create();
 
         $this->assertEquals(
-            (new Money($variation->price->amount()))->formatted(),
+            (new Money($variation->price->getAmount()))->formatted(),
             $variation->formattedPrice
         );
     }
@@ -59,7 +59,7 @@ class VariationTest extends TestCase
             ])
         );
 
-        $this->assertEquals($product->price->amount(), $variation->price->amount());
+        $this->assertEquals($product->price->getAmount(), $variation->price->getAmount());
     }
 
     /** @test */

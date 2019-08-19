@@ -43,7 +43,7 @@ class ProcessPayment implements ShouldQueue
             ->getCustomer()
             ->charge(
                 $order->paymentMethod,
-                $order->total()->amount()
+                $order->total()->getAmount()
             );
 
             // The charge contains the id used necessary for the transfer_group

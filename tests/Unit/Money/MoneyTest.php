@@ -13,7 +13,7 @@ class MoneyTest extends TestCase
     {
         $money = new Money(1000);
 
-        $this->assertEquals(1000, $money->amount());
+        $this->assertEquals(1000, $money->getAmount());
     }
 
     /** @test */
@@ -39,7 +39,7 @@ class MoneyTest extends TestCase
 
         $money = $money->add(new Money(1000));
 
-        $this->assertEquals(2000, $money->amount());
+        $this->assertEquals(2000, $money->getAmount());
     }
 
     /** @test */

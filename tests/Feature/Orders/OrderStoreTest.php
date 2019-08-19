@@ -147,7 +147,7 @@ class OrderStoreTest extends TestCase
         $user = factory(User::class)->create();
  
         $user->cart()->sync(
-             $variation = $this->getVariationWithStock()
+             $this->getVariationWithStock()
          );
  
         $paymentMethod = factory(PaymentMethod::class)->create();
@@ -165,7 +165,7 @@ class OrderStoreTest extends TestCase
         $user = factory(User::class)->create();
 
         $user->cart()->sync(
-            $variation = $this->getVariationWithStock()
+            $this->getVariationWithStock()
         );
 
         list($address, $shippingMethod, $paymentMethod) = $this->getOrderDependencies($user);
@@ -303,7 +303,7 @@ class OrderStoreTest extends TestCase
         $user->update([
             'gateway_customer_id' => $stripeCustomer->id
         ]);
-        
+
         $address = factory(Address::class)->create(['user_id' => $user->id]);
         $paymentMethod = factory(PaymentMethod::class)->states('default')->create([
             'user_id' => $user->id

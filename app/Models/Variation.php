@@ -56,7 +56,7 @@ class Variation extends Model
      */
     public function priceVaries()
     {
-        return $this->price->amount() !== $this->product->price->amount();
+        return $this->price->getAmount() !== $this->product->price->getAmount();
     }
 
     /**

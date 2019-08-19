@@ -15,7 +15,7 @@ class CreateTransaction
     public function handle(OrderPaymentSuccessful $event)
     {
         $event->order->transactions()->create([
-            'total' => $event->order->total()->amount()
+            'total' => $event->order->total()->getAmount()
         ]);
     }
 }

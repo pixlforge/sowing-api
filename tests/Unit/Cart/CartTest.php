@@ -148,7 +148,7 @@ class CartTest extends TestCase
             ['quantity' => 2]
         );
 
-        $this->assertEquals(2000, $cart->subtotal()->amount());
+        $this->assertEquals(2000, $cart->subtotal()->getAmount());
     }
 
     /** @test */
@@ -175,7 +175,7 @@ class CartTest extends TestCase
             ['quantity' => 2]
         );
 
-        $this->assertEquals(2000, $cart->total()->amount());
+        $this->assertEquals(2000, $cart->total()->getAmount());
     }
 
     /** @test */
@@ -198,7 +198,7 @@ class CartTest extends TestCase
 
         $cart->withShipping($shippingMethod->id);
 
-        $this->assertEquals(3000, $cart->total()->amount());
+        $this->assertEquals(3000, $cart->total()->getAmount());
     }
 
     /** @test */

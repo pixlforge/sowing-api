@@ -136,7 +136,7 @@ class Cart
     public function subtotal()
     {
         $subtotal = $this->user->cart->sum(function ($variation) {
-            return $variation->price->amount() * $variation->pivot->quantity;
+            return $variation->price->getAmount() * $variation->pivot->quantity;
         });
 
         return new Money($subtotal);
