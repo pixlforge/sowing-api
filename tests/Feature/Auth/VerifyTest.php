@@ -7,20 +7,25 @@ use App\Models\User;
 
 class VerifyTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->unverifiedUser = factory(User::class)->state('unverified')->create();
+    }
+    
     /** @test */
     public function it_fails_if_unauthenticated()
     {
         $response = $this->postJson(route('auth.verify'));
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /** @test */
     public function it_fails_if_no_token_is_provided_in_the_request()
     {
-        $user = factory(User::class)->states('unverified')->create();
-
-        $response = $this->postJsonAs($user, route('auth.verify'));
+        $response = $this->postJsonAs($this->unverifiedUser, route('auth.verify'));
 
         $response->assertJsonValidationErrors(['token']);
     }
@@ -28,9 +33,7 @@ class VerifyTest extends TestCase
     /** @test */
     public function it_fails_if_tokens_do_not_match()
     {
-        $user = factory(User::class)->states('unverified')->create();
-
-        $response = $this->postJsonAs($user, route('auth.verify'), [
+        $response = $this->postJsonAs($this->unverifiedUser, route('auth.verify'), [
             'token' => 'something-else'
         ]);
 
@@ -40,17 +43,13 @@ class VerifyTest extends TestCase
     /** @test */
     public function it_can_verify_a_user()
     {
-        $this->withoutExceptionHandling();
-
-        $user = factory(User::class)->states(['unverified'])->create();
-
-        $response = $this->postJsonAs($user, route('auth.verify'), [
-            'token' => $user->confirmation_token
+        $response = $this->postJsonAs($this->unverifiedUser, route('auth.verify'), [
+            'token' => $this->unverifiedUser->confirmation_token
         ]);
 
         $response->assertSuccessful();
 
-        $this->assertNotNull($user->fresh()->email_verified_at);
-        $this->assertNull($user->fresh()->confirmation_token);
+        $this->assertNotNull($this->unverifiedUser->fresh()->email_verified_at);
+        $this->assertNull($this->unverifiedUser->fresh()->confirmation_token);
     }
 }

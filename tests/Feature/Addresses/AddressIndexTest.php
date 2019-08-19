@@ -8,24 +8,29 @@ use App\Models\Address;
 
 class AddressIndexTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        
+        $this->user = factory(User::class)->create();
+    }
+    
     /** @test */
     public function it_fails_if_not_authenticated()
     {
         $response = $this->getJson(route('addresses.index'));
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /** @test */
     public function it_shows_addresses()
     {
-        $user = factory(User::class)->create();
-
-        $user->addresses()->save(
+        $this->user->addresses()->save(
             $address = factory(Address::class)->create()
         );
 
-        $response = $this->getJsonAs($user, route('addresses.index'));
+        $response = $this->getJsonAs($this->user, route('addresses.index'));
 
         $response->assertJsonFragment([
             'id' => $address->id

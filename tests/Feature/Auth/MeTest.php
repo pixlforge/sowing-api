@@ -7,6 +7,13 @@ use App\Models\User;
 
 class MeTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create();
+    }
+
     /** @test */
     public function it_fails_if_user_is_not_authenticated()
     {
@@ -18,12 +25,10 @@ class MeTest extends TestCase
     /** @test */
     public function it_returns_user_details()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->getJsonAs($user, route('auth.me'));
+        $response = $this->getJsonAs($this->user, route('auth.me'));
 
         $response->assertJsonFragment([
-            'email' => $user->email
+            'email' => $this->user->email
         ]);
     }
 }

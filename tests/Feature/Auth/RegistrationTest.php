@@ -4,9 +4,12 @@ namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class RegistrationTest extends TestCase
 {
+    use WithFaker;
+
     /** @test */
     public function it_requires_a_name()
     {
@@ -67,11 +70,11 @@ class RegistrationTest extends TestCase
     public function it_requires_a_unique_email()
     {
         factory(User::class)->create([
-            'email' => 'john@example.com',
+            'email' => $email = $this->faker->safeEmail,
         ]);
 
         $response = $this->postJson(route('auth.register'), [
-            'email' => 'john@example.com',
+            'email' => $email,
         ]);
 
         $response->assertJsonValidationErrors(['email']);
@@ -89,8 +92,8 @@ class RegistrationTest extends TestCase
     public function password_must_be_a_string()
     {
         $response = $this->postJson(route('auth.register'), [
-            'password' => 123,
-            'password_confirmation' => 123
+            'password' => $password = 123,
+            'password_confirmation' => $password
         ]);
 
         $response->assertJsonValidationErrors(['password']);
@@ -100,7 +103,7 @@ class RegistrationTest extends TestCase
     public function password_must_be_confirmed()
     {
         $response = $this->postJson(route('auth.register'), [
-            'password' => 'password',
+            'password' => $this->faker->password(8),
             'password_confirmation' => null
         ]);
 
@@ -111,8 +114,8 @@ class RegistrationTest extends TestCase
     public function password_must_be_at_least_8_characters_long()
     {
         $response = $this->postJson(route('auth.register'), [
-            'password' => 'passwor',
-            'password_confirmation' => 'passwor'
+            'password' => $password = $this->faker->password(7, 7),
+            'password_confirmation' => $password
         ]);
 
         $response->assertJsonValidationErrors(['password']);
@@ -122,8 +125,8 @@ class RegistrationTest extends TestCase
     public function password_must_be_at_most_255_characters_long()
     {
         $response = $this->postJson(route('auth.register'), [
-            'password' => str_repeat('a', 256),
-            'password_confirmation' => str_repeat('a', 256)
+            'password' => $password = $this->faker->password(256, 256),
+            'password_confirmation' => $password
         ]);
 
         $response->assertJsonValidationErrors(['password']);
@@ -133,10 +136,10 @@ class RegistrationTest extends TestCase
     public function it_registers_a_user()
     {
         $response = $this->postJson(route('auth.register'), [
-            'name' => $name = 'John',
-            'email' => $email = 'john@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'name' => $name = $this->faker->name,
+            'email' => $email = $this->faker->safeEmail,
+            'password' => $password = $this->faker->password(8),
+            'password_confirmation' => $password,
         ]);
 
         $response->assertSuccessful();
@@ -151,10 +154,10 @@ class RegistrationTest extends TestCase
     public function it_returns_a_user_on_registration()
     {
         $response = $this->postJson(route('auth.register'), [
-            'name' => $name = 'John',
-            'email' => $email = 'john@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'name' => $name = $this->faker->name,
+            'email' => $email = $this->faker->safeEmail,
+            'password' => $password = $this->faker->password(8),
+            'password_confirmation' => $password,
         ]);
 
         $response->assertSuccessful();
@@ -169,13 +172,14 @@ class RegistrationTest extends TestCase
     public function it_generates_a_random_confirmation_token_on_registration()
     {
         $response = $this->postJson(route('auth.register'), [
-            'name' => 'John',
-            'email' => 'john@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password'
+            'name' => $this->faker->name,
+            'email' => $this->faker->safeEmail,
+            'password' => $password = $this->faker->password(8),
+            'password_confirmation' => $password,
         ]);
 
         $response->assertSuccessful();
+
         $this->assertNotNull(User::first()->confirmation_token);
     }
 }
