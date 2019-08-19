@@ -12,7 +12,7 @@ class ProductShowTest extends TestCase
     {
         $response = $this->getJson(route('products.show', 'nope'));
 
-        $response->assertStatus(404);
+        $response->assertNotFound();
     }
 
     /** @test */
