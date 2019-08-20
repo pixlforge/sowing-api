@@ -8,45 +8,42 @@ use Money\Money as BaseMoney;
 
 class MoneyTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->money = new Money(1000);
+    }
+    
     /** @test */
     public function it_can_get_the_absolute_amount()
     {
-        $money = new Money(1000);
-
-        $this->assertEquals(1000, $money->getAmount());
+        $this->assertEquals('1000', $this->money->getAmount());
     }
 
     /** @test */
     public function it_can_get_the_formatted_amount()
     {
-        $money = new Money(1000);
-
-        $this->assertEquals('CHF10.00', $money->formatted());
+        $this->assertEquals('CHF10.00', $this->money->formatted());
     }
 
     /** @test */
     public function it_can_get_the_raw_amount()
     {
-        $money = new Money(1000);
-
-        $this->assertEquals('10.00', $money->raw()['amount']);
+        $this->assertEquals('10.00', $this->money->raw()['amount']);
     }
 
     /** @test */
     public function it_can_add_up()
     {
-        $money = new Money(1000);
+        $this->money = $this->money->add(new Money(1000));
 
-        $money = $money->add(new Money(1000));
-
-        $this->assertEquals(2000, $money->getAmount());
+        $this->assertEquals(2000, $this->money->getAmount());
     }
 
     /** @test */
     public function it_can_return_the_underlying_instance()
     {
-        $money = new Money(1000);
-
-        $this->assertInstanceOf(BaseMoney::class, $money->instance());
+        $this->assertInstanceOf(BaseMoney::class, $this->money->instance());
     }
 }

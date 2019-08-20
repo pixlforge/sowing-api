@@ -8,24 +8,27 @@ use App\Models\Category;
 
 class CategoryTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->category = factory(Category::class)->create();
+    }
+    
     /** @test */
     public function it_has_many_children()
     {
-        $category = factory(Category::class)->create();
-
-        $category->children()->save(
+        $this->category->children()->save(
             factory(Category::class)->create()
         );
 
-        $this->assertInstanceOf(Category::class, $category->children->first());
+        $this->assertInstanceOf(Category::class, $this->category->children->first());
     }
 
     /** @test */
     public function it_can_fetch_only_parents()
     {
-        $category = factory(Category::class)->create();
-
-        $category->children()->save(
+        $this->category->children()->save(
             factory(Category::class)->create()
         );
 
@@ -43,18 +46,21 @@ class CategoryTest extends TestCase
             'order' => 1
         ]);
 
-        $this->assertEquals($anotherCategory->name, Category::ordered()->first()->name);
+        $response = $this->getJson(route('categories.index'));
+
+        $response->assertSeeInOrder([
+            $anotherCategory->slug,
+            $category->slug
+        ]);
     }
 
     /** @test */
     public function it_has_many_products()
     {
-        $category = factory(Category::class)->create();
-
-        $category->products()->save(
+        $this->category->products()->save(
             factory(Product::class)->create()
         );
 
-        $this->assertInstanceOf(Product::class, $category->products->first());
+        $this->assertInstanceOf(Product::class, $this->category->products->first());
     }
 }

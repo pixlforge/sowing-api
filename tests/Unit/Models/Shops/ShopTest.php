@@ -7,44 +7,45 @@ use App\Models\Shop;
 use App\Models\User;
 use App\Models\Country;
 use App\Models\Product;
+use Illuminate\Support\Str;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class ShopTest extends TestCase
 {
+    use WithFaker;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->shop = factory(Shop::class)->create();
+    }
+    
     /** @test */
     public function it_belongs_to_a_user()
     {
-        $shop = factory(Shop::class)->create();
-
-        $this->assertInstanceOf(User::class, $shop->user);
+        $this->assertInstanceOf(User::class, $this->shop->user);
     }
 
     /** @test */
     public function it_belongs_to_a_country()
     {
-        $shop = factory(Shop::class)->create();
-
-        $this->assertInstanceOf(Country::class, $shop->country);
+        $this->assertInstanceOf(Country::class, $this->shop->country);
     }
 
     /** @test */
     public function it_has_many_products()
     {
-        $shop = factory(Shop::class)->create();
-
-        $shop->products()->save(
+        $this->shop->products()->save(
             factory(Product::class)->create()
         );
 
-        $this->assertInstanceOf(Product::class, $shop->products()->first());
+        $this->assertInstanceOf(Product::class, $this->shop->products()->first());
     }
 
     /** @test */
     public function it_generates_a_slug_based_on_the_name()
     {
-        $shop = factory(Shop::class)->create([
-            'name' => 'My awesome shop'
-        ]);
-
-        $this->assertEquals('my-awesome-shop', $shop->slug);
+        $this->assertEquals(Str::slug($this->shop->name), $this->shop->slug);
     }
 }

@@ -3,11 +3,11 @@
 namespace Tests\Unit\Listeners;
 
 use Tests\TestCase;
-use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use App\Events\Passwords\PasswordReset;
-use App\Listeners\Passwords\SendPasswordResetConfirmationEmail;
 use App\Mail\Password\PasswordResetConfirmationEmail;
+use App\Listeners\Passwords\SendPasswordResetConfirmationEmail;
 
 class SendPasswordResetConfirmationEmailListenerTest extends TestCase
 {

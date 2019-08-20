@@ -4,116 +4,106 @@ namespace Tests\Unit\Models\Users;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Variation;
-use App\Models\Address;
-use App\Models\Order;
 use App\Models\Shop;
+use App\Models\Order;
+use App\Models\Address;
+use App\Models\Variation;
 use App\Models\PaymentMethod;
+use Illuminate\Support\Facades\Hash;
 
 class UserTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create([
+            'password' => $this->password = 'password'
+        ]);
+    }
+    
     /** @test */
     public function it_hashes_passwords_when_creating()
     {
-        $user = factory(User::class)->create([
-            'password' => 'secret',
-        ]);
-
-        $this->assertNotEquals('secret', $user->password);
+        $this->assertTrue(Hash::check($this->password, $this->user->password));
     }
 
     /** @test */
     public function it_has_many_cart_product_variations()
     {
-        $user = factory(User::class)->create();
-
-        $user->cart()->attach(
+        $this->user->cart()->attach(
             factory(Variation::class)->create()
         );
 
-        $this->assertInstanceOf(Variation::class, $user->cart->first());
+        $this->assertInstanceOf(Variation::class, $this->user->cart->first());
     }
 
     /** @test */
     public function it_has_a_quantity_for_each_cart_product_variation()
     {
-        $user = factory(User::class)->create();
-
-        $user->cart()->attach(
+        $this->user->cart()->attach(
             factory(Variation::class)->create(),
             ['quantity' => $quantity = 5]
         );
 
-        $this->assertEquals($quantity, $user->cart->first()->pivot->quantity);
+        $this->assertEquals($quantity, $this->user->cart->first()->pivot->quantity);
     }
 
     /** @test */
     public function it_has_many_addresses()
     {
-        $user = factory(User::class)->create();
-
-        $user->addresses()->save(
+        $this->user->addresses()->save(
             factory(Address::class)->make()
         );
 
-        $this->assertInstanceOf(Address::class, $user->addresses->first());
+        $this->assertInstanceOf(Address::class, $this->user->addresses->first());
     }
 
     /** @test */
     public function it_has_many_orders()
     {
-        $user = factory(User::class)->create();
+        $this->user->orders()->save(
+            factory(Order::class)->make()
+        );
 
-        factory(Order::class)->create([
-            'user_id' => $user->id
-        ]);
-
-        $this->assertInstanceOf(Order::class, $user->orders->first());
+        $this->assertInstanceOf(Order::class, $this->user->orders->first());
     }
 
     /** @test */
     public function it_has_one_shop()
     {
-        $user = factory(User::class)->create();
+        $this->user->shop()->save(
+            factory(Shop::class)->make()
+        );
 
-        factory(Shop::class)->create([
-            'user_id' => $user->id
-        ]);
-
-        $this->assertInstanceOf(Shop::class, $user->shop);
+        $this->assertInstanceOf(Shop::class, $this->user->shop);
     }
     
     /** @test */
     public function it_can_check_if_the_user_has_a_shop()
     {
-        $user = factory(User::class)->create();
+        $this->user->shop()->save(
+            factory(Shop::class)->make()
+        );
 
-        factory(Shop::class)->create([
-            'user_id' => $user->id
-        ]);
-
-        $this->assertTrue($user->hasShop());
+        $this->assertTrue($this->user->hasShop());
     }
 
     /** @test */
     public function it_has_many_payment_methods()
     {
-        $user = factory(User::class)->create();
+        $this->user->paymentMethods()->save(
+            factory(PaymentMethod::class)->make()
+        );
 
-        factory(PaymentMethod::class)->create([
-            'user_id' => $user->id
-        ]);
-
-        $this->assertInstanceOf(PaymentMethod::class, $user->paymentMethods->first());
+        $this->assertInstanceOf(PaymentMethod::class, $this->user->paymentMethods->first());
     }
 
     /** @test */
     public function it_can_get_the_users_confirmation_token()
     {
-        $user = factory(User::class)->create();
+        $this->user->confirmation_token = User::generateConfirmationToken($this->user->email);
 
-        $user->confirmation_token = User::generateConfirmationToken($user->email);
-
-        $this->assertNotNull($user->getConfirmationToken());
+        $this->assertNotNull($this->user->getConfirmationToken());
     }
 }

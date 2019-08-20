@@ -11,38 +11,37 @@ use App\Models\Variation;
 
 class VariationTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->variation = factory(Variation::class)->create();
+    }
+    
     /** @test */
     public function it_has_one_variation_type()
     {
-        $variation = factory(Variation::class)->create();
-
-        $this->assertInstanceOf(Type::class, $variation->type);
+        $this->assertInstanceOf(Type::class, $this->variation->type);
     }
 
     /** @test */
     public function it_belongs_to_a_product()
     {
-        $variation = factory(Variation::class)->create();
-
-        $this->assertInstanceOf(Product::class, $variation->product);
+        $this->assertInstanceOf(Product::class, $this->variation->product);
     }
 
     /** @test */
     public function it_returns_a_money_instance_for_the_price()
     {
-        $variation = factory(Variation::class)->create();
-
-        $this->assertInstanceOf(Money::class, $variation->price);
+        $this->assertInstanceOf(Money::class, $this->variation->price);
     }
 
     /** @test */
     public function it_returns_a_formatted_price()
     {
-        $variation = factory(Variation::class)->create();
-
         $this->assertEquals(
-            (new Money($variation->price->getAmount()))->formatted(),
-            $variation->formattedPrice
+            (new Money($this->variation->price->getAmount()))->formatted(),
+            $this->variation->formattedPrice
         );
     }
 
@@ -81,90 +80,76 @@ class VariationTest extends TestCase
     /** @test */
     public function it_has_many_stocks()
     {
-        $variation = factory(Variation::class)->create();
-
-        $variation->stocks()->save(
-            $stocks = factory(Stock::class)->create()
+        $this->variation->stocks()->save(
+            factory(Stock::class)->create()
         );
 
-        $this->assertInstanceOf(Stock::class, $variation->stocks->first());
+        $this->assertInstanceOf(Stock::class, $this->variation->stocks->first());
     }
 
     /** @test */
     public function it_has_stock_information()
     {
-        $variation = factory(Variation::class)->create();
-
-        $variation->stocks()->save(
+        $this->variation->stocks()->save(
             factory(Stock::class)->make()
         );
 
-        $this->assertInstanceOf(Variation::class, $variation->stock->first());
+        $this->assertInstanceOf(Variation::class, $this->variation->stock->first());
     }
 
     /** @test */
     public function it_has_stock_count_pivot_within_stock_information()
     {
-        $variation = factory(Variation::class)->create();
-
-        $variation->stocks()->save(
+        $this->variation->stocks()->save(
             factory(Stock::class)->make([
                 'quantity' => $quantity = 5
             ])
         );
 
-        $this->assertEquals($quantity, $variation->stock->first()->pivot->stock);
+        $this->assertEquals($quantity, $this->variation->stock->first()->pivot->stock);
     }
 
     /** @test */
     public function it_has_in_stock_pivot_within_stock_information()
     {
-        $variation = factory(Variation::class)->create();
-
-        $variation->stocks()->save(
+        $this->variation->stocks()->save(
             factory(Stock::class)->make()
         );
 
-        $this->assertTrue((bool) $variation->stock->first()->pivot->in_stock);
+        $this->assertTrue($this->variation->stock->first()->pivot->in_stock);
     }
 
     /** @test */
     public function it_can_check_if_it_is_in_stock()
     {
-        $variation = factory(Variation::class)->create();
-
-        $variation->stocks()->save(
+        $this->variation->stocks()->save(
             factory(Stock::class)->make()
         );
 
-        $this->assertTrue($variation->inStock());
+        $this->assertTrue($this->variation->inStock());
     }
 
     /** @test */
     public function it_can_get_the_stock_count()
     {
-        $variation = factory(Variation::class)->create();
-
-        $variation->stocks()->save(
+        $this->variation->stocks()->save(
             factory(Stock::class)->make([
                 'quantity' => $quantity = 5
             ])
         );
 
-        $this->assertEquals($quantity, $variation->stockCount());
+        $this->assertEquals($quantity, $this->variation->stockCount());
     }
 
     /** @test */
     public function it_can_get_the_minimum_stock_for_a_given_value()
     {
-        $variation = factory(Variation::class)->create();
-
-        $variation->stocks()->save(
+        $this->variation->stocks()->save(
             factory(Stock::class)->make([
                 'quantity' => $quantity = 5
             ])
         );
 
-        $this->assertEquals($quantity, $variation->minStock(200));
+        $this->assertEquals($quantity, $this->variation->minStock(200));
     }
 }

@@ -2,29 +2,34 @@
 
 namespace Tests\Unit\Cart;
 
-use Tests\TestCase;
 use App\Cart\Cart;
+use Tests\TestCase;
+use App\Money\Money;
 use App\Models\User;
 use App\Models\Variation;
-use App\Money\Money;
 use App\Models\ShippingMethod;
 
 class CartTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->cart = new Cart(
+            $this->user = factory(User::class)->create()
+        );
+    }
+
     /** @test */
     public function it_can_add_product_variations_to_the_cart()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
         $variation = factory(Variation::class)->create();
 
-        $cart->add([
+        $this->cart->add([
             ['id' => $variation->id, 'quantity' => 5]
         ]);
 
-        $this->assertCount(1, $user->fresh()->cart);
+        $this->assertCount(1, $this->user->fresh()->cart);
     }
 
     /** @test */
@@ -32,186 +37,142 @@ class CartTest extends TestCase
     {
         $variation = factory(Variation::class)->create();
 
-        // First request
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
-        $cart->add([
+        $this->cart->add([
             ['id' => $variation->id, 'quantity' => 5]
         ]);
 
         // Second request
-        $cart = new Cart($user->fresh());
+        $this->cart = new Cart($this->user->fresh());
 
-        $cart->add([
+        $this->cart->add([
             ['id' => $variation->id, 'quantity' => 5]
         ]);
 
-        $this->assertEquals(10, $user->fresh()->cart->first()->pivot->quantity);
+        $this->assertEquals(10, $this->user->fresh()->cart->first()->pivot->quantity);
     }
 
     /** @test */
     public function it_can_update_quantities_in_the_cart()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
-        $user->cart()->attach(
+        $this->user->cart()->attach(
             $variation = factory(Variation::class)->create(),
             ['quantity' => 1]
         );
 
-        $cart->update($variation->id, 5);
+        $this->cart->update($variation->id, 5);
 
-        $this->assertEquals(5, $user->fresh()->cart->first()->pivot->quantity);
+        $this->assertEquals(5, $this->user->fresh()->cart->first()->pivot->quantity);
     }
 
     /** @test */
     public function it_can_delete_a_product_variation_from_the_cart()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
-        $user->cart()->attach(
+        $this->user->cart()->attach(
             $variation = factory(Variation::class)->create(),
             ['quantity' => 1]
         );
 
-        $cart->delete($variation->id);
+        $this->cart->delete($variation->id);
 
-        $this->assertCount(0, $user->fresh()->cart);
+        $this->assertCount(0, $this->user->fresh()->cart);
     }
 
     /** @test */
     public function it_can_empty_all_product_variations_from_the_cart()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
-        $user->cart()->attach(
+        $this->user->cart()->attach(
             $variation = factory(Variation::class)->create(),
             ['quantity' => 1]
         );
 
-        $user->cart()->attach(
+        $this->user->cart()->attach(
             $variation = factory(Variation::class)->create(),
             ['quantity' => 1]
         );
 
-        $this->assertCount(2, $user->fresh()->cart);
+        $this->assertCount(2, $this->user->fresh()->cart);
 
-        $cart->empty();
+        $this->cart->empty();
 
-        $this->assertCount(0, $user->fresh()->cart);
+        $this->assertCount(0, $this->user->fresh()->cart);
     }
 
     /** @test */
     public function it_can_check_if_the_cart_is_empty()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
-        $user->cart()->attach(
+        $this->user->cart()->attach(
             factory(Variation::class)->create(),
             ['quantity' => 0]
         );
 
-        $this->assertTrue($cart->isEmpty());
+        $this->assertTrue($this->cart->isEmpty());
     }
 
     /** @test */
     public function it_returns_a_money_instance_for_the_subtotal()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
-        $this->assertInstanceOf(Money::class, $cart->subtotal());
+        $this->assertInstanceOf(Money::class, $this->cart->subtotal());
     }
 
     /** @test */
     public function it_returns_the_correct_amount_for_the_cart_subtotal()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
-        $user->cart()->attach(
+        $this->user->cart()->attach(
             factory(Variation::class)->create([
                 'price' => 1000
             ]),
             ['quantity' => 2]
         );
 
-        $this->assertEquals(2000, $cart->subtotal()->getAmount());
+        $this->assertEquals(2000, $this->cart->subtotal()->getAmount());
     }
 
     /** @test */
     public function it_returns_a_money_instance_for_the_total()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
-        $this->assertInstanceOf(Money::class, $cart->total());
+        $this->assertInstanceOf(Money::class, $this->cart->total());
     }
 
     /** @test */
     public function it_returns_the_correct_total_without_shipping()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
-        $user->cart()->attach(
+        $this->user->cart()->attach(
             factory(Variation::class)->create([
                 'price' => 1000
             ]),
             ['quantity' => 2]
         );
 
-        $this->assertEquals(2000, $cart->total()->getAmount());
+        $this->assertEquals(2000, $this->cart->total()->getAmount());
     }
 
     /** @test */
     public function it_returns_the_correct_total_with_shipping()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
         $shippingMethod = factory(ShippingMethod::class)->create([
             'price' => 1000
         ]);
 
-        $user->cart()->attach(
+        $this->user->cart()->attach(
             factory(Variation::class)->create([
                 'price' => 1000
             ]),
             ['quantity' => 2]
         );
 
-        $cart->withShipping($shippingMethod->id);
+        $this->cart->withShipping($shippingMethod->id);
 
-        $this->assertEquals(3000, $cart->total()->getAmount());
+        $this->assertEquals(3000, $this->cart->total()->getAmount());
     }
 
     /** @test */
     public function it_syncs_the_cart_to_update_quantities()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
         $variation = factory(Variation::class)->create();
+
         $anotherVariation = factory(Variation::class)->create();
 
-        $user->cart()->attach([
+        $this->user->cart()->attach([
             $variation->id => [
                 'quantity' => 2
             ],
@@ -220,23 +181,21 @@ class CartTest extends TestCase
             ]
         ]);
 
-        $cart->sync();
+        $this->cart->sync();
 
-        $this->assertEquals(0, $user->fresh()->cart->first()->pivot->quantity);
-        $this->assertEquals(0, $user->cart->get(1)->pivot->quantity);
+        $this->assertEquals(0, $this->user->fresh()->cart->first()->pivot->quantity);
+
+        $this->assertEquals(0, $this->user->cart->get(1)->pivot->quantity);
     }
 
     /** @test */
     public function it_can_check_the_cart_has_been_changed_after_syncing()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
         $variation = factory(Variation::class)->create();
+
         $anotherVariation = factory(Variation::class)->create();
 
-        $user->cart()->attach([
+        $this->user->cart()->attach([
             $variation->id => [
                 'quantity' => 2
             ],
@@ -245,37 +204,29 @@ class CartTest extends TestCase
             ]
         ]);
 
-        $cart->sync();
+        $this->cart->sync();
 
-        $this->assertTrue($cart->hasChanged());
+        $this->assertTrue($this->cart->hasChanged());
     }
 
     /** @test */
     public function it_can_check_the_cart_has_not_been_changed_after_syncing_if_it_does_not_need_to()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
+        $this->cart->sync();
 
-        $cart->sync();
-
-        $this->assertFalse($cart->hasChanged());
+        $this->assertFalse($this->cart->hasChanged());
     }
 
     /** @test */
     public function it_returns_product_variations_in_cart()
     {
-        $cart = new Cart(
-            $user = factory(User::class)->create()
-        );
-
-        $user->cart()->attach(
-            $variation = factory(Variation::class)->create([
+        $this->user->cart()->attach(
+            factory(Variation::class)->create([
                 'price' => 1000
             ]),
             ['quantity' => 1]
         );
 
-        $this->assertInstanceOf(Variation::class, $cart->variations()->first());
+        $this->assertInstanceOf(Variation::class, $this->cart->variations()->first());
     }
 }

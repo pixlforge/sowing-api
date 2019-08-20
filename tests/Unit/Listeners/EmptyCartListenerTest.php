@@ -18,7 +18,7 @@ class EmptyCartListenerTest extends TestCase
         );
 
         $user->cart()->attach(
-            $variation = factory(Variation::class)->create()
+            factory(Variation::class)->create()
         );
 
         $this->assertNotEmpty($user->cart);

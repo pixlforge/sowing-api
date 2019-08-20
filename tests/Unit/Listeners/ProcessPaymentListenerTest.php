@@ -92,7 +92,9 @@ class ProcessPaymentListenerTest extends TestCase
     protected function createEvent()
     {
         $user = factory(User::class)->create();
+
         $paymentMethod = factory(PaymentMethod::class)->create();
+        
         $order = factory(Order::class)->create([
             'user_id' => $user->id,
             'payment_method_id' => $paymentMethod->id
