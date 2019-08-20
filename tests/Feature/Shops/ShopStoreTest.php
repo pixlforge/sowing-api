@@ -10,20 +10,25 @@ use Illuminate\Support\Str;
 
 class ShopStoreTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create();
+    }
+    
     /** @test */
     public function it_fails_if_unauthenticated()
     {
         $response = $this->postJson(route('shops.store'));
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /** @test */
     public function it_requires_a_name()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'));
+        $response = $this->postJsonAs($this->user, route('shops.store'));
 
         $response->assertJsonValidationErrors(['name']);
     }
@@ -31,13 +36,11 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_unique_name()
     {
-        $user = factory(User::class)->create();
-
         factory(Shop::class)->create([
             'name' => 'Capsule Corp'
         ]);
 
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'name' => 'Capsule Corp'
         ]);
 
@@ -47,9 +50,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_name_of_at_least_2_characters()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'name' => 'A'
         ]);
 
@@ -59,9 +60,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_name_of_at_most_255_characters()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'name' => str_repeat('a', 256)
         ]);
 
@@ -71,9 +70,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_short_description()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'));
+        $response = $this->postJsonAs($this->user, route('shops.store'));
 
         $response->assertJsonValidationErrors(['description_short']);
     }
@@ -81,9 +78,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_short_description_of_at_least_2_characters()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'description_short' => 'A'
         ]);
 
@@ -93,9 +88,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_short_description_of_at_most_3000_characters()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'description_short' => str_repeat('a', 3001)
         ]);
 
@@ -105,9 +98,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_long_description()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'));
+        $response = $this->postJsonAs($this->user, route('shops.store'));
 
         $response->assertJsonValidationErrors(['description_long']);
     }
@@ -115,9 +106,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_long_description_of_at_least_2_characters()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'description_long' => 'A'
         ]);
 
@@ -127,9 +116,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_long_description_of_at_most_50000_characters()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'description_long' => str_repeat('a', 50001)
         ]);
 
@@ -139,9 +126,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_theme()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'));
+        $response = $this->postJsonAs($this->user, route('shops.store'));
 
         $response->assertJsonValidationErrors(['theme']);
     }
@@ -149,9 +134,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_postal_code()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'));
+        $response = $this->postJsonAs($this->user, route('shops.store'));
 
         $response->assertJsonValidationErrors(['postal_code']);
     }
@@ -159,9 +142,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_postal_code_in_string_format()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'postal_code' => 2900
         ]);
 
@@ -171,9 +152,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_postal_code_of_at_least_4_characters()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'postal_code' => '123'
         ]);
 
@@ -183,9 +162,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_postal_code_of_at_most_10_characters()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'postal_code' => str_repeat('1', 11)
         ]);
 
@@ -195,9 +172,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_city()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'));
+        $response = $this->postJsonAs($this->user, route('shops.store'));
 
         $response->assertJsonValidationErrors(['city']);
     }
@@ -205,9 +180,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_city_in_string_format()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'city' => 123
         ]);
 
@@ -217,9 +190,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_city_of_at_least_2_characters()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'city' => 'A'
         ]);
 
@@ -229,9 +200,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_city_of_at_most_255_characters()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'city' => str_repeat('a', 256)
         ]);
 
@@ -241,9 +210,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_country()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'));
+        $response = $this->postJsonAs($this->user, route('shops.store'));
 
         $response->assertJsonValidationErrors(['country_id']);
     }
@@ -251,9 +218,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_valid_country()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'country_id' => 999
         ]);
 
@@ -263,11 +228,9 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_stores_a_new_shop()
     {
-        $user = factory(User::class)->create();
-
         $country = factory(Country::class)->create();
 
-        $response = $this->postJsonAs($user, route('shops.store'), [
+        $response = $this->postJsonAs($this->user, route('shops.store'), [
             'name' => $name = 'My awesome shop',
             'description_short' => [
                 'en' => 'Lorem ipsum dolor sit amet',
@@ -288,6 +251,7 @@ class ShopStoreTest extends TestCase
         ]);
 
         $response->assertSuccessful();
+        
         $this->assertDatabaseHas('shops', [
             'name' => $name,
             'slug' => Str::slug($name),

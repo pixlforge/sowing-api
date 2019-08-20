@@ -6,30 +6,38 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Shop;
 use App\Models\Country;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class ShopUpdateTest extends TestCase
 {
+    use WithFaker;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create();
+
+        $this->country = factory(Country::class)->create();
+
+        $this->shop = factory(Shop::class)->create([
+            'user_id' => $this->user->id,
+            'country_id' => $this->country->id
+        ]);
+    }
+
     /** @test */
     public function it_fails_if_unauthenticated()
     {
         $response = $this->patchJson(route('shops.update', 'whichever-shop'));
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /** @test */
     public function it_requires_a_short_description()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug));
 
         $response->assertJsonValidationErrors(['description_short']);
     }
@@ -37,16 +45,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_short_description_of_at_least_2_characters()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'description_short' => 'A'
         ]);
 
@@ -56,16 +55,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_short_description_of_at_most_3000_characters()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'description_short' => str_repeat('a', 3001)
         ]);
 
@@ -75,16 +65,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_long_description()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug));
 
         $response->assertJsonValidationErrors(['description_long']);
     }
@@ -92,16 +73,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_long_description_of_at_least_2_characters()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'description_long' => 'A'
         ]);
 
@@ -111,16 +83,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_long_description_of_at_most_50000_characters()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'description_long' => str_repeat('a', 50001)
         ]);
 
@@ -130,16 +93,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_theme()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug));
 
         $response->assertJsonValidationErrors(['theme']);
     }
@@ -147,16 +101,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_postal_code()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug));
 
         $response->assertJsonValidationErrors(['postal_code']);
     }
@@ -164,16 +109,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_postal_code_in_string_format()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'theme_color' => 123
         ]);
 
@@ -183,16 +119,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_postal_code_of_at_least_4_characters()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'postal_code' => '123'
         ]);
 
@@ -202,16 +129,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_postal_code_of_at_most_10_characters()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'postal_code' => str_repeat('1', 11)
         ]);
 
@@ -221,16 +139,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_city()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug));
 
         $response->assertJsonValidationErrors(['city']);
     }
@@ -238,16 +147,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_city_in_string_format()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'city' => 123
         ]);
 
@@ -257,16 +157,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_city_of_at_least_2_characters()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'city' => 'A'
         ]);
 
@@ -276,16 +167,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_city_of_at_most_255_characters()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'city' => str_repeat('a', 256)
         ]);
 
@@ -295,16 +177,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_country()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug));
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug));
 
         $response->assertJsonValidationErrors(['country_id']);
     }
@@ -312,16 +185,7 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_valid_country()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'country_id' => $country->id
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'country_id' => 999
         ]);
 
@@ -331,33 +195,30 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_fails_if_the_user_does_not_own_the_shop()
     {
-        $user = factory(User::class)->create();
         $anotherUser = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
 
         $shop = factory(Shop::class)->create([
             'user_id' => $anotherUser->id,
-            'country_id' => $country->id
+            'country_id' => $this->country->id
         ]);
 
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $shop->slug), [
             'description_short' => [
-                'en' => 'Lorem ipsum dolor sit amet',
-                'fr' => 'Lorem ipsum dolor sit amet',
-                'de' => 'Lorem ipsum dolor sit amet',
-                'it' => 'Lorem ipsum dolor sit amet'
+                'en' => $descriptionShort = $this->faker->sentence,
+                'fr' => $descriptionShort,
+                'de' => $descriptionShort,
+                'it' => $descriptionShort
             ],
             'description_long' => [
-                'en' => 'Lorem ipsum dolor sit amet',
-                'fr' => 'Lorem ipsum dolor sit amet',
-                'de' => 'Lorem ipsum dolor sit amet',
-                'it' => 'Lorem ipsum dolor sit amet'
+                'en' => $descriptionLong = $this->faker->sentences(3, true),
+                'fr' => $descriptionLong,
+                'de' => $descriptionLong,
+                'it' => $descriptionLong
             ],
             'theme' => 'pink',
-            'postal_code' => '2950',
-            'city' => 'Courgenay',
-            'country_id' => $country->id
+            'postal_code' => $this->faker->postcode,
+            'city' => $this->faker->city,
+            'country_id' => $this->country->id
         ]);
 
         $response->assertForbidden();
@@ -366,41 +227,32 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_can_update_a_shop()
     {
-        $user = factory(User::class)->create();
-
-        $country = factory(Country::class)->create();
-
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id,
-            'theme' => $theme = 'green',
-        ]);
-
-        $response = $this->patchJsonAs($user, route('shops.update', $shop->slug), [
+        $response = $this->patchJsonAs($this->user, route('shops.update', $this->shop->slug), [
             'description_short' => [
-                'en' => 'Lorem ipsum dolor sit amet',
-                'fr' => 'Lorem ipsum dolor sit amet',
-                'de' => 'Lorem ipsum dolor sit amet',
-                'it' => 'Lorem ipsum dolor sit amet'
+                'en' => $descriptionShort = $this->faker->sentence,
+                'fr' => $descriptionShort,
+                'de' => $descriptionShort,
+                'it' => $descriptionShort
             ],
             'description_long' => [
-                'en' => 'Lorem ipsum dolor sit amet',
-                'fr' => 'Lorem ipsum dolor sit amet',
-                'de' => 'Lorem ipsum dolor sit amet',
-                'it' => 'Lorem ipsum dolor sit amet'
+                'en' => $descriptionLong = $this->faker->sentences(3, true),
+                'fr' => $descriptionLong,
+                'de' => $descriptionLong,
+                'it' => $descriptionLong
             ],
             'theme' => $theme = 'pink',
-            'postal_code' => $postal_code = '2950',
-            'city' => $city = 'Courgenay',
-            'country_id' => $country->id
+            'postal_code' => $postalCode = $this->faker->postcode,
+            'city' => $city = $this->faker->city,
+            'country_id' => $this->country->id
         ]);
 
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('shops', [
             'theme' => $theme,
-            'postal_code' => $postal_code,
+            'postal_code' => $postalCode,
             'city' => $city,
-            'country_id' => $country->id
+            'country_id' => $this->country->id
         ]);
     }
 }

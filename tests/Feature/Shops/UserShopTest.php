@@ -13,7 +13,7 @@ class UserShopTest extends TestCase
     {
         $response = $this->getJson(route('user.shop'));
 
-        $response->assertStatus(401);
+        $response->assertUnauthorized();
     }
 
     /** @test */
