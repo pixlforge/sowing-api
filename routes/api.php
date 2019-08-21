@@ -14,6 +14,7 @@ use App\Http\Controllers\Addresses\AddressController;
 use App\Http\Controllers\Countries\CountryController;
 use App\Http\Controllers\Shops\ShopCheckerController;
 use App\Http\Controllers\Shops\ConnectShopController;
+use App\Http\Controllers\Users\UserAccountController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Categories\CategoryController;
@@ -53,11 +54,10 @@ Route::prefix('/auth')->name('auth.')->group(function () {
 /**
  * Cart
  */
-Route::apiResource('/cart', CartController::class, [
-    'parameters' => [
+Route::apiResource('/cart', CartController::class)
+    ->parameters([
         'cart' => 'variation'
-    ]
-]);
+    ]);
 
 /**
  * Addresses
@@ -108,3 +108,12 @@ Route::apiResource('/shops', ShopController::class);
 Route::get('/user/shop', UserShopController::class)->name('user.shop');
 Route::post('/shops/checker', ShopCheckerController::class)->name('shop.checker');
 Route::post('/shops/connect', ConnectShopController::class)->name('shops.connect');
+
+/**
+ * User
+ */
+Route::apiResource('/user/account', UserAccountController::class)
+    ->names('user.account')
+    ->parameters([
+        'account' => 'user'
+    ]);
