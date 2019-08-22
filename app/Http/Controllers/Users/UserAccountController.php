@@ -38,19 +38,8 @@ class UserAccountController extends Controller
      */
     public function update(UserAccountUpdateRequest $request)
     {
-        $originalEmail = $request->user()->getOriginal('email');
-
         $request->user()->update($request->only(['name', 'email']));
 
-        if ($originalEmail !== $request->user()->email) {
-            $request->user()->update([
-                'email_verified_at' => null,
-                'confirmation_token' => User::generateConfirmationToken($request->user()->email)
-            ]);
-
-            AccountEmailUpdated::dispatch($request->user(), $request->client_locale);
-        }
-
-        return new PrivateUserResource($request->user());
+        return PrivateUserResource::make($request->user());
     }
 }

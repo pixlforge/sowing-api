@@ -134,6 +134,16 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Checks whether or not the user updated his email address.
+     *
+     * @return void
+     */
+    public function updatedEmail()
+    {
+        return $this->getOriginal('email') !== $this->email;
+    }
+
+    /**
      * User cart relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

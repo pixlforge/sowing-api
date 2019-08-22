@@ -4,12 +4,10 @@ namespace Tests\Feature\Users;
 
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use App\Events\Users\AccountEmailUpdated;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Http\Resources\Users\PrivateUserResource;
-use App\Mail\Account\EmailAddressVerificationEmail;
 
 class UserAccountUpdateTest extends TestCase
 {
@@ -112,7 +110,7 @@ class UserAccountUpdateTest extends TestCase
             'name' => $name = $this->faker->name
         ]);
 
-        $response->assertSuccessful();
+        $response->assertOk();
 
         $this->assertEquals($name, $this->user->fresh()->name);
     }
@@ -124,7 +122,7 @@ class UserAccountUpdateTest extends TestCase
             'email' => $email = $this->faker->safeEmail
         ]);
 
-        $response->assertSuccessful();
+        $response->assertOk();
 
         $this->assertEquals($email, $this->user->fresh()->email);
     }
@@ -137,7 +135,7 @@ class UserAccountUpdateTest extends TestCase
             'email' => $email = $this->user->email
         ]);
 
-        $response->assertSuccessful();
+        $response->assertOk();
 
         $this->assertEquals($email, $this->user->fresh()->email);
     }
@@ -150,7 +148,7 @@ class UserAccountUpdateTest extends TestCase
             'email' => $email = $this->faker->safeEmail
         ]);
 
-        $response->assertSuccessful();
+        $response->assertOk();
 
         $this->user = $this->user->fresh();
         
@@ -166,7 +164,7 @@ class UserAccountUpdateTest extends TestCase
             'email' => $this->faker->safeEmail
         ]);
 
-        $response->assertSuccessful();
+        $response->assertOk();
 
         $this->assertFalse($this->user->fresh()->isVerified());
     }
@@ -178,7 +176,7 @@ class UserAccountUpdateTest extends TestCase
             'email' => $this->faker->safeEmail
         ]);
 
-        $response->assertSuccessful();
+        $response->assertOk();
 
         $this->assertNotNull($this->user->fresh()->getConfirmationToken());
     }
@@ -186,32 +184,16 @@ class UserAccountUpdateTest extends TestCase
     /** @test */
     public function it_fires_an_account_email_updated_event_when_a_user_updates_his_email_address()
     {
-        Event::fake();
+        Event::fake(AccountEmailUpdated::class);
         
         $response = $this->patchJsonAs($this->user, route('user.account.update'), [
             'email' => $this->faker->safeEmail
         ]);
 
-        $response->assertSuccessful();
+        $response->assertOk();
 
         Event::assertDispatched(AccountEmailUpdated::class, function ($event) {
             return $event->user->email === $this->user->fresh()->email;
-        });
-    }
-
-    /** @test */
-    public function it_queues_a_verification_email_when_a_user_updates_his_email_address()
-    {
-        Mail::fake();
-        
-        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
-            'email' => $this->faker->safeEmail
-        ]);
-
-        $response->assertSuccessful();
-
-        Mail::assertQueued(EmailAddressVerificationEmail::class, function ($mail) {
-            return $mail->hasTo($this->user->fresh()->email);
         });
     }
 
@@ -222,8 +204,8 @@ class UserAccountUpdateTest extends TestCase
             'email' => $this->faker->safeEmail
         ]);
 
-        $response->assertSuccessful();
+        $response->assertOk();
 
-        $response->assertResource(new PrivateUserResource($this->user->fresh()));
+        $response->assertResource(PrivateUserResource::make($this->user->fresh()));
     }
 }
