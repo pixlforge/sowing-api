@@ -3,22 +3,21 @@
 namespace App\Listeners\Users;
 
 use Illuminate\Support\Facades\Mail;
-use App\Events\Users\AccountCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Mail\Account\AccountCreationVerificationEmail;
+use App\Mail\Account\EmailAddressVerificationEmail;
 
 class SendVerificationEmail implements ShouldQueue
 {
     /**
      * Handle the event.
      *
-     * @param AccountCreated $event
+     * @param $event
      * @return void
      */
-    public function handle(AccountCreated $event)
+    public function handle($event)
     {
         Mail::to($event->user)
             ->locale($event->client_locale)
-            ->queue(new AccountCreationVerificationEmail($event));
+            ->queue(new EmailAddressVerificationEmail($event));
     }
 }

@@ -8,6 +8,7 @@ use App\Events\Users\AccountCreated;
 use App\Events\Passwords\PasswordReset;
 use App\Listeners\Orders\ProcessPayment;
 use App\Events\Orders\OrderPaymentFailed;
+use App\Events\Users\AccountEmailUpdated;
 use App\Listeners\Orders\CreateTransaction;
 use App\Events\Orders\OrderPaymentSuccessful;
 use App\Listeners\Users\SendConfirmationEmail;
@@ -27,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         AccountCreated::class => [
             SendConfirmationEmail::class,
+            SendVerificationEmail::class
+        ],
+        AccountEmailUpdated::class => [
             SendVerificationEmail::class
         ],
         PasswordReset::class => [

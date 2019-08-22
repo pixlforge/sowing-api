@@ -106,4 +106,24 @@ class UserTest extends TestCase
 
         $this->assertNotNull($this->user->getConfirmationToken());
     }
+
+    /** @test */
+    public function it_returns_false_when_the_user_is_not_verified()
+    {
+        $this->user->update([
+            'email_verified_at' => null
+        ]);
+
+        $this->assertFalse($this->user->isVerified());
+    }
+
+    /** @test */
+    public function is_returns_true_when_the_user_is_verified()
+    {
+        $this->user->update([
+            'email_verified_at' => now()
+        ]);
+
+        $this->assertTrue($this->user->isVerified());
+    }
 }

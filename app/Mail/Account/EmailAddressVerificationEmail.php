@@ -4,11 +4,10 @@ namespace App\Mail\Account;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use App\Events\Users\AccountCreated;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AccountCreationVerificationEmail extends Mailable implements ShouldQueue
+class EmailAddressVerificationEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -22,9 +21,10 @@ class AccountCreationVerificationEmail extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      *
+     * @param $event
      * @return void
      */
-    public function __construct(AccountCreated $event)
+    public function __construct($event)
     {
         $this->event = $event;
     }

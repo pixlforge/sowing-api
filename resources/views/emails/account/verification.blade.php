@@ -3,9 +3,6 @@
 
 ## @lang('emails.verification.subtitle') {{ $event->user->email }}
 
-@lang('emails.verification.one_more_step')
-
-
 @lang('emails.verification.confirm')
 
 @component('mail::panel')

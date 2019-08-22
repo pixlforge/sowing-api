@@ -112,8 +112,5 @@ Route::post('/shops/connect', ConnectShopController::class)->name('shops.connect
 /**
  * User
  */
-Route::apiResource('/user/account', UserAccountController::class)
-    ->names('user.account')
-    ->parameters([
-        'account' => 'user'
-    ]);
+Route::get('/user/account', [UserAccountController::class, 'index'])->name('user.account.index');
+Route::patch('/user/account', [UserAccountController::class, 'update'])->name('user.account.update');

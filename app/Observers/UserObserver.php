@@ -13,7 +13,7 @@ class UserObserver
      * @param  \App\Models\User  $user
      * @return void
      */
-    public function creating(User $user) : void
+    public function creating(User $user): void
     {
         $user->password = Hash::make($user->password);
     }

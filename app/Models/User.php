@@ -124,6 +124,16 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Checkes whether or not the user has verified his email address.
+     *
+     * @return boolean
+     */
+    public function isVerified()
+    {
+        return !is_null($this->email_verified_at);
+    }
+
+    /**
      * User cart relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

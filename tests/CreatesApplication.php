@@ -5,6 +5,7 @@ namespace Tests;
 use App\Models\Shop;
 use App\Models\Product;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Foundation\Testing\TestResponse;
 
 trait CreatesApplication
 {
@@ -16,12 +17,26 @@ trait CreatesApplication
     public function createApplication()
     {
         $this->disableSearchSyncingForTests();
+
+        $this->registerCustomAssertions();
         
         $app = require __DIR__ . '/../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    /**
+     * Register custom assertions.
+     *
+     * @return void
+     */
+    protected function registerCustomAssertions()
+    {
+        TestResponse::macro('assertResource', function ($resource) {
+            $this->assertJson($resource->response()->getData(true));
+        });
     }
 
     /**
