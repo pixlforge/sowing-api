@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Users;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserAccountUpdateRequest extends FormRequest
@@ -13,7 +14,7 @@ class UserAccountUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,13 @@ class UserAccountUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'sometimes|required|string|min:2|max:255',
+            'email' => [
+                'sometimes',
+                'required',
+                'email',
+                Rule::unique('users')->ignore($this->id)
+            ],
         ];
     }
 }

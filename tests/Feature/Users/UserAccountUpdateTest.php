@@ -31,6 +31,81 @@ class UserAccountUpdateTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_a_non_empty_name()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'name' => ''
+        ]);
+
+        $response->assertJsonValidationErrors(['name']);
+    }
+
+    /** @test */
+    public function it_requires_a_name_in_string_format()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'name' => 123
+        ]);
+
+        $response->assertJsonValidationErrors(['name']);
+    }
+
+    /** @test */
+    public function it_requires_a_name_with_a_minimum_length_of_2_characters()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'name' => str_repeat('a', 1)
+        ]);
+
+        $response->assertJsonValidationErrors(['name']);
+    }
+
+    /** @test */
+    public function it_requires_a_name_with_a_maximum_length_of_255_characters()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'name' => str_repeat('a', 256)
+        ]);
+
+        $response->assertJsonValidationErrors(['name']);
+    }
+
+    /** @test */
+    public function it_requires_a_non_empty_email()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'email' => ''
+        ]);
+
+        $response->assertJsonValidationErrors(['email']);
+    }
+
+    /** @test */
+    public function it_requires_a_valid_email()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'email' => 'something-wrong'
+        ]);
+
+        $response->assertJsonValidationErrors(['email']);
+    }
+
+    /** @test */
+    public function it_requires_a_unique_email()
+    {
+        factory(User::class)->create([
+            'email' => $email = $this->faker->safeEmail
+        ]);
+
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'id' => $this->user->id,
+            'email' => $email
+        ]);
+
+        $response->assertJsonValidationErrors(['email']);
+    }
+
+    /** @test */
     public function it_updates_a_users_account_name()
     {
         $response = $this->patchJsonAs($this->user, route('user.account.update'), [
@@ -47,6 +122,19 @@ class UserAccountUpdateTest extends TestCase
     {
         $response = $this->patchJsonAs($this->user, route('user.account.update'), [
             'email' => $email = $this->faker->safeEmail
+        ]);
+
+        $response->assertSuccessful();
+
+        $this->assertEquals($email, $this->user->fresh()->email);
+    }
+
+    /** @test */
+    public function it_updates_a_users_email_using_the_same_email_address()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'id' => $this->user->id,
+            'email' => $email = $this->user->email
         ]);
 
         $response->assertSuccessful();

@@ -30,7 +30,13 @@ class UserAccountController extends Controller
         return new PrivateUserResource($request->user());
     }
 
-    public function update(Request $request)
+    /**
+     * Update a user's account.
+     *
+     * @param UserAccountUpdateRequest $request
+     * @return PrivateUserResource
+     */
+    public function update(UserAccountUpdateRequest $request)
     {
         $originalEmail = $request->user()->getOriginal('email');
 
