@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Event;
 use App\Events\Users\AccountEmailUpdated;
+use App\Events\Users\AccountPasswordUpdated;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Http\Resources\Users\PrivateUserResource;
 
@@ -245,6 +246,23 @@ class UserAccountUpdateTest extends TestCase
 
         Event::assertDispatched(AccountEmailUpdated::class, function ($event) {
             return $event->user->email === $this->user->fresh()->email;
+        });
+    }
+
+    /** @test */
+    public function it_fires_an_account_password_upated_event_when_a_user_updates_his_password()
+    {
+        Event::fake(AccountPasswordUpdated::class);
+
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'password' => $password = $this->faker->password(8),
+            'password_confirmation' => $password
+        ]);
+
+        $response->assertOk();
+
+        Event::assertDispatched(AccountPasswordUpdated::class, function ($event) {
+            return $event->user->email === $this->user->email;
         });
     }
 

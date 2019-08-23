@@ -34,10 +34,10 @@ class UserObserver
 
             AccountEmailUpdated::dispatch($user, request('client_locale'));
         }
-        
-        $this->hashPassword($user);
 
-        if ($user->updatedPassword()) {
+        if (request()->has('password') && $user->updatedPassword()) {
+            $this->hashPassword($user);
+
             AccountPasswordUpdated::dispatch($user, request('client_locale'));
         }
     }
