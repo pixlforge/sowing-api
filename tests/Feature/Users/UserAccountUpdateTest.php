@@ -4,6 +4,7 @@ namespace Tests\Feature\Users;
 
 use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Event;
 use App\Events\Users\AccountEmailUpdated;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -104,6 +105,59 @@ class UserAccountUpdateTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_a_non_empty_password()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'password' => ''
+        ]);
+
+        $response->assertJsonValidationErrors(['password']);
+    }
+
+    /** @test */
+    public function it_requires_a_password_in_string_format()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'password' => 12345678
+        ]);
+
+        $response->assertJsonValidationErrors(['password']);
+    }
+
+    /** @test */
+    public function it_requires_a_non_empty_password_confirmation()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'password' => $this->faker->password(8),
+            'password_confirmation' => ''
+        ]);
+
+        $response->assertJsonValidationErrors(['password']);
+    }
+
+    /** @test */
+    public function it_requires_a_password_with_a_minimum_length_of_8_characters()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'password' => $password = $this->faker->password(7, 7),
+            'password_confirmation' => $password
+        ]);
+
+        $response->assertJsonValidationErrors(['password']);
+    }
+
+    /** @test */
+    public function it_requires_a_password_with_a_maximum_length_of_255_characters()
+    {
+        $response = $this->patchJsonAs($this->user, route('user.account.update'), [
+            'password' => $password = $this->faker->password(256, 256),
+            'password_confirmation' => $password
+        ]);
+
+        $response->assertJsonValidationErrors(['password']);
+    }
+
+    /** @test */
     public function it_updates_a_users_account_name()
     {
         $response = $this->patchJsonAs($this->user, route('user.account.update'), [
@@ -141,20 +195,16 @@ class UserAccountUpdateTest extends TestCase
     }
 
     /** @test */
-    public function it_updates_both_a_users_account_name_and_email_address()
+    public function it_updates_a_users_password()
     {
         $response = $this->patchJsonAs($this->user, route('user.account.update'), [
-            'name' => $name = $this->faker->name,
-            'email' => $email = $this->faker->safeEmail
+            'password' => $password = $this->faker->password(8),
+            'password_confirmation' => $password
         ]);
 
         $response->assertOk();
 
-        $this->user = $this->user->fresh();
-        
-        $this->assertEquals($name, $this->user->name);
-        
-        $this->assertEquals($email, $this->user->email);
+        $this->assertTrue(Hash::check($password, $this->user->fresh()->password));
     }
 
     /** @test */
@@ -172,6 +222,7 @@ class UserAccountUpdateTest extends TestCase
     /** @test */
     public function it_generates_a_confirmation_token_when_a_user_updates_his_email_address()
     {
+        $this->withoutExceptionHandling();
         $response = $this->patchJsonAs($this->user, route('user.account.update'), [
             'email' => $this->faker->safeEmail
         ]);

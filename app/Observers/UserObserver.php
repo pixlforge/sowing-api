@@ -16,7 +16,7 @@ class UserObserver
      */
     public function creating(User $user): void
     {
-        $user->password = Hash::make($user->password);
+        $this->hashPassword($user);
     }
 
     /**
@@ -33,5 +33,18 @@ class UserObserver
 
             AccountEmailUpdated::dispatch($user, request('client_locale'));
         }
+
+        $this->hashPassword($user);
+    }
+
+    /**
+     * Hash the user's password.
+     *
+     * @param User $user
+     * @return void
+     */
+    protected function hashPassword(User $user)
+    {
+        $user->password = Hash::make($user->password);
     }
 }

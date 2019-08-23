@@ -27,11 +27,10 @@ class UserAccountUpdateRequest extends FormRequest
         return [
             'name' => 'sometimes|required|string|min:2|max:255',
             'email' => [
-                'sometimes',
-                'required',
-                'email',
+                'sometimes', 'required', 'email',
                 Rule::unique('users')->ignore($this->id)
             ],
+            'password' => 'sometimes|required|string|confirmed|min:8|max:255'
         ];
     }
 }

@@ -38,7 +38,7 @@ class UserAccountController extends Controller
      */
     public function update(UserAccountUpdateRequest $request)
     {
-        $request->user()->update($request->only(['name', 'email']));
+        $request->user()->update($request->only(['name', 'email', 'password']));
 
         return PrivateUserResource::make($request->user());
     }
