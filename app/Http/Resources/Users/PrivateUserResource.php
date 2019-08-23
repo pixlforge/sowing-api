@@ -18,7 +18,14 @@ class PrivateUserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'has_shop' => $this->hasShop()
+            'is_verified' => $this->isVerified(),
+            'has_shop' => $this->hasShop(),
+            'member_for' => [
+                'en' => $this->created_at->locale('en')->longAbsoluteDiffForHumans(),
+                'fr' => $this->created_at->locale('fr')->longAbsoluteDiffForHumans(),
+                'de' => $this->created_at->locale('de')->longAbsoluteDiffForHumans(),
+                'it' => $this->created_at->locale('it')->longAbsoluteDiffForHumans(),
+            ]
         ];
     }
 }
