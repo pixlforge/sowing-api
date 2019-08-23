@@ -54,5 +54,12 @@ return [
         'subject' => 'Le mot de passe de votre compte Sowing a été mis à jour',
         'title' => 'Le mot de passe de votre compte Sowing a été mis à jour',
     ],
+
+    /**
+     * Password update confirmation email
+     */
+    'password_update' => [
+        'subject' => 'Le mot de passe de votre compte Sowing a été mis à jour'
+    ]
     
 ];

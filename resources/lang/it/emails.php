@@ -55,4 +55,11 @@ return [
         'title' => 'La password per il vostro account Sowing è stata aggiornata',
     ],
 
+    /**
+     * Password update confirmation email
+     */
+    'password_update' => [
+        'subject' => 'La password per il vostro account Sowing è stata aggiornata',
+    ]
+
 ];

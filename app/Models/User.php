@@ -144,6 +144,16 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Checks whether or not the user updated his password.
+     *
+     * @return void
+     */
+    public function updatedPassword()
+    {
+        return $this->getOriginal('password') !== $this->password;
+    }
+
+    /**
      * User cart relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

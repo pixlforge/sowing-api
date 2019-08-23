@@ -11,10 +11,12 @@ use App\Events\Orders\OrderPaymentFailed;
 use App\Events\Users\AccountEmailUpdated;
 use App\Listeners\Orders\CreateTransaction;
 use App\Events\Orders\OrderPaymentSuccessful;
+use App\Events\Users\AccountPasswordUpdated;
 use App\Listeners\Users\SendConfirmationEmail;
 use App\Listeners\Users\SendVerificationEmail;
 use App\Listeners\Orders\MarkOrderAsProcessing;
 use App\Listeners\Orders\MarkOrderAsPaymentFailed;
+use App\Listeners\Users\SendPasswordUpdateConfirmationEmail;
 use App\Listeners\Passwords\SendPasswordResetConfirmationEmail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -32,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         AccountEmailUpdated::class => [
             SendVerificationEmail::class
+        ],
+        AccountPasswordUpdated::class => [
+            SendPasswordUpdateConfirmationEmail::class
         ],
         PasswordReset::class => [
             SendPasswordResetConfirmationEmail::class

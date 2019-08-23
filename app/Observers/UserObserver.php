@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Events\Users\AccountEmailUpdated;
+use App\Events\Users\AccountPasswordUpdated;
 
 class UserObserver
 {
@@ -33,8 +34,12 @@ class UserObserver
 
             AccountEmailUpdated::dispatch($user, request('client_locale'));
         }
-
+        
         $this->hashPassword($user);
+
+        if ($user->updatedPassword()) {
+            AccountPasswordUpdated::dispatch($user, request('client_locale'));
+        }
     }
 
     /**
