@@ -19,6 +19,6 @@ class AddressPolicy
      */
     public function show(User $user, Address $address)
     {
-        return $user->id === $address->user->id;
+        return $user->is($address->user);
     }
 }

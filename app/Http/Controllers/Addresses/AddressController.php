@@ -43,6 +43,19 @@ class AddressController extends Controller
 
         $request->user()->addresses()->save($address);
 
-        return new AddressResource($address);
+        return AddressResource::make($address);
+    }
+
+    /**
+     * Show an address that belongs to the user.
+     *
+     * @param Address $address
+     * @return AddressResource
+     */
+    public function show(Address $address)
+    {
+        $this->authorize('show', $address);
+
+        return AddressResource::make($address);
     }
 }
