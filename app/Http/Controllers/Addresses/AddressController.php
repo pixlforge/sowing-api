@@ -58,4 +58,15 @@ class AddressController extends Controller
 
         return AddressResource::make($address);
     }
+
+    public function update(Request $request, Address $address)
+    {
+        $this->authorize('update', $address);
+        
+        $address->update($request->only([
+            'first_name', 'last_name', 'company_name', 'address_line_1', 'address_line_2', 'postal_code', 'city', 'country_id', 'is_default'
+        ]));
+
+        return AddressResource::make($address);
+    }
 }

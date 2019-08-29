@@ -21,4 +21,16 @@ class AddressPolicy
     {
         return $user->is($address->user);
     }
+
+    /**
+     * User is authorized to update the address.
+     *
+     * @param User $user
+     * @param Address $address
+     * @return boolean
+     */
+    public function update(User $user, Address $address)
+    {
+        return $user->is($address->user);
+    }
 }
