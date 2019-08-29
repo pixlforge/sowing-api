@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Addresses\AddressResource;
 use App\Http\Requests\Addresses\AddressStoreRequest;
+use App\Http\Requests\Addresses\AddressUpdateRequest;
 
 class AddressController extends Controller
 {
@@ -62,11 +63,11 @@ class AddressController extends Controller
     /**
      * Update an address.
      *
-     * @param Request $request
+     * @param AddressUpdateRequest $request
      * @param Address $address
      * @return AddressResource
      */
-    public function update(Request $request, Address $address)
+    public function update(AddressUpdateRequest $request, Address $address)
     {
         $this->authorize('update', $address);
         
