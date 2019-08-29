@@ -59,6 +59,13 @@ class AddressController extends Controller
         return AddressResource::make($address);
     }
 
+    /**
+     * Update an address.
+     *
+     * @param Request $request
+     * @param Address $address
+     * @return AddressResource
+     */
     public function update(Request $request, Address $address)
     {
         $this->authorize('update', $address);

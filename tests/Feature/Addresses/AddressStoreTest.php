@@ -35,11 +35,101 @@ class AddressStoreTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_a_first_name_in_string_format()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'first_name' => 123
+        ]);
+
+        $response->assertJsonValidationErrors(['first_name']);
+    }
+
+    /** @test */
+    public function it_requires_a_first_name_with_a_minimum_length_of_2_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'first_name' => str_repeat('a', 1)
+        ]);
+
+        $response->assertJsonValidationErrors(['first_name']);
+    }
+
+    /** @test */
+    public function it_requires_a_first_name_with_a_maximum_length_of_255_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'first_name' => str_repeat('a', 256)
+        ]);
+
+        $response->assertJsonValidationErrors(['first_name']);
+    }
+
+    /** @test */
     public function it_requires_a_last_name()
     {
         $response = $this->postJsonAs($this->user, route('addresses.store'));
 
         $response->assertJsonValidationErrors(['last_name']);
+    }
+
+    /** @test */
+    public function it_requires_a_last_name_in_string_format()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'last_name' => 123
+        ]);
+
+        $response->assertJsonValidationErrors(['last_name']);
+    }
+
+    /** @test */
+    public function it_requires_a_last_name_with_a_minimum_length_of_2_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'last_name' => str_repeat('a', 1)
+        ]);
+
+        $response->assertJsonValidationErrors(['last_name']);
+    }
+
+    /** @test */
+    public function it_requires_a_last_name_with_a_maximum_length_of_255_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'last_name' => str_repeat('a', 256)
+        ]);
+
+        $response->assertJsonValidationErrors(['last_name']);
+    }
+
+    /** @test */
+    public function it_requires_a_company_name_in_string_format()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'company_name' => 123
+        ]);
+
+        $response->assertJsonValidationErrors(['company_name']);
+    }
+
+    /** @test */
+    public function it_requires_a_company_name_with_a_minimum_length_of_2_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'company_name' => str_repeat('a', 1)
+        ]);
+
+        $response->assertJsonValidationErrors(['company_name']);
+    }
+
+    /** @test */
+    public function it_requires_a_company_name_with_a_maximum_length_of_255_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'company_name' => str_repeat('a', 256)
+        ]);
+
+        $response->assertJsonValidationErrors(['company_name']);
     }
 
     /** @test */
@@ -51,6 +141,66 @@ class AddressStoreTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_an_address_line_1_in_string_format()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'address_line_1' => 123
+        ]);
+
+        $response->assertJsonValidationErrors(['address_line_1']);
+    }
+
+    /** @test */
+    public function it_requires_an_address_line_1_with_a_minimum_of_2_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'address_line_1' => str_repeat('a', 1)
+        ]);
+
+        $response->assertJsonValidationErrors(['address_line_1']);
+    }
+
+    /** @test */
+    public function it_requires_an_address_line_1_with_a_maximum_of_255_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'address_line_1' => str_repeat('a', 256)
+        ]);
+
+        $response->assertJsonValidationErrors(['address_line_1']);
+    }
+
+    /** @test */
+    public function it_requires_an_address_line_2_in_string_format()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'address_line_2' => 123
+        ]);
+
+        $response->assertJsonValidationErrors(['address_line_2']);
+    }
+
+    /** @test */
+    public function it_requires_an_address_line_2_with_a_minimum_of_2_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'address_line_2' => str_repeat('a', 1)
+        ]);
+
+        $response->assertJsonValidationErrors(['address_line_2']);
+    }
+
+    /** @test */
+    public function it_requires_an_address_line_2_with_a_maximum_of_255_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'address_line_2' => str_repeat('a', 256)
+        ]);
+
+        $response->assertJsonValidationErrors(['address_line_2']);
+    }
+
+    /** @test */
     public function it_requires_a_postal_code()
     {
         $response = $this->postJsonAs($this->user, route('addresses.store'));
@@ -59,9 +209,69 @@ class AddressStoreTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_a_postal_code_in_string_format()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'postal_code' => 123
+        ]);
+
+        $response->assertJsonValidationErrors(['postal_code']);
+    }
+
+    /** @test */
+    public function it_requires_a_postal_code_with_a_minimum_of_4_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'postal_code' => str_repeat('1', 3)
+        ]);
+
+        $response->assertJsonValidationErrors(['postal_code']);
+    }
+
+    /** @test */
+    public function it_requires_a_postal_code_with_a_maximum_of_255_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'postal_code' => str_repeat('1', 256)
+        ]);
+
+        $response->assertJsonValidationErrors(['postal_code']);
+    }
+
+    /** @test */
     public function it_requires_a_city()
     {
         $response = $this->postJsonAs($this->user, route('addresses.store'));
+
+        $response->assertJsonValidationErrors(['city']);
+    }
+
+    /** @test */
+    public function it_requires_a_city_in_string_format()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'city' => 123
+        ]);
+
+        $response->assertJsonValidationErrors(['city']);
+    }
+
+    /** @test */
+    public function it_requires_a_city_with_a_minimum_of_2_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'city' => str_repeat('a', 1)
+        ]);
+
+        $response->assertJsonValidationErrors(['city']);
+    }
+
+    /** @test */
+    public function it_requires_a_city_with_a_maximum_of_255_characters()
+    {
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'city' => str_repeat('a', 256)
+        ]);
 
         $response->assertJsonValidationErrors(['city']);
     }

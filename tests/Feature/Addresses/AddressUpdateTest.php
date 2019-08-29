@@ -54,32 +54,23 @@ class AddressUpdateTest extends TestCase
     /** @test */
     public function it_can_update_the_users_address()
     {
-        $response = $this->patchJsonAs($this->user, route('addresses.update', $this->address), [
-            'first_name' => $firstName = $this->faker->firstName,
-            'last_name' => $lastName = $this->faker->lastName,
-            'company_name' => $companyName = $this->faker->company,
-            'address_line_1' => $addressLine1 = $this->faker->streetAddress,
-            'address_line_2' => $addressLine2 = $this->faker->streetSuffix,
-            'postal_code' => $postalCode = $this->faker->numberBetween(1000, 4000),
-            'city' => $city = $this->faker->city,
-            'country_id' => $countryId = $this->address->country_id,
-            'is_default' => $isDefault = false
+        $response = $this->patchJsonAs($this->user, route('addresses.update', $this->address), $payload = [
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'company_name' => $this->faker->company,
+            'address_line_1' => $this->faker->streetAddress,
+            'address_line_2' => $this->faker->streetSuffix,
+            'postal_code' => $this->faker->numberBetween(1000, 4000),
+            'city' => $this->faker->city,
+            'country_id' => $this->address->country_id,
+            'is_default' => false
         ]);
 
         $response->assertOk();
 
-        $this->assertDatabaseHas('addresses', [
-            'user_id' => $this->user->id,
-            'first_name' => $firstName,
-            'last_name' => $lastName,
-            'company_name' => $companyName,
-            'address_line_1' => $addressLine1,
-            'address_line_2' => $addressLine2,
-            'postal_code' => $postalCode,
-            'city' => $city,
-            'country_id' => $countryId,
-            'is_default' => $isDefault
-        ]);
+        $this->assertDatabaseHas('addresses', array_merge($payload, [
+            'user_id' => $this->user->id
+        ]));
     }
 
     /** @test */
