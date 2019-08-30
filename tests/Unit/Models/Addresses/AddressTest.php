@@ -13,7 +13,11 @@ class AddressTest extends TestCase
     {
         parent::setUp();
 
-        $this->address = factory(Address::class)->create();
+        $this->user = factory(User::class)->create();
+
+        $this->user->addresses()->save(
+            $this->address = factory(Address::class)->state('default')->make()
+        );
     }
 
     /** @test */
@@ -31,24 +35,16 @@ class AddressTest extends TestCase
     /** @test */
     public function it_can_check_an_address_is_set_as_default()
     {
-        $address = factory(Address::class)->states('default')->create();
-
-        $this->assertTrue($address->isDefault());
+        $this->assertTrue($this->address->isDefault());
     }
     
     /** @test */
     public function it_unsets_old_addresses_as_default_upon_creation()
     {
-        $user = factory(User::class)->create();
+        $this->user->addresses()->save(
+            factory(Address::class)->states('default')->make()
+        );
 
-        $oldAddress = factory(Address::class)->states('default')->create([
-            'user_id' => $user->id
-        ]);
-
-        factory(Address::class)->states('default')->create([
-            'user_id' => $user->id
-        ]);
-
-        $this->assertFalse($oldAddress->fresh()->isDefault());
+        $this->assertFalse($this->address->fresh()->isDefault());
     }
 }

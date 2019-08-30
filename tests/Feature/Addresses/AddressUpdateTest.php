@@ -19,7 +19,7 @@ class AddressUpdateTest extends TestCase
         $this->user = factory(User::class)->create();
 
         $this->user->addresses()->save(
-            $this->address = factory(Address::class)->make()
+            $this->address = factory(Address::class)->state('default')->make()
         );
     }
 
@@ -359,5 +359,33 @@ class AddressUpdateTest extends TestCase
         $response->assertOk();
 
         $response->assertResource(new AddressResource($this->user->addresses()->first()));
+    }
+
+    /** @test */
+    public function it_unsets_old_addresses_as_default_when_updating()
+    {
+        $this->user->addresses()->save(
+            $address = factory(Address::class)->make()
+        );
+
+        $this->assertTrue($this->address->isDefault());
+
+        $response = $this->patchJsonAs($this->user, route('addresses.update', $address), [
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'company_name' => $this->faker->company,
+            'address_line_1' => $this->faker->streetAddress,
+            'address_line_2' => $this->faker->streetSuffix,
+            'postal_code' => (string) $this->faker->numberBetween(1000, 4000),
+            'city' => $this->faker->city,
+            'country_id' => $this->address->country_id,
+            'is_default' => true
+        ]);
+
+        $response->assertOk();
+
+        $this->assertFalse($this->address->fresh()->isDefault());
+        
+        $this->assertTrue($address->fresh()->isDefault());
     }
 }
