@@ -5,7 +5,9 @@ namespace Tests\Feature\Addresses;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Country;
+use App\Models\Address;
 use Illuminate\Foundation\Testing\WithFaker;
+use App\Http\Resources\Addresses\AddressResource;
 
 class AddressStoreTest extends TestCase
 {
@@ -313,26 +315,12 @@ class AddressStoreTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_an_address_when_created()
+    public function it_returns_an_address_resource_when_created()
     {
-        $response = $this->postJsonAs($this->user, route('addresses.store'), [
-            'first_name' => $firstName = $this->faker->firstName,
-            'last_name' => $lastName = $this->faker->lastName,
-            'company_name' => $companyName = $this->faker->company,
-            'address_line_1' => $addressLine1 = $this->faker->streetAddress,
-            'postal_code' => $postalCode = $this->faker->postcode,
-            'city' => $city = $this->faker->city,
-            'country_id' => factory(Country::class)->create()->id
-        ]);
+        $address = factory(Address::class)->make();
 
-        $response->assertJsonFragment([
-            'id' => $response->getData()->data->id,
-            'first_name' => $firstName,
-            'last_name' => $lastName,
-            'company_name' => $companyName,
-            'address_line_1' => $addressLine1,
-            'postal_code' => $postalCode,
-            'city' => $city
-        ]);
+        $response = $this->postJsonAs($this->user, route('addresses.store'), $address->toArray());
+
+        $response->assertResource(AddressResource::make($this->user->addresses->first()));
     }
 }

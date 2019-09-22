@@ -39,9 +39,9 @@ class AddressShowTest extends TestCase
     /** @test */
     public function it_fails_if_the_address_does_not_belong_to_the_currently_authenticated_user()
     {
-        $addressThatBelongsToAnotherUser = factory(Address::class)->create();
+        $address = factory(Address::class)->create();
 
-        $response = $this->getJsonAs($this->user, route('addresses.show', $addressThatBelongsToAnotherUser));
+        $response = $this->getJsonAs($this->user, route('addresses.show', $address));
 
         $response->assertForbidden();
     }
@@ -53,6 +53,6 @@ class AddressShowTest extends TestCase
 
         $response->assertOk();
 
-        $response->assertResource(new AddressResource($this->address));
+        $response->assertResource(AddressResource::make($this->address));
     }
 }
