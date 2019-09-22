@@ -77,7 +77,7 @@ class Money
     }
 
     /**
-     * Returns the underlying Money class instance.
+     * Returns the underlying BaseMoney class instance.
      *
      * @return \Money\Money
      */
