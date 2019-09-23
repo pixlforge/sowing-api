@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Shops;
 
 use App\Models\Shop;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Shops\ShopResource;
 use App\Http\Requests\Shops\ShopStoreRequest;
@@ -29,7 +28,7 @@ class ShopController extends Controller
     {
         $shop->load(['country']);
         
-        return new ShopResource($shop);
+        return ShopResource::make($shop);
     }
 
     /**
@@ -46,7 +45,7 @@ class ShopController extends Controller
 
         $request->user()->shop()->save($shop);
 
-        return new ShopResource($shop);
+        return ShopResource::make($shop);
     }
 
     /**
@@ -64,6 +63,6 @@ class ShopController extends Controller
             'description_short', 'description_long', 'theme', 'postal_code', 'city', 'country_id'
         ]));
 
-        return new ShopResource($shop);
+        return ShopResource::make($shop);
     }
 }

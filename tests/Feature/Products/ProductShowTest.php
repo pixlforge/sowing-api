@@ -4,6 +4,7 @@ namespace Tests\Feature\Products;
 
 use Tests\TestCase;
 use App\Models\Product;
+use App\Http\Resources\Products\ProductResource;
 
 class ProductShowTest extends TestCase
 {
@@ -16,14 +17,12 @@ class ProductShowTest extends TestCase
     }
 
     /** @test */
-    public function it_shows_a_product()
+    public function it_returns_a_product_resource()
     {
         $product = factory(Product::class)->create();
-        
+
         $response = $this->getJson(route('products.show', $product->slug));
 
-        $response->assertJsonFragment([
-            'id' => $product->id
-        ]);
+        $response->assertResource(ProductResource::make($product));
     }
 }

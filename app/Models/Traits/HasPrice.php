@@ -34,6 +34,6 @@ trait HasPrice
      */
     public function getDetailedPriceAttribute()
     {
-        return $this->price->raw();
+        return $this->price->detailed();
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Newsletters;
 
 use Exception;
-use Newsletter;
 use App\Http\Controllers\Controller;
+use Spatie\Newsletter\NewsletterFacade;
 use App\Http\Requests\Newsletters\SubscriberStoreRequest;
 use App\Exceptions\NewsletterSubscriptionFailedException;
 
@@ -19,7 +19,7 @@ class NewsletterController extends Controller
     public function __invoke(SubscriberStoreRequest $request)
     {
         try {
-            $result = Newsletter::subscribeOrUpdate($request->email);
+            NewsletterFacade::subscribeOrUpdate($request->email);
         } catch (Exception $e) {
             throw new NewsletterSubscriptionFailedException();
         }

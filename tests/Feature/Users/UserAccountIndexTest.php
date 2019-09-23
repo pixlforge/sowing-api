@@ -4,6 +4,7 @@ namespace Tests\Feature\Users;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Http\Resources\Users\PrivateUserResource;
 
 class UserAccountIndexTest extends TestCase
 {
@@ -16,14 +17,12 @@ class UserAccountIndexTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_user_details()
+    public function it_returns_a_user_resource()
     {
         $user = factory(User::class)->create();
 
         $response = $this->getJsonAs($user, route('user.account.index'));
 
-        $response->assertJsonFragment([
-            'email' => $user->email
-        ]);
+        $response->assertResource(PrivateUserResource::make($user));
     }
 }

@@ -22,15 +22,21 @@ class MoneyTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_the_formatted_amount()
+    public function it_can_get_the_detailed_amount()
     {
-        $this->assertEquals('CHF10.00', $this->money->formatted());
+        $this->assertEquals(
+            '10.00',
+            $this->money->detailed()['amount']
+        );
     }
 
     /** @test */
-    public function it_can_get_the_raw_amount()
+    public function it_can_get_the_formatted_amount()
     {
-        $this->assertEquals('10.00', $this->money->raw()['amount']);
+        $this->assertEquals(
+            (new Money(1000))->formatted(),
+            $this->money->formatted()
+        );
     }
 
     /** @test */

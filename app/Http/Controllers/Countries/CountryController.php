@@ -9,9 +9,17 @@ use App\Http\Resources\Countries\CountryResource;
 class CountryController extends Controller
 {
     /**
+     * CountryController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth:api']);
+    }
+
+    /**
      * Returns a collection of all countries.
      *
-     * @return void
+     * @return CountryResource
      */
     public function index()
     {

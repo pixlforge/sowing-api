@@ -13,6 +13,8 @@ class CartStoreTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
+
+        $this->variation = factory(Variation::class)->create();
     }
 
     /** @test */
@@ -58,7 +60,7 @@ class CartStoreTest extends TestCase
     {
         $response = $this->postJsonAs($this->user, route('cart.store'), [
             'variations' => [
-                ['id' => 999, 'quantity' => 5]
+                ['id' => 999]
             ]
         ]);
 
@@ -68,11 +70,9 @@ class CartStoreTest extends TestCase
     /** @test */
     public function it_requires_quantity_to_be_numeric()
     {
-        $variation = factory(Variation::class)->create();
-
         $response = $this->postJsonAs($this->user, route('cart.store'), [
             'variations' => [
-                ['id' => $variation->id, 'quantity' => 'one']
+                ['id' => $this->variation->id, 'quantity' => 'one']
             ]
         ]);
 
@@ -82,11 +82,9 @@ class CartStoreTest extends TestCase
     /** @test */
     public function it_requires_quantity_to_be_at_least_one()
     {
-        $variation = factory(Variation::class)->create();
-
         $response = $this->postJsonAs($this->user, route('cart.store'), [
             'variations' => [
-                ['id' => $variation->id, 'quantity' => 0]
+                ['id' => $this->variation->id, 'quantity' => 0]
             ]
         ]);
 
@@ -96,17 +94,15 @@ class CartStoreTest extends TestCase
     /** @test */
     public function it_can_add_product_variations_to_the_users_cart()
     {
-        $variation = factory(Variation::class)->create();
-
         $this->postJsonAs($this->user, route('cart.store'), [
             'variations' => [
-                ['id' => $variation->id, 'quantity' => 2]
+                ['id' => $this->variation->id, 'quantity' => 2]
             ]
         ]);
 
         $this->assertDatabaseHas('cart_user', [
             'user_id' => $this->user->id,
-            'variation_id' => $variation->id,
+            'variation_id' => $this->variation->id,
             'quantity' => 2,
         ]);
     }

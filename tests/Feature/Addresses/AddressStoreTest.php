@@ -323,4 +323,31 @@ class AddressStoreTest extends TestCase
 
         $response->assertResource(AddressResource::make($this->user->addresses->first()));
     }
+
+    /** @test */
+    public function it_unsets_old_addresses_as_default_when_creating()
+    {
+        $this->user->addresses()->save(
+            factory(Address::class)->state('default')->make()
+        );
+
+        $this->assertTrue($this->user->addresses->first()->isDefault());
+
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'company_name' => $this->faker->company,
+            'address_line_1' => $this->faker->streetAddress,
+            'postal_code' => $this->faker->postcode,
+            'city' => $this->faker->city,
+            'country_id' => $this->user->addresses->first()->country->id,
+            'is_default' => true
+        ]);
+
+        $response->assertSuccessful();
+
+        $this->assertFalse($this->user->addresses->first()->fresh()->isDefault());
+
+        $this->assertTrue($this->user->addresses->last()->isDefault());
+    }
 }

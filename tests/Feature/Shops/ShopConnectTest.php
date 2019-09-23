@@ -6,7 +6,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Shop;
 
-class ShopConnectOAuthTest extends TestCase
+class ShopConnectTest extends TestCase
 {
     public function setUp(): void
     {

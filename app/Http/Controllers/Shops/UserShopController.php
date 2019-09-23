@@ -30,6 +30,6 @@ class UserShopController extends Controller
 
         $shop = $request->user()->shop->load(['country']);
         
-        return new UserShopResource($shop);
+        return UserShopResource::make($shop);
     }
 }

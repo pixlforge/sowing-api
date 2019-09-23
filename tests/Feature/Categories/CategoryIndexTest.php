@@ -4,6 +4,7 @@ namespace Tests\Feature\Categories;
 
 use Tests\TestCase;
 use App\Models\Category;
+use App\Http\Resources\Categories\CategoryResource;
 
 class CategoryIndexTest extends TestCase
 {
@@ -19,9 +20,7 @@ class CategoryIndexTest extends TestCase
     {
         $response = $this->getJson(route('categories.index'));
 
-        $response->assertJsonFragment([
-            'slug' => $this->category->slug,
-        ]);
+        $response->assertResource(CategoryResource::collection(Category::get()));
     }
 
     /** @test */

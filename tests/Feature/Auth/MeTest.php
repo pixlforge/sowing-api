@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Http\Resources\Users\PrivateUserResource;
 
 class MeTest extends TestCase
 {
@@ -30,5 +31,13 @@ class MeTest extends TestCase
         $response->assertJsonFragment([
             'email' => $this->user->email
         ]);
+    }
+
+    /** @test */
+    public function it_returns_a_private_user_resource()
+    {
+        $response = $this->getJsonAs($this->user, route('auth.me'));
+
+        $response->assertResource(PrivateUserResource::make($this->user));
     }
 }

@@ -4,6 +4,7 @@ namespace Tests\Feature\Shops;
 
 use Tests\TestCase;
 use App\Models\Shop;
+use App\Http\Resources\Shops\ShopResource;
 
 class ShopShowTest extends TestCase
 {
@@ -16,14 +17,12 @@ class ShopShowTest extends TestCase
     }
     
     /** @test */
-    public function it_can_get_a_single_shop()
+    public function it_returns_a_shop_resource()
     {
         $shop = factory(Shop::class)->create();
 
         $response = $this->getJson(route('shops.show', $shop->slug));
 
-        $response->assertJsonFragment([
-            'id' => $shop->id
-        ]);
+        $response->assertResource(ShopResource::make($shop));
     }
 }

@@ -13,6 +13,7 @@ class CartUpdateTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
+        
         $this->variation = factory(Variation::class)->create();
     }
 

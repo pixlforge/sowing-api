@@ -11,12 +11,17 @@ use Money\Formatter\DecimalMoneyFormatter;
 
 class Money
 {
+    /**
+     * The Money instance property.
+     *
+     * @var BaseMoney $money
+     */
     protected $money;
 
     /**
      * Money constructor.
      *
-     * @param $value
+     * @param int $value
      */
     public function __construct($value)
     {
@@ -38,7 +43,7 @@ class Money
      *
      * @return array
      */
-    public function raw()
+    public function detailed()
     {
         $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
 
@@ -56,7 +61,7 @@ class Money
     public function formatted()
     {
         $formatter = new IntlMoneyFormatter(
-            new NumberFormatter('CH', NumberFormatter::CURRENCY),
+            new NumberFormatter('de_CH', NumberFormatter::CURRENCY),
             new ISOCurrencies()
         );
 

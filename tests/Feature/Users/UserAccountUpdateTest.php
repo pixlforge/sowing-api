@@ -223,7 +223,6 @@ class UserAccountUpdateTest extends TestCase
     /** @test */
     public function it_generates_a_confirmation_token_when_a_user_updates_his_email_address()
     {
-        $this->withoutExceptionHandling();
         $response = $this->patchJsonAs($this->user, route('user.account.update'), [
             'email' => $this->faker->safeEmail
         ]);

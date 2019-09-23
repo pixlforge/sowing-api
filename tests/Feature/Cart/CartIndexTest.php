@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Variation;
 use App\Models\ShippingMethod;
+use App\Money\Money;
 
 class CartIndexTest extends TestCase
 {
@@ -14,6 +15,7 @@ class CartIndexTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
+
         $this->variation = factory(Variation::class)->create();
     }
 
@@ -48,14 +50,17 @@ class CartIndexTest extends TestCase
     }
 
     /** @test */
-    public function it_shows_a_raw_subtotal()
+    public function it_shows_formatted_and_detailed_subtotal()
     {
         $response = $this->getJsonAs($this->user, route('cart.index'));
 
         $response->assertJsonFragment([
             'subtotal' => [
-                'currency' => 'CHF',
-                'amount' => '0.00'
+                'detailed' => [
+                    'currency' => 'CHF',
+                    'amount' => '0.00'
+                ],
+                'formatted' => (new Money(0))->formatted()
             ]
         ]);
     }
@@ -67,8 +72,11 @@ class CartIndexTest extends TestCase
 
         $response->assertJsonFragment([
             'total' => [
-                'currency' => 'CHF',
-                'amount' => '0.00'
+                'detailed' => [
+                    'currency' => 'CHF',
+                    'amount' => '0.00'
+                ],
+                'formatted' => (new Money(0))->formatted()
             ]
         ]);
     }
@@ -102,7 +110,7 @@ class CartIndexTest extends TestCase
     }
 
     /** @test */
-    public function it_shows_a_formatted_total_with_shipping()
+    public function it_shows_a_detailed_and_formatted_total_with_shipping()
     {
         $shippingMethod = factory(ShippingMethod::class)->create([
             'price' => 1000
@@ -114,8 +122,11 @@ class CartIndexTest extends TestCase
 
         $response->assertJsonFragment([
             'total' => [
-                'amount' => '10.00',
-                'currency' => 'CHF'
+                'detailed' => [
+                    'amount' => '10.00',
+                    'currency' => 'CHF'
+                ],
+                'formatted' => (new Money(1000))->formatted()
             ]
         ]);
     }

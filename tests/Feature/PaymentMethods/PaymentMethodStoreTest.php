@@ -2,10 +2,13 @@
 
 namespace Tests\Feature\PaymentMethods;
 
-use App\Http\Resources\PaymentMethods\PaymentMethodResource;
 use Tests\TestCase;
 use App\Models\User;
+use App\Http\Resources\PaymentMethods\PaymentMethodResource;
 
+/**
+ * @group Stripe
+ */
 class PaymentMethodStoreTest extends TestCase
 {
     public function setUp(): void
@@ -31,10 +34,7 @@ class PaymentMethodStoreTest extends TestCase
         $response->assertJsonValidationErrors(['token']);
     }
 
-    /**
-     * @test
-     * @group Stripe
-     */
+    /** @test */
     public function it_can_successfully_add_a_card()
     {
         $response = $this->postJsonAs($this->user, route('payment-methods.store'), [
@@ -50,10 +50,7 @@ class PaymentMethodStoreTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     * @group Stripe
-     */
+    /** @test */
     public function it_returns_the_created_card()
     {
         $response = $this->postJsonAs($this->user, route('payment-methods.store'), [
@@ -65,10 +62,7 @@ class PaymentMethodStoreTest extends TestCase
         $response->assertResource(PaymentMethodResource::make($this->user->paymentMethods->first()));
     }
 
-    /**
-     * @test
-     * @group Stripe
-     */
+    /** @test */
     public function it_sets_the_created_card_as_default()
     {
         $response = $this->postJsonAs($this->user, route('payment-methods.store'), [

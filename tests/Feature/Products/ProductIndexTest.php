@@ -4,6 +4,7 @@ namespace Tests\Feature\Products;
 
 use Tests\TestCase;
 use App\Models\Product;
+use App\Http\Resources\Products\ProductIndexResource;
 
 class ProductIndexTest extends TestCase
 {
@@ -19,9 +20,7 @@ class ProductIndexTest extends TestCase
     {
         $response = $this->getJson(route('products.index'));
 
-        $response->assertJsonFragment([
-            'id' => $this->product->id
-        ]);
+        $response->assertResource(ProductIndexResource::collection(Product::all()));
     }
 
     /** @test */

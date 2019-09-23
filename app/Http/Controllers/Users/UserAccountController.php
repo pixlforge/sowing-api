@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Events\Users\AccountEmailUpdated;
 use App\Http\Resources\Users\PrivateUserResource;
 use App\Http\Requests\Users\UserAccountUpdateRequest;
 
@@ -27,7 +25,7 @@ class UserAccountController extends Controller
      */
     public function index(Request $request)
     {
-        return new PrivateUserResource($request->user());
+        return PrivateUserResource::make($request->user());
     }
 
     /**

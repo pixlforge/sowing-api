@@ -5,6 +5,7 @@ namespace Tests\Feature\Shops;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Shop;
+use App\Http\Resources\Shops\UserShopResource;
 
 class UserShopTest extends TestCase
 {
@@ -17,18 +18,16 @@ class UserShopTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_the_authenticated_user_shop_details()
+    public function it_returns_a_user_shop_resource()
     {
         $user = factory(User::class)->create();
 
-        $shop = factory(Shop::class)->create([
-            'user_id' => $user->id
-        ]);
+        $user->shop()->save(
+            factory(Shop::class)->make()
+        );
 
         $response = $this->getJsonAs($user, route('user.shop'));
 
-        $response->assertJsonFragment([
-            'id' => $shop->id
-        ]);
+        $response->assertResource(UserShopResource::make($user->shop));
     }
 }

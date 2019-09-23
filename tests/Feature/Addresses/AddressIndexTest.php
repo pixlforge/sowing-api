@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Addresses;
 
-use App\Http\Resources\Addresses\AddressResource;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Address;
+use App\Http\Resources\Addresses\AddressResource;
 
 class AddressIndexTest extends TestCase
 {

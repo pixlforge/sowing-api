@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Orders;
 
+use App\Http\Resources\Orders\OrderResource;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Order;
@@ -31,9 +32,7 @@ class OrderIndexTest extends TestCase
     {
         $response = $this->getJsonAs($this->user, route('orders.index'));
 
-        $response->assertJsonFragment([
-            'id' => $this->order->id
-        ]);
+        $response->assertResource(OrderResource::collection($this->user->orders));
     }
 
     /** @test */

@@ -18,6 +18,7 @@ class ConnectShopController extends Controller
 
     /**
      * Undocumented function
+     * TODO: refactor
      *
      * @param Request $request
      * @param Guzzle $guzzle
