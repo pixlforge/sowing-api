@@ -4,7 +4,9 @@ namespace Tests\Feature\Orders;
 
 use Tests\TestCase;
 use App\Models\User;
+use Stripe\Customer;
 use App\Models\Stock;
+use App\Models\Country;
 use App\Models\Address;
 use App\Models\Variation;
 use App\Models\PaymentMethod;
@@ -12,6 +14,7 @@ use App\Models\ShippingMethod;
 use App\Events\Orders\OrderCreated;
 use Illuminate\Support\Facades\Event;
 
+/** @group Stripe */
 class OrderStoreTest extends TestCase
 {
     public function setUp(): void
@@ -20,8 +23,28 @@ class OrderStoreTest extends TestCase
 
         $this->user = factory(User::class)->create();
 
+        $stripeCustomer = Customer::create(['email' => $this->user->email]);
+
+        $this->user->update(['gateway_customer_id' => $stripeCustomer->id]);
+
+        $this->country = factory(Country::class)->create();
+
+        $this->country->shippingMethods()->attach(
+            $this->shippingMethod = factory(ShippingMethod::class)->create()
+        );
+
+        $this->user->addresses()->save(
+            $this->address = factory(Address::class)->make([
+                'country_id' => $this->country->id
+            ])
+        );
+
+        $this->user->paymentMethods()->save(
+            $this->paymentMethod = factory(PaymentMethod::class)->make()
+        );
+
         $this->user->cart()->sync(
-            $this->variation = $this->getVariationWithStock()
+            $this->variation = $this->getProductVariationWithStock()
         );
     }
     
@@ -54,11 +77,7 @@ class OrderStoreTest extends TestCase
     /** @test */
     public function it_requires_an_address_that_belongs_to_the_authenticated_user()
     {
-        $address = factory(Address::class)->create([
-            'user_id' => function () {
-                return factory(User::class)->create()->id;
-            }
-        ]);
+        $address = factory(Address::class)->create();
 
         $response = $this->postJsonAs($this->user, route('orders.store'), [
             'address_id' => $address->id
@@ -88,14 +107,9 @@ class OrderStoreTest extends TestCase
     /** @test */
     public function it_requires_a_valid_shipping_method_for_the_address()
     {
-        $address = factory(Address::class)->create([
-            'user_id' => $this->user->id
-        ]);
-
         $shippingMethod = factory(ShippingMethod::class)->create();
 
         $response = $this->postJsonAs($this->user, route('orders.store'), [
-            'address_id' => $address->id,
             'shipping_method_id' => $shippingMethod->id
         ]);
 
@@ -122,40 +136,30 @@ class OrderStoreTest extends TestCase
         $response->assertJsonValidationErrors(['payment_method_id']);
     }
 
-    /**
-     * @test
-     * @group Stripe
-     */
+    /** @test */
     public function it_can_create_an_order()
     {
-        list($address, $shippingMethod, $paymentMethod) = $this->getOrderDependencies($this->user);
-
         $this->postJsonAs($this->user, route('orders.store'), [
-            'address_id' => $address->id,
-            'shipping_method_id' => $shippingMethod->id,
-            'payment_method_id' => $paymentMethod->id,
+            'address_id' => $this->address->id,
+            'shipping_method_id' => $this->shippingMethod->id,
+            'payment_method_id' => $this->paymentMethod->id,
         ]);
 
         $this->assertDatabaseHas('orders', [
             'user_id' => $this->user->id,
-            'address_id' => $address->id,
-            'shipping_method_id' => $shippingMethod->id,
-            'payment_method_id' => $paymentMethod->id,
+            'address_id' => $this->address->id,
+            'shipping_method_id' => $this->shippingMethod->id,
+            'payment_method_id' => $this->paymentMethod->id,
         ]);
     }
 
-    /**
-     * @test
-     * @group Stripe
-     */
+    /** @test */
     public function it_attaches_the_product_variations_to_the_order()
     {
-        list($address, $shippingMethod, $paymentMethod) = $this->getOrderDependencies($this->user);
-
         $response = $this->postJsonAs($this->user, route('orders.store'), [
-            'address_id' => $address->id,
-            'shipping_method_id' => $shippingMethod->id,
-            'payment_method_id' => $paymentMethod->id,
+            'address_id' => $this->address->id,
+            'shipping_method_id' => $this->shippingMethod->id,
+            'payment_method_id' => $this->paymentMethod->id,
         ]);
 
         $this->assertDatabaseHas('order_variation', [
@@ -164,43 +168,35 @@ class OrderStoreTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     * @group Stripe
-     */
+    /** @test */
     public function it_fails_to_create_an_order_if_the_cart_is_empty()
     {
-        $user = factory(User::class)->create();
+        $this->user->cart()->detach();
 
-        list($address, $shippingMethod, $paymentMethod) = $this->getOrderDependencies($user);
+        $this->user->cart()->attach(($this->getProductVariationWithStock())->id, [
+            'quantity' => 0
+        ]);
 
-        $this->assertCount(0, $user->orders);
-        
-        $response = $this->postJsonAs($user, route('orders.store'), [
-            'address_id' => $address->id,
-            'shipping_method_id' => $shippingMethod->id,
-            'payment_method_id' => $paymentMethod->id,
+        $response = $this->postJsonAs($this->user, route('orders.store'), [
+            'address_id' => $this->address->id,
+            'shipping_method_id' => $this->shippingMethod->id,
+            'payment_method_id' => $this->paymentMethod->id,
         ]);
 
         $response->assertStatus(400);
 
-        $this->assertCount(0, $user->orders);
+        $this->assertCount(0, $this->user->orders);
     }
 
-    /**
-     * @test
-     * @group Stripe
-     */
+    /** @test */
     public function it_fires_an_order_created_event_upon_ordering()
     {
         Event::fake(OrderCreated::class);
 
-        list($address, $shippingMethod, $paymentMethod) = $this->getOrderDependencies($this->user);
-
         $response = $this->postJsonAs($this->user, route('orders.store'), [
-            'address_id' => $address->id,
-            'shipping_method_id' => $shippingMethod->id,
-            'payment_method_id' => $paymentMethod->id,
+            'address_id' => $this->address->id,
+            'shipping_method_id' => $this->shippingMethod->id,
+            'payment_method_id' => $this->paymentMethod->id,
         ]);
 
         Event::assertDispatched(OrderCreated::class, function ($event) use ($response) {
@@ -208,21 +204,20 @@ class OrderStoreTest extends TestCase
         });
     }
 
-    /**
-     * @test
-     * @group Stripe
-     */
+    /** @test */
     public function it_empties_the_cart_after_an_order_is_created()
     {
-        list($address, $shippingMethod, $paymentMethod) = $this->getOrderDependencies($this->user);
+        $this->assertNotEmpty($this->user->cart);
 
-        $this->postJsonAs($this->user, route('orders.store'), [
-            'address_id' => $address->id,
-            'shipping_method_id' => $shippingMethod->id,
-            'payment_method_id' => $paymentMethod->id,
+        $response = $this->postJsonAs($this->user, route('orders.store'), [
+            'address_id' => $this->address->id,
+            'shipping_method_id' => $this->shippingMethod->id,
+            'payment_method_id' => $this->paymentMethod->id,
         ]);
 
-        $this->assertEmpty($this->user->cart);
+        $response->assertSuccessful();
+
+        $this->assertEmpty($this->user->fresh()->cart);
     }
 
     /**
@@ -230,43 +225,12 @@ class OrderStoreTest extends TestCase
      *
      * @return App\Models\Variation
      */
-    public function getVariationWithStock()
+    public function getProductVariationWithStock()
     {
-        $variation = factory(Variation::class)->create([
-            'price' => 5000
-        ]);
+        $variation = factory(Variation::class)->create();
 
-        factory(Stock::class)->create([
-            'variation_id' => $variation->id
-        ]);
+        $variation->stocks()->save(factory(Stock::class)->make());
 
         return $variation;
-    }
-
-    /**
-     * Get the dependencies for the order.
-     *
-     * @param User $user
-     * @return array
-     */
-    protected function getOrderDependencies(User $user)
-    {
-        $stripeCustomer = \Stripe\Customer::create([
-            'email' => $user->email
-        ]);
-
-        $user->update([
-            'gateway_customer_id' => $stripeCustomer->id
-        ]);
-
-        $address = factory(Address::class)->create(['user_id' => $user->id]);
-        $paymentMethod = factory(PaymentMethod::class)->states('default')->create([
-            'user_id' => $user->id
-        ]);
-
-        $shippingMethod = factory(ShippingMethod::class)->create();
-        $shippingMethod->countries()->attach($address->country);
-
-        return [$address, $shippingMethod, $paymentMethod];
     }
 }
