@@ -18,22 +18,38 @@ use App\PaymentGateways\Stripe\StripeGatewayCustomer;
 
 class ProcessPaymentListenerTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create();
+
+        $this->user->paymentMethods()->save(
+            $this->paymentMethod = factory(PaymentMethod::class)->make()
+        );
+
+        $this->user->orders()->save(
+            $this->order = factory(Order::class)->make([
+                'payment_method_id' => $this->paymentMethod->id
+            ])
+        );
+    }
+    
     /** @test */
     public function it_charges_the_chosen_payment_method_the_correct_amount()
     {
         Event::fake();
 
-        list($user, $paymentMethod, $order, $event) = $this->createEvent();
-
-        list($gateway, $customer) = $this->mockFlow();
+        list($event, $paymentGateway, $customer) = $this->mockFlow();
 
         $customer->shouldReceive('charge')
             ->with(
-                $order->paymentMethod,
-                $order->total()->getAmount()
+                $this->order->paymentMethod,
+                $this->order->total()->getAmount()
             );
 
-        $listener = new ProcessPayment($gateway);
+        $listener = new ProcessPayment($paymentGateway);
+
         $listener->handle($event);
     }
 
@@ -42,21 +58,20 @@ class ProcessPaymentListenerTest extends TestCase
     {
         Event::fake();
 
-        list($user, $paymentMethod, $order, $event) = $this->createEvent();
-
-        list($gateway, $customer) = $this->mockFlow();
+        list($event, $paymentGateway, $customer) = $this->mockFlow();
 
         $customer->shouldReceive('charge')
             ->with(
-                $order->paymentMethod,
-                $order->total()->getAmount()
+                $this->order->paymentMethod,
+                $this->order->total()->getAmount()
             );
 
-        $listener = new ProcessPayment($gateway);
+        $listener = new ProcessPayment($paymentGateway);
+
         $listener->handle($event);
 
-        Event::assertDispatched(OrderPaymentSuccessful::class, function ($event) use ($order) {
-            return $event->order->id === $order->id;
+        Event::assertDispatched(OrderPaymentSuccessful::class, function ($event) {
+            return $event->order->id === $this->order->id;
         });
     }
 
@@ -65,61 +80,40 @@ class ProcessPaymentListenerTest extends TestCase
     {
         Event::fake();
 
-        list($user, $paymentMethod, $order, $event) = $this->createEvent();
-
-        list($gateway, $customer) = $this->mockFlow();
+        list($event, $paymentGateway, $customer) = $this->mockFlow();
 
         $customer->shouldReceive('charge')
             ->with(
-                $order->paymentMethod,
-                $order->total()->getAmount()
+                $this->order->paymentMethod,
+                $this->order->total()->getAmount()
             )
             ->andThrow(PaymentFailedException::class);
 
-        $listener = new ProcessPayment($gateway);
+        $listener = new ProcessPayment($paymentGateway);
+
         $listener->handle($event);
 
-        Event::assertDispatched(OrderPaymentFailed::class, function ($event) use ($order) {
-            return $event->order->id === $order->id;
+        Event::assertDispatched(OrderPaymentFailed::class, function ($event) {
+            return $event->order->id === $this->order->id;
         });
     }
 
     /**
-     * Create the necessary dependencies for an OrderCreated event.
-     *
-     * @return array
-     */
-    protected function createEvent()
-    {
-        $user = factory(User::class)->create();
-
-        $paymentMethod = factory(PaymentMethod::class)->create();
-        
-        $order = factory(Order::class)->create([
-            'user_id' => $user->id,
-            'payment_method_id' => $paymentMethod->id
-        ]);
-
-        $event = new OrderCreated($order);
-
-        return [$user, $paymentMethod, $order, $event];
-    }
-
-    /**
-     * Mock the payment process flow.
+     * Mock the payment gateway flow.
      *
      * @return array
      */
     protected function mockFlow()
     {
-        $gateway = Mockery::mock(StripePaymentGateway::class);
-        $gateway->shouldReceive('withUser')
-            ->andReturn($gateway)
-            ->shouldReceive('getCustomer')
-            ->andReturn(
-                $customer = Mockery::mock(StripeGatewayCustomer::class)
-            );
+        $event = new OrderCreated($this->order);
 
-        return [$gateway, $customer];
+        $paymentGateway = Mockery::mock(StripePaymentGateway::class);
+
+        $paymentGateway->shouldReceive('withUser')
+            ->andReturn($paymentGateway)
+            ->shouldReceive('getCustomer')
+            ->andReturn($customer = Mockery::mock(StripeGatewayCustomer::class));
+
+        return [$event, $paymentGateway, $customer];
     }
 }

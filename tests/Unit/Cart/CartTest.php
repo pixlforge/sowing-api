@@ -18,15 +18,15 @@ class CartTest extends TestCase
         $this->cart = new Cart(
             $this->user = factory(User::class)->create()
         );
+
+        $this->variation = factory(Variation::class)->create();
     }
 
     /** @test */
     public function it_can_add_product_variations_to_the_cart()
     {
-        $variation = factory(Variation::class)->create();
-
         $this->cart->add([
-            ['id' => $variation->id, 'quantity' => 5]
+            ['id' => $this->variation->id, 'quantity' => 5]
         ]);
 
         $this->assertCount(1, $this->user->fresh()->cart);
@@ -35,17 +35,15 @@ class CartTest extends TestCase
     /** @test */
     public function it_increments_quantity_when_adding_more_product_variations()
     {
-        $variation = factory(Variation::class)->create();
-
         $this->cart->add([
-            ['id' => $variation->id, 'quantity' => 5]
+            ['id' => $this->variation->id, 'quantity' => 5]
         ]);
 
         // Second request
         $this->cart = new Cart($this->user->fresh());
 
         $this->cart->add([
-            ['id' => $variation->id, 'quantity' => 5]
+            ['id' => $this->variation->id, 'quantity' => 5]
         ]);
 
         $this->assertEquals(10, $this->user->fresh()->cart->first()->pivot->quantity);
@@ -55,11 +53,11 @@ class CartTest extends TestCase
     public function it_can_update_quantities_in_the_cart()
     {
         $this->user->cart()->attach(
-            $variation = factory(Variation::class)->create(),
+            $this->variation,
             ['quantity' => 1]
         );
 
-        $this->cart->update($variation->id, 5);
+        $this->cart->update($this->variation->id, 5);
 
         $this->assertEquals(5, $this->user->fresh()->cart->first()->pivot->quantity);
     }
@@ -68,11 +66,11 @@ class CartTest extends TestCase
     public function it_can_delete_a_product_variation_from_the_cart()
     {
         $this->user->cart()->attach(
-            $variation = factory(Variation::class)->create(),
+            $this->variation,
             ['quantity' => 1]
         );
 
-        $this->cart->delete($variation->id);
+        $this->cart->delete($this->variation->id);
 
         $this->assertCount(0, $this->user->fresh()->cart);
     }
@@ -81,12 +79,12 @@ class CartTest extends TestCase
     public function it_can_empty_all_product_variations_from_the_cart()
     {
         $this->user->cart()->attach(
-            $variation = factory(Variation::class)->create(),
+            $this->variation,
             ['quantity' => 1]
         );
 
         $this->user->cart()->attach(
-            $variation = factory(Variation::class)->create(),
+            factory(Variation::class)->create(),
             ['quantity' => 1]
         );
 
@@ -101,7 +99,7 @@ class CartTest extends TestCase
     public function it_can_check_if_the_cart_is_empty()
     {
         $this->user->cart()->attach(
-            factory(Variation::class)->create(),
+            $this->variation,
             ['quantity' => 0]
         );
 
@@ -168,12 +166,10 @@ class CartTest extends TestCase
     /** @test */
     public function it_syncs_the_cart_to_update_quantities()
     {
-        $variation = factory(Variation::class)->create();
-
         $anotherVariation = factory(Variation::class)->create();
 
         $this->user->cart()->attach([
-            $variation->id => [
+            $this->variation->id => [
                 'quantity' => 2
             ],
             $anotherVariation->id => [
@@ -191,12 +187,10 @@ class CartTest extends TestCase
     /** @test */
     public function it_can_check_the_cart_has_been_changed_after_syncing()
     {
-        $variation = factory(Variation::class)->create();
-
         $anotherVariation = factory(Variation::class)->create();
 
         $this->user->cart()->attach([
-            $variation->id => [
+            $this->variation->id => [
                 'quantity' => 2
             ],
             $anotherVariation->id => [
