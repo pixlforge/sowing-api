@@ -4,7 +4,7 @@ namespace App\Http\Controllers\PaymentMethods;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\PaymentGateways\Contracts\PaymentGateway;
+use App\Payments\Contracts\PaymentGatewayContract;
 use App\Http\Resources\PaymentMethods\PaymentMethodResource;
 use App\Http\Requests\PaymentMethods\PaymentMethodStoreRequest;
 
@@ -13,16 +13,16 @@ class PaymentMethodController extends Controller
     /**
      * The paymentGateway property.
      *
-     * @var PaymentGateway
+     * @var PaymentGatewayContract
      */
     public $paymentGateway;
     
     /**
      * PaymentMethodController constructor.
      *
-     * @param PaymentGateway $paymentGateway
+     * @param PaymentGatewayContract $paymentGateway
      */
-    public function __construct(PaymentGateway $paymentGateway)
+    public function __construct(PaymentGatewayContract $paymentGateway)
     {
         $this->middleware(['auth:api']);
 
@@ -49,7 +49,7 @@ class PaymentMethodController extends Controller
     public function store(PaymentMethodStoreRequest $request)
     {
         $card = $this->paymentGateway->withUser($request->user())
-            ->createCustomer()
+            ->getOrCreateCustomer()
             ->addCard($request->token);
 
         return PaymentMethodResource::make($card);

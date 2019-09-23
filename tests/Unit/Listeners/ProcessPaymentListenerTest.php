@@ -13,8 +13,8 @@ use App\Listeners\Orders\ProcessPayment;
 use App\Events\Orders\OrderPaymentFailed;
 use App\Exceptions\PaymentFailedException;
 use App\Events\Orders\OrderPaymentSuccessful;
-use App\PaymentGateways\Stripe\StripePaymentGateway;
-use App\PaymentGateways\Stripe\StripeGatewayCustomer;
+use App\Payments\Stripe\StripePaymentGateway;
+use App\Payments\Stripe\StripeCustomer;
 
 class ProcessPaymentListenerTest extends TestCase
 {
@@ -111,8 +111,8 @@ class ProcessPaymentListenerTest extends TestCase
 
         $paymentGateway->shouldReceive('withUser')
             ->andReturn($paymentGateway)
-            ->shouldReceive('getCustomer')
-            ->andReturn($customer = Mockery::mock(StripeGatewayCustomer::class));
+            ->shouldReceive('getOrCreateCustomer')
+            ->andReturn($customer = Mockery::mock(StripeCustomer::class));
 
         return [$event, $paymentGateway, $customer];
     }

@@ -1,48 +1,47 @@
 <?php
 
-namespace App\PaymentGateways\Stripe;
+namespace App\Payments\Stripe;
 
 use Exception;
 use Stripe\Card;
 use Illuminate\Support\Str;
 use App\Models\PaymentMethod;
-use Stripe\Charge as StripeCharge;
-use Stripe\Customer as StripeCustomer;
+use Stripe\Charge as BaseCharge;
+use Stripe\Customer as BaseCustomer;
 use App\Exceptions\PaymentFailedException;
-use App\PaymentGateways\Contracts\PaymentGateway;
-use App\PaymentGateways\Contracts\PaymentGatewayCustomer;
+use App\Payments\Contracts\CustomerContract;
+use App\Payments\Contracts\PaymentGatewayContract;
 
-class StripeGatewayCustomer implements PaymentGatewayCustomer
+class StripeCustomer implements CustomerContract
 {
     /**
      * The PaymentGateway property.
      *
-     * @var PaymentGateway
+     * @var PaymentGatewayContract $paymentGateway
      */
-    protected $gateway;
+    protected $paymentGateway;
 
     /**
-     * The StripeCustomer property.
+     * The customer property.
      *
-     * @var StripeCustomer
+     * @var BaseCustomer $customer
      */
     protected $customer;
 
     /**
-     * StripeGatewayCustomer constructor.
+     * StripeCustomer constructor.
      *
-     * @param PaymentGateway $gateway
-     * @param StripeCustomer $customer
+     * @param PaymentGatewayContract $paymentGateway
+     * @param BaseCustomer $customer
      */
-    public function __construct(PaymentGateway $gateway, StripeCustomer $customer)
+    public function __construct(PaymentGatewayContract $paymentGateway, BaseCustomer $customer)
     {
-        $this->gateway = $gateway;
-
+        $this->paymentGateway = $paymentGateway;
         $this->customer = $customer;
     }
     
     /**
-     * Undocumented function
+     * Charge a customer.
      *
      * @param PaymentMethod $paymentMethod
      * @param integer $amount
@@ -51,7 +50,7 @@ class StripeGatewayCustomer implements PaymentGatewayCustomer
     public function charge(PaymentMethod $paymentMethod, $amount)
     {
         try {
-            return StripeCharge::create([
+            return BaseCharge::create([
                 'amount' => $amount,
                 'currency' => 'chf',
                 'customer' => $this->customer->id,
@@ -88,7 +87,7 @@ class StripeGatewayCustomer implements PaymentGatewayCustomer
      */
     public function createPaymentMethodFromCard(Card $card)
     {
-        return $this->gateway->user()->paymentMethods()->create([
+        return $this->paymentGateway->getUser()->paymentMethods()->create([
             'card_type' => $card->brand,
             'card_type_slug' => Str::slug($card->brand),
             'last_four' => $card->last4,
@@ -112,7 +111,7 @@ class StripeGatewayCustomer implements PaymentGatewayCustomer
     /**
      * Get the Stripe Customer id.
      *
-     * @return integer
+     * @return string
      */
     public function id()
     {

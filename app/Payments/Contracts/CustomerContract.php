@@ -1,22 +1,22 @@
 <?php
 
-namespace App\PaymentGateways\Contracts;
+namespace App\Payments\Contracts;
 
 use App\Models\PaymentMethod;
 
-interface PaymentGatewayCustomer
+interface CustomerContract
 {
     /**
-     * Undocumented function
+     * Charge a customer.
      *
      * @param PaymentMethod $paymentMethod
-     * @param integer $amount
+     * @param int $amount
      * @return void
      */
     public function charge(PaymentMethod $paymentMethod, $amount);
 
     /**
-     * Undocumented function
+     * Add a new card.
      *
      * @param string $token
      * @return void
@@ -26,7 +26,7 @@ interface PaymentGatewayCustomer
     /**
      * Get the Gateway Customer id.
      *
-     * @return integer
+     * @return int
      */
     public function id();
 }

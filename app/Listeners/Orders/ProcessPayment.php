@@ -7,14 +7,14 @@ use App\Events\Orders\OrderPaymentFailed;
 use App\Exceptions\PaymentFailedException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\Orders\OrderPaymentSuccessful;
-use App\PaymentGateways\Contracts\PaymentGateway;
+use App\Payments\Contracts\PaymentGatewayContract;
 
 class ProcessPayment implements ShouldQueue
 {
     /**
      * The gateway property.
      *
-     * @var PaymentGateway
+     * @var PaymentGatewayContract
      */
     protected $gateway;
 
@@ -23,7 +23,7 @@ class ProcessPayment implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(PaymentGateway $gateway)
+    public function __construct(PaymentGatewayContract $gateway)
     {
         $this->gateway = $gateway;
     }
@@ -40,7 +40,7 @@ class ProcessPayment implements ShouldQueue
 
         try {
             $charge = $this->gateway->withUser($order->user)
-            ->getCustomer()
+            ->getOrCreateCustomer()
             ->charge(
                 $order->paymentMethod,
                 $order->total()->getAmount()
