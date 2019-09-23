@@ -54,9 +54,7 @@ class OrderController extends Controller
     {
         $order = $this->createOrder($request, $cart);
 
-        $order->variations()->sync(
-            $cart->variations()->forSyncing()
-        );
+        $order->variations()->sync($cart->variations()->forSyncing());
 
         OrderCreated::dispatch($order);
 

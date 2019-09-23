@@ -122,7 +122,10 @@ class OrderStoreTest extends TestCase
         $response->assertJsonValidationErrors(['payment_method_id']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Stripe
+     */
     public function it_can_create_an_order()
     {
         list($address, $shippingMethod, $paymentMethod) = $this->getOrderDependencies($this->user);
@@ -141,7 +144,10 @@ class OrderStoreTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Stripe
+     */
     public function it_attaches_the_product_variations_to_the_order()
     {
         list($address, $shippingMethod, $paymentMethod) = $this->getOrderDependencies($this->user);
@@ -158,7 +164,10 @@ class OrderStoreTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Stripe
+     */
     public function it_fails_to_create_an_order_if_the_cart_is_empty()
     {
         $user = factory(User::class)->create();
@@ -178,7 +187,10 @@ class OrderStoreTest extends TestCase
         $this->assertCount(0, $user->orders);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Stripe
+     */
     public function it_fires_an_order_created_event_upon_ordering()
     {
         Event::fake(OrderCreated::class);
@@ -196,7 +208,10 @@ class OrderStoreTest extends TestCase
         });
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Stripe
+     */
     public function it_empties_the_cart_after_an_order_is_created()
     {
         list($address, $shippingMethod, $paymentMethod) = $this->getOrderDependencies($this->user);

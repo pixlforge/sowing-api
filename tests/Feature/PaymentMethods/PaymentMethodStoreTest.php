@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\PaymentMethods;
 
+use App\Http\Resources\PaymentMethods\PaymentMethodResource;
 use Tests\TestCase;
 use App\Models\User;
 
@@ -30,7 +31,10 @@ class PaymentMethodStoreTest extends TestCase
         $response->assertJsonValidationErrors(['token']);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Stripe
+     */
     public function it_can_successfully_add_a_card()
     {
         $response = $this->postJsonAs($this->user, route('payment-methods.store'), [
@@ -46,7 +50,10 @@ class PaymentMethodStoreTest extends TestCase
         ]);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Stripe
+     */
     public function it_returns_the_created_card()
     {
         $response = $this->postJsonAs($this->user, route('payment-methods.store'), [
@@ -55,21 +62,21 @@ class PaymentMethodStoreTest extends TestCase
         
         $response->assertSuccessful();
 
-        $response->assertJsonFragment([
-            'card_type' => 'Visa'
-        ]);
+        $response->assertResource(PaymentMethodResource::make($this->user->paymentMethods->first()));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Stripe
+     */
     public function it_sets_the_created_card_as_default()
     {
         $response = $this->postJsonAs($this->user, route('payment-methods.store'), [
             'token' => 'tok_visa'
         ]);
-        
-        $this->assertDatabaseHas('payment_methods', [
-            'id' => $response->getData()->data->id,
-            'is_default' => true
-        ]);
+     
+        $response->assertSuccessful();
+
+        $this->assertTrue($this->user->paymentMethods->first()->isDefault());
     }
 }

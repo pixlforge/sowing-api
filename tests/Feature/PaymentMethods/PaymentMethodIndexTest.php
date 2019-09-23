@@ -5,9 +5,17 @@ namespace Tests\Feature\PaymentMethods;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\PaymentMethod;
+use App\Http\Resources\PaymentMethods\PaymentMethodResource;
 
 class PaymentMethodIndexTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create();
+    }
+    
     /** @test */
     public function it_fails_if_unauthenticated()
     {
@@ -19,16 +27,12 @@ class PaymentMethodIndexTest extends TestCase
     /** @test */
     public function it_returns_a_collection_of_payment_methods()
     {
-        $user = factory(User::class)->create();
+        $this->user->paymentMethods()->save(
+            factory(PaymentMethod::class)->make()
+        );
 
-        $paymentMethod = factory(PaymentMethod::class)->create([
-            'user_id' => $user->id
-        ]);
+        $response = $this->getJsonAs($this->user, route('payment-methods.index'));
 
-        $response = $this->getJsonAs($user, route('payment-methods.index'));
-
-        $response->assertJsonFragment([
-            'id' => $paymentMethod->id
-        ]);
+        $response->assertResource(PaymentMethodResource::collection($this->user->paymentMethods));
     }
 }
