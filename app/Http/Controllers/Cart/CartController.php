@@ -37,7 +37,7 @@ class CartController extends Controller
             'cart.type'
         ]);
 
-        return (new CartResource($request->user()))
+        return (CartResource::make($request->user()))
             ->additional([
                 'meta' => $this->meta($cart, $request)
             ]);

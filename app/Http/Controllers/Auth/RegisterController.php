@@ -27,6 +27,6 @@ class RegisterController extends Controller
 
         AccountCreated::dispatch($user, $request->client_locale);
 
-        return new PrivateUserResource($user);
+        return PrivateUserResource::make($user);
     }
 }

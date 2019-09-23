@@ -39,7 +39,7 @@ class ProductController extends Controller
             'variations.type', 'variations.stock', 'variations.product',
         ]);
 
-        return new ProductResource($product);
+        return ProductResource::make($product);
     }
 
     public function store(Request $request)

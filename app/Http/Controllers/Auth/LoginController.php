@@ -54,7 +54,7 @@ class LoginController extends Controller
             ], 422);
         }
 
-        return (new PrivateUserResource($request->user()))
+        return (PrivateUserResource::make($request->user()))
             ->additional([
                 'meta' => [
                     'token' => $token

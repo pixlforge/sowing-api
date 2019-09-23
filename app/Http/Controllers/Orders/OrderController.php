@@ -58,7 +58,7 @@ class OrderController extends Controller
 
         OrderCreated::dispatch($order);
 
-        return new OrderResource($order);
+        return OrderResource::make($order);
     }
     
     /**

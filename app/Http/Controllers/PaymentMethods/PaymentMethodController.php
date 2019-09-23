@@ -52,6 +52,6 @@ class PaymentMethodController extends Controller
             ->createCustomer()
             ->addCard($request->token);
 
-        return new PaymentMethodResource($card);
+        return PaymentMethodResource::make($card);
     }
 }

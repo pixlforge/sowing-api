@@ -32,6 +32,6 @@ class CategoryController extends Controller
         
         $categories->children = $categories->children->sortBy('order');
 
-        return new CategoryResource($categories);
+        return CategoryResource::make($categories);
     }
 }
