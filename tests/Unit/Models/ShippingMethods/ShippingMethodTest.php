@@ -4,6 +4,7 @@ namespace Tests\Unit\Models\ShippingMethods;
 
 use Tests\TestCase;
 use App\Money\Money;
+use App\Models\Order;
 use App\Models\Country;
 use App\Models\ShippingMethod;
 
@@ -51,5 +52,15 @@ class ShippingMethodTest extends TestCase
         );
 
         $this->assertInstanceOf(Country::class, $this->shippingMethod->countries->first());
+    }
+
+    /** @test */
+    public function it_belongs_to_an_order()
+    {
+        $this->shippingMethod->orders()->save(
+            factory(Order::class)->make()
+        );
+
+        $this->assertInstanceOf(Order::class, $this->shippingMethod->orders->first());
     }
 }

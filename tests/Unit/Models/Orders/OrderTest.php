@@ -18,10 +18,14 @@ class OrderTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->shippingMethod = factory(ShippingMethod::class)->create([
+            'price' => 1000
+        ]);
 
-        $this->user->orders()->save(
-            $this->order = factory(Order::class)->create()
+        $this->shippingMethod->orders()->save(
+            $this->order = factory(Order::class)->make([
+                'subtotal' => 1000
+            ])
         );
     }
 
@@ -102,18 +106,6 @@ class OrderTest extends TestCase
     /** @test */
     public function it_adds_shipping_onto_the_total()
     {
-        $order = factory(Order::class)->create([
-            'user_id' => function () {
-                return factory(User::class)->create()->id;
-            },
-            'subtotal' => 1000,
-            'shipping_method_id' => function () {
-                return factory(ShippingMethod::class)->create([
-                    'price' => 800
-                ])->id;
-            }
-        ]);
-
-        $this->assertEquals(1800, $order->total()->getAmount());
+        $this->assertEquals(2000, $this->order->total()->getAmount());
     }
 }
