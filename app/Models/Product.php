@@ -4,16 +4,18 @@ namespace App\Models;
 
 use Laravel\Scout\Searchable;
 use App\Models\Traits\HasPrice;
-use App\Models\Traits\CanBeScoped;
+use App\Models\Traits\HasScopesTrait;
+use App\Scoping\Scopes\CategoryScope;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use App\Models\Contracts\HasScopesContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Product extends Model implements HasMedia
+class Product extends Model implements HasMedia, HasScopesContract
 {
-    use SoftDeletes, CanBeScoped, HasPrice, HasTranslations, HasMediaTrait, Searchable;
+    use SoftDeletes, HasScopesTrait, HasPrice, HasTranslations, HasMediaTrait, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,9 +23,7 @@ class Product extends Model implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'name',
-        'description',
-        'price'
+        'name', 'description', 'price'
     ];
 
     /**
@@ -32,8 +32,7 @@ class Product extends Model implements HasMedia
      * @var array
      */
     public $translatable = [
-        'name',
-        'description',
+        'name', 'description',
     ];
     
     /**
@@ -98,6 +97,18 @@ class Product extends Model implements HasMedia
         return $this->variations->sum(function ($variation) {
             return $variation->stockCount();
         });
+    }
+
+    /**
+     * Returns an array of scopes by which a product can be scoped.
+     *
+     * @return array
+     */
+    public function scopes()
+    {
+        return [
+            'category' => new CategoryScope()
+        ];
     }
 
     /**

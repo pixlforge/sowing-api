@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Products;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Scoping\Scopes\CategoryScope;
 use App\Http\Resources\Products\ProductResource;
 use App\Http\Resources\Products\ProductIndexResource;
 
@@ -14,14 +13,14 @@ class ProductController extends Controller
     /**
      * Returns a collection of scoped products.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return ProductIndexResource
      */
     public function index()
     {
         $products = Product::with([
                 'shop', 'variations.stock',
             ])
-            ->withScopes($this->scopes())
+            ->withScopes()
             ->paginate(10);
 
         return ProductIndexResource::collection($products);
@@ -42,20 +41,14 @@ class ProductController extends Controller
         return ProductResource::make($product);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request)
     {
         return response($request->all(), 200);
-    }
-
-    /**
-     * Returns an array of scopes by which a product can be scoped.
-     *
-     * @return array
-     */
-    protected function scopes()
-    {
-        return [
-            'category' => new CategoryScope()
-        ];
     }
 }
