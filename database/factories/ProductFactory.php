@@ -25,7 +25,6 @@ $factory->define(Product::class, function () use ($fakerEN, $fakerFR, $fakerDE, 
             'de' => $fakerDE->sentence,
             'it' => $fakerIT->sentence,
         ],
-        'slug' => Str::slug($name),
         'price' => 1000
     ];
 });

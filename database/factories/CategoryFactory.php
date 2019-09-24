@@ -23,7 +23,6 @@ $factory->define(Category::class, function () use ($fakerEN, $fakerFR, $fakerDE,
             'de' => $fakerDE->sentences(2, true),
             'it' => $fakerIT->sentences(2, true),
         ],
-        'slug' => Str::slug($name),
     ];
 });
 

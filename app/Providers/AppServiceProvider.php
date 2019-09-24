@@ -18,6 +18,7 @@ use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\PaymentMethodObserver;
+use App\Observers\ProductObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,12 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Address::observe(AddressObserver::class);
-        Category::observe(CategoryObserver::class);
-        Order::observe(OrderObserver::class);
-        User::observe(UserObserver::class);
-        Shop::observe(ShopObserver::class);
-        PaymentMethod::observe(PaymentMethodObserver::class);
+        $this->registerModelObservers();
 
         $this->disableSearchSyncingInDev();
     }
@@ -52,6 +48,22 @@ class AppServiceProvider extends ServiceProvider
             
             return new Cart($app->auth->user());
         });
+    }
+
+    /**
+     * Register the various model observers.
+     *
+     * @return void
+     */
+    protected function registerModelObservers()
+    {
+        Address::observe(AddressObserver::class);
+        Category::observe(CategoryObserver::class);
+        Order::observe(OrderObserver::class);
+        PaymentMethod::observe(PaymentMethodObserver::class);
+        Product::observe(ProductObserver::class);
+        User::observe(UserObserver::class);
+        Shop::observe(ShopObserver::class);
     }
 
     /**
