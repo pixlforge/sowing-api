@@ -2,18 +2,18 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\KeyValue;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Resource;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\File;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\HasOne;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\ResourceToolElement;
-use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class UserResource extends Resource
 {
@@ -192,7 +192,16 @@ class UserResource extends Resource
             new ExceptionAction,
             new FailingAction,
             new NoopAction,
-            new QueuedAction,
+            tap(new QueuedAction, function (QueuedAction $action) {
+                if ($_SERVER['nova.user.actionCallbacks'] ?? false) {
+                    $action->canRun(function ($request, $model) {
+                        return $model->id % 2;
+                    });
+                    $action->canSee(function () {
+                        return true;
+                    });
+                }
+            }),
             new QueuedResourceAction,
             new QueuedUpdateStatusAction,
             new RequiredFieldAction,
@@ -202,6 +211,9 @@ class UserResource extends Resource
             (new UnrunnableAction)->canSee(function ($request) {
                 return true;
             })->canRun(function ($request, $model) {
+                return false;
+            }),
+            (new UnrunnableDestructiveAction)->canRun(function ($request, $model) {
                 return false;
             }),
             new UpdateStatusAction,

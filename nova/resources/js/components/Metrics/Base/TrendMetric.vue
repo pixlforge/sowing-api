@@ -6,7 +6,7 @@
             <select
                 v-if="ranges.length > 0"
                 @change="handleChange"
-                class="ml-auto min-w-24 h-6 text-xs no-appearance bg-40"
+                class="select-box-sm ml-auto min-w-24 h-6 text-xs appearance-none bg-40 pl-2 pr-6 active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline"
             >
                 <option
                     v-for="option in ranges"
@@ -29,7 +29,9 @@
 </template>
 
 <script>
-import numeral from 'numeral'
+import numbro from 'numbro'
+import numbroLanguages from 'numbro/dist/languages.min'
+Object.values(numbroLanguages).forEach(l => numbro.registerLanguage(l))
 import _ from 'lodash'
 import Chartist from 'chartist'
 import 'chartist-plugin-tooltips'
@@ -55,11 +57,12 @@ export default {
         chartData: {},
         prefix: '',
         suffix: '',
+        suffixInflection: true,
         ranges: { type: Array, default: () => [] },
         selectedRangeKey: [String, Number],
         format: {
             type: String,
-            default: '(0[.]00a)',
+            default: '0[.]00a',
         },
     },
 
@@ -76,6 +79,10 @@ export default {
     },
 
     mounted() {
+        if (Nova.config.locale) {
+            numbro.setLanguage(Nova.config.locale.replace('_', '-'))
+        }
+
         this.chartist = new Chartist.Line(this.$refs.chart, this.chartData, {
             lineSmooth: Chartist.Interpolation.none(),
             fullWidth: true,
@@ -137,13 +144,19 @@ export default {
 
         formattedValue() {
             if (!this.isNullValue) {
-                return this.prefix + numeral(this.value).format(this.format)
+                const value = numbro(new String(this.value)).format(this.format)
+
+                return `${this.prefix}${value}`
             }
 
             return ''
         },
 
         formattedSuffix() {
+            if (this.suffixInflection === false) {
+                return this.suffix
+            }
+
             return SingularOrPlural(this.value, this.suffix)
         },
     },

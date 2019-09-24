@@ -2,6 +2,7 @@
 
 namespace App\Scoping;
 
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Scoping\Contracts\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -48,6 +49,6 @@ class Scoper
      */
     protected function limitScopes(array $scopes)
     {
-        return array_only($scopes, array_keys($this->request->all()));
+        return Arr::only($scopes, array_keys($this->request->all()));
     }
 }

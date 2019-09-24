@@ -2,18 +2,18 @@
 
 namespace Laravel\Nova\Tests\Feature;
 
-use stdClass;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Tests\IntegrationTest;
+use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Tests\Fixtures\UserResource;
+use Laravel\Nova\Tests\IntegrationTest;
+use stdClass;
 
 class FieldTest extends IntegrationTest
 {
@@ -213,6 +213,34 @@ class FieldTest extends IntegrationTest
         });
 
         $this->assertFalse($field->isReadonly(NovaRequest::create('/', 'get')));
+    }
+
+    public function test_can_set_field_to_readonly_on_create_requests()
+    {
+        $request = NovaRequest::create('/nova-api/users', 'POST', [
+            'editing' => true,
+            'editMode' => 'create',
+        ]);
+
+        $field = Text::make('Name')->readonly(function ($request) {
+            return $request->isCreateOrAttachRequest();
+        });
+
+        $this->assertTrue($field->isReadonly($request));
+    }
+
+    public function test_can_set_field_to_readonly_on_update_requests()
+    {
+        $request = NovaRequest::create('/nova-api/users/1', 'PUT', [
+            'editing' => true,
+            'editMode' => 'update',
+        ]);
+
+        $field = Text::make('Name')->readonly(function ($request) {
+            return $request->isUpdateOrUpdateAttachedRequest();
+        });
+
+        $this->assertTrue($field->isReadonly($request));
     }
 
     public function test_collision_of_request_properties()

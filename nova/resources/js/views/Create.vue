@@ -128,11 +128,10 @@ export default {
 
                 this.submittedViaCreateResource = false
 
-                this.$toasted.show(
+                Nova.success(
                     this.__('The :resource was created!', {
                         resource: this.resourceInformation.singularLabel.toLowerCase(),
-                    }),
-                    { type: 'success' }
+                    })
                 )
 
                 this.$router.push({ path: redirect })
@@ -141,6 +140,7 @@ export default {
 
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
+                    Nova.error(this.__('There was a problem submitting the form.'))
                 }
             }
         },
@@ -156,11 +156,10 @@ export default {
 
                 this.submittedViaCreateAndAddAnother = false
 
-                this.$toasted.show(
+                Nova.success(
                     this.__('The :resource was created!', {
                         resource: this.resourceInformation.singularLabel.toLowerCase(),
-                    }),
-                    { type: 'success' }
+                    })
                 )
 
                 // Reset the form by refetching the fields
@@ -172,6 +171,7 @@ export default {
 
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
+                    Nova.error(this.__('There was a problem submitting this form.'))
                 }
             }
         },
@@ -182,7 +182,13 @@ export default {
         createRequest() {
             return Nova.request().post(
                 `/nova-api/${this.resourceName}`,
-                this.createResourceFormData()
+                this.createResourceFormData(),
+                {
+                    params: {
+                        editing: true,
+                        editMode: 'create',
+                    },
+                }
             )
         },
 
@@ -191,11 +197,9 @@ export default {
          */
         createResourceFormData() {
             return _.tap(new FormData(), formData => {
-                // _.each(this.panels, panel => {
                 _.each(this.fields, field => {
                     field.fill(formData)
                 })
-                // })
 
                 formData.append('viaResource', this.viaResource)
                 formData.append('viaResourceId', this.viaResourceId)

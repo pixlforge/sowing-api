@@ -2,13 +2,13 @@
 
 namespace Laravel\Nova\Tests\Controller;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Actions\ActionEvent;
 use Laravel\Nova\Tests\Fixtures\Post;
 use Laravel\Nova\Tests\Fixtures\User;
-use Laravel\Nova\Tests\IntegrationTest;
 use Laravel\Nova\Tests\Fixtures\UserPolicy;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Laravel\Nova\Tests\IntegrationTest;
 
 class ResourceUpdateTest extends IntegrationTest
 {
@@ -313,7 +313,7 @@ class ResourceUpdateTest extends IntegrationTest
         $user = factory(User::class)->create(['weight' => 250]);
 
         $this->withExceptionHandling()
-            ->putJson('/nova-api/users/'.$user->id, [
+            ->putJson(sprintf('/nova-api/users/%s?editing=true&editMode=update', $user->id), [
                 'name' => 'Taylor Otwell',
                 'email' => 'taylor@laravel.com',
                 // 'weight' => 190,
@@ -329,8 +329,8 @@ class ResourceUpdateTest extends IntegrationTest
 
         $user = factory(User::class)->create(['weight' => 250]);
 
-        $this->withExceptionHandling()
-            ->putJson('/nova-api/users/'.$user->id, [
+        $this->withoutExceptionHandling()
+            ->putJson(sprintf('/nova-api/users/%s?editing=true&editMode=update', $user->id), [
                 'name' => 'Taylor Otwell',
                 'email' => 'taylor@laravel.com',
                 'weight' => 190,

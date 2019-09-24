@@ -23,20 +23,17 @@
                     <sortable-icon
                         @sort="requestOrderByChange(field)"
                         :resource-name="resourceName"
-                        :uri-key="field.attribute"
+                        :uri-key="field.sortableUriKey"
                         v-if="field.sortable"
                     >
                         {{ field.indexName }}
                     </sortable-icon>
 
-                    <span v-else> {{ field.indexName }} </span>
+                    <span v-else>{{ field.indexName }}</span>
                 </th>
 
-                <th>
-                    &nbsp;<!--
-                        View, Edit, Delete
-                    -->
-                </th>
+                <!-- View, Edit, Delete -->
+                <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>

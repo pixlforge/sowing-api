@@ -1,8 +1,20 @@
 <template>
-    <div class="text-center">
-        <span
-            class="inline-block rounded-full w-2 h-2"
-            :class="{ 'bg-success': field.value, 'bg-danger': !field.value }"
+    <div :class="`text-${field.textAlign}`">
+        <icon
+            v-if="field.value"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            type="check-circle"
+            class="text-success"
+        />
+        <icon
+            v-else
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            type="x-circle"
+            class="text-danger"
         />
     </div>
 </template>

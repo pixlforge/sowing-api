@@ -4,6 +4,7 @@ use Faker\Factory;
 use App\Models\Shop;
 use App\Models\User;
 use App\Models\Country;
+use Illuminate\Support\Arr;
 use Faker\Generator as Faker;
 
 $fakerEN = Factory::create('en_US');
@@ -27,10 +28,10 @@ $factory->define(Shop::class, function (Faker $faker) use ($fakerEN, $fakerFR, $
             'de' => $fakerDE->unique()->name,
             'it' => $fakerIT->unique()->name,
         ],
-        'theme' => array_random([
+        'theme' => Arr::random([
             'green', 'pink', 'purple', 'indigo', 'blue', 'brown', 'grey', 'slate'
         ]),
-        'postal_code' => array_random(range(1000, 4000)),
+        'postal_code' => Arr::random(range(1000, 4000)),
         'city' => $faker->city,
         'country_id' => factory(Country::class)
     ];
