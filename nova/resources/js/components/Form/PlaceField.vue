@@ -46,6 +46,8 @@ export default {
             const placeType = this.field.placeType
 
             const config = {
+                appId: Nova.config.algoliaAppId,
+                apiKey: Nova.config.algoliaApiKey,
                 container: document.querySelector('#' + this.field.attribute),
                 type: this.field.placeType ? this.field.placeType : 'address',
                 templates: {
@@ -74,6 +76,7 @@ export default {
                     )
 
                     Nova.$emit(this.field.postalCode + '-value', e.suggestion.postcode)
+                    Nova.$emit(this.field.suburb + '-value', e.suggestion.suburb)
 
                     Nova.$emit(
                         this.field.country + '-value',
@@ -93,6 +96,7 @@ export default {
                     Nova.$emit(this.field.city + '-value', '')
                     Nova.$emit(this.field.state + '-value', '')
                     Nova.$emit(this.field.postalCode + '-value', '')
+                    Nova.$emit(this.field.suburb + '-value', '')
                     Nova.$emit(this.field.country + '-value', '')
                     Nova.$emit(this.field.latitude + '-value', '')
                     Nova.$emit(this.field.longitude + '-value', '')

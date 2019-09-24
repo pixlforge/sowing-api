@@ -3,11 +3,11 @@
 namespace Laravel\Nova\Metrics;
 
 use DateInterval;
-use Laravel\Nova\Card;
-use Laravel\Nova\Nova;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+use Laravel\Nova\Card;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Nova;
 
 abstract class Metric extends Card
 {
@@ -54,11 +54,12 @@ abstract class Metric extends Card
     protected function getCacheKey(NovaRequest $request)
     {
         return sprintf(
-            'nova.metric.%s.%s.%s.%s',
+            'nova.metric.%s.%s.%s.%s.%s',
             $this->uriKey(),
             $request->input('range', 'no-range'),
             $request->input('timezone', 'no-timezone'),
-            $request->input('twelveHourTime', 'no-12-hour-time')
+            $request->input('twelveHourTime', 'no-12-hour-time'),
+            $this->onlyOnDetail ? $request->findModelOrFail()->getKey() : 'no-resource-id'
         );
     }
 

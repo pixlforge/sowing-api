@@ -317,9 +317,15 @@ class AddressStoreTest extends TestCase
     /** @test */
     public function it_returns_an_address_resource_when_created()
     {
-        $address = factory(Address::class)->make();
-
-        $response = $this->postJsonAs($this->user, route('addresses.store'), $address->toArray());
+        $response = $this->postJsonAs($this->user, route('addresses.store'), [
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'company_name' => $this->faker->company,
+            'address_line_1' => $this->faker->streetAddress,
+            'postal_code' => $this->faker->postcode,
+            'city' => $this->faker->city,
+            'country_id' => factory(Country::class)->create()->id
+        ]);
 
         $response->assertResource(AddressResource::make($this->user->addresses->first()));
     }
