@@ -15,7 +15,7 @@ class AddressPolicy
      *
      * @param User $user
      * @param Address $address
-     * @return boolean
+     * @return bool
      */
     public function show(User $user, Address $address)
     {
@@ -27,9 +27,21 @@ class AddressPolicy
      *
      * @param User $user
      * @param Address $address
-     * @return boolean
+     * @return bool
      */
     public function update(User $user, Address $address)
+    {
+        return $user->is($address->user);
+    }
+
+    /**
+     * User is authorized to delete the address.
+     *
+     * @param User $user
+     * @param Address $address
+     * @return bool
+     */
+    public function destroy(User $user, Address $address)
     {
         return $user->is($address->user);
     }

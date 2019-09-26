@@ -61,7 +61,7 @@ class AddressController extends Controller
     }
 
     /**
-     * Update an address.
+     * Update an address that belongs to the user.
      *
      * @param AddressUpdateRequest $request
      * @param Address $address
@@ -76,5 +76,20 @@ class AddressController extends Controller
         ]));
 
         return AddressResource::make($address);
+    }
+
+    /**
+     * Delete an address that belongs to the user.
+     *
+     * @param Address $address
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     */
+    public function destroy(Address $address)
+    {
+        $this->authorize('destroy', $address);
+        
+        $address->delete();
+
+        return response(null, 204);
     }
 }
