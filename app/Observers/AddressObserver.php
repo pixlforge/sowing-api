@@ -14,11 +14,13 @@ class AddressObserver
      */
     public function creating(Address $address): void
     {
-        if ($address->isDefault()) {
-            $address->user->addresses()->update([
-                'is_default' => false
-            ]);
+        if (!$address->isDefault()) {
+            return;
         }
+
+        $address->user->addresses()->update([
+            'is_default' => false
+        ]);
     }
 
     /**
@@ -29,11 +31,13 @@ class AddressObserver
      */
     public function updating(Address $address): void
     {
-        if ($address->isDefault()) {
-            $address->user->addresses()->update([
-                'is_default' => false
-            ]);
+        if (!$address->isDefault()) {
+            return;
         }
+
+        $address->user->addresses()->update([
+            'is_default' => false
+        ]);
     }
 
     /**
