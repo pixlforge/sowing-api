@@ -87,7 +87,7 @@ class AddressController extends Controller
     public function destroy(Address $address)
     {
         $this->authorize('destroy', $address);
-        
+
         $address->delete();
 
         return response(null, 204);

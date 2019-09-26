@@ -15,7 +15,7 @@ class AddressDestroyTest extends TestCase
         $this->user = factory(User::class)->create();
 
         $this->user->addresses()->save(
-            $this->address = factory(Address::class)->make()
+            $this->address = factory(Address::class)->state('default')->make()
         );
     }
     
@@ -49,5 +49,33 @@ class AddressDestroyTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertNotNull($this->address->fresh()->deleted_at);
+    }
+
+    /** @test */
+    public function it_sets_the_soft_deleted_address_to_not_default()
+    {
+        $response = $this->deleteJsonAs($this->user, route('addresses.destroy', $this->address));
+
+        $response->assertSuccessful();
+
+        $this->assertFalse($this->address->fresh()->isDefault());
+    }
+
+    /** @test */
+    public function it_can_set_another_address_as_default_upon_delete()
+    {
+        $this->user->addresses()->save(
+            $address = factory(Address::class)->make()
+        );
+        
+        $this->assertTrue($this->address->isDefault());
+        $this->assertFalse($address->isDefault());
+
+        $response = $this->deleteJsonAs($this->user, route('addresses.destroy', $this->address));
+
+        $response->assertSuccessful();
+
+        $this->assertFalse($this->address->fresh()->isDefault());
+        $this->assertTrue($address->fresh()->isDefault());
     }
 }
