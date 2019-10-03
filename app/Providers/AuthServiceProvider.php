@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Shop;
+use App\Models\Address;
+use App\Policies\ShopPolicy;
 use App\Models\PaymentMethod;
+use App\Policies\AddressPolicy;
 use App\Policies\PaymentMethodPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -14,9 +18,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Models\Address' => 'App\Policies\AddressPolicy',
-        'App\Models\Shop' => 'App\Policies\ShopPolicy',
-        PaymentMethod::class => PaymentMethodPolicy::class
+        Address::class => AddressPolicy::class,
+        PaymentMethod::class => PaymentMethodPolicy::class,
+        Shop::class => ShopPolicy::class,
     ];
 
     /**
