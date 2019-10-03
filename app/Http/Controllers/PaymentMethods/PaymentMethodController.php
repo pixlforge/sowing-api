@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Payments\Contracts\PaymentGatewayContract;
 use App\Http\Resources\PaymentMethods\PaymentMethodResource;
 use App\Http\Requests\PaymentMethods\PaymentMethodStoreRequest;
+use App\Models\PaymentMethod;
 
 class PaymentMethodController extends Controller
 {
@@ -53,5 +54,14 @@ class PaymentMethodController extends Controller
             ->addCard($request->token);
 
         return PaymentMethodResource::make($card);
+    }
+
+    public function destroy(PaymentMethod $paymentMethod)
+    {
+        $this->authorize('destroy', $paymentMethod);
+        
+        $paymentMethod->delete();
+
+        return response(null, 204);
     }
 }
