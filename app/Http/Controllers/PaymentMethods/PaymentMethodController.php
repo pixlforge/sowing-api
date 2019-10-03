@@ -56,6 +56,13 @@ class PaymentMethodController extends Controller
         return PaymentMethodResource::make($card);
     }
 
+    /**
+     * Delete a payment method.
+     *
+     * @param Request $request
+     * @param PaymentMethod $paymentMethod
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Request $request, PaymentMethod $paymentMethod)
     {
         $this->authorize('destroy', $paymentMethod);
