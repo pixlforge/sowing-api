@@ -28,6 +28,14 @@ class PaymentMethodDestroyTest extends TestCase
     }
 
     /** @test */
+    public function it_fails_if_the_payment_method_cannot_be_found()
+    {
+        $response = $this->deleteJsonAs($this->user, route('payment-methods.destroy', 999));
+
+        $response->assertNotFound();
+    }
+
+    /** @test */
     public function it_fails_if_the_payment_method_is_not_owned_by_the_user()
     {
         $paymentMethod = factory(PaymentMethod::class)->create();

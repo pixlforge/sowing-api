@@ -10,6 +10,7 @@ use Stripe\Charge as BaseCharge;
 use Stripe\Customer as BaseCustomer;
 use App\Exceptions\PaymentFailedException;
 use App\Payments\Contracts\CustomerContract;
+use App\Exceptions\PaymentMethodDeletionException;
 use App\Payments\Contracts\PaymentGatewayContract;
 
 class StripeCustomer implements CustomerContract
@@ -106,6 +107,24 @@ class StripeCustomer implements CustomerContract
     {
         $this->customer->default_source = $card->id;
         $this->customer->save();
+    }
+
+    /**
+     * Remove a card owned by the customer over on Stripe.
+     *
+     * @param string $cardId
+     * @return void
+     */
+    public function removeCard(string $cardId)
+    {
+        try {
+            $this->customer->deleteSource(
+                $this->id(),
+                $cardId
+            );
+        } catch (Exception $e) {
+            throw new PaymentMethodDeletionException();
+        }
     }
 
     /**

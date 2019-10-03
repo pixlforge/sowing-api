@@ -24,6 +24,14 @@ interface CustomerContract
     public function addCard($token);
 
     /**
+     * Remove a card owned by the customer over on Stripe.
+     *
+     * @param string $cardId
+     * @return void
+     */
+    public function removeCard(string $cardId);
+
+    /**
      * Get the Gateway Customer id.
      *
      * @return int

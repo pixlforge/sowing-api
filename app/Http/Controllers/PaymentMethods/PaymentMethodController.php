@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\PaymentMethods;
 
 use Illuminate\Http\Request;
+use App\Models\PaymentMethod;
 use App\Http\Controllers\Controller;
 use App\Payments\Contracts\PaymentGatewayContract;
 use App\Http\Resources\PaymentMethods\PaymentMethodResource;
 use App\Http\Requests\PaymentMethods\PaymentMethodStoreRequest;
-use App\Models\PaymentMethod;
 
 class PaymentMethodController extends Controller
 {
@@ -56,9 +56,13 @@ class PaymentMethodController extends Controller
         return PaymentMethodResource::make($card);
     }
 
-    public function destroy(PaymentMethod $paymentMethod)
+    public function destroy(Request $request, PaymentMethod $paymentMethod)
     {
         $this->authorize('destroy', $paymentMethod);
+
+        $this->paymentGateway->withUser($request->user())
+            ->getOrCreateCustomer()
+            ->removeCard($paymentMethod->provider_id);
         
         $paymentMethod->delete();
 
