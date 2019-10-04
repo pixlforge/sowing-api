@@ -5,10 +5,8 @@ namespace Tests\Feature\PaymentMethods;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\PaymentMethod;
+use App\Payments\Contracts\CustomerContract;
 use App\Payments\Contracts\PaymentGatewayContract;
-use App\Payments\Stripe\StripeCustomer;
-use App\Payments\Stripe\StripePaymentGateway;
-use Mockery;
 
 class PaymentMethodDestroyTest extends TestCase
 {
@@ -57,7 +55,7 @@ class PaymentMethodDestroyTest extends TestCase
         $paymentGateway->shouldReceive('withUser')
             ->andReturn($paymentGateway)
             ->shouldReceive('getOrCreateCustomer')
-            ->andReturn($customer = $this->mock(StripeCustomer::class));
+            ->andReturn($customer = $this->mock(CustomerContract::class));
 
         $customer->shouldReceive('removeCard')
             ->with($this->paymentMethod->provider_id);
