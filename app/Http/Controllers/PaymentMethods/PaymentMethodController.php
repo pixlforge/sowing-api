@@ -38,7 +38,20 @@ class PaymentMethodController extends Controller
      */
     public function index(Request $request)
     {
-        return PaymentMethodResource::collection($request->user()->paymentMethods);
+        return PaymentMethodResource::collection($request->user()->paymentMethods()->latest()->get());
+    }
+
+    /**
+     * Show a specific payment method.
+     *
+     * @param PaymentMethod $paymentMethod
+     * @return PaymentMethodResource
+     */
+    public function show(PaymentMethod $paymentMethod)
+    {
+        $this->authorize('view', $paymentMethod);
+        
+        return PaymentMethodResource::make($paymentMethod);
     }
 
     /**
