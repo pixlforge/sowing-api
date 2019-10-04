@@ -5,6 +5,10 @@ namespace Tests\Feature\PaymentMethods;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\PaymentMethod;
+use App\Payments\Contracts\PaymentGatewayContract;
+use App\Payments\Stripe\StripeCustomer;
+use App\Payments\Stripe\StripePaymentGateway;
+use Mockery;
 
 class PaymentMethodDestroyTest extends TestCase
 {
@@ -48,8 +52,18 @@ class PaymentMethodDestroyTest extends TestCase
     /** @test */
     public function it_can_delete_an_existing_payment_method()
     {
-        $this->assertNull($this->paymentMethod->deleted_at);
+        $paymentGateway = $this->mock(PaymentGatewayContract::class);
+
+        $paymentGateway->shouldReceive('withUser')
+            ->andReturn($paymentGateway)
+            ->shouldReceive('getOrCreateCustomer')
+            ->andReturn($customer = $this->mock(StripeCustomer::class));
+
+        $customer->shouldReceive('removeCard')
+            ->with($this->paymentMethod->provider_id);
         
+        $this->assertNull($this->paymentMethod->deleted_at);
+
         $response = $this->deleteJsonAs($this->user, route('payment-methods.destroy', $this->paymentMethod));
 
         $response->assertSuccessful();

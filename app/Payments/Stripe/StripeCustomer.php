@@ -123,7 +123,7 @@ class StripeCustomer implements CustomerContract
                 $cardId
             );
         } catch (Exception $e) {
-            throw new PaymentMethodDeletionException();
+            throw new PaymentMethodDeletionException($e);
         }
     }
 
