@@ -17,7 +17,7 @@ class PaymentMethodDestroyTest extends TestCase
         $this->user = factory(User::class)->create();
 
         $this->user->paymentMethods()->save(
-            $this->paymentMethod = factory(PaymentMethod::class)->make()
+            $this->paymentMethod = factory(PaymentMethod::class)->state('default')->make()
         );
     }
 
@@ -67,5 +67,59 @@ class PaymentMethodDestroyTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertNotNull($this->paymentMethod->fresh()->deleted_at);
+    }
+
+    /** @test */
+    public function it_sets_the_soft_deleted_payment_method_to_not_default()
+    {
+        $paymentGateway = $this->mock(PaymentGatewayContract::class);
+
+        $paymentGateway->shouldReceive('withUser')
+            ->andReturn($paymentGateway)
+            ->shouldReceive('getOrCreateCustomer')
+            ->andReturn($customer = $this->mock(CustomerContract::class));
+        
+        $customer->shouldReceive('removeCard')
+            ->with($this->paymentMethod->provider_id);
+        
+        $this->assertTrue($this->paymentMethod->isDefault());
+
+        $response = $this->deleteJsonAs($this->user, route('payment-methods.destroy', $this->paymentMethod));
+
+        $response->assertSuccessful();
+
+        $this->assertFalse($this->paymentMethod->fresh()->isDefault());
+    }
+
+    /** @test */
+    public function it_sets_another_payment_method_as_default_upon_delete()
+    {
+        $this->user->paymentMethods()->save(
+            $paymentMethod = factory(PaymentMethod::class)->make()
+        );
+
+        $paymentMethod->update([
+            'is_default' => false
+        ]);
+
+        $this->assertTrue($this->paymentMethod->isDefault());
+        $this->assertFalse($paymentMethod->isDefault());
+
+        $paymentGateway = $this->mock(PaymentGatewayContract::class);
+
+        $paymentGateway->shouldReceive('withUser')
+            ->andReturn($paymentGateway)
+            ->shouldReceive('getOrCreateCustomer')
+            ->andReturn($customer = $this->mock(CustomerContract::class));
+        
+        $customer->shouldReceive('removeCard')
+            ->with($this->paymentMethod->provider_id);
+
+        $response = $this->deleteJsonAs($this->user, route('payment-methods.destroy', $this->paymentMethod));
+
+        $response->assertSuccessful();
+
+        $this->assertFalse($this->paymentMethod->fresh()->isDefault());
+        $this->assertTrue($paymentMethod->fresh()->isDefault());
     }
 }
