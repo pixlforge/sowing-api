@@ -21,10 +21,11 @@ class PaymentMethodResource extends JsonResource
             'last_four' => $this->last_four,
             'is_default' => $this->isDefault(),
             'created_at' => [
-                'en' => $this->created_at->locale('en')->longAbsoluteDiffForHumans(),
-                'fr' => $this->created_at->locale('fr')->longAbsoluteDiffForHumans(),
-                'de' => $this->created_at->locale('de')->longAbsoluteDiffForHumans(),
-                'it' => $this->created_at->locale('it')->longAbsoluteDiffForHumans(),
+                'en' => $this->created_at->locale('en')->isoFormat('MMMM Do YYYY'),
+                'fr' => $this->created_at->locale('fr')->isoFormat('D MMMM YYYY'),
+                'de' => $this->created_at->locale('de')->isoFormat('Do MMMM YYYY'),
+                'it' => $this->created_at->locale('it')->isoFormat('D MMMM YYYY'),
+
             ]
         ];
     }
