@@ -22,6 +22,21 @@ class PaymentMethodObserver
     }
 
     /**
+     * Handle the payment method "updating" event.
+     *
+     * @param  \App\Models\PaymentMethod  $paymentMethod
+     * @return void
+     */
+    public function updating(PaymentMethod $paymentMethod)
+    {
+        if ($paymentMethod->isDefault()) {
+            $paymentMethod->user->paymentMethods()->update([
+                'is_default' => false
+            ]);
+        }
+    }
+
+    /**
      * Handle the payment method "deleted" event.
      *
      * @param  \App\Models\PaymentMethod  $paymentMethod

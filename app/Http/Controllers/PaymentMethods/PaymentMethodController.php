@@ -70,6 +70,23 @@ class PaymentMethodController extends Controller
     }
 
     /**
+     * Update an existing payment method to set it as default.
+     *
+     * @param PaymentMethod $paymentMethod
+     * @return \Illuminate\Http\Response
+     */
+    public function update(PaymentMethod $paymentMethod)
+    {
+        $this->authorize('update', $paymentMethod);
+
+        $paymentMethod->update([
+            'is_default' => true
+        ]);
+
+        return response(null, 204);
+    }
+
+    /**
      * Delete a payment method.
      *
      * @param Request $request
