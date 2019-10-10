@@ -9,7 +9,7 @@
 @lang('emails.forgot.action')
 
 @component('mail::button', [
-  'url' => config('app.client.url') . '/' . App::getLocale() . '/password/reset?token=' . $token,
+  'url' => config('app.client.url') . '/auth/reset?token=' . $token,
   'color' => 'green'
 ])
   @lang('emails.forgot.button')

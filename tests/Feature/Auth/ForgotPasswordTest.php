@@ -5,16 +5,24 @@ namespace Tests\Feature\Password;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Testing\WithFaker;
 use App\Mail\Password\ForgotPasswordRequestEmail;
 
 class ForgotPasswordTest extends TestCase
 {
+    use WithFaker;
+    
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = factory(User::class)->create();
+    }
+    
     /** @test */
     public function it_fails_if_authenticated()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('auth.forgot'));
+        $response = $this->postJsonAs($this->user, route('auth.forgot'));
         
         $response->assertUnauthorized();
     }
@@ -43,7 +51,7 @@ class ForgotPasswordTest extends TestCase
         Mail::fake();
 
         $this->postJson(route('auth.forgot'), [
-            'email' => 'john@exampe.com'
+            'email' => $this->faker->safeEmail
         ]);
 
         Mail::assertNotQueued(ForgotPasswordRequestEmail::class);
@@ -54,14 +62,12 @@ class ForgotPasswordTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(User::class)->create();
-
         $this->postJson(route('auth.forgot'), [
-            'email' => $user->email
+            'email' => $this->user->email
         ]);
 
-        Mail::assertQueued(ForgotPasswordRequestEmail::class, function ($mail) use ($user) {
-            return $mail->user->email === $user->email;
+        Mail::assertQueued(ForgotPasswordRequestEmail::class, function ($mail) {
+            return $mail->user->email === $this->user->email;
         });
     }
 
@@ -70,10 +76,8 @@ class ForgotPasswordTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(User::class)->create();
-
         $response = $this->postJson(route('auth.forgot'), [
-            'email' => $user->email
+            'email' => $this->user->email
         ]);
 
         $response->assertOk();
@@ -83,7 +87,7 @@ class ForgotPasswordTest extends TestCase
     public function it_responds_with_a_422_status_code_when_it_fails()
     {
         $response = $this->postJson(route('auth.forgot'), [
-            'email' => 'john@example.com'
+            'email' => $this->faker->safeEmail
         ]);
 
         $response->assertStatus(422);

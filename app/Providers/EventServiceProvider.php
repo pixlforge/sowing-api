@@ -38,9 +38,6 @@ class EventServiceProvider extends ServiceProvider
         AccountPasswordUpdated::class => [
             SendPasswordUpdateConfirmationEmail::class
         ],
-        PasswordReset::class => [
-            SendPasswordResetConfirmationEmail::class
-        ],
         OrderCreated::class => [
             ProcessPayment::class,
             EmptyCart::class

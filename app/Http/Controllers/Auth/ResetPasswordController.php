@@ -41,10 +41,8 @@ class ResetPasswordController extends Controller
      */
     protected function resetPassword(User $user, $password)
     {
-        $user->password = Hash::make($password);
+        $user->password = $password;
         $user->save();
-
-        PasswordReset::dispatch($user, request('client_locale'));
     }
 
     /**

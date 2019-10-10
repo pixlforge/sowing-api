@@ -6,11 +6,11 @@ use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Event;
-use App\Events\Passwords\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use App\Events\Users\AccountPasswordUpdated;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Mail\Password\ForgotPasswordRequestEmail;
-use App\Mail\Password\PasswordResetConfirmationEmail;
+use Illuminate\Support\Facades\Event;
 
 class ResetPasswordTest extends TestCase
 {
@@ -28,9 +28,7 @@ class ResetPasswordTest extends TestCase
     /** @test */
     public function it_fails_if_authenticated()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->postJsonAs($user, route('auth.reset'));
+        $response = $this->postJsonAs($this->user, route('auth.reset'));
         
         $response->assertUnauthorized();
     }
@@ -103,7 +101,6 @@ class ResetPasswordTest extends TestCase
     public function it_resets_passwords()
     {
         Mail::fake();
-        Event::fake();
 
         $this->postJson(route('auth.forgot'), [
             'email' => $this->user->email
@@ -120,13 +117,13 @@ class ResetPasswordTest extends TestCase
 
         $this->postJson(route('auth.reset'), [
             'email' => $this->email,
-            'password' => 'password',
+            'password' => $password = 'password',
             'password_confirmation' => 'password',
             'token' => $token
         ]);
 
-        Event::assertDispatched(PasswordReset::class);
-
+        $this->assertTrue(Hash::check($password, $this->user->fresh()->password));
+        
         $this->assertEmpty(DB::table('password_resets')->get());
     }
 
@@ -194,6 +191,7 @@ class ResetPasswordTest extends TestCase
     public function it_sends_a_confirmation_email_after_the_password_has_been_reset()
     {
         Mail::fake();
+        Event::fake(AccountPasswordUpdated::class);
 
         $this->postJson(route('auth.forgot'), [
             'email' => $this->user->email
@@ -213,8 +211,8 @@ class ResetPasswordTest extends TestCase
             'token' => $token
         ]);
 
-        Mail::assertQueued(PasswordResetConfirmationEmail::class, function ($mail) {
-            return $mail->event->user->email === $this->user->email;
+        Event::assertDispatched(AccountPasswordUpdated::class, function ($event) {
+            return $event->user->id === $this->user->id;
         });
     }
 }
