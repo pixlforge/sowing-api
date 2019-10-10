@@ -16,8 +16,8 @@
 @endcomponent
 
 <p class="small-link">
-  <a href="{{ config('app.client.url') . '/' . App::getLocale() . '/password/reset?token=' . $token }}">
-    {{ config('app.client.url') . '/' . App::getLocale() . '/password/reset?token=' . $token }}
+  <a href="{{ config('app.client.url') . '/auth/reset?token=' . $token }}">
+    {{ config('app.client.url') . '/auth/reset?token=' . $token }}
   </a>
 </p>
 

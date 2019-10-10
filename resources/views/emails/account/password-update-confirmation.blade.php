@@ -9,7 +9,7 @@
 @lang('emails.reset.sign_in')
 
 @component('mail::button', [
-  'url' => config('app.client.url') . '/' . App::getLocale() . '/login',
+  'url' => config('app.client.url') . '/auth/login',
   'color' => 'green'
 ])
   @lang('emails.confirmation.connexion')
