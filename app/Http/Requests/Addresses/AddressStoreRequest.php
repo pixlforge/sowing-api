@@ -31,7 +31,8 @@ class AddressStoreRequest extends FormRequest
             'address_line_2' => 'nullable|string|min:2|max:255',
             'postal_code' => 'required|string|min:4|max:255',
             'city' => 'required|string|min:2|max:255',
-            'country_id' => 'required|exists:countries,id'
+            'country_id' => 'required|exists:countries,id',
+            'is_default' => 'nullable'
         ];
     }
 }

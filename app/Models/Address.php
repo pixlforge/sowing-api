@@ -28,15 +28,6 @@ class Address extends Model
     ];
 
     /**
-     * The attributes that are cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'is_default' => 'boolean',
-    ];
-
-    /**
      * User relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -16,6 +16,17 @@ trait HasDefault
     }
 
     /**
+     * Cast the is_default attribute to a boolean.
+     *
+     * @param int $value
+     * @return bool
+     */
+    public function getIsDefaultAttribute($value)
+    {
+        return (bool) $value;
+    }
+
+    /**
      * Checks whether or not the address is the default one.
      *
      * @return boolean
