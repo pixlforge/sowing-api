@@ -24,9 +24,9 @@ class CartStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'variations' => 'required|array',
-            'variations.*.id' => 'required|exists:variations,id',
-            'variations.*.quantity' => 'numeric|min:1'
+            'product_variations' => 'required|array',
+            'product_variations.*.id' => 'required|exists:product_variations,id',
+            'product_variations.*.quantity' => 'numeric|min:1'
         ];
     }
 

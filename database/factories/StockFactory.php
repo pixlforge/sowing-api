@@ -1,12 +1,12 @@
 <?php
 
 use App\Models\Stock;
-use App\Models\Variation;
+use App\Models\ProductVariation;
 use Faker\Generator as Faker;
 
 $factory->define(Stock::class, function (Faker $faker) {
     return [
-        'variation_id' => factory(Variation::class),
+        'product_variation_id' => factory(ProductVariation::class),
         'quantity' => 1
     ];
 });

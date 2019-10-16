@@ -16,10 +16,10 @@ class CreateStocksTable extends Migration
         Schema::create('stocks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('quantity');
-            $table->unsignedBigInteger('variation_id')->index();
+            $table->unsignedBigInteger('product_variation_id')->index();
             $table->timestamps();
 
-            $table->foreign('variation_id')->references('id')->on('variations');
+            $table->foreign('product_variation_id')->references('id')->on('product_variations');
         });
     }
 

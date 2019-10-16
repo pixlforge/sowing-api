@@ -6,8 +6,8 @@ use App\Cart\Cart;
 use Tests\TestCase;
 use App\Money\Money;
 use App\Models\User;
-use App\Models\Variation;
 use App\Models\ShippingMethod;
+use App\Models\ProductVariation;
 
 class CartTest extends TestCase
 {
@@ -19,7 +19,7 @@ class CartTest extends TestCase
             $this->user = factory(User::class)->create()
         );
 
-        $this->variation = factory(Variation::class)->create();
+        $this->variation = factory(ProductVariation::class)->create();
     }
 
     /** @test */
@@ -84,7 +84,7 @@ class CartTest extends TestCase
         );
 
         $this->user->cart()->attach(
-            factory(Variation::class)->create(),
+            factory(ProductVariation::class)->create(),
             ['quantity' => 1]
         );
 
@@ -116,7 +116,7 @@ class CartTest extends TestCase
     public function it_returns_the_correct_amount_for_the_cart_subtotal()
     {
         $this->user->cart()->attach(
-            factory(Variation::class)->create([
+            factory(ProductVariation::class)->create([
                 'price' => 1000
             ]),
             ['quantity' => 2]
@@ -135,7 +135,7 @@ class CartTest extends TestCase
     public function it_returns_the_correct_total_without_shipping()
     {
         $this->user->cart()->attach(
-            factory(Variation::class)->create([
+            factory(ProductVariation::class)->create([
                 'price' => 1000
             ]),
             ['quantity' => 2]
@@ -152,7 +152,7 @@ class CartTest extends TestCase
         ]);
 
         $this->user->cart()->attach(
-            factory(Variation::class)->create([
+            factory(ProductVariation::class)->create([
                 'price' => 1000
             ]),
             ['quantity' => 2]
@@ -166,7 +166,7 @@ class CartTest extends TestCase
     /** @test */
     public function it_syncs_the_cart_to_update_quantities()
     {
-        $anotherVariation = factory(Variation::class)->create();
+        $anotherVariation = factory(ProductVariation::class)->create();
 
         $this->user->cart()->attach([
             $this->variation->id => [
@@ -187,7 +187,7 @@ class CartTest extends TestCase
     /** @test */
     public function it_can_check_the_cart_has_been_changed_after_syncing()
     {
-        $anotherVariation = factory(Variation::class)->create();
+        $anotherVariation = factory(ProductVariation::class)->create();
 
         $this->user->cart()->attach([
             $this->variation->id => [
@@ -215,12 +215,12 @@ class CartTest extends TestCase
     public function it_returns_product_variations_in_cart()
     {
         $this->user->cart()->attach(
-            factory(Variation::class)->create([
+            factory(ProductVariation::class)->create([
                 'price' => 1000
             ]),
             ['quantity' => 1]
         );
 
-        $this->assertInstanceOf(Variation::class, $this->cart->variations()->first());
+        $this->assertInstanceOf(ProductVariation::class, $this->cart->variations()->first());
     }
 }

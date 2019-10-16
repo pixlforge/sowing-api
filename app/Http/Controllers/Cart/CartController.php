@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Cart\Cart;
-use App\Models\Variation;
 use Illuminate\Http\Request;
+use App\Models\ProductVariation;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Cart\CartIndexRequest;
@@ -52,7 +52,7 @@ class CartController extends Controller
      */
     public function store(CartStoreRequest $request, Cart $cart)
     {
-        $cart->add($request->variations);
+        $cart->add($request->product_variations);
 
         $cart->sync();
     }
@@ -60,12 +60,12 @@ class CartController extends Controller
     /**
      * Update a given product variation with the quantity provided in the request.
      *
-     * @param Variation $variation
+     * @param ProductVariation $variation
      * @param CartUpdateRequest $request
      * @param Cart $cart
      * @return void
      */
-    public function update(Variation $variation, CartUpdateRequest $request, Cart $cart)
+    public function update(ProductVariation $variation, CartUpdateRequest $request, Cart $cart)
     {
         $cart->update($variation->id, $request->quantity);
     }
@@ -73,11 +73,11 @@ class CartController extends Controller
     /**
      * Remove a product variation from the cart.
      *
-     * @param Variation $variation
+     * @param ProductVariation $variation
      * @param Cart $cart
      * @return void
      */
-    public function destroy(Variation $variation, Cart $cart)
+    public function destroy(ProductVariation $variation, Cart $cart)
     {
         $cart->delete($variation->id);
     }

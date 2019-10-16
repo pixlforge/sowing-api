@@ -7,10 +7,10 @@ use App\Models\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Collections\VariationCollection;
 use App\Models\Pivots\ProductVariationStockPivot;
+use App\Models\Collections\ProductVariationCollection;
 
-class Variation extends Model
+class ProductVariation extends Model
 {
     use SoftDeletes, HasPrice, HasTranslations;
 
@@ -127,7 +127,7 @@ class Variation extends Model
      */
     public function stock()
     {
-        return $this->belongsToMany(Variation::class, 'variation_stock_view')
+        return $this->belongsToMany(ProductVariation::class, 'product_variation_stock_view')
             ->using(ProductVariationStockPivot::class)
             ->withPivot([
                 'stock', 'in_stock'
@@ -138,10 +138,10 @@ class Variation extends Model
      * Override the base Eloquent Collection.
      *
      * @param array $models
-     * @return App\Models\Collections\VariationCollection
+     * @return App\Models\Collections\ProductVariationCollection
      */
     public function newCollection(array $models = [])
     {
-        return new VariationCollection($models);
+        return new ProductVariationCollection($models);
     }
 }

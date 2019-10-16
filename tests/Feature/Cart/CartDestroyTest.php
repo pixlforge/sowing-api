@@ -4,7 +4,7 @@ namespace Tests\Feature\Cart;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Variation;
+use App\Models\ProductVariation;
 
 class CartDestroyTest extends TestCase
 {
@@ -35,7 +35,7 @@ class CartDestroyTest extends TestCase
     public function it_removes_the_product_variation_from_the_cart()
     {
         $this->user->cart()->sync(
-            $variation = factory(Variation::class)->create(), [
+            $variation = factory(ProductVariation::class)->create(), [
                 'quantity' => 5
             ]
         );
@@ -48,7 +48,7 @@ class CartDestroyTest extends TestCase
 
         $this->assertDatabaseMissing('cart_user', [
             'user_id' => $this->user->id,
-            'variation_id' => $variation->id,
+            'product_variation_id' => $variation->id,
             'quantity' => 5
         ]);
     }

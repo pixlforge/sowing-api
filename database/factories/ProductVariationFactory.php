@@ -3,14 +3,14 @@
 use Faker\Factory;
 use App\Models\Type;
 use App\Models\Product;
-use App\Models\Variation;
+use App\Models\ProductVariation;
 
 $fakerEN = Factory::create('en_US');
 $fakerFR = Factory::create('fr_CH');
 $fakerDE = Factory::create('de_CH');
 $fakerIT = Factory::create('it_IT');
 
-$factory->define(Variation::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
+$factory->define(ProductVariation::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
     return [
         'name' => [
             'en' => $name = $fakerEN->unique()->name,

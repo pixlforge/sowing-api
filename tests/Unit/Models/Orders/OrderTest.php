@@ -7,10 +7,10 @@ use App\Models\User;
 use App\Money\Money;
 use App\Models\Order;
 use App\Models\Address;
-use App\Models\Variation;
 use App\Models\Transaction;
 use App\Models\PaymentMethod;
 use App\Models\ShippingMethod;
+use App\Models\ProductVariation;
 
 class OrderTest extends TestCase
 {
@@ -73,18 +73,18 @@ class OrderTest extends TestCase
     public function it_has_many_product_variations()
     {
         $this->order->variations()->attach(
-            factory(Variation::class)->create(),
+            factory(ProductVariation::class)->create(),
             ['quantity' => 1]
         );
 
-        $this->assertInstanceOf(Variation::class, $this->order->variations->first());
+        $this->assertInstanceOf(ProductVariation::class, $this->order->variations->first());
     }
 
     /** @test */
     public function it_has_a_quantity_attached_to_the_product_variations()
     {
         $this->order->variations()->attach(
-            factory(Variation::class)->create(),
+            factory(ProductVariation::class)->create(),
             ['quantity' => $quantity = 5]
         );
 

@@ -5,7 +5,7 @@ namespace Tests\Unit\Listeners;
 use App\Cart\Cart;
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Variation;
+use App\Models\ProductVariation;
 use App\Listeners\Orders\EmptyCart;
 
 class EmptyCartListenerTest extends TestCase
@@ -18,7 +18,7 @@ class EmptyCartListenerTest extends TestCase
         );
 
         $user->cart()->attach(
-            factory(Variation::class)->create()
+            factory(ProductVariation::class)->create()
         );
 
         $this->assertNotEmpty($user->cart);

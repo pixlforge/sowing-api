@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Money\Money;
+use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
@@ -116,7 +116,7 @@ class Order extends Model
      */
     public function variations()
     {
-        return $this->belongsToMany(Variation::class, 'order_variation')
+        return $this->belongsToMany(ProductVariation::class, 'order_product_variation')
             ->withPivot(['quantity'])
             ->withTimestamps();
     }

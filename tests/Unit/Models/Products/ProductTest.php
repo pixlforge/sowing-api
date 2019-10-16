@@ -8,7 +8,7 @@ use App\Models\Shop;
 use App\Models\Stock;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Variation;
+use App\Models\ProductVariation;
 use Illuminate\Foundation\Testing\WithFaker;
 
 class ProductTest extends TestCase
@@ -42,10 +42,10 @@ class ProductTest extends TestCase
     public function it_has_many_variations()
     {
         $this->product->variations()->save(
-            factory(Variation::class)->create()
+            factory(ProductVariation::class)->create()
         );
 
-        $this->assertInstanceOf(Variation::class, $this->product->variations->first());
+        $this->assertInstanceOf(ProductVariation::class, $this->product->variations->first());
     }
 
     /** @test */
@@ -73,7 +73,7 @@ class ProductTest extends TestCase
     public function it_can_check_if_it_is_in_stock()
     {
         $this->product->variations()->save(
-            $variation = factory(Variation::class)->make()
+            $variation = factory(ProductVariation::class)->make()
         );
 
         $variation->stocks()->save(
@@ -89,7 +89,7 @@ class ProductTest extends TestCase
     public function it_can_get_the_stock_count()
     {
         $this->product->variations()->save(
-            $variation = factory(Variation::class)->make()
+            $variation = factory(ProductVariation::class)->make()
         );
 
         $variation->stocks()->save(

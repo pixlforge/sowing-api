@@ -128,7 +128,7 @@ class Product extends Model implements HasMedia, HasScopesContract
      */
     public function variations()
     {
-        return $this->hasMany(Variation::class)->orderBy('order', 'asc');
+        return $this->hasMany(ProductVariation::class)->orderBy('order', 'asc');
     }
 
     /**

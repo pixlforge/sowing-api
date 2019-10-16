@@ -4,10 +4,10 @@ namespace Tests\Unit\Collections;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Variation;
-use App\Models\Collections\VariationCollection;
+use App\Models\ProductVariation;
+use App\Models\Collections\ProductVariationCollection;
 
-class VariationCollectionTest extends TestCase
+class ProductVariationCollectionTest extends TestCase
 {
     /** @test */
     public function it_can_get_a_syncing_product_variations_array()
@@ -15,11 +15,11 @@ class VariationCollectionTest extends TestCase
         $user = factory(User::class)->create();
 
         $user->cart()->attach(
-            $variation = factory(Variation::class)->create(),
+            $variation = factory(ProductVariation::class)->create(),
             ['quantity' => $quantity = 5]
         );
 
-        $collection = new VariationCollection($user->cart);
+        $collection = new ProductVariationCollection($user->cart);
 
         $this->assertEquals([
             $variation->id => [

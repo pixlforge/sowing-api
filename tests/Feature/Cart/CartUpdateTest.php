@@ -4,7 +4,7 @@ namespace Tests\Feature\Cart;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Variation;
+use App\Models\ProductVariation;
 
 class CartUpdateTest extends TestCase
 {
@@ -14,7 +14,7 @@ class CartUpdateTest extends TestCase
 
         $this->user = factory(User::class)->create();
         
-        $this->variation = factory(Variation::class)->create();
+        $this->variation = factory(ProductVariation::class)->create();
     }
 
     /** @test */
@@ -74,7 +74,7 @@ class CartUpdateTest extends TestCase
 
         $this->assertDatabaseHas('cart_user', [
             'user_id' => $this->user->id,
-            'variation_id' => $this->variation->id,
+            'product_variation_id' => $this->variation->id,
             'quantity' => 5,
         ]);
     }

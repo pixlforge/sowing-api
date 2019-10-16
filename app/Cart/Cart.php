@@ -172,7 +172,7 @@ class Cart
     /**
      * Returns a collection of product variations.
      *
-     * @return App\Models\Variation
+     * @return App\Models\ProductVariation
      */
     public function variations()
     {

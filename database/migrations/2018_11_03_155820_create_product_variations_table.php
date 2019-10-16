@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVariationsTable extends Migration
+class CreateProductVariationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVariationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('variations', function (Blueprint $table) {
+        Schema::create('product_variations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->json('name');
             $table->json('description')->nullable();
@@ -34,6 +34,6 @@ class CreateVariationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('variations');
+        Schema::dropIfExists('product_variations');
     }
 }

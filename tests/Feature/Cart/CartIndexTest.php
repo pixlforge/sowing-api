@@ -4,9 +4,9 @@ namespace Tests\Feature\Cart;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Variation;
-use App\Models\ShippingMethod;
 use App\Money\Money;
+use App\Models\ShippingMethod;
+use App\Models\ProductVariation;
 
 class CartIndexTest extends TestCase
 {
@@ -16,7 +16,7 @@ class CartIndexTest extends TestCase
 
         $this->user = factory(User::class)->create();
 
-        $this->variation = factory(Variation::class)->create();
+        $this->variation = factory(ProductVariation::class)->create();
     }
 
     /** @test */

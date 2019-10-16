@@ -8,9 +8,9 @@ use Stripe\Customer;
 use App\Models\Stock;
 use App\Models\Country;
 use App\Models\Address;
-use App\Models\Variation;
 use App\Models\PaymentMethod;
 use App\Models\ShippingMethod;
+use App\Models\ProductVariation;
 use App\Events\Orders\OrderCreated;
 use Illuminate\Support\Facades\Event;
 
@@ -162,9 +162,9 @@ class OrderStoreTest extends TestCase
             'payment_method_id' => $this->paymentMethod->id,
         ]);
 
-        $this->assertDatabaseHas('order_variation', [
+        $this->assertDatabaseHas('order_product_variation', [
             'order_id' => $response->getData()->data->id,
-            'variation_id' => $this->variation->id,
+            'product_variation_id' => $this->variation->id,
         ]);
     }
 
@@ -227,7 +227,7 @@ class OrderStoreTest extends TestCase
      */
     public function getProductVariationWithStock()
     {
-        $variation = factory(Variation::class)->create();
+        $variation = factory(ProductVariation::class)->create();
 
         $variation->stocks()->save(factory(Stock::class)->make());
 

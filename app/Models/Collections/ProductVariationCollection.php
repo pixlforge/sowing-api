@@ -4,7 +4,7 @@ namespace App\Models\Collections;
 
 use Illuminate\Database\Eloquent\Collection;
 
-class VariationCollection extends Collection
+class ProductVariationCollection extends Collection
 {
     /**
      * Returns the product variations keyed by id along with their respective quantity.

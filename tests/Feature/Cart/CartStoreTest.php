@@ -4,7 +4,7 @@ namespace Tests\Feature\Cart;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Variation;
+use App\Models\ProductVariation;
 
 class CartStoreTest extends TestCase
 {
@@ -14,7 +14,7 @@ class CartStoreTest extends TestCase
 
         $this->user = factory(User::class)->create();
 
-        $this->variation = factory(Variation::class)->create();
+        $this->variation = factory(ProductVariation::class)->create();
     }
 
     /** @test */
@@ -30,79 +30,79 @@ class CartStoreTest extends TestCase
     {
         $response = $this->postJsonAs($this->user, route('cart.store'));
 
-        $response->assertJsonValidationErrors(['variations']);
+        $response->assertJsonValidationErrors(['product_variations']);
     }
 
     /** @test */
-    public function it_requires_variations_to_be_an_array()
+    public function it_requires_product_variations_to_be_an_array()
     {
         $response = $this->postJsonAs($this->user, route('cart.store'), [
-            'variations' => 1
+            'product_variations' => 1
         ]);
 
-        $response->assertJsonValidationErrors(['variations']);
+        $response->assertJsonValidationErrors(['product_variations']);
     }
 
     /** @test */
-    public function it_requires_variations_to_have_an_id()
+    public function it_requires_product_variations_to_have_an_id()
     {
         $response = $this->postJsonAs($this->user, route('cart.store'), [
-            'variations' => [
+            'product_variations' => [
                 ['quantity' => 5]
             ]
         ]);
 
-        $response->assertJsonValidationErrors(['variations.0.id']);
+        $response->assertJsonValidationErrors(['product_variations.0.id']);
     }
 
     /** @test */
-    public function it_requires_variations_to_exist()
+    public function it_requires_product_variations_to_exist()
     {
         $response = $this->postJsonAs($this->user, route('cart.store'), [
-            'variations' => [
+            'product_variations' => [
                 ['id' => 999]
             ]
         ]);
 
-        $response->assertJsonValidationErrors(['variations.0.id']);
+        $response->assertJsonValidationErrors(['product_variations.0.id']);
     }
 
     /** @test */
     public function it_requires_quantity_to_be_numeric()
     {
         $response = $this->postJsonAs($this->user, route('cart.store'), [
-            'variations' => [
+            'product_variations' => [
                 ['id' => $this->variation->id, 'quantity' => 'one']
             ]
         ]);
 
-        $response->assertJsonValidationErrors(['variations.0.quantity']);
+        $response->assertJsonValidationErrors(['product_variations.0.quantity']);
     }
 
     /** @test */
     public function it_requires_quantity_to_be_at_least_one()
     {
         $response = $this->postJsonAs($this->user, route('cart.store'), [
-            'variations' => [
+            'product_variations' => [
                 ['id' => $this->variation->id, 'quantity' => 0]
             ]
         ]);
 
-        $response->assertJsonValidationErrors(['variations.0.quantity']);
+        $response->assertJsonValidationErrors(['product_variations.0.quantity']);
     }
 
     /** @test */
     public function it_can_add_product_variations_to_the_users_cart()
     {
-        $this->postJsonAs($this->user, route('cart.store'), [
-            'variations' => [
+        $response = $this->postJsonAs($this->user, route('cart.store'), [
+            'product_variations' => [
                 ['id' => $this->variation->id, 'quantity' => 2]
             ]
         ]);
 
         $this->assertDatabaseHas('cart_user', [
             'user_id' => $this->user->id,
-            'variation_id' => $this->variation->id,
+            'product_variation_id' => $this->variation->id,
             'quantity' => 2,
         ]);
     }

@@ -7,15 +7,15 @@ use App\Money\Money;
 use App\Models\Type;
 use App\Models\Stock;
 use App\Models\Product;
-use App\Models\Variation;
+use App\Models\ProductVariation;
 
-class VariationTest extends TestCase
+class ProductVariationTest extends TestCase
 {
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->variation = factory(Variation::class)->create();
+        $this->variation = factory(ProductVariation::class)->create();
     }
     
     /** @test */
@@ -53,7 +53,7 @@ class VariationTest extends TestCase
         ]);
 
         $product->variations()->save(
-            $variation = factory(Variation::class)->create([
+            $variation = factory(ProductVariation::class)->create([
                 'price' => null
             ])
         );
@@ -69,7 +69,7 @@ class VariationTest extends TestCase
         ]);
 
         $product->variations()->save(
-            $variation = factory(Variation::class)->create([
+            $variation = factory(ProductVariation::class)->create([
                 'price' => 2000
             ])
         );
@@ -94,7 +94,7 @@ class VariationTest extends TestCase
             factory(Stock::class)->make()
         );
 
-        $this->assertInstanceOf(Variation::class, $this->variation->stock->first());
+        $this->assertInstanceOf(ProductVariation::class, $this->variation->stock->first());
     }
 
     /** @test */

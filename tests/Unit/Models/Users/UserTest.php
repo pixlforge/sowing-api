@@ -7,8 +7,8 @@ use App\Models\User;
 use App\Models\Shop;
 use App\Models\Order;
 use App\Models\Address;
-use App\Models\Variation;
 use App\Models\PaymentMethod;
+use App\Models\ProductVariation;
 use Illuminate\Support\Facades\Hash;
 
 class UserTest extends TestCase
@@ -32,17 +32,17 @@ class UserTest extends TestCase
     public function it_has_many_cart_product_variations()
     {
         $this->user->cart()->attach(
-            factory(Variation::class)->create()
+            factory(ProductVariation::class)->create()
         );
 
-        $this->assertInstanceOf(Variation::class, $this->user->cart->first());
+        $this->assertInstanceOf(ProductVariation::class, $this->user->cart->first());
     }
 
     /** @test */
     public function it_has_a_quantity_for_each_cart_product_variation()
     {
         $this->user->cart()->attach(
-            factory(Variation::class)->create(),
+            factory(ProductVariation::class)->create(),
             ['quantity' => $quantity = 5]
         );
 
