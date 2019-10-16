@@ -29,7 +29,7 @@ $factory->define(Shop::class, function (Faker $faker) use ($fakerEN, $fakerFR, $
             'it' => $fakerIT->unique()->name,
         ],
         'theme' => Arr::random([
-            'green', 'pink', 'purple', 'indigo', 'blue', 'brown', 'grey', 'slate'
+            'green', 'pink', 'purple', 'indigo', 'blue', 'brown', 'gray', 'slate'
         ]),
         'postal_code' => Arr::random(range(1000, 4000)),
         'city' => $faker->city,

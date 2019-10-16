@@ -1,9 +1,9 @@
 <?php
 
 use Faker\Factory;
-use App\Models\Type;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use App\Models\ProductVariationType;
 
 $fakerEN = Factory::create('en_US');
 $fakerFR = Factory::create('fr_CH');
@@ -26,7 +26,7 @@ $factory->define(ProductVariation::class, function () use ($fakerEN, $fakerFR, $
         ],
         'price' => null,
         'order' => null,
-        'type_id' => factory(Type::class),
+        'product_variation_type_id' => factory(ProductVariationType::class),
         'product_id' => factory(Product::class),
     ];
 });

@@ -31,7 +31,7 @@ class CartIndexTest extends TestCase
     public function it_shows_product_variations_in_the_user_cart()
     {
         $this->user->cart()->sync($this->variation);
-
+        
         $response = $this->getJsonAs($this->user, route('cart.index'));
 
         $response->assertJsonFragment([

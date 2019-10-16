@@ -3,10 +3,10 @@
 namespace App\Http\Resources\Cart;
 
 use App\Money\Money;
-use App\Http\Resources\Variations\VariationResource;
 use App\Http\Resources\Products\ProductIndexResource;
+use App\Http\Resources\ProductVariations\ProductVariationResource;
 
-class CartVariationResource extends VariationResource
+class CartProductVariationResource extends ProductVariationResource
 {
     /**
      * Transform the resource into an array.

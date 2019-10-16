@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Type;
 use Illuminate\Database\Seeder;
+use App\Models\ProductVariationType;
 
-class TypesTableSeeder extends Seeder
+class ProductVariationTypesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class TypesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Type::class)->create([
+        factory(ProductVariationType::class)->create([
             'name' => [
                 'en' => 'Whole beans',
                 'fr' => 'Grains entiers',
@@ -21,7 +21,7 @@ class TypesTableSeeder extends Seeder
             ],
         ]);
 
-        factory(Type::class)->create([
+        factory(ProductVariationType::class)->create([
             'name' => [
                 'en' => 'Ground',
                 'fr' => 'Moulu',

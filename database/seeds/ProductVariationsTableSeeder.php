@@ -34,7 +34,7 @@ class ProductVariationsTableSeeder extends Seeder
                 'it' => 'Lorem ipsum dolor sit amet.',
             ],
             'order' => 1,
-            'type_id' => 1,
+            'product_variation_type_id' => 1,
             'product_id' => $coffee->id,
         ]);
 
@@ -53,7 +53,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 2000,
             'order' => 2,
-            'type_id' => 1,
+            'product_variation_type_id' => 1,
             'product_id' => $coffee->id,
         ]);
 
@@ -72,7 +72,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 3000,
             'order' => 3,
-            'type_id' => 1,
+            'product_variation_type_id' => 1,
             'product_id' => $coffee->id,
         ]);
 
@@ -90,7 +90,7 @@ class ProductVariationsTableSeeder extends Seeder
                 'it' => 'Lorem ipsum dolor sit amet.',
             ],
             'order' => 1,
-            'type_id' => 2,
+            'product_variation_type_id' => 2,
             'product_id' => $coffee->id,
         ]);
 
@@ -109,7 +109,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 2000,
             'order' => 2,
-            'type_id' => 2,
+            'product_variation_type_id' => 2,
             'product_id' => $coffee->id,
         ]);
 
@@ -128,7 +128,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 3000,
             'order' => 3,
-            'type_id' => 2,
+            'product_variation_type_id' => 2,
             'product_id' => $coffee->id,
         ]);
 
@@ -149,7 +149,7 @@ class ProductVariationsTableSeeder extends Seeder
                 'it' => 'Lorem ipsum dolor sit amet.',
             ],
             'order' => 1,
-            'type_id' => 1,
+            'product_variation_type_id' => 1,
             'product_id' => $superCoffee->id,
         ]);
 
@@ -168,7 +168,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 2000,
             'order' => 2,
-            'type_id' => 1,
+            'product_variation_type_id' => 1,
             'product_id' => $superCoffee->id,
         ]);
 
@@ -187,7 +187,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 3000,
             'order' => 3,
-            'type_id' => 1,
+            'product_variation_type_id' => 1,
             'product_id' => $superCoffee->id,
         ]);
 
@@ -205,7 +205,7 @@ class ProductVariationsTableSeeder extends Seeder
                 'it' => 'Lorem ipsum dolor sit amet.',
             ],
             'order' => 1,
-            'type_id' => 2,
+            'product_variation_type_id' => 2,
             'product_id' => $superCoffee->id,
         ]);
 
@@ -224,7 +224,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 2000,
             'order' => 2,
-            'type_id' => 2,
+            'product_variation_type_id' => 2,
             'product_id' => $superCoffee->id,
         ]);
 
@@ -243,7 +243,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 3000,
             'order' => 3,
-            'type_id' => 2,
+            'product_variation_type_id' => 2,
             'product_id' => $superCoffee->id,
         ]);
 
@@ -264,7 +264,7 @@ class ProductVariationsTableSeeder extends Seeder
                 'it' => 'Lorem ipsum dolor sit amet.',
             ],
             'order' => 1,
-            'type_id' => 1,
+            'product_variation_type_id' => 1,
             'product_id' => $awesomeCoffee->id,
         ]);
 
@@ -283,7 +283,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 2000,
             'order' => 2,
-            'type_id' => 1,
+            'product_variation_type_id' => 1,
             'product_id' => $awesomeCoffee->id,
         ]);
 
@@ -302,7 +302,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 3000,
             'order' => 3,
-            'type_id' => 1,
+            'product_variation_type_id' => 1,
             'product_id' => $awesomeCoffee->id,
         ]);
 
@@ -320,7 +320,7 @@ class ProductVariationsTableSeeder extends Seeder
                 'it' => 'Lorem ipsum dolor sit amet.',
             ],
             'order' => 1,
-            'type_id' => 2,
+            'product_variation_type_id' => 2,
             'product_id' => $awesomeCoffee->id,
         ]);
 
@@ -339,7 +339,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 2000,
             'order' => 2,
-            'type_id' => 2,
+            'product_variation_type_id' => 2,
             'product_id' => $awesomeCoffee->id,
         ]);
 
@@ -358,7 +358,7 @@ class ProductVariationsTableSeeder extends Seeder
             ],
             'price' => 3000,
             'order' => 3,
-            'type_id' => 2,
+            'product_variation_type_id' => 2,
             'product_id' => $awesomeCoffee->id,
         ]);
     }

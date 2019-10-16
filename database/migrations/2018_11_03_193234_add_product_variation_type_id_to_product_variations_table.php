@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTypeIdToProductVariationsTable extends Migration
+class AddProductVariationTypeIdToProductVariationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,13 @@ class AddTypeIdToProductVariationsTable extends Migration
     public function up()
     {
         Schema::table('product_variations', function (Blueprint $table) {
-            $table->unsignedBigInteger('type_id')->after('product_id')->nullable()->index();
+            $table->unsignedBigInteger('product_variation_type_id')->after('product_id')->nullable()->index();
 
-            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
+            $table->foreign('product_variation_type_id')->references('id')->on('product_variation_types')->onDelete('cascade');
         });
 
         Schema::table('product_variations', function (Blueprint $table) {
-            $table->unsignedBigInteger('type_id')->nullable(false)->change();
+            $table->unsignedBigInteger('product_variation_type_id')->nullable(false)->change();
         });
     }
 
@@ -32,7 +32,7 @@ class AddTypeIdToProductVariationsTable extends Migration
     public function down()
     {
         Schema::table('product_variations', function (Blueprint $table) {
-            $table->dropColumn('type_id');
+            $table->dropColumn('product_variation_type_id');
         });
     }
 }

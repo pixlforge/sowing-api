@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Products;
 
-use App\Http\Resources\Variations\VariationResource;
+use App\Http\Resources\ProductVariations\ProductVariationResource;
 
 class ProductResource extends ProductIndexResource
 {
@@ -15,7 +15,7 @@ class ProductResource extends ProductIndexResource
     public function toArray($request)
     {
         return array_merge(parent::toArray($request), [
-            'variations' => VariationResource::collection(
+            'variations' => ProductVariationResource::collection(
                 $this->variations
             )->groupBy('type.id')
         ]);

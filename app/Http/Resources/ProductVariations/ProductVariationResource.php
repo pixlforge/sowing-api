@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources\Variations;
+namespace App\Http\Resources\ProductVariations;
 
 use Illuminate\Support\Collection;
-use App\Http\Resources\Types\TypeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Products\ProductIndexResource;
+use App\Http\Resources\ProductVariationTypes\ProductVariationTypeResource;
 
-class VariationResource extends JsonResource
+class ProductVariationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,7 @@ class VariationResource extends JsonResource
     public function toArray($request)
     {
         if ($this->resource instanceof Collection) {
-            return VariationResource::collection($this->resource);
+            return ProductVariationResource::collection($this->resource);
         }
 
         return [
@@ -43,7 +43,7 @@ class VariationResource extends JsonResource
                 'formatted' => $this->formattedPrice
             ],
             'price_varies' => $this->priceVaries(),
-            'type' => new TypeResource($this->type),
+            'type' => new ProductVariationTypeResource($this->type),
             'stock_count' => (int) $this->stockCount(),
             'in_stock' => $this->inStock(),
         ];

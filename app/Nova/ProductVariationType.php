@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Spatie\NovaTranslatable\Translatable;
 
-class Type extends Resource
+class ProductVariationType extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\Type';
+    public static $model = 'App\\Models\\ProductVariationType';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

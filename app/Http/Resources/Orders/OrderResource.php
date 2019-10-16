@@ -3,9 +3,9 @@
 namespace App\Http\Resources\Orders;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Variations\VariationResource;
 use App\Http\Resources\Addresses\AddressResource;
 use App\Http\Resources\ShippingMethods\ShippingMethodResource;
+use App\Http\Resources\ProductVariations\ProductVariationResource;
 
 class OrderResource extends JsonResource
 {
@@ -29,9 +29,9 @@ class OrderResource extends JsonResource
                 'detailed' => $this->total()->detailed(),
                 'formatted' => $this->total()->formatted()
             ],
-            'variations' => VariationResource::collection($this->whenLoaded('variations')),
-            'address' => new AddressResource($this->whenLoaded('address')),
-            'shippingMethod' => new ShippingMethodResource($this->whenLoaded('shippingMethod')),
+            'variations' => ProductVariationResource::collection($this->whenLoaded('variations')),
+            'address' => AddressResource::make($this->whenLoaded('address')),
+            'shippingMethod' => ShippingMethodResource::make($this->whenLoaded('shippingMethod')),
         ];
     }
 }

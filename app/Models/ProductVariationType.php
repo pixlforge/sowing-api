@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-class Type extends Model
+class ProductVariationType extends Model
 {
     use HasTranslations;
     

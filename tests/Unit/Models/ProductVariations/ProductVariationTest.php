@@ -4,10 +4,10 @@ namespace Tests\Unit\Variations;
 
 use Tests\TestCase;
 use App\Money\Money;
-use App\Models\Type;
 use App\Models\Stock;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use App\Models\ProductVariationType;
 
 class ProductVariationTest extends TestCase
 {
@@ -21,7 +21,7 @@ class ProductVariationTest extends TestCase
     /** @test */
     public function it_has_one_variation_type()
     {
-        $this->assertInstanceOf(Type::class, $this->variation->type);
+        $this->assertInstanceOf(ProductVariationType::class, $this->variation->type);
     }
 
     /** @test */

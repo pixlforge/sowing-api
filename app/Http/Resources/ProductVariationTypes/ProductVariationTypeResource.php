@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Types;
+namespace App\Http\Resources\ProductVariationTypes;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TypeResource extends JsonResource
+class ProductVariationTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
