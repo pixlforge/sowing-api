@@ -16,7 +16,7 @@ class ProductObserver
     public function creating(Product $product)
     {
         if (is_null($product->slug)) {
-            $product->slug = Str::slug($product->getTranslation('name', 'en'));
+            $product->slug = $product->shop_id . now()->unix() . '-' . Str::slug($product->getTranslation('name', 'en'));
         }
     }
 }
