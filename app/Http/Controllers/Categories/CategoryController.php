@@ -15,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('children')->parents()->ordered()->get();
+        $categories = Category::with([
+            'media', 'children.media', 'children.children.media', 'children.children.parent.media'
+        ])->parents()->ordered()->get();
         
         return CategoryResource::collection($categories);
     }
