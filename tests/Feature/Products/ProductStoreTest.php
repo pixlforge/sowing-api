@@ -44,6 +44,38 @@ class ProductStoreTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_a_name_in_french_when_the_others_are_not_set()
+    {
+        $response = $this->postJsonAs($this->user, route('products.store'));
+
+        $response->assertJsonValidationErrors(['name.fr']);
+    }
+
+    /** @test */
+    public function it_requires_a_name_in_english_when_the_others_are_not_set()
+    {
+        $response = $this->postJsonAs($this->user, route('products.store'));
+
+        $response->assertJsonValidationErrors(['name.en']);
+    }
+
+    /** @test */
+    public function it_requires_a_name_in_german_when_the_others_are_not_set()
+    {
+        $response = $this->postJsonAs($this->user, route('products.store'));
+
+        $response->assertJsonValidationErrors(['name.de']);
+    }
+
+    /** @test */
+    public function it_requires_a_name_in_italian_when_the_others_are_not_set()
+    {
+        $response = $this->postJsonAs($this->user, route('products.store'));
+
+        $response->assertJsonValidationErrors(['name.it']);
+    }
+
+    /** @test */
     public function it_requires_each_name_to_be_a_string()
     {
         $response = $this->postJsonAs($this->user, route('products.store'), [

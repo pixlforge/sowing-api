@@ -25,6 +25,10 @@ class ProductStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'name.fr' => 'required_without_all:name.en,name.de,name.it',
+            'name.en' => 'required_without_all:name.fr,name.de,name.it',
+            'name.de' => 'required_without_all:name.fr,name.en,name.it',
+            'name.it' => 'required_without_all:name.fr,name.en,name.de',
             'name.*' => 'nullable|string|min:2|max:255',
             'description' => 'required',
             'description.*' => 'nullable|string|min:5|max:10000',
