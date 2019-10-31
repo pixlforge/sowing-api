@@ -6,10 +6,19 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Products\ProductResource;
+use App\Http\Requests\Products\ProductStoreRequest;
 use App\Http\Resources\Products\ProductIndexResource;
 
 class ProductController extends Controller
 {
+    /**
+     * ProductController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth:api'])->only('store');
+    }
+    
     /**
      * Returns a collection of scoped products.
      *
@@ -42,13 +51,19 @@ class ProductController extends Controller
     }
 
     /**
-     * Undocumented function
+     * Add a new product resource.
      *
      * @param Request $request
-     * @return void
+     * @return ProductResource
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        return response($request->all(), 200);
+        $product = $request->user()->shop->products()->create($request->only([
+            'name', 'description', 'price'
+        ]));
+
+        $product->categories()->sync($request->category_id);
+
+        return ProductResource::make($product);
     }
 }

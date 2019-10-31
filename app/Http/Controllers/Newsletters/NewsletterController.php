@@ -10,13 +10,21 @@ use App\Exceptions\NewsletterSubscriptionFailedException;
 
 class NewsletterController extends Controller
 {
+    // TODO: Only admins should be authorized to request / view this.
+    public function index()
+    {
+        $members = NewsletterFacade::getMembers();
+
+        dd($members);
+    }
+
     /**
      * Subscribe a user to the newsletter.
      *
      * @param SubscriberStoreRequest $request
      * @return void
      */
-    public function __invoke(SubscriberStoreRequest $request)
+    public function store(SubscriberStoreRequest $request)
     {
         try {
             NewsletterFacade::subscribeOrUpdate($request->email);

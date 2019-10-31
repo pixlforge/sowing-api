@@ -84,7 +84,8 @@ Route::post('/images/{shop}/upload', ShopImageStoreController::class)->name('sho
 /**
  * Newsletters
  */
-Route::post('/newsletter/subscribe', NewsletterController::class)->name('newsletter.subscriber.store');
+Route::get('/newsletter/subscribers', [NewsletterController::class, 'index'])->name('newsletter.subscribers.index');
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])->name('newsletter.subscriber.store'); // TODO: Refactor the url
 
 /**
  * Orders

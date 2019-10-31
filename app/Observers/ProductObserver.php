@@ -16,7 +16,30 @@ class ProductObserver
     public function creating(Product $product)
     {
         if (is_null($product->slug)) {
-            $product->slug = Str::slug($product->getTranslation('name', 'en'));
+            $product->slug = $product->shop_id . now()->unix() . '-' . Str::slug($this->getAvailableTranslation($product));
         }
+    }
+
+    /**
+     * Get one of the available translations.
+     *
+     * @param Product $product
+     * @return string
+     */
+    protected function getAvailableTranslation(Product $product)
+    {
+        $locale = '';
+
+        if ($product->hasTranslation('name', 'en')) {
+            $locale = 'en';
+        } elseif ($product->hasTranslation('name', 'fr')) {
+            $locale = 'fr';
+        } elseif ($product->hasTranslation('name', 'de')) {
+            $locale = 'de';
+        } elseif ($product->hasTranslation('name', 'it')) {
+            $locale = 'it';
+        }
+
+        return $product->getTranslation('name', $locale);
     }
 }
