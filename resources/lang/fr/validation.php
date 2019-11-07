@@ -185,6 +185,18 @@ return [
         'theme' => 'thème',
 
         'payment_method_id' => 'moyen de paiement',
+
+        'name.fr' => 'nom (français)',
+        'name.en' => 'nom (anglais)',
+        'name.de' => 'nom (allemand)',
+        'name.it' => 'nom (italien)',
+
+        'description.fr' => 'description (français)',
+        'description.en' => 'description (anglais)',
+        'description.de' => 'description (allemand)',
+        'description.it' => 'description (italien)',
+
+        'category_id' => 'catégorie',
     ],
 
     'rules' => [

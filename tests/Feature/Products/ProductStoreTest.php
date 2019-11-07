@@ -135,20 +135,35 @@ class ProductStoreTest extends TestCase
     }
 
     /** @test */
-    public function it_allows_each_description_to_be_empty()
+    public function it_requires_a_description_in_french_when_the_others_are_not_set()
     {
-        $response = $this->postJsonAs($this->user, route('products.store'), [
-            'description' => [
-                'en' => '',
-                'fr' => '',
-                'de' => '',
-                'it' => '',
-            ]
-        ]);
+        $response = $this->postJsonAs($this->user, route('products.store'));
 
-        $response->assertJsonMissingValidationErrors([
-            'description.en', 'description.fr', 'description.de', 'description.it'
-        ]);
+        $response->assertJsonValidationErrors(['description.fr']);
+    }
+
+    /** @test */
+    public function it_requires_a_description_in_english_when_the_others_are_not_set()
+    {
+        $response = $this->postJsonAs($this->user, route('products.store'));
+
+        $response->assertJsonValidationErrors(['description.en']);
+    }
+
+    /** @test */
+    public function it_requires_a_description_in_german_when_the_others_are_not_set()
+    {
+        $response = $this->postJsonAs($this->user, route('products.store'));
+
+        $response->assertJsonValidationErrors(['description.de']);
+    }
+
+    /** @test */
+    public function it_requires_a_description_in_italian_when_the_others_are_not_set()
+    {
+        $response = $this->postJsonAs($this->user, route('products.store'));
+
+        $response->assertJsonValidationErrors(['description.it']);
     }
 
     /** @test */

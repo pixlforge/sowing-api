@@ -183,6 +183,18 @@ return [
         'theme' => 'tema',
 
         'payment_method_id' => 'Metodo di pagamento',
+
+        'name.fr' => 'nome (francese)',
+        'name.en' => 'nome (inglese)',
+        'name.de' => 'nome (tedesco)',
+        'name.it' => 'nome (italiano)',
+
+        'description.fr' => 'descrizione (francese)',
+        'description.en' => 'descrizione (inglese)',
+        'description.de' => 'descrizione (tedesco)',
+        'description.it' => 'descrizione (italiano)',
+
+        'category_id' => 'categoria',
     ],
 
     'rules' => [

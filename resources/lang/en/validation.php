@@ -156,6 +156,18 @@ return [
         'theme' => 'theme',
 
         'payment_method_id' => 'payment method',
+
+        'name.fr' => 'name (french)',
+        'name.en' => 'name (english)',
+        'name.de' => 'name (german)',
+        'name.it' => 'name (italian)',
+
+        'description.fr' => 'description (french)',
+        'description.en' => 'description (english)',
+        'description.de' => 'description (german)',
+        'description.it' => 'description (italian)',
+
+        'category_id' => 'category',
     ],
 
     'rules' => [
