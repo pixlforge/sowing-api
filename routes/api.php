@@ -28,26 +28,12 @@ use App\Http\Controllers\PaymentMethods\PaymentMethodController;
  * Auth
  */
 Route::prefix('/auth')->name('auth.')->group(function () {
-
-    // Register
     Route::post('/register', RegisterController::class)->name('register');
-
-    // Login
     Route::post('/login', LoginController::class)->name('login');
-
-    // Logout
     Route::post('/logout', LogoutController::class)->name('logout');
-
-    // Me
     Route::get('/me', MeController::class)->name('me');
-
-    // Verify
     Route::post('/verify', VerificationController::class)->name('verify');
-
-    // Forgot password
     Route::post('/forgot', ForgotPasswordController::class)->name('forgot');
-
-    // Reset password
     Route::post('/reset', ResetPasswordController::class)->name('reset');
 });
 
