@@ -3,7 +3,6 @@
 use App\Models\Shop;
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder
@@ -27,13 +26,6 @@ class ProductsTableSeeder extends Seeder
                     'de' => 'Kaffee',
                     'it' => 'Caffè',
                 ],
-                'description' => [
-                    'en' => 'Lorem ipsum dolor sit amet',
-                    'fr' => 'Lorem ipsum dolor sit amet',
-                    'de' => 'Lorem ipsum dolor sit amet',
-                    'it' => 'Lorem ipsum dolor sit amet',
-                ],
-                'slug' => Str::slug($name)
             ])
         );
 
@@ -46,13 +38,6 @@ class ProductsTableSeeder extends Seeder
                     'de' => 'Super Kaffee',
                     'it' => 'Super Caffè',
                 ],
-                'description' => [
-                    'en' => 'Lorem ipsum dolor sit amet',
-                    'fr' => 'Lorem ipsum dolor sit amet',
-                    'de' => 'Lorem ipsum dolor sit amet',
-                    'it' => 'Lorem ipsum dolor sit amet',
-                ],
-                'slug' => Str::slug($name),
                 'price' => 1500
             ])
         );
@@ -66,13 +51,6 @@ class ProductsTableSeeder extends Seeder
                     'de' => 'Genial Kaffee',
                     'it' => 'Caffè eccezionale',
                 ],
-                'description' => [
-                    'en' => 'Lorem ipsum dolor sit amet',
-                    'fr' => 'Lorem ipsum dolor sit amet',
-                    'de' => 'Lorem ipsum dolor sit amet',
-                    'it' => 'Lorem ipsum dolor sit amet',
-                ],
-                'slug' => Str::slug($name),
                 'price' => 2700
             ])
         );
