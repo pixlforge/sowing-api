@@ -3,7 +3,6 @@
 use Faker\Factory;
 use App\Models\Shop;
 use App\Models\Product;
-use Illuminate\Support\Str;
 
 $fakerEN = Factory::create('en_US');
 $fakerFR = Factory::create('fr_CH');
