@@ -22,12 +22,4 @@ class ProductIndexTest extends TestCase
 
         $response->assertResource(ProductIndexResource::collection(Product::all()));
     }
-
-    /** @test */
-    public function it_has_paginated_data()
-    {
-        $response = $this->getJson(route('products.index'));
-
-        $response->assertJsonStructure(['data', 'links']);
-    }
 }
