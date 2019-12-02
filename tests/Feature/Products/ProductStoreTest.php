@@ -266,32 +266,4 @@ class ProductStoreTest extends TestCase
 
         $response->assertResource(ProductResource::make($this->user->shop->products->first()));
     }
-
-    /** @test */
-    public function it_associates_the_product_with_the_provided_category()
-    {
-        $response = $this->postJsonAs($this->user, route('products.store'), [
-            'name' => [
-                'en' => $this->faker->sentence,
-                'fr' => $this->faker->sentence,
-                'de' => $this->faker->sentence,
-                'it' => $this->faker->sentence,
-            ],
-            'description' => [
-                'en' => $this->faker->sentences(3, true),
-                'fr' => $this->faker->sentences(3, true),
-                'de' => $this->faker->sentences(3, true),
-                'it' => $this->faker->sentences(3, true),
-            ],
-            'price' => Arr::random(range(1000, 20000, 5)),
-            'category_id' => $this->category->id
-        ]);
-
-        $response->assertSuccessful();
-
-        $this->assertEquals(
-            $this->category->id,
-            $this->user->fresh()->shop->products->first()->categories->first()->id
-        );
-    }
 }

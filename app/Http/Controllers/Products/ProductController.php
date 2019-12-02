@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Products\ProductResource;
 use App\Http\Requests\Products\ProductStoreRequest;
+use App\Http\Requests\Products\ProductUpdateRequest;
 use App\Http\Resources\Products\ProductIndexResource;
 
 class ProductController extends Controller
@@ -30,7 +31,7 @@ class ProductController extends Controller
                 'shop', 'variations.stock',
             ])
             ->withScopes()
-            ->paginate(10);
+            ->get();
 
         return ProductIndexResource::collection($products);
     }
@@ -58,9 +59,16 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-        $product = $request->user()->shop->products()->create($request->only([
-            'name', 'description'
-        ]));
+        $product = $request->user()->shop->products()->create($request->validated());
+
+        // $product->categories()->sync($request->category_id);
+
+        return ProductResource::make($product);
+    }
+
+    public function update(Product $product, ProductUpdateRequest $request)
+    {
+        // TODO: Authorize
 
         $product->categories()->sync($request->category_id);
 
