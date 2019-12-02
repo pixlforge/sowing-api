@@ -3,7 +3,6 @@
 use Faker\Factory;
 use App\Models\Shop;
 use App\Models\Product;
-use Illuminate\Support\Str;
 
 $fakerEN = Factory::create('en_US');
 $fakerFR = Factory::create('fr_CH');
@@ -20,10 +19,10 @@ $factory->define(Product::class, function () use ($fakerEN, $fakerFR, $fakerDE, 
             'it' => $fakerIT->unique()->name,
         ],
         'description' => [
-            'en' => $fakerEN->sentence,
-            'fr' => $fakerFR->sentence,
-            'de' => $fakerDE->sentence,
-            'it' => $fakerIT->sentence,
+            'en' => $fakerEN->paragraphs(rand(2, 6), true),
+            'fr' => $fakerFR->paragraphs(rand(2, 6), true),
+            'de' => $fakerDE->paragraphs(rand(2, 6), true),
+            'it' => $fakerIT->paragraphs(rand(2, 6), true),
         ],
         'price' => 1000
     ];

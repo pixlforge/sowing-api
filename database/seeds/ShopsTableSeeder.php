@@ -22,5 +22,13 @@ class ShopsTableSeeder extends Seeder
             'name' => 'Test User 1 Shop',
             'country_id' => $country->id
         ]);
+
+        $user = User::where('email', 'celien@example.com')->first();
+
+        factory(Shop::class)->create([
+            'user_id' => $user->id,
+            'name' => 'Pixlforge',
+            'country_id' => $country->id
+        ]);
     }
 }

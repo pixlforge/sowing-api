@@ -13,9 +13,9 @@ class ProductVariationsTableSeeder extends Seeder
      */
     public function run()
     {
-        $coffee = Product::where('slug', 'coffee')->first();
-        $superCoffee = Product::where('slug', 'super-coffee')->first();
-        $awesomeCoffee = Product::where('slug', 'awesome-coffee')->first();
+        $coffee = Product::find(1);
+        $superCoffee = Product::find(2);
+        $awesomeCoffee = Product::find(3);
         
         /**
          * Coffee

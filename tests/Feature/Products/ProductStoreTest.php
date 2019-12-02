@@ -218,62 +218,6 @@ class ProductStoreTest extends TestCase
     }
 
     /** @test */
-    public function it_requires_a_price()
-    {
-        $response = $this->postJsonAs($this->user, route('products.store'));
-
-        $response->assertJsonValidationErrors(['price']);
-    }
-
-    /** @test */
-    public function it_requires_a_price_to_be_numeric()
-    {
-        $response = $this->postJsonAs($this->user, route('products.store'), [
-            'price' => 'abc'
-        ]);
-
-        $response->assertJsonValidationErrors(['price']);
-    }
-
-    /** @test */
-    public function it_requires_a_price_to_be_at_least_100_cents()
-    {
-        $response = $this->postJsonAs($this->user, route('products.store'), [
-            'price' => 99
-        ]);
-
-        $response->assertJsonValidationErrors(['price']);
-    }
-
-    /** @test */
-    public function it_requires_a_price_to_be_at_most_99995_cents()
-    {
-        $response = $this->postJsonAs($this->user, route('products.store'), [
-            'price' => 1000000,
-        ]);
-
-        $response->assertJsonValidationErrors(['price']);
-    }
-
-    /** @test */
-    public function it_requires_a_category_id()
-    {
-        $response = $this->postJsonAs($this->user, route('products.store'));
-
-        $response->assertJsonValidationErrors(['category_id']);
-    }
-
-    /** @test */
-    public function it_requires_a_valid_category()
-    {
-        $response = $this->postJsonAs($this->user, route('products.store'), [
-            'category_id' => 999
-        ]);
-
-        $response->assertJsonValidationErrors(['category_id']);
-    }
-
-    /** @test */
     public function it_can_add_a_product()
     {
         $this->assertCount(0, $this->user->shop->products);
@@ -291,8 +235,8 @@ class ProductStoreTest extends TestCase
                 'de' => $this->faker->sentences(10, true),
                 'it' => $this->faker->sentences(10, true),
             ],
-            'price' => Arr::random(range(1000, 20000, 5)),
-            'category_id' => $this->category->id
+            // 'price' => Arr::random(range(1000, 20000, 5)),
+            // 'category_id' => $this->category->id
         ]);
 
         $response->assertStatus(201);
@@ -321,33 +265,5 @@ class ProductStoreTest extends TestCase
         ]);
 
         $response->assertResource(ProductResource::make($this->user->shop->products->first()));
-    }
-
-    /** @test */
-    public function it_associates_the_product_with_the_provided_category()
-    {
-        $response = $this->postJsonAs($this->user, route('products.store'), [
-            'name' => [
-                'en' => $this->faker->sentence,
-                'fr' => $this->faker->sentence,
-                'de' => $this->faker->sentence,
-                'it' => $this->faker->sentence,
-            ],
-            'description' => [
-                'en' => $this->faker->sentences(3, true),
-                'fr' => $this->faker->sentences(3, true),
-                'de' => $this->faker->sentences(3, true),
-                'it' => $this->faker->sentences(3, true),
-            ],
-            'price' => Arr::random(range(1000, 20000, 5)),
-            'category_id' => $this->category->id
-        ]);
-
-        $response->assertSuccessful();
-
-        $this->assertEquals(
-            $this->category->id,
-            $this->user->fresh()->shop->products->first()->categories->first()->id
-        );
     }
 }

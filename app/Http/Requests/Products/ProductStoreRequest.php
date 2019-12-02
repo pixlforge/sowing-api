@@ -35,9 +35,7 @@ class ProductStoreRequest extends FormRequest
             'description.en' => 'required_without_all:description.fr,description.de,description.it',
             'description.de' => 'required_without_all:description.fr,description.en,description.it',
             'description.it' => 'required_without_all:description.fr,description.en,description.de',
-            'description.*' => 'nullable|string|min:5|max:10000',
-            'price' => 'required|numeric|min:100|max:99995',
-            'category_id' => 'required|exists:categories,id'
+            'description.*' => 'nullable|string|min:5|max:10000'
         ];
     }
 }

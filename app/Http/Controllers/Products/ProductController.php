@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Products\ProductResource;
 use App\Http\Requests\Products\ProductStoreRequest;
+use App\Http\Requests\Products\ProductUpdateRequest;
 use App\Http\Resources\Products\ProductIndexResource;
 
 class ProductController extends Controller
@@ -16,7 +17,9 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth:api'])->only('store');
+        $this->middleware(['auth:api'])->only([
+            'store', 'update'
+        ]);
     }
     
     /**
@@ -30,7 +33,7 @@ class ProductController extends Controller
                 'shop', 'variations.stock',
             ])
             ->withScopes()
-            ->paginate(10);
+            ->get();
 
         return ProductIndexResource::collection($products);
     }
@@ -58,11 +61,27 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-        $product = $request->user()->shop->products()->create($request->only([
-            'name', 'description', 'price'
-        ]));
+        $product = $request->user()->shop->products()->create($request->validated());
 
-        $product->categories()->sync($request->category_id);
+        return ProductResource::make($product);
+    }
+
+    /**
+     * Update a product.
+     *
+     * @param Product $product
+     * @param ProductUpdateRequest $request
+     * @return ProductResource
+     */
+    public function update(Product $product, ProductUpdateRequest $request)
+    {
+        $this->authorize('update', $product);
+
+        $product->update($request->validated());
+
+        if ($request->has('category_id')) {
+            $product->categories()->sync($request->category_id);
+        }
 
         return ProductResource::make($product);
     }
