@@ -79,7 +79,9 @@ class ProductController extends Controller
 
         $product->update($request->validated());
 
-        $product->categories()->sync($request->category_id);
+        if ($request->has('category_id')) {
+            $product->categories()->sync($request->category_id);
+        }
 
         return ProductResource::make($product);
     }
