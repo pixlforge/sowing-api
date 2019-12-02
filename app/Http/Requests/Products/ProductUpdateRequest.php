@@ -24,8 +24,18 @@ class ProductUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'required_without:price|exists:categories,id'
-            // 'price' => 'required|numeric|min:100|max:99995',
+            'name.fr' => 'sometimes|required_without_all:name.en,name.de,name.it',
+            'name.en' => 'sometimes|required_without_all:name.fr,name.de,name.it',
+            'name.de' => 'sometimes|required_without_all:name.fr,name.en,name.it',
+            'name.it' => 'sometimes|required_without_all:name.fr,name.en,name.de',
+            'name.*' => 'nullable|string|min:2|max:255',
+            'description.fr' => 'sometimes|required_without_all:description.en,description.de,description.it',
+            'description.en' => 'sometimes|required_without_all:description.fr,description.de,description.it',
+            'description.de' => 'sometimes|required_without_all:description.fr,description.en,description.it',
+            'description.it' => 'sometimes|required_without_all:description.fr,description.en,description.de',
+            'description.*' => 'nullable|string|min:5|max:10000',
+            'category_id' => 'required_without:price|exists:categories,id',
+            'price' => 'required_without:category_id|numeric|min:100|max:99995',
         ];
     }
 }

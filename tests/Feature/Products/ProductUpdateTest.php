@@ -7,6 +7,7 @@ use App\Models\Shop;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Arr;
 use Illuminate\Foundation\Testing\WithFaker;
 
 class ProductUpdateTest extends TestCase
@@ -72,7 +73,6 @@ class ProductUpdateTest extends TestCase
     public function it_associates_the_product_with_the_provided_category()
     {
         $response = $this->patchJsonAs($this->user, route('products.update', $this->product), [
-            // 'price' => Arr::random(range(1000, 20000, 5)),
             'category_id' => $this->category->id
         ]);
 
@@ -87,9 +87,7 @@ class ProductUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_price()
     {
-        $this->markTestSkipped();
-        
-        $response = $this->postJsonAs($this->user, route('products.store'));
+        $response = $this->patchJsonAs($this->user, route('products.update', $this->product));
 
         $response->assertJsonValidationErrors(['price']);
     }
@@ -97,9 +95,7 @@ class ProductUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_price_to_be_numeric()
     {
-        $this->markTestSkipped();
-
-        $response = $this->postJsonAs($this->user, route('products.store'), [
+        $response = $this->patchJsonAs($this->user, route('products.update', $this->product), [
             'price' => 'abc'
         ]);
 
@@ -109,9 +105,7 @@ class ProductUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_price_to_be_at_least_100_cents()
     {
-        $this->markTestSkipped();
-
-        $response = $this->postJsonAs($this->user, route('products.store'), [
+        $response = $this->patchJsonAs($this->user, route('products.update', $this->product), [
             'price' => 99
         ]);
 
@@ -121,12 +115,56 @@ class ProductUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_price_to_be_at_most_99995_cents()
     {
-        $this->markTestSkipped();
-
-        $response = $this->postJsonAs($this->user, route('products.store'), [
+        $response = $this->patchJsonAs($this->user, route('products.update', $this->product), [
             'price' => 1000000,
         ]);
 
         $response->assertJsonValidationErrors(['price']);
+    }
+
+    /** @test */
+    public function it_updates_the_products_price()
+    {
+        $response = $this->patchJsonAs($this->user, route('products.update', $this->product), [
+            'price' => $price = Arr::random(range(1000, 20000, 5)),
+        ]);
+
+        $response->assertSuccessful();
+
+        $this->assertEquals($price, $this->product->fresh()->price->getAmount());
+    }
+
+    /** @test */
+    public function it_updates_the_products_properties()
+    {
+        $this->withoutExceptionHandling();
+        
+        $category = factory(Category::class)->create();
+
+        $response = $this->patchJsonAs($this->user, route('products.update', $this->product), [
+            'name' => [
+                'en' => $name = $this->faker->sentence,
+                'fr' => $this->faker->sentence,
+                'de' => $this->faker->sentence,
+                'it' => $this->faker->sentence,
+            ],
+            'description' => [
+                'en' => $description = $this->faker->paragraph,
+                'fr' => $this->faker->paragraph,
+                'de' => $this->faker->paragraph,
+                'it' => $this->faker->paragraph,
+            ],
+            'price' => $price = Arr::random(range(1000, 20000, 5)),
+            'category_id' => $category->id
+        ]);
+
+        $response->assertSuccessful();
+
+        $this->product = $this->product->fresh();
+
+        $this->assertEquals($name, $this->product->getTranslation('name', 'en'));
+        $this->assertEquals($description, $this->product->getTranslation('description', 'en'));
+        $this->assertEquals($price, $this->product->price->getAmount());
+        $this->assertEquals($category->id, $this->product->categories->first()->id);
     }
 }

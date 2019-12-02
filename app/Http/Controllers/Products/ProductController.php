@@ -77,6 +77,8 @@ class ProductController extends Controller
     {
         $this->authorize('update', $product);
 
+        $product->update($request->validated());
+
         $product->categories()->sync($request->category_id);
 
         return ProductResource::make($product);
