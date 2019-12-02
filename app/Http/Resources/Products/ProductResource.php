@@ -15,6 +15,7 @@ class ProductResource extends ProductIndexResource
     public function toArray($request)
     {
         return array_merge(parent::toArray($request), [
+            'category' => $this->categories->first(),
             'variations' => ProductVariationResource::collection(
                 $this->variations
             )->groupBy('type.id')
