@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Products;
 
-use App\Models\Category;
-use App\Models\Product;
+use Tests\TestCase;
 use App\Models\Shop;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 
 class ProductUpdateTest extends TestCase
 {
@@ -28,6 +28,14 @@ class ProductUpdateTest extends TestCase
         $this->user->shop->products()->save(
             $this->product = factory(Product::class)->make()
         );
+    }
+
+    /** @test */
+    public function it_fails_if_unauthenticated()
+    {
+        $response = $this->patchJson(route('products.update', $this->product));
+
+        $response->assertUnauthorized();
     }
 
     /** @test */
@@ -69,6 +77,8 @@ class ProductUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_price()
     {
+        $this->markTestSkipped();
+        
         $response = $this->postJsonAs($this->user, route('products.store'));
 
         $response->assertJsonValidationErrors(['price']);
@@ -77,6 +87,8 @@ class ProductUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_price_to_be_numeric()
     {
+        $this->markTestSkipped();
+
         $response = $this->postJsonAs($this->user, route('products.store'), [
             'price' => 'abc'
         ]);
@@ -87,6 +99,8 @@ class ProductUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_price_to_be_at_least_100_cents()
     {
+        $this->markTestSkipped();
+
         $response = $this->postJsonAs($this->user, route('products.store'), [
             'price' => 99
         ]);
@@ -97,6 +111,8 @@ class ProductUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_price_to_be_at_most_99995_cents()
     {
+        $this->markTestSkipped();
+
         $response = $this->postJsonAs($this->user, route('products.store'), [
             'price' => 1000000,
         ]);
