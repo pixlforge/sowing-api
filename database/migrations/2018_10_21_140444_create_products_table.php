@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->json('name');
             $table->json('description')->nullable();
             $table->string('slug')->unique();
-            $table->integer('price');
+            $table->integer('price')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

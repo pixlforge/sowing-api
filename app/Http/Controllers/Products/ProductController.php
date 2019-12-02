@@ -59,7 +59,7 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         $product = $request->user()->shop->products()->create($request->only([
-            'name', 'description', 'price'
+            'name', 'description'
         ]));
 
         $product->categories()->sync($request->category_id);
