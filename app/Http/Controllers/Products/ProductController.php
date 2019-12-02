@@ -63,14 +63,19 @@ class ProductController extends Controller
     {
         $product = $request->user()->shop->products()->create($request->validated());
 
-        // $product->categories()->sync($request->category_id);
-
         return ProductResource::make($product);
     }
 
+    /**
+     * Update a product.
+     *
+     * @param Product $product
+     * @param ProductUpdateRequest $request
+     * @return ProductResource
+     */
     public function update(Product $product, ProductUpdateRequest $request)
     {
-        // TODO: Authorize
+        $this->authorize('update', $product);
 
         $product->categories()->sync($request->category_id);
 

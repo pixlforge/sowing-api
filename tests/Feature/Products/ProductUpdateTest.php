@@ -39,6 +39,18 @@ class ProductUpdateTest extends TestCase
     }
 
     /** @test */
+    public function it_fails_if_the_user_does_not_own_the_shop_the_product_is_associated_to()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->patchJsonAs($user, route('products.update', $this->product), [
+            'category_id' => $this->category->id
+        ]);
+
+        $response->assertForbidden();
+    }
+
+    /** @test */
     public function it_requires_a_category_id()
     {
         $response = $this->patchJsonAs($this->user, route('products.update', $this->product));
@@ -59,8 +71,6 @@ class ProductUpdateTest extends TestCase
     /** @test */
     public function it_associates_the_product_with_the_provided_category()
     {
-        $this->withoutExceptionHandling();
-        
         $response = $this->patchJsonAs($this->user, route('products.update', $this->product), [
             // 'price' => Arr::random(range(1000, 20000, 5)),
             'category_id' => $this->category->id
