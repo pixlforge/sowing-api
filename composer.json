@@ -27,7 +27,7 @@
         "spatie/laravel-newsletter": "^4.2",
         "spatie/laravel-translatable": "^4.2",
         "spatie/nova-translatable": "^2.0",
-        "stripe/stripe-php": "^6.27",
+        "stripe/stripe-php": "^7.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
