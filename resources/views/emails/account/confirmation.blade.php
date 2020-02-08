@@ -12,14 +12,14 @@
 @lang('emails.confirmation.second_email')
 
 @component('mail::panel')
-  @lang('emails.ignore')
+@lang('emails.ignore')
 @endcomponent
 
 @component('mail::button', [
   'url' => config('app.client.url') . '/auth/login',
   'color' => 'green'
 ])
-  @lang('emails.confirmation.connexion')
+@lang('emails.confirmation.connexion')
 @endcomponent
 
 @lang('emails.team')
