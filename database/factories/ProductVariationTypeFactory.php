@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Factory;
+use App\Models\Product;
 use App\Models\ProductVariationType;
 
 $fakerEN = Factory::create('en_US');
@@ -10,6 +11,7 @@ $fakerIT = Factory::create('it_IT');
 
 $factory->define(ProductVariationType::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
     return [
+        'product_id' => factory(Product::class),
         'name' => [
             'en' => $fakerEN->unique()->name,
             'fr' => $fakerFR->unique()->name,

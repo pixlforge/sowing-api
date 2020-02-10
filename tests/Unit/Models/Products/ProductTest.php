@@ -9,6 +9,7 @@ use App\Models\Stock;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductVariation;
+use App\Models\ProductVariationType;
 use Illuminate\Foundation\Testing\WithFaker;
 
 class ProductTest extends TestCase
@@ -46,6 +47,16 @@ class ProductTest extends TestCase
         );
 
         $this->assertInstanceOf(ProductVariation::class, $this->product->variations->first());
+    }
+
+    /** @test */
+    public function it_has_many_types()
+    {
+        $this->product->types()->save(
+            factory(ProductVariationType::class)->make()
+        );
+
+        $this->assertInstanceOf(ProductVariationType::class, $this->product->types->first());
     }
 
     /** @test */

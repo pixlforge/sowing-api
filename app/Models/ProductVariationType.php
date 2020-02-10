@@ -26,4 +26,14 @@ class ProductVariationType extends Model
     public $translatable = [
         'name',
     ];
+
+    /**
+     * Product relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
