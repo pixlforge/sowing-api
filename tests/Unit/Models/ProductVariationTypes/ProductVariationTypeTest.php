@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Models\ProductVariationTypes;
 
-use App\Models\Product;
 use Tests\TestCase;
+use App\Models\Product;
 use App\Models\ProductVariationType;
 
 class ProductVariationTypeTest extends TestCase
