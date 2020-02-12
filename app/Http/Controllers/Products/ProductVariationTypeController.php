@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Products;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Products\ProductResource;
 use App\Http\Resources\ProductVariationTypes\ProductVariationTypeResource;
 use App\Models\ProductVariationType;
 
@@ -28,8 +29,10 @@ class ProductVariationTypeController extends Controller
     {
         $this->authorize('update', $product);
         
-        $type = $product->types()->create();
+        $product->types()->create();
 
-        return ProductVariationTypeResource::make($type);
+        $product->load('types');
+
+        return ProductResource::make($product);
     }
 }
