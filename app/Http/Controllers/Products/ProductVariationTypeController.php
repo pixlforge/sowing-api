@@ -30,4 +30,6 @@ class ProductVariationTypeController extends Controller
 
         return ProductVariationTypeResource::make($type);
     }
+
+    // TODO: Create the update method
 }
