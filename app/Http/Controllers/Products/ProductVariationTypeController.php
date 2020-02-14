@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Products;
 
 use App\Models\Product;
+use App\Models\ProductVariationType;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductVariationTypes\ProductVariationTypeResource;
+use App\Http\Requests\ProductVariationTypes\ProductVariationTypeUpdateRequest;
 
 class ProductVariationTypeController extends Controller
 {
@@ -31,5 +33,18 @@ class ProductVariationTypeController extends Controller
         return ProductVariationTypeResource::make($type);
     }
 
-    // TODO: Create the update method
+    /**
+     * Update an existing product variation type.
+     *
+     * @param ProductVariationTypeUpdateRequest $request
+     * @param Product $product
+     * @param ProductVariationType $productVariationType
+     * @return void
+     */
+    public function update(ProductVariationTypeUpdateRequest $request, Product $product, ProductVariationType $productVariationType)
+    {
+        $this->authorize('update', $product);
+
+        $productVariationType->update($request->only('name'));
+    }
 }

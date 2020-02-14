@@ -41,23 +41,52 @@ class ProductVariationTypeUpdateTest extends TestCase
     }
 
     /** @test */
+    public function it_fails_if_the_user_does_not_own_the_product()
+    {
+        $otherProduct = factory(Product::class)->create();
+
+        $response = $this->patchJsonAs(
+            $this->user,
+            route('product-variation-types.update', [$otherProduct, $this->type]),
+            [
+                'name' => [
+                    'fr' => 'Updated title'
+                ]
+            ]
+        );
+
+        $response->assertForbidden();
+    }
+
+    /** @test */
+    public function it_requires_at_least_a_name_in_at_least_one_language()
+    {
+        $response = $this->patchJsonAs(
+            $this->user,
+            route('product-variation-types.update', [$this->product, $this->type])
+        );
+
+         $response->assertJsonValidationErrors('name.fr');
+    }
+
+    /** @test */
     public function it_updates_the_name()
     {
-        $response = $this->patchJsonAs($this->user, route('product-variation-types.update', [$this->product, $this->type]), [
-            'name' => [
-                'fr' => $nameFr = $this->faker->firstNameFemale,
-                'en' => $this->faker->firstNameFemale,
-                'de' => $this->faker->firstNameFemale,
-                'it' => $this->faker->firstNameFemale,
+        $response = $this->patchJsonAs(
+            $this->user,
+            route('product-variation-types.update', [$this->product, $this->type]),
+            [
+                'name' => [
+                    'fr' => $nameFr = $this->faker->firstNameFemale,
+                    'en' => $this->faker->firstNameFemale,
+                    'de' => $this->faker->firstNameFemale,
+                    'it' => $this->faker->firstNameFemale,
+                ]
             ]
-        ]);
+        );
 
         $response->assertSuccessful();
 
-        $this->assertDatabaseHas('product_variation_types', [
-            'name' => [
-                'fr' => $nameFr
-            ]
-        ]);
+        $this->assertEquals($nameFr, $this->type->fresh()->name);
     }
 }
