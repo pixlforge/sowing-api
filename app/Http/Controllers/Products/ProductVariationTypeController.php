@@ -36,12 +36,12 @@ class ProductVariationTypeController extends Controller
     /**
      * Update an existing product variation type.
      *
-     * @param ProductVariationTypeUpdateRequest $request
      * @param Product $product
      * @param ProductVariationType $productVariationType
+     * @param ProductVariationTypeUpdateRequest $request
      * @return void
      */
-    public function update(ProductVariationTypeUpdateRequest $request, Product $product, ProductVariationType $productVariationType)
+    public function update(Product $product, ProductVariationType $productVariationType, ProductVariationTypeUpdateRequest $request)
     {
         $this->authorize('update', $product);
 
