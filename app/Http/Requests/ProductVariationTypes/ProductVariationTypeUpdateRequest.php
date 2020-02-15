@@ -25,10 +25,6 @@ class ProductVariationTypeUpdateRequest extends FormRequest
     {
         return [
             'name.*' => 'nullable|string|min:2|max:255',
-            'name.fr' => 'required_without_all:name.en,name.de,name.it',
-            'name.en' => 'required_without_all:name.fr,name.de,name.it',
-            'name.de' => 'required_without_all:name.fr,name.en,name.it',
-            'name.it' => 'required_without_all:name.fr,name.en,name.de',
         ];
     }
 }
