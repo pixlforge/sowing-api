@@ -47,4 +47,21 @@ class ProductVariationTypeController extends Controller
 
         $productVariationType->update($request->only('name'));
     }
+
+    /**
+     * Delete a product variation type from
+     * an existing product.
+     *
+     * @param Product $product
+     * @param ProductVariationType $productVariationType
+     * @return void
+     */
+    public function destroy(Product $product, ProductVariationType $productVariationType)
+    {
+        $this->authorize('update', $product);
+        
+        $productVariationType->delete();
+
+        return response(null, 204);
+    }
 }
