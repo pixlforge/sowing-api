@@ -59,14 +59,14 @@ class ProductVariationTypeUpdateTest extends TestCase
     }
 
     /** @test */
-    public function it_requires_at_least_a_name_in_at_least_one_language()
+    public function it_requires_a_name()
     {
         $response = $this->patchJsonAs(
             $this->user,
             route('product-variation-types.update', [$this->product, $this->type])
         );
 
-         $response->assertJsonValidationErrors('name.fr');
+         $response->assertJsonValidationErrors('name');
     }
 
     /** @test */

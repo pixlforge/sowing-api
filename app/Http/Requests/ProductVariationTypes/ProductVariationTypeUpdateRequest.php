@@ -24,6 +24,7 @@ class ProductVariationTypeUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required',
             'name.*' => 'nullable|string|min:2|max:255',
         ];
     }
