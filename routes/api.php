@@ -21,6 +21,7 @@ use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\Images\ShopImageStoreController;
 use App\Http\Controllers\Newsletters\NewsletterController;
 use App\Http\Controllers\Addresses\AddressShippingController;
+use App\Http\Controllers\Products\ProductVariationController;
 use App\Http\Controllers\Categories\CategoryFeaturedController;
 use App\Http\Controllers\PaymentMethods\PaymentMethodController;
 use App\Http\Controllers\Products\ProductVariationTypeController;
@@ -88,6 +89,7 @@ Route::apiResource('/payment-methods', PaymentMethodController::class);
  * Products
  */
 Route::apiResource('/products', ProductController::class);
+Route::apiResource('/products/{product}/{productVariationType}/product-variations', ProductVariationController::class);
 Route::apiResource('/products/{product}/product-variation-types', ProductVariationTypeController::class);
 
 /**
