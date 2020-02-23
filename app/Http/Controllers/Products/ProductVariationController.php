@@ -9,9 +9,27 @@ use App\Models\ProductVariationType;
 
 class ProductVariationController extends Controller
 {
-    public function store(Request $request, Product $product, ProductVariationType $productVariationType)
+    /**
+     * ProductVariationController constructor.
+     */
+    public function __construct()
     {
-        //  dump($product);
-        // dd($productVariationType);
+        $this->middleware(['auth:api']);
+    }
+    
+    /**
+     * Store a new product variation.
+     *
+     * @param Product $product
+     * @param ProductVariationType $productVariationType
+     * @return void
+     */
+    public function store(Product $product, ProductVariationType $productVariationType)
+    {
+        $this->authorize('update', $product);
+        
+        $productVariation = $product->variations()->create([
+            'product_variation_type_id' => $productVariationType->id()
+        ]);
     }
 }
