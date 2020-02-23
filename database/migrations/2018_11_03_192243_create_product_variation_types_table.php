@@ -15,7 +15,8 @@ class CreateProductVariationTypesTable extends Migration
     {
         Schema::create('product_variation_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->json('name');
+            $table->unsignedBigInteger('product_id');
+            $table->json('name')->nullable();
             $table->timestamps();
         });
     }

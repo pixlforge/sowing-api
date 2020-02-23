@@ -122,6 +122,16 @@ class Product extends Model implements HasMedia, HasScopesContract
     }
 
     /**
+     * Product variation types relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function types()
+    {
+        return $this->hasMany(ProductVariationType::class);
+    }
+
+    /**
      * Variations relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
