@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Products;
 
+use App\Http\Resources\ProductVariationTypes\ProductVariationTypeResource;
 use App\Http\Resources\Shops\ShopResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -36,7 +37,8 @@ class ProductIndexResource extends JsonResource
             ],
             'stock_count' => $this->stockCount(),
             'in_stock' => $this->inStock(),
-            'shop' => new ShopResource($this->shop)
+            'shop' => new ShopResource($this->shop),
+            'types' => ProductVariationTypeResource::collection($this->whenLoaded('types'))
         ];
     }
 }
