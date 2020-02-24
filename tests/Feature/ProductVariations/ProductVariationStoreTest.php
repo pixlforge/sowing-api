@@ -7,6 +7,7 @@ use App\Models\Shop;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\ProductVariationType;
+use App\Http\Resources\ProductVariations\ProductVariationResource;
 
 class ProductVariationStoreTest extends TestCase
 {
@@ -67,6 +68,13 @@ class ProductVariationStoreTest extends TestCase
     /** @test */
     public function it_returns_a_product_variation_resource()
     {
-        $this->markTestIncomplete();
+        $response = $this->postJsonAs(
+            $this->user,
+            route('product-variations.store', [$this->product, $this->productVariationType])
+        );
+
+        $response->assertSuccessful();
+
+        $response->assertResource(ProductVariationResource::make($this->product->variations->first()));
     }
 }

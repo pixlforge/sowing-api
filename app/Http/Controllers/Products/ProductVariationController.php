@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Products;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductVariations\ProductVariationResource;
 use App\Models\ProductVariationType;
 
 class ProductVariationController extends Controller
@@ -22,7 +23,7 @@ class ProductVariationController extends Controller
      *
      * @param Product $product
      * @param ProductVariationType $productVariationType
-     * @return void
+     * @return ProductVariationResource
      */
     public function store(Product $product, ProductVariationType $productVariationType)
     {
@@ -31,5 +32,7 @@ class ProductVariationController extends Controller
         $productVariation = $product->variations()->create([
             'product_variation_type_id' => $productVariationType->id()
         ]);
+
+        return ProductVariationResource::make($productVariation);
     }
 }
