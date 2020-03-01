@@ -14,19 +14,19 @@ class UsersTableSeeder extends Seeder
     {
         factory(User::class)->create([
             'name' => 'Célien',
-            'email' => 'celien@example.com',
+            'email' => 'celien@pixlforge.ch',
             'password' => 'password',
         ]);
 
         factory(User::class)->create([
             'name' => 'Raffaella',
-            'email' => 'raffaella@example.com',
+            'email' => 'raffaella@pixlforge.ch',
             'password' => 'password',
         ]);
 
         factory(User::class)->create([
             'name' => 'Sophie',
-            'email' => 'sophie@example.com',
+            'email' => 'sophie@sowing.ch',
             'password' => 'password',
         ]);
 
