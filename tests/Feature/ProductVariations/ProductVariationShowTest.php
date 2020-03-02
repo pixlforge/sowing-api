@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\ProductVariations;
 
-use App\Http\Resources\ProductVariations\ProductVariationResource;
 use Tests\TestCase;
 use App\Models\Shop;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\ProductVariationType;
+use App\Http\Resources\ProductVariations\ProductVariationResource;
 
 class ProductVariationShowTest extends TestCase
 {
@@ -42,7 +42,6 @@ class ProductVariationShowTest extends TestCase
     {
         $response = $this->getJson(route('product-variations.show', [
             $this->product,
-            $this->productVariationType,
             $this->productVariation
         ]));
 
@@ -52,11 +51,10 @@ class ProductVariationShowTest extends TestCase
     /** @test */
     public function it_fails_if_the_product_variation_cannot_be_found()
     {
-        $response = $this->getJsonAs($this->user, route('product-variations.show', [
-            $this->product,
-            $this->productVariationType,
-            999
-        ]));
+        $response = $this->getJsonAs(
+            $this->user,
+            route('product-variations.show', [$this->product, 999])
+        );
 
         $response->assertNotFound();
     }
@@ -72,7 +70,6 @@ class ProductVariationShowTest extends TestCase
 
         $response = $this->getJsonAs($this->user, route('product-variations.show', [
             $otherProduct,
-            $otherProductVariationType,
             $otherProductVariation
         ]));
 
@@ -86,7 +83,6 @@ class ProductVariationShowTest extends TestCase
             $this->user,
             route('product-variations.show', [
                 $this->product,
-                $this->productVariationType,
                 $this->productVariation
             ])
         );
@@ -101,7 +97,6 @@ class ProductVariationShowTest extends TestCase
             $this->user,
             route('product-variations.show', [
                 $this->product,
-                $this->productVariationType,
                 $this->productVariation
             ])
         );

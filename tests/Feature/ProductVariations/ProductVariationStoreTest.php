@@ -60,7 +60,10 @@ class ProductVariationStoreTest extends TestCase
         
         $response = $this->postJsonAs(
             $this->user,
-            route('product-variations.store', [$this->product, $this->productVariationType])
+            route('product-variations.store', $this->product),
+            [
+                'product_variation_type_id' => $this->productVariationType->id
+            ]
         );
 
         $response->assertSuccessful();
@@ -73,7 +76,10 @@ class ProductVariationStoreTest extends TestCase
     {
         $response = $this->postJsonAs(
             $this->user,
-            route('product-variations.store', [$this->product, $this->productVariationType])
+            route('product-variations.store', $this->product),
+            [
+                'product_variation_type_id' => $this->productVariationType->id
+            ]
         );
 
         $response->assertSuccessful();
