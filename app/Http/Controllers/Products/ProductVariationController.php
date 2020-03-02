@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Products;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\ProductVariation;
+use App\Models\ProductVariationType;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductVariations\ProductVariationResource;
-use App\Models\ProductVariationType;
 
 class ProductVariationController extends Controller
 {
@@ -16,6 +16,21 @@ class ProductVariationController extends Controller
     public function __construct()
     {
         $this->middleware(['auth:api']);
+    }
+
+    /**
+     * Get a specific product variation.
+     *
+     * @param Product $product
+     * @param ProductVariationType $productVariationType
+     * @param ProductVariation $productVariation
+     * @return ProductVariationResource
+     */
+    public function show(Product $product, ProductVariationType $productVariationType, ProductVariation $productVariation)
+    {
+        $this->authorize('update', $product);
+
+        return ProductVariationResource::make($productVariation);
     }
 
     /**
