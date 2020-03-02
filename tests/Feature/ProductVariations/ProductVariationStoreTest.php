@@ -58,7 +58,10 @@ class ProductVariationStoreTest extends TestCase
         
         $this->assertCount(0, $this->product->variations);
         
-        $response = $this->postJsonAs($this->user, route('product-variations.store', [$this->product, $this->productVariationType]));
+        $response = $this->postJsonAs(
+            $this->user,
+            route('product-variations.store', [$this->product, $this->productVariationType])
+        );
 
         $response->assertSuccessful();
 

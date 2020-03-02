@@ -7,6 +7,7 @@ use App\Models\ProductVariation;
 use App\Models\ProductVariationType;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductVariations\ProductVariationResource;
+use Illuminate\Http\Request;
 
 class ProductVariationController extends Controller
 {
@@ -37,15 +38,15 @@ class ProductVariationController extends Controller
      * Store a new product variation.
      *
      * @param Product $product
-     * @param ProductVariationType $productVariationType
+     * @param Request $request
      * @return ProductVariationResource
      */
-    public function store(Product $product, ProductVariationType $productVariationType)
+    public function store(Product $product, Request $request)
     {
         $this->authorize('update', $product);
-        
+
         $productVariation = $product->variations()->create([
-            'product_variation_type_id' => $productVariationType->id()
+            'product_variation_type_id' => $request->product_variation_type_id
         ]);
 
         return ProductVariationResource::make($productVariation);
