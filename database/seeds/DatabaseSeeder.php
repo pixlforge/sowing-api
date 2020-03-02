@@ -41,25 +41,28 @@ class DatabaseSeeder extends Seeder
          */
         $this->call(ShippingMethodsTableSeeder::class);
 
-        /**
-         * Development
-         */
-        factory(Category::class)->create([
-            'name' => $name = [
-                'en' => 'Coffee',
-                'fr' => 'Café',
-                'de' => 'Kaffee',
-                'it' => 'Caffè',
-            ],
-            'slug' => Str::slug($name['en']),
-            'parent_id' => Category::whereSlug('local-products')->first()->id,
-        ]);
+        // Remove before deploying to production.
+        $this->callDevelopmentOnlySeeders();
+    }
+
+    public function callDevelopmentOnlySeeders()
+    {
+        // factory(Category::class)->create([
+        //     'name' => $name = [
+        //         'en' => 'Coffee',
+        //         'fr' => 'Café',
+        //         'de' => 'Kaffee',
+        //         'it' => 'Caffè',
+        //     ],
+        //     'slug' => Str::slug($name['en']),
+        //     'parent_id' => Category::whereSlug('local-products')->first()->id,
+        // ]);
 
         $this->call(ShopsTableSeeder::class);
-        $this->call(ProductsTableSeeder::class);
-        $this->call(ProductVariationTypesTableSeeder::class);
-        $this->call(ProductVariationsTableSeeder::class);
-        $this->call(StocksTableSeeder::class);
+        // $this->call(ProductsTableSeeder::class);
+        // $this->call(ProductVariationTypesTableSeeder::class);
+        // $this->call(ProductVariationsTableSeeder::class);
+        // $this->call(StocksTableSeeder::class);
         $this->call(AddressesTableSeeder::class);
         // $this->call(PaymentMethodsTableSeeder::class);
     }

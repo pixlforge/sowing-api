@@ -17,7 +17,7 @@ class ProductVariationController extends Controller
     {
         $this->middleware(['auth:api']);
     }
-    
+
     /**
      * Store a new product variation.
      *
