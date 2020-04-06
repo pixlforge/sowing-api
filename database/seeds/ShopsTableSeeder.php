@@ -23,7 +23,7 @@ class ShopsTableSeeder extends Seeder
             'country_id' => $country->id
         ]);
 
-        $user = User::where('email', 'celien@example.com')->first();
+        $user = User::where('email', 'celien@pixlforge.ch')->first();
 
         factory(Shop::class)->create([
             'user_id' => $user->id,

@@ -28,6 +28,16 @@ class ProductVariationType extends Model
     ];
 
     /**
+     * Return the model's id.
+     *
+     * @return int
+     */
+    public function id()
+    {
+        return $this->id;
+    }
+
+    /**
      * Product relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

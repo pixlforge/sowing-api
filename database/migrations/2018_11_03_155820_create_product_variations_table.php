@@ -15,7 +15,7 @@ class CreateProductVariationsTable extends Migration
     {
         Schema::create('product_variations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->json('name');
+            $table->json('name')->nullable();
             $table->json('description')->nullable();
             $table->integer('price')->nullable();
             $table->integer('order')->nullable();
