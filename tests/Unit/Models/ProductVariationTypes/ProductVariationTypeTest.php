@@ -20,4 +20,10 @@ class ProductVariationTypeTest extends TestCase
     {   
         $this->assertInstanceOf(Product::class, $this->productVariationType->product);
     }
+
+    /** @test */
+    public function it_returns_the_model_id()
+    {
+        $this->assertEquals($this->productVariationType->id, $this->productVariationType->id());
+    }
 }
