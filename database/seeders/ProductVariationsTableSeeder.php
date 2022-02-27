@@ -22,7 +22,7 @@ class ProductVariationsTableSeeder extends Seeder
         /**
          * Coffee
          */
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '250g',
                 'fr' => '250g',
@@ -40,7 +40,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $coffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '500g',
                 'fr' => '500g',
@@ -59,7 +59,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $coffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '1kg',
                 'fr' => '1kg',
@@ -78,7 +78,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $coffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '250g',
                 'fr' => '250g',
@@ -96,7 +96,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $coffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '500g',
                 'fr' => '500g',
@@ -115,7 +115,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $coffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '1kg',
                 'fr' => '1kg',
@@ -137,7 +137,7 @@ class ProductVariationsTableSeeder extends Seeder
         /**
          * Super Coffee
          */
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '250g',
                 'fr' => '250g',
@@ -155,7 +155,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $superCoffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '500g',
                 'fr' => '500g',
@@ -174,7 +174,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $superCoffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '1kg',
                 'fr' => '1kg',
@@ -193,7 +193,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $superCoffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '250g',
                 'fr' => '250g',
@@ -211,7 +211,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $superCoffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '500g',
                 'fr' => '500g',
@@ -230,7 +230,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $superCoffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '1kg',
                 'fr' => '1kg',
@@ -252,7 +252,7 @@ class ProductVariationsTableSeeder extends Seeder
         /**
          * Awesome Coffee
          */
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '250g',
                 'fr' => '250g',
@@ -270,7 +270,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $awesomeCoffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '500g',
                 'fr' => '500g',
@@ -289,7 +289,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $awesomeCoffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '1kg',
                 'fr' => '1kg',
@@ -308,7 +308,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $awesomeCoffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '250g',
                 'fr' => '250g',
@@ -326,7 +326,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $awesomeCoffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '500g',
                 'fr' => '500g',
@@ -345,7 +345,7 @@ class ProductVariationsTableSeeder extends Seeder
             'product_id' => $awesomeCoffee->id,
         ]);
 
-        factory(ProductVariation::class)->create([
+        ProductVariation::factory()->create([
             'name' => [
                 'en' => '1kg',
                 'fr' => '1kg',

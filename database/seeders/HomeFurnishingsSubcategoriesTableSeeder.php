@@ -17,7 +17,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
     {
         $parent = Category::whereSlug('home-furnishings')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Living room',
                 'fr' => 'Salon',
@@ -29,7 +29,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Dining room',
                 'fr' => 'Salle à manger',
@@ -41,7 +41,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Kitchen',
                 'fr' => 'Cuisine',
@@ -53,7 +53,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Office',
                 'fr' => 'Bureau',
@@ -65,7 +65,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 4,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Adult\'s room',
                 'fr' => 'Chambre d\'adulte',
@@ -77,7 +77,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 5,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Child\'s room',
                 'fr' => 'Chambre d\'enfant',
@@ -89,7 +89,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 6,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Baby room',
                 'fr' => 'Chambre de bébé',
@@ -101,7 +101,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 7,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Bathroom',
                 'fr' => 'Salle de bain',
@@ -113,7 +113,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 8,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Adornment',
                 'fr' => 'Décoration',
@@ -125,7 +125,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 9,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Plants',
                 'fr' => 'Plantes',
@@ -137,7 +137,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 10,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Linens',
                 'fr' => 'Linge de maison',
@@ -149,7 +149,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 11,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Carpet',
                 'fr' => 'Tapis',
@@ -161,7 +161,7 @@ class HomeFurnishingsSubcategoriesTableSeeder extends Seeder
             'order' => 12,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Garden',
                 'fr' => 'Jardin',

@@ -19,33 +19,33 @@ class ShippingMethodsTableSeeder extends Seeder
         $uk = Country::where('code', 'UK')->first();
 
         $switzerland->shippingMethods()->attach([
-            factory(ShippingMethod::class)->create([
+            ShippingMethod::factory()->create([
                 'name' => 'PostPac Priority',
                 'price' => 2000
             ])->id,
     
-            factory(ShippingMethod::class)->create([
+            ShippingMethod::factory()->create([
                 'name' => 'PostPac Economy'
             ])->id,
     
-            factory(ShippingMethod::class)->create([
+            ShippingMethod::factory()->create([
                 'name' => 'UPS',
                 'price' => 3000
             ])->id,
     
-            factory(ShippingMethod::class)->create([
+            ShippingMethod::factory()->create([
                 'name' => 'DPD',
                 'price' => 2500
             ])->id,
     
-            factory(ShippingMethod::class)->create([
+            ShippingMethod::factory()->create([
                 'name' => 'DHL',
                 'price' => 2300
             ])->id
         ]);
 
         $uk->shippingMethods()->attach([
-            factory(ShippingMethod::class)->create([
+            ShippingMethod::factory()->create([
                 'name' => 'Royal Mail',
                 'price' => 1400
             ])->id

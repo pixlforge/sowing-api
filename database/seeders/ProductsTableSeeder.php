@@ -20,7 +20,7 @@ class ProductsTableSeeder extends Seeder
         $shop = Shop::first();
 
         $category->products()->save(
-            factory(Product::class)->create([
+            Product::factory()->create([
                 'shop_id' => $shop->id,
                 'name' => [
                     'en' => $name = 'Coffee',
@@ -32,7 +32,7 @@ class ProductsTableSeeder extends Seeder
         );
 
         $category->products()->save(
-            factory(Product::class)->create([
+            Product::factory()->create([
                 'shop_id' => $shop->id,
                 'name' => [
                     'en' => $name = 'Super coffee',
@@ -45,7 +45,7 @@ class ProductsTableSeeder extends Seeder
         );
 
         $category->products()->save(
-            factory(Product::class)->create([
+            Product::factory()->create([
                 'shop_id' => $shop->id,
                 'name' => [
                     'en' => $name = 'Awesome coffee',

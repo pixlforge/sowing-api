@@ -14,32 +14,32 @@ class StocksTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Stock::class)->create([
+        Stock::factory()->create([
             'product_variation_id' => 1,
             'quantity' => 100
         ]);
 
-        factory(Stock::class)->create([
+        Stock::factory()->create([
             'product_variation_id' => 2,
             'quantity' => 50
         ]);
 
-        factory(Stock::class)->create([
+        Stock::factory()->create([
             'product_variation_id' => 3,
             'quantity' => 20
         ]);
 
-        factory(Stock::class)->create([
+        Stock::factory()->create([
             'product_variation_id' => 4,
             'quantity' => 100
         ]);
 
-        factory(Stock::class)->create([
+        Stock::factory()->create([
             'product_variation_id' => 5,
             'quantity' => 50
         ]);
 
-        factory(Stock::class)->create([
+        Stock::factory()->create([
             'product_variation_id' => 6,
             'quantity' => 20
         ]);

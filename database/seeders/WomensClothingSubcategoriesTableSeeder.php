@@ -17,7 +17,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
     {
         $parent = Category::whereSlug('clothing')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Women',
                 'fr' => 'Femmes',
@@ -32,7 +32,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
 
         $parent = Category::whereSlug('section-women-clothing')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Dresses',
                 'fr' => 'Robes',
@@ -44,7 +44,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Shirts & Tunics',
                 'fr' => 'Chemises & Tuniques',
@@ -56,7 +56,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Tops & T-shirts',
                 'fr' => 'Tops & T-shirts',
@@ -68,7 +68,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Sweaters',
                 'fr' => 'Pulls',
@@ -80,7 +80,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 4,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Sweatshirts',
                 'fr' => 'Sweatshirts',
@@ -92,7 +92,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 5,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Pants',
                 'fr' => 'Pantalons',
@@ -104,7 +104,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 6,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Overalls',
                 'fr' => 'Combinaisons',
@@ -116,7 +116,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 7,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Skirts',
                 'fr' => 'Jupes',
@@ -128,7 +128,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 8,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Shorts',
                 'fr' => 'Shorts',
@@ -140,7 +140,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 9,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Jackets',
                 'fr' => 'Vestes',
@@ -152,7 +152,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 10,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Blazers',
                 'fr' => 'Blazers',
@@ -164,7 +164,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 11,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Coats',
                 'fr' => 'Manteaux',
@@ -176,7 +176,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 12,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Lingerie',
                 'fr' => 'Lingerie',
@@ -188,7 +188,7 @@ class WomensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 13,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Shoes',
                 'fr' => 'Chaussures',

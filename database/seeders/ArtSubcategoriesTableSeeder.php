@@ -17,7 +17,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
     {
         $parent = Category::whereSlug('art')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Painting',
                 'fr' => 'Peinture',
@@ -29,7 +29,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Photography',
                 'fr' => 'Photographie',
@@ -41,7 +41,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Sculpture',
                 'fr' => 'Sculpture',
@@ -53,7 +53,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Engraving',
                 'fr' => 'Gravure',
@@ -65,7 +65,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
             'order' => 4,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Drawings & illustrations',
                 'fr' => 'Dessin & illustration',
@@ -77,7 +77,7 @@ class ArtSubcategoriesTableSeeder extends Seeder
             'order' => 5,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Other',
                 'fr' => 'Autre',

@@ -17,7 +17,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
     {
         $parent = Category::whereSlug('clothing')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Men',
                 'fr' => 'Hommes',
@@ -32,7 +32,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
 
         $parent = Category::whereSlug('section-men-clothing')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Shirts',
                 'fr' => 'Chemises',
@@ -44,7 +44,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'T-shirts & Polos',
                 'fr' => 'T-shirts & Polos',
@@ -56,7 +56,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Sweaters',
                 'fr' => 'Pulls',
@@ -68,7 +68,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Pants',
                 'fr' => 'Pantalons',
@@ -80,7 +80,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 4,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Shorts',
                 'fr' => 'Shorts',
@@ -92,7 +92,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 5,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Jackets',
                 'fr' => 'Vestes',
@@ -104,7 +104,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 6,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Coats',
                 'fr' => 'Manteaux',
@@ -116,7 +116,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 7,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Suits',
                 'fr' => 'Costumes',
@@ -128,7 +128,7 @@ class MensClothingSubcategoriesTableSeeder extends Seeder
             'order' => 8,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Underwear',
                 'fr' => 'Sous-vêtements',

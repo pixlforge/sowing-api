@@ -17,7 +17,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
     {
         $parent = Category::whereSlug('stationery-party')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Cards',
                 'fr' => 'Cartes',
@@ -29,7 +29,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Invitations',
                 'fr' => 'Faire-parts',
@@ -41,7 +41,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Decorations',
                 'fr' => 'Décorations',
@@ -53,7 +53,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Boxes',
                 'fr' => 'Boîtes',
@@ -65,7 +65,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
             'order' => 4,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Wedding Cushions',
                 'fr' => 'Coussins d\'alliances',
@@ -77,7 +77,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
             'order' => 5,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Stencils',
                 'fr' => 'Pochoirs',
@@ -89,7 +89,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
             'order' => 6,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Notebooks',
                 'fr' => 'Cahiers',
@@ -101,7 +101,7 @@ class StationerySubcategoriesTableSeeder extends Seeder
             'order' => 7,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Other',
                 'fr' => 'Autre',

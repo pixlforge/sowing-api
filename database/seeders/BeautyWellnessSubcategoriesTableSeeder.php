@@ -17,7 +17,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
     {
         $parent = Category::whereSlug('beauty-wellness')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Facial care',
                 'fr' => 'Soin du visage',
@@ -29,7 +29,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Body care',
                 'fr' => 'Soin du corps',
@@ -41,7 +41,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Hair care',
                 'fr' => 'Soin des cheveux',
@@ -53,7 +53,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Perfume',
                 'fr' => 'Parfums',
@@ -65,7 +65,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
             'order' => 4,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Makeup',
                 'fr' => 'Maquillages',
@@ -77,7 +77,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
             'order' => 5,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Soaps',
                 'fr' => 'Savons',
@@ -89,7 +89,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
             'order' => 6,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Natural household products',
                 'fr' => 'Produits ménagers naturels',
@@ -101,7 +101,7 @@ class BeautyWellnessSubcategoriesTableSeeder extends Seeder
             'order' => 7,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Other',
                 'fr' => 'Autre',

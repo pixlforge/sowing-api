@@ -19,7 +19,7 @@ class ShopsTableSeeder extends Seeder
         $user = User::where('email', 'testuser1@example.com')->first();
         $country = Country::where('code', 'CH')->first();
         
-        factory(Shop::class)->create([
+        Shop::factory()->create([
             'user_id' => $user->id,
             'name' => 'Test User 1 Shop',
             'country_id' => $country->id
@@ -27,7 +27,7 @@ class ShopsTableSeeder extends Seeder
 
         $user = User::where('email', 'celien@pixlforge.ch')->first();
 
-        factory(Shop::class)->create([
+        Shop::factory()->create([
             'user_id' => $user->id,
             'name' => 'Pixlforge',
             'country_id' => $country->id

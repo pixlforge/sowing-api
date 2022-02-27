@@ -17,7 +17,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
     {
         $parent = Category::whereSlug('children')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Babies',
                 'fr' => 'Bébés',
@@ -32,7 +32,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
 
         $parent = Category::whereSlug('section-babies-children')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Tops',
                 'fr' => 'Hauts',
@@ -44,7 +44,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Bottom',
                 'fr' => 'Bas',
@@ -56,7 +56,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Dresses',
                 'fr' => 'Robes',
@@ -68,7 +68,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Sets',
                 'fr' => 'Ensembles',
@@ -80,7 +80,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 4,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Bodys',
                 'fr' => 'Bodys',
@@ -92,7 +92,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 5,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Pajamas',
                 'fr' => 'Pyjamas',
@@ -104,7 +104,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 6,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Bathrobs',
                 'fr' => 'Peignoirs',
@@ -116,7 +116,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 7,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Overalls & coats',
                 'fr' => 'Combinaisons & manteaux',
@@ -128,7 +128,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 8,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Sleeping bags',
                 'fr' => 'Gigoteuses',
@@ -140,7 +140,7 @@ class BabiesChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 9,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Slippers',
                 'fr' => 'Chaussons',

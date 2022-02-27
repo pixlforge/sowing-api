@@ -15,7 +15,7 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Jewelry & accessories',
                 'fr' => 'Bijoux & accessoires',
@@ -32,7 +32,7 @@ class CategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Clothing',
                 'fr' => 'Vêtements',
@@ -49,7 +49,7 @@ class CategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Beauty & Wellness',
                 'fr' => 'Beauté & bien-être',
@@ -66,7 +66,7 @@ class CategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Home & Furnishings',
                 'fr' => 'Maison & ameublement',
@@ -83,7 +83,7 @@ class CategoriesTableSeeder extends Seeder
             'order' => 4,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Stationery & Party',
                 'fr' => 'Papeterie & Fêtes',
@@ -100,7 +100,7 @@ class CategoriesTableSeeder extends Seeder
             'order' => 5,
             ]);
             
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Children',
                 'fr' => 'Enfants',
@@ -117,7 +117,7 @@ class CategoriesTableSeeder extends Seeder
             'order' => 6,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Art',
                 'fr' => 'Art',
@@ -134,7 +134,7 @@ class CategoriesTableSeeder extends Seeder
             'order' => 7,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Local products',
                 'fr' => 'Produits locaux',

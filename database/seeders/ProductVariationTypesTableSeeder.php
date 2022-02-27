@@ -14,7 +14,7 @@ class ProductVariationTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(ProductVariationType::class)->create([
+        ProductVariationType::factory()->create([
             'name' => [
                 'en' => 'Whole beans',
                 'fr' => 'Grains entiers',
@@ -23,7 +23,7 @@ class ProductVariationTypesTableSeeder extends Seeder
             ],
         ]);
 
-        factory(ProductVariationType::class)->create([
+        ProductVariationType::factory()->create([
             'name' => [
                 'en' => 'Ground',
                 'fr' => 'Moulu',

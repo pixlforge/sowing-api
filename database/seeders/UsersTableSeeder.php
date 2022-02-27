@@ -14,37 +14,37 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'name' => 'Célien',
             'email' => 'celien@pixlforge.ch',
             'password' => 'password',
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'name' => 'Raffaella',
             'email' => 'raffaella@pixlforge.ch',
             'password' => 'password',
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'name' => 'Sophie',
             'email' => 'sophie@sowing.ch',
             'password' => 'password',
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'name' => 'Test User 1',
             'email' => 'testuser1@example.com',
             'password' => 'password',
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'name' => 'Test User 2',
             'email' => 'testuser2@example.com',
             'password' => 'password',
         ]);
 
-        factory(User::class)->create([
+        User::factory()->create([
             'name' => 'Test User 3',
             'email' => 'testuser3@example.com',
             'password' => 'password',

@@ -17,7 +17,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
     {
         $parent = Category::whereSlug('jewelry-accessories')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Necklaces',
                 'fr' => 'Colliers',
@@ -29,7 +29,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Bracelets',
                 'fr' => 'Bracelets',
@@ -41,7 +41,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Earrings',
                 'fr' => "Boucles d'oreille",
@@ -53,7 +53,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Rings',
                 'fr' => 'Bagues',
@@ -65,7 +65,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 4,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Hats & Caps',
                 'fr' => 'Chapeaux & Casquettes',
@@ -77,7 +77,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 5,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Scarves',
                 'fr' => 'Écharpes & foulards',
@@ -89,7 +89,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 6,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Gloves',
                 'fr' => 'Gants',
@@ -101,7 +101,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 7,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Belts & suspenders',
                 'fr' => 'Ceintures & bretelles',
@@ -113,7 +113,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 8,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Bags',
                 'fr' => 'Sacs',
@@ -125,7 +125,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 9,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Ties',
                 'fr' => 'Nœuds & Cravates',
@@ -137,7 +137,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 10,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Hair accessories',
                 'fr' => 'Accessoires de coiffure',
@@ -149,7 +149,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 11,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Key holders',
                 'fr' => 'Porte-clés',
@@ -161,7 +161,7 @@ class JewelrySubcategoriesTableSeeder extends Seeder
             'order' => 12,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Wallets & Cases',
                 'fr' => 'Portefeuilles & Étuis',

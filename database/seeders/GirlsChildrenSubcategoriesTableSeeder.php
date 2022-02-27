@@ -17,7 +17,7 @@ class GirlsChildrenSubcategoriesTableSeeder extends Seeder
     {
         $parent = Category::whereSlug('children')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Girls',
                 'fr' => 'Filles',
@@ -32,7 +32,7 @@ class GirlsChildrenSubcategoriesTableSeeder extends Seeder
 
         $parent = Category::whereSlug('section-girls-children')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Dresses',
                 'fr' => 'Robes',
@@ -44,7 +44,7 @@ class GirlsChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Skirts',
                 'fr' => 'Jupes',
@@ -56,7 +56,7 @@ class GirlsChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Tops',
                 'fr' => 'Hauts',
@@ -68,7 +68,7 @@ class GirlsChildrenSubcategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Jackets & coats',
                 'fr' => 'Vestes & manteaux',

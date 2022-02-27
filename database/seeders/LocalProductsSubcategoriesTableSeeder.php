@@ -17,7 +17,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
     {
         $parent = Category::whereSlug('local-products')->first();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Pasta',
                 'fr' => 'Pâtes',
@@ -29,7 +29,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 1,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Non-alcoholic drinks',
                 'fr' => 'Boissons sans alcool',
@@ -41,7 +41,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 2,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Alcoholic drinks',
                 'fr' => 'Boissons avec alcool',
@@ -53,7 +53,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 3,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Meat',
                 'fr' => 'Viande',
@@ -65,7 +65,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 4,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Coffee & Tea',
                 'fr' => 'Café & Thés',
@@ -77,7 +77,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 5,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Preserves',
                 'fr' => 'Conserves',
@@ -89,7 +89,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 6,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Jams',
                 'fr' => 'Confitures',
@@ -101,7 +101,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 7,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Dressings',
                 'fr' => 'Sauces',
@@ -113,7 +113,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 8,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Herbs, spices & seasonings',
                 'fr' => 'Herbes, épices & assaisonnements',
@@ -125,7 +125,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 9,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Confectionery',
                 'fr' => 'Confiserie',
@@ -137,7 +137,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 10,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Biscuits',
                 'fr' => 'Biscuits',
@@ -149,7 +149,7 @@ class LocalProductsSubcategoriesTableSeeder extends Seeder
             'order' => 11,
         ]);
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'name' => $name = [
                 'en' => 'Dried fruits',
                 'fr' => 'Fruits séchés',

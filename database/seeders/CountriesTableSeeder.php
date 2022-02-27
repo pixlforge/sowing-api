@@ -14,7 +14,7 @@ class CountriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'AT',
             'name' => [
                 'en' => 'Austria',
@@ -24,7 +24,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'BE',
             'name' => [
                 'en' => 'Belgium',
@@ -34,7 +34,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'CA',
             'name' => [
                 'en' => 'Canada',
@@ -44,7 +44,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'CH',
             'name' => [
                 'en' => 'Switzerland',
@@ -54,7 +54,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'DE',
             'name' => [
                 'en' => 'Germany',
@@ -64,7 +64,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'ES',
             'name' => [
                 'en' => 'Spain',
@@ -74,7 +74,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'FR',
             'name' => [
                 'en' => 'France',
@@ -84,7 +84,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'IT',
             'name' => [
                 'en' => 'Italy',
@@ -94,7 +94,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'LI',
             'name' => [
                 'en' => 'Liechtenstein',
@@ -104,7 +104,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'LU',
             'name' => [
                 'en' => 'Luxembourg',
@@ -114,7 +114,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'NL',
             'name' => [
                 'en' => 'Netherlands',
@@ -124,7 +124,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'PT',
             'name' => [
                 'en' => 'Portugal',
@@ -134,7 +134,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'PL',
             'name' => [
                 'en' => 'Poland',
@@ -144,7 +144,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'UK',
             'name' => [
                 'en' => 'United Kingdom',
@@ -154,7 +154,7 @@ class CountriesTableSeeder extends Seeder
             ]
         ]);
 
-        factory(Country::class)->create([
+        Country::factory()->create([
             'code' => 'US',
             'name' => [
                 'en' => 'United States',
