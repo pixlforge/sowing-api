@@ -11,7 +11,6 @@
         "php": "^8.1",
         "algolia/scout-extended": "^2.0",
         "dmitrybubyakin/nova-medialibrary-field": "^1.1",
-        "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.4",
         "laravel/framework": "^9.0",
