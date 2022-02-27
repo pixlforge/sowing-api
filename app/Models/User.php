@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Mail\Password\ForgotPasswordRequestEmail;
