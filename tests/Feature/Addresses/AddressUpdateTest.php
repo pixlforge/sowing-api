@@ -16,10 +16,10 @@ class AddressUpdateTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->addresses()->save(
-            $this->address = factory(Address::class)->state('default')->make()
+            $this->address = Address::factory()->state('default')->make()
         );
     }
 
@@ -302,7 +302,7 @@ class AddressUpdateTest extends TestCase
     /** @test */
     public function it_cannot_update_another_users_address()
     {
-        $address = factory(Address::class)->create();
+        $address = Address::factory()->create();
 
         $response = $this->patchJsonAs($this->user, route('addresses.update', $address), [
             'first_name' => $this->faker->firstName,
@@ -365,7 +365,7 @@ class AddressUpdateTest extends TestCase
     public function it_unsets_old_addresses_as_default_when_updating()
     {
         $this->user->addresses()->save(
-            $address = factory(Address::class)->make()
+            $address = Address::factory()->make()
         );
 
         $this->assertTrue($this->address->isDefault());

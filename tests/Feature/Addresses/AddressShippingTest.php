@@ -14,14 +14,14 @@ class AddressShippingTest extends TestCase
     {
         parent::setUp();
         
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->addresses()->save(
-            $this->address = factory(Address::class)->make()
+            $this->address = Address::factory()->make()
         );
 
         $this->address->country->shippingMethods()->attach(
-            factory(ShippingMethod::class)->create()
+            ShippingMethod::factory()->create()
         );
     }
 
@@ -44,7 +44,7 @@ class AddressShippingTest extends TestCase
     /** @test */
     public function it_fails_if_the_user_does_not_own_the_address()
     {
-        $address = factory(Address::class)->create();
+        $address = Address::factory()->create();
 
         $response = $this->getJsonAs($this->user, route('addresses.shipping', $address));
 

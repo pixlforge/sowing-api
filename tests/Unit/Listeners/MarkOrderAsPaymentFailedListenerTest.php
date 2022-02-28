@@ -12,7 +12,7 @@ class MarkOrderAsPaymentFailedListenerTest extends TestCase
     /** @test */
     public function it_marks_the_order_as_payment_failed()
     {
-        $order = factory(Order::class)->create();
+        $order = Order::factory()->create();
 
         $event = new OrderPaymentFailed($order);
         

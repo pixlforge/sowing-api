@@ -18,16 +18,16 @@ class ProductUpdateTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->shop()->save(
-            $this->shop = factory(Shop::class)->make()
+            $this->shop = Shop::factory()->make()
         );
 
-        $this->category = factory(Category::class)->create();
+        $this->category = Category::factory()->create();
 
         $this->user->shop->products()->save(
-            $this->product = factory(Product::class)->make()
+            $this->product = Product::factory()->make()
         );
     }
 
@@ -42,7 +42,7 @@ class ProductUpdateTest extends TestCase
     /** @test */
     public function it_fails_if_the_user_does_not_own_the_shop_the_product_is_associated_to()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->patchJsonAs($user, route('products.update', $this->product), [
             'category_id' => $this->category->id
@@ -139,7 +139,7 @@ class ProductUpdateTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $category = factory(Category::class)->create();
+        $category = Category::factory()->create();
 
         $response = $this->patchJsonAs($this->user, route('products.update', $this->product), [
             'name' => [

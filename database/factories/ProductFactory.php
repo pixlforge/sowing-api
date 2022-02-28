@@ -11,7 +11,7 @@ $fakerIT = Factory::create('it_IT');
 
 $factory->define(Product::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
     return [
-        'shop_id' => factory(Shop::class),
+        'shop_id' => Shop::factory(),
         'name' => [
             'en' => $name = $fakerEN->unique()->name,
             'fr' => $fakerFR->unique()->name,

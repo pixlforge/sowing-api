@@ -15,7 +15,7 @@ class ProductVariationTest extends TestCase
     {
         parent::setUp();
 
-        $this->variation = factory(ProductVariation::class)->create();
+        $this->variation = ProductVariation::factory()->create();
     }
     
     /** @test */
@@ -48,12 +48,12 @@ class ProductVariationTest extends TestCase
     /** @test */
     public function it_returns_the_product_price_if_price_is_null()
     {
-        $product = factory(Product::class)->create([
+        $product = Product::factory()->create([
             'price' => 1000
         ]);
 
         $product->variations()->save(
-            $variation = factory(ProductVariation::class)->create([
+            $variation = ProductVariation::factory()->create([
                 'price' => null
             ])
         );
@@ -64,12 +64,12 @@ class ProductVariationTest extends TestCase
     /** @test */
     public function it_can_check_if_the_variation_price_is_different_from_the_product()
     {
-        $product = factory(Product::class)->create([
+        $product = Product::factory()->create([
             'price' => 1000
         ]);
 
         $product->variations()->save(
-            $variation = factory(ProductVariation::class)->create([
+            $variation = ProductVariation::factory()->create([
                 'price' => 2000
             ])
         );
@@ -81,7 +81,7 @@ class ProductVariationTest extends TestCase
     public function it_has_many_stocks()
     {
         $this->variation->stocks()->save(
-            factory(Stock::class)->create()
+            Stock::factory()->create()
         );
 
         $this->assertInstanceOf(Stock::class, $this->variation->stocks->first());
@@ -91,7 +91,7 @@ class ProductVariationTest extends TestCase
     public function it_has_stock_information()
     {
         $this->variation->stocks()->save(
-            factory(Stock::class)->make()
+            Stock::factory()->make()
         );
 
         $this->assertInstanceOf(ProductVariation::class, $this->variation->stock->first());
@@ -101,7 +101,7 @@ class ProductVariationTest extends TestCase
     public function it_has_stock_count_pivot_within_stock_information()
     {
         $this->variation->stocks()->save(
-            factory(Stock::class)->make([
+            Stock::factory()->make([
                 'quantity' => $quantity = 5
             ])
         );
@@ -113,7 +113,7 @@ class ProductVariationTest extends TestCase
     public function it_has_in_stock_pivot_within_stock_information()
     {
         $this->variation->stocks()->save(
-            factory(Stock::class)->make()
+            Stock::factory()->make()
         );
 
         $this->assertTrue($this->variation->stock->first()->pivot->in_stock);
@@ -123,7 +123,7 @@ class ProductVariationTest extends TestCase
     public function it_can_check_if_it_is_in_stock()
     {
         $this->variation->stocks()->save(
-            factory(Stock::class)->make()
+            Stock::factory()->make()
         );
 
         $this->assertTrue($this->variation->inStock());
@@ -133,7 +133,7 @@ class ProductVariationTest extends TestCase
     public function it_can_get_the_stock_count()
     {
         $this->variation->stocks()->save(
-            factory(Stock::class)->make([
+            Stock::factory()->make([
                 'quantity' => $quantity = 5
             ])
         );
@@ -145,7 +145,7 @@ class ProductVariationTest extends TestCase
     public function it_can_get_the_minimum_stock_for_a_given_value()
     {
         $this->variation->stocks()->save(
-            factory(Stock::class)->make([
+            Stock::factory()->make([
                 'quantity' => $quantity = 5
             ])
         );

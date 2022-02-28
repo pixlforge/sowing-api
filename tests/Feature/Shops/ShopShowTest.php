@@ -19,7 +19,7 @@ class ShopShowTest extends TestCase
     /** @test */
     public function it_returns_a_shop_resource()
     {
-        $shop = factory(Shop::class)->create();
+        $shop = Shop::factory()->create();
 
         $response = $this->getJson(route('shops.show', $shop->slug));
 

@@ -12,7 +12,7 @@ class ShopCheckerTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
     
     /** @test */
@@ -36,7 +36,7 @@ class ShopCheckerTest extends TestCase
     /** @test */
     public function it_fails_when_the_name_is_unavailable()
     {
-        factory(Shop::class)->create([
+        Shop::factory()->create([
             'name' => 'My Awesome Shop'
         ]);
 

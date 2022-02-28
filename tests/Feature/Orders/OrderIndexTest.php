@@ -13,10 +13,10 @@ class OrderIndexTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->orders()->save(
-            $this->order = factory(Order::class)->make()
+            $this->order = Order::factory()->make()
         );
     }
     /** @test */
@@ -38,7 +38,7 @@ class OrderIndexTest extends TestCase
     /** @test */
     public function it_orders_by_the_latest_first()
     {
-        $anotherOrder = factory(Order::class)->create([
+        $anotherOrder = Order::factory()->create([
             'user_id' => $this->user->id,
             'created_at' => now()->subDay()
         ]);

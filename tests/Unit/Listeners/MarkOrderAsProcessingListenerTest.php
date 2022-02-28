@@ -12,7 +12,7 @@ class MarkOrderAsProcessingListenerTest extends TestCase
     /** @test */
     public function it_marks_the_order_as_processing()
     {
-        $order = factory(Order::class)->create();
+        $order = Order::factory()->create();
 
         $event = new OrderPaymentSuccessful($order);
         

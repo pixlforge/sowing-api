@@ -16,11 +16,11 @@ class ShopUpdateTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
-        $this->country = factory(Country::class)->create();
+        $this->country = Country::factory()->create();
 
-        $this->shop = factory(Shop::class)->create([
+        $this->shop = Shop::factory()->create([
             'user_id' => $this->user->id,
             'country_id' => $this->country->id
         ]);
@@ -195,9 +195,9 @@ class ShopUpdateTest extends TestCase
     /** @test */
     public function it_fails_if_the_user_does_not_own_the_shop()
     {
-        $anotherUser = factory(User::class)->create();
+        $anotherUser = User::factory()->create();
 
-        $shop = factory(Shop::class)->create([
+        $shop = Shop::factory()->create([
             'user_id' => $anotherUser->id,
             'country_id' => $this->country->id
         ]);

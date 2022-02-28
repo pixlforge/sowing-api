@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
 
     public function callDevelopmentOnlySeeders()
     {
-        // factory(Category::class)->create([
+        // Category::factory()->create([
         //     'name' => $name = [
         //         'en' => 'Coffee',
         //         'fr' => 'Café',

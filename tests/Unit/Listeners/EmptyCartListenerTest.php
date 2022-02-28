@@ -14,11 +14,11 @@ class EmptyCartListenerTest extends TestCase
     public function it_should_clear_the_cart()
     {
         $cart = new Cart(
-            $user = factory(User::class)->create()
+            $user = User::factory()->create()
         );
 
         $user->cart()->attach(
-            factory(ProductVariation::class)->create()
+            ProductVariation::factory()->create()
         );
 
         $this->assertNotEmpty($user->cart);

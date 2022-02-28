@@ -11,13 +11,13 @@ class ProductScopingTest extends TestCase
     /** @test */
     public function it_can_scope_by_category()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         $product->categories()->save(
-            $category = factory(Category::class)->create()
+            $category = Category::factory()->create()
         );
 
-        factory(Product::class)->create();
+        Product::factory()->create();
 
         $response = $this->getJson(route('products.index', ['category' => $category->slug]));
 

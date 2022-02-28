@@ -12,7 +12,7 @@ class CategoryIndexTest extends TestCase
     {
         parent::setUp();
         
-        $this->category = factory(Category::class)->create();
+        $this->category = Category::factory()->create();
     }
     
     /** @test */
@@ -27,7 +27,7 @@ class CategoryIndexTest extends TestCase
     public function it_returns_only_parent_categories()
     {
         $this->category->children()->save(
-            factory(Category::class)->create()
+            Category::factory()->create()
         );
 
         $response = $this->getJson(route('categories.index'));
@@ -38,11 +38,11 @@ class CategoryIndexTest extends TestCase
     /** @test */
     public function it_returns_categories_ordered_by_their_given_order()
     {
-        $category = factory(Category::class)->create([
+        $category = Category::factory()->create([
             'order' => 2
         ]);
 
-        $anotherCategory = factory(Category::class)->create([
+        $anotherCategory = Category::factory()->create([
             'order' => 1
         ]);
 

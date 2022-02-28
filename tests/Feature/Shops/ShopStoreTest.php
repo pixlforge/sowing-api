@@ -14,7 +14,7 @@ class ShopStoreTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
     
     /** @test */
@@ -36,7 +36,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_requires_a_unique_name()
     {
-        factory(Shop::class)->create([
+        Shop::factory()->create([
             'name' => 'Capsule Corp'
         ]);
 
@@ -228,7 +228,7 @@ class ShopStoreTest extends TestCase
     /** @test */
     public function it_stores_a_new_shop()
     {
-        $country = factory(Country::class)->create();
+        $country = Country::factory()->create();
 
         $response = $this->postJsonAs($this->user, route('shops.store'), [
             'name' => $name = 'My awesome shop',

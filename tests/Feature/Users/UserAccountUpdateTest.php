@@ -19,7 +19,7 @@ class UserAccountUpdateTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     /** @test */
@@ -93,7 +93,7 @@ class UserAccountUpdateTest extends TestCase
     /** @test */
     public function it_requires_a_unique_email()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'email' => $email = $this->faker->safeEmail
         ]);
 

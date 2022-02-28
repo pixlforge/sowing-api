@@ -18,9 +18,9 @@ class FeaturedCategoryIndexTest extends TestCase
     /** @test */
     public function it_fetches_3_featured_categories()
     {
-        $parentCategory = factory(Category::class)->create();
+        $parentCategory = Category::factory()->create();
 
-        factory(Category::class, 10)->create([
+        Category::factory()->times(10)->create([
             'parent_id' => $parentCategory->id
         ]);
 
@@ -32,9 +32,9 @@ class FeaturedCategoryIndexTest extends TestCase
     /** @test */
     public function it_excludes_categories_that_are_sections()
     {
-        $parentCategory = factory(Category::class)->create();
+        $parentCategory = Category::factory()->create();
 
-        factory(Category::class)->create([
+        Category::factory()->create([
             'parent_id' => $parentCategory->id,
             'is_section' => true
         ]);

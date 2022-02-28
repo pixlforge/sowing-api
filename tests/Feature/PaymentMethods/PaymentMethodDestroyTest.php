@@ -14,10 +14,10 @@ class PaymentMethodDestroyTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->paymentMethods()->save(
-            $this->paymentMethod = factory(PaymentMethod::class)->state('default')->make()
+            $this->paymentMethod = PaymentMethod::factory()->state('default')->make()
         );
     }
 
@@ -40,7 +40,7 @@ class PaymentMethodDestroyTest extends TestCase
     /** @test */
     public function it_fails_if_the_payment_method_is_not_owned_by_the_user()
     {
-        $paymentMethod = factory(PaymentMethod::class)->create();
+        $paymentMethod = PaymentMethod::factory()->create();
 
         $response = $this->deleteJsonAs($this->user, route('payment-methods.destroy', $paymentMethod));
 
@@ -95,7 +95,7 @@ class PaymentMethodDestroyTest extends TestCase
     public function it_sets_another_payment_method_as_default_upon_delete()
     {
         $this->user->paymentMethods()->save(
-            $paymentMethod = factory(PaymentMethod::class)->make()
+            $paymentMethod = PaymentMethod::factory()->make()
         );
 
         $paymentMethod->update([

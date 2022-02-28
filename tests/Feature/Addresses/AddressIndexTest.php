@@ -13,7 +13,7 @@ class AddressIndexTest extends TestCase
     {
         parent::setUp();
         
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
     
     /** @test */
@@ -28,7 +28,7 @@ class AddressIndexTest extends TestCase
     public function it_shows_addresses()
     {
         $this->user->addresses()->save(
-            $address = factory(Address::class)->make()
+            $address = Address::factory()->make()
         );
 
         $response = $this->getJsonAs($this->user, route('addresses.index'));
@@ -43,7 +43,7 @@ class AddressIndexTest extends TestCase
     public function it_returns_an_address_resource()
     {
         $this->user->addresses()->save(
-            factory(Address::class)->make()
+            Address::factory()->make()
         );
 
         $response = $this->getJsonAs($this->user, route('addresses.index'));

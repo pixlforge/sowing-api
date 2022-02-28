@@ -20,7 +20,7 @@ class ResetPasswordTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create([
+        $this->user = User::factory()->create([
             'email' => $this->email = $this->faker->safeEmail
         ]);
     }

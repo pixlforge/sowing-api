@@ -17,18 +17,18 @@ class ProductVariationTypeUpdateTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->shop()->save(
-            $this->shop = factory(Shop::class)->make()
+            $this->shop = Shop::factory()->make()
         );
 
         $this->shop->products()->save(
-            $this->product = factory(Product::class)->make()
+            $this->product = Product::factory()->make()
         );
 
         $this->product->types()->save(
-            $this->type = factory(ProductVariationType::class)->make()
+            $this->type = ProductVariationType::factory()->make()
         );
     }
 
@@ -43,7 +43,7 @@ class ProductVariationTypeUpdateTest extends TestCase
     /** @test */
     public function it_fails_if_the_user_does_not_own_the_product()
     {
-        $otherProduct = factory(Product::class)->create();
+        $otherProduct = Product::factory()->create();
 
         $response = $this->patchJsonAs(
             $this->user,

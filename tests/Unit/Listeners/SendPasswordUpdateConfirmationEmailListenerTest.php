@@ -16,7 +16,7 @@ class SendPasswordUpdateConfirmationEmailListenerTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $event = new AccountPasswordUpdated($user, 'fr');
 

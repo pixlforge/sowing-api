@@ -22,14 +22,14 @@ class ProcessPaymentListenerTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->paymentMethods()->save(
-            $this->paymentMethod = factory(PaymentMethod::class)->make()
+            $this->paymentMethod = PaymentMethod::factory()->make()
         );
 
         $this->user->orders()->save(
-            $this->order = factory(Order::class)->make([
+            $this->order = Order::factory()->make([
                 'payment_method_id' => $this->paymentMethod->id
             ])
         );

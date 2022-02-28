@@ -26,7 +26,7 @@ $factory->define(ProductVariation::class, function () use ($fakerEN, $fakerFR, $
         ],
         'price' => null,
         'order' => null,
-        'product_variation_type_id' => factory(ProductVariationType::class),
-        'product_id' => factory(Product::class),
+        'product_variation_type_id' => ProductVariationType::factory(),
+        'product_id' => Product::factory(),
     ];
 });

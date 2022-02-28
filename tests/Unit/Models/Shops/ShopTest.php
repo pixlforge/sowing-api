@@ -18,7 +18,7 @@ class ShopTest extends TestCase
     {
         parent::setUp();
 
-        $this->shop = factory(Shop::class)->create();
+        $this->shop = Shop::factory()->create();
     }
     
     /** @test */
@@ -37,7 +37,7 @@ class ShopTest extends TestCase
     public function it_has_many_products()
     {
         $this->shop->products()->save(
-            factory(Product::class)->create()
+            Product::factory()->create()
         );
 
         $this->assertInstanceOf(Product::class, $this->shop->products()->first());

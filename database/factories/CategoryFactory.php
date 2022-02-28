@@ -28,6 +28,6 @@ $factory->define(Category::class, function () use ($fakerEN, $fakerFR, $fakerDE,
 
 $factory->state(Category::class, 'hasParent', function () {
     return [
-        'parent_id' => factory(Category::class)
+        'parent_id' => Category::factory()
     ];
 });

@@ -13,7 +13,7 @@ class PaymentMethodIndexTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
     
     /** @test */
@@ -28,7 +28,7 @@ class PaymentMethodIndexTest extends TestCase
     public function it_returns_a_collection_of_payment_methods()
     {
         $this->user->paymentMethods()->save(
-            factory(PaymentMethod::class)->make()
+            PaymentMethod::factory()->make()
         );
 
         $response = $this->getJsonAs($this->user, route('payment-methods.index'));

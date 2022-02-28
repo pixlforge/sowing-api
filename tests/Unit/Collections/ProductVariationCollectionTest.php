@@ -12,10 +12,10 @@ class ProductVariationCollectionTest extends TestCase
     /** @test */
     public function it_can_get_a_syncing_product_variations_array()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $user->cart()->attach(
-            $variation = factory(ProductVariation::class)->create(),
+            $variation = ProductVariation::factory()->create(),
             ['quantity' => $quantity = 5]
         );
 

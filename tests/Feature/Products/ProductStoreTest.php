@@ -18,13 +18,13 @@ class ProductStoreTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->shop()->save(
-            $this->shop = factory(Shop::class)->make()
+            $this->shop = Shop::factory()->make()
         );
 
-        $this->category = factory(Category::class)->create();
+        $this->category = Category::factory()->create();
     }
 
     /** @test */

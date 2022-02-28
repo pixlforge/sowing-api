@@ -17,7 +17,7 @@ class AddressStoreTest extends TestCase
     {
         parent::setUp();
         
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     /** @test */
@@ -306,7 +306,7 @@ class AddressStoreTest extends TestCase
             'address_line_1' => $this->faker->streetAddress,
             'postal_code' => $this->faker->postcode,
             'city' => $this->faker->city,
-            'country_id' => factory(Country::class)->create()->id
+            'country_id' => Country::factory()->create()->id
         ]);
 
         $this->assertDatabaseHas('addresses', array_merge($payload, [
@@ -324,7 +324,7 @@ class AddressStoreTest extends TestCase
             'address_line_1' => $this->faker->streetAddress,
             'postal_code' => $this->faker->postcode,
             'city' => $this->faker->city,
-            'country_id' => factory(Country::class)->create()->id
+            'country_id' => Country::factory()->create()->id
         ]);
 
         $response->assertResource(AddressResource::make($this->user->addresses->first()));
@@ -334,7 +334,7 @@ class AddressStoreTest extends TestCase
     public function it_unsets_old_addresses_as_default_when_creating()
     {
         $this->user->addresses()->save(
-            factory(Address::class)->state('default')->make()
+            Address::factory()->state('default')->make()
         );
 
         $this->assertTrue($this->user->addresses->first()->isDefault());

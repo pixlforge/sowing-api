@@ -13,14 +13,14 @@ class CountryTest extends TestCase
     {
         parent::setUp();
 
-        $this->country = factory(Country::class)->create();
+        $this->country = Country::factory()->create();
     }
     
     /** @test */
     public function it_belongs_to_many_shipping_methods()
     {
         $this->country->shippingMethods()->attach(
-            factory(ShippingMethod::class)->create()
+            ShippingMethod::factory()->create()
         );
 
         $this->assertInstanceOf(ShippingMethod::class, $this->country->shippingMethods->first());
@@ -29,7 +29,7 @@ class CountryTest extends TestCase
     /** @test */
     public function it_has_many_shops()
     {
-        factory(Shop::class)->create([
+        Shop::factory()->create([
             'country_id' => $this->country->id
         ]);
 

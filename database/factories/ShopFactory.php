@@ -14,7 +14,7 @@ $fakerIT = Factory::create('it_IT');
 
 $factory->define(Shop::class, function (Faker $faker) use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
     return [
-        'user_id' => factory(User::class),
+        'user_id' => User::factory(),
         'name' => $name = $faker->sentence,
         'description_short' => [
             'en' => $descriptionShort = $fakerEN->unique()->name,
@@ -33,6 +33,6 @@ $factory->define(Shop::class, function (Faker $faker) use ($fakerEN, $fakerFR, $
         ]),
         'postal_code' => Arr::random(range(1000, 4000)),
         'city' => $faker->city,
-        'country_id' => factory(Country::class)
+        'country_id' => Country::factory()
     ];
 });

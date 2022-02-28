@@ -20,7 +20,7 @@ class ProductTest extends TestCase
     {
         parent::setUp();
 
-        $this->product = factory(Product::class)->create();
+        $this->product = Product::factory()->create();
     }
 
     /** @test */
@@ -33,7 +33,7 @@ class ProductTest extends TestCase
     public function it_has_many_categories()
     {
         $this->product->categories()->save(
-            factory(Category::class)->create()
+            Category::factory()->create()
         );
 
         $this->assertInstanceOf(Category::class, $this->product->categories->first());
@@ -43,7 +43,7 @@ class ProductTest extends TestCase
     public function it_has_many_variations()
     {
         $this->product->variations()->save(
-            factory(ProductVariation::class)->create()
+            ProductVariation::factory()->create()
         );
 
         $this->assertInstanceOf(ProductVariation::class, $this->product->variations->first());
@@ -53,7 +53,7 @@ class ProductTest extends TestCase
     public function it_has_many_types()
     {
         $this->product->types()->save(
-            factory(ProductVariationType::class)->make()
+            ProductVariationType::factory()->make()
         );
 
         $this->assertInstanceOf(ProductVariationType::class, $this->product->types->first());
@@ -84,11 +84,11 @@ class ProductTest extends TestCase
     public function it_can_check_if_it_is_in_stock()
     {
         $this->product->variations()->save(
-            $variation = factory(ProductVariation::class)->make()
+            $variation = ProductVariation::factory()->make()
         );
 
         $variation->stocks()->save(
-            factory(Stock::class)->make([
+            Stock::factory()->make([
                 'quantity' => $this->faker->randomDigitNotNull
             ])
         );
@@ -100,11 +100,11 @@ class ProductTest extends TestCase
     public function it_can_get_the_stock_count()
     {
         $this->product->variations()->save(
-            $variation = factory(ProductVariation::class)->make()
+            $variation = ProductVariation::factory()->make()
         );
 
         $variation->stocks()->save(
-            factory(Stock::class)->make([
+            Stock::factory()->make([
                 'quantity' => $quantity = $this->faker->randomDigitNotNull
             ])
         );

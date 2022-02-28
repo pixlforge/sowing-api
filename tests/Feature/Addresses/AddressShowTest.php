@@ -13,10 +13,10 @@ class AddressShowTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->addresses()->save(
-            $this->address = factory(Address::class)->create()
+            $this->address = Address::factory()->create()
         );
     }
 
@@ -39,7 +39,7 @@ class AddressShowTest extends TestCase
     /** @test */
     public function it_fails_if_the_address_does_not_belong_to_the_currently_authenticated_user()
     {
-        $address = factory(Address::class)->create();
+        $address = Address::factory()->create();
 
         $response = $this->getJsonAs($this->user, route('addresses.show', $address));
 

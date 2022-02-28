@@ -69,7 +69,7 @@ class RegistrationTest extends TestCase
     /** @test */
     public function it_requires_a_unique_email()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             'email' => $email = $this->faker->safeEmail,
         ]);
 

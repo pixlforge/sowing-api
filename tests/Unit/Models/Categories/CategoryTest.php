@@ -12,14 +12,14 @@ class CategoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->category = factory(Category::class)->create();
+        $this->category = Category::factory()->create();
     }
     
     /** @test */
     public function it_has_many_children()
     {
         $this->category->children()->save(
-            factory(Category::class)->create()
+            Category::factory()->create()
         );
 
         $this->assertInstanceOf(Category::class, $this->category->children->first());
@@ -29,7 +29,7 @@ class CategoryTest extends TestCase
     public function it_can_fetch_only_parents()
     {
         $this->category->children()->save(
-            factory(Category::class)->create()
+            Category::factory()->create()
         );
 
         $this->assertCount(1, Category::parents()->get());
@@ -38,11 +38,11 @@ class CategoryTest extends TestCase
     /** @test */
     public function it_is_orderable_by_a_numbered_order()
     {
-        $category = factory(Category::class)->create([
+        $category = Category::factory()->create([
             'order' => 2
         ]);
 
-        $anotherCategory = factory(Category::class)->create([
+        $anotherCategory = Category::factory()->create([
             'order' => 1
         ]);
 
@@ -58,7 +58,7 @@ class CategoryTest extends TestCase
     public function it_has_many_products()
     {
         $this->category->products()->save(
-            factory(Product::class)->create()
+            Product::factory()->create()
         );
 
         $this->assertInstanceOf(Product::class, $this->category->products->first());

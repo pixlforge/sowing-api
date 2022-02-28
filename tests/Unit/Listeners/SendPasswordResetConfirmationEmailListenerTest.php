@@ -16,7 +16,7 @@ class SendPasswordResetConfirmationEmailListenerTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'email' => $email = 'john@example.com'
         ]);
 

@@ -14,7 +14,7 @@ class LoginTest extends TestCase
     {
         parent::setUp();
         
-        $this->user = factory(User::class)->create([
+        $this->user = User::factory()->create([
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
             'password' => $this->password = $this->faker->password(8),

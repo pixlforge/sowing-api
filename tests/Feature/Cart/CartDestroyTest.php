@@ -12,7 +12,7 @@ class CartDestroyTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
     
     /** @test */
@@ -35,7 +35,7 @@ class CartDestroyTest extends TestCase
     public function it_removes_the_product_variation_from_the_cart()
     {
         $this->user->cart()->sync(
-            $variation = factory(ProductVariation::class)->create(), [
+            $variation = ProductVariation::factory()->create(), [
                 'quantity' => 5
             ]
         );

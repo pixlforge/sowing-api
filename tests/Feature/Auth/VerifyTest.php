@@ -11,7 +11,7 @@ class VerifyTest extends TestCase
     {
         parent::setUp();
 
-        $this->unverifiedUser = factory(User::class)->state('unverified')->create();
+        $this->unverifiedUser = User::factory()->state('unverified')->create();
     }
     
     /** @test */

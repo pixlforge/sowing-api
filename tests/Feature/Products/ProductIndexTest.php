@@ -12,7 +12,7 @@ class ProductIndexTest extends TestCase
     {
         parent::setUp();
 
-        $this->product = factory(Product::class)->create();
+        $this->product = Product::factory()->create();
     }
     
     /** @test */

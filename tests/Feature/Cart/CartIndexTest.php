@@ -14,9 +14,9 @@ class CartIndexTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
-        $this->variation = factory(ProductVariation::class)->create();
+        $this->variation = ProductVariation::factory()->create();
     }
 
     /** @test */
@@ -112,7 +112,7 @@ class CartIndexTest extends TestCase
     /** @test */
     public function it_shows_a_detailed_and_formatted_total_with_shipping()
     {
-        $shippingMethod = factory(ShippingMethod::class)->create([
+        $shippingMethod = ShippingMethod::factory()->create([
             'price' => 1000
         ]);
 

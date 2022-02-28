@@ -13,10 +13,10 @@ class PaymentMethodShowTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->paymentMethods()->save(
-            $this->paymentMethod = factory(PaymentMethod::class)->make()
+            $this->paymentMethod = PaymentMethod::factory()->make()
         );
     }
     
@@ -39,7 +39,7 @@ class PaymentMethodShowTest extends TestCase
     /** @test */
     public function it_fails_if_the_payment_methods_is_not_owned_by_the_current_authenticated_user()
     {
-        $paymentMethod = factory(PaymentMethod::class)->create();
+        $paymentMethod = PaymentMethod::factory()->create();
 
         $response = $this->getJsonAs($this->user, route('payment-methods.show', $paymentMethod));
 

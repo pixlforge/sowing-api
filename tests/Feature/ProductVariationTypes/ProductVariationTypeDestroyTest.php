@@ -17,18 +17,18 @@ class ProductVariationTypeDestroyTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->shop()->save(
-            $this->shop = factory(Shop::class)->make()
+            $this->shop = Shop::factory()->make()
         );
 
         $this->shop->products()->save(
-            $this->product = factory(Product::class)->make()
+            $this->product = Product::factory()->make()
         );
 
         $this->product->types()->save(
-            $this->productVariationType = factory(ProductVariationType::class)->make()
+            $this->productVariationType = ProductVariationType::factory()->make()
         );
     }
     
@@ -45,10 +45,10 @@ class ProductVariationTypeDestroyTest extends TestCase
     /** @test */
     public function it_does_not_delete_the_product_variation_type_if_the_user_does_not_own_it()
     {
-        $otherProduct = factory(Product::class)->create();
+        $otherProduct = Product::factory()->create();
 
         $otherProduct->types()->save(
-            $otherProductVariationType = factory(ProductVariationType::class)->make()
+            $otherProductVariationType = ProductVariationType::factory()->make()
         );
 
         $this->assertCount(1, $otherProduct->types);

@@ -20,10 +20,10 @@ class UserShopTest extends TestCase
     /** @test */
     public function it_returns_a_user_shop_resource()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $user->shop()->save(
-            factory(Shop::class)->make()
+            Shop::factory()->make()
         );
 
         $response = $this->getJsonAs($user, route('user.shop'));

@@ -13,10 +13,10 @@ class CreateTransactionListenerTest extends TestCase
     /** @test */
     public function it_creates_a_transaction()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $user->orders()->save(
-            $order = factory(Order::class)->make()
+            $order = Order::factory()->make()
         );
 
         $event = new OrderPaymentSuccessful($order);

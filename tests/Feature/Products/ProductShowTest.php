@@ -19,7 +19,7 @@ class ProductShowTest extends TestCase
     /** @test */
     public function it_returns_a_product_resource()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         $response = $this->getJson(route('products.show', $product->slug));
 

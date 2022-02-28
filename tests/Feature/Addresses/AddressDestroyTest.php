@@ -12,10 +12,10 @@ class AddressDestroyTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->addresses()->save(
-            $this->address = factory(Address::class)->state('default')->make()
+            $this->address = Address::factory()->state('default')->make()
         );
     }
     
@@ -30,7 +30,7 @@ class AddressDestroyTest extends TestCase
     /** @test */
     public function it_cannot_delete_an_address_that_does_not_belong_to_the_user()
     {
-        $address = factory(Address::class)->create();
+        $address = Address::factory()->create();
 
         $response = $this->deleteJsonAs($this->user, route('addresses.destroy', $address));
 
@@ -65,7 +65,7 @@ class AddressDestroyTest extends TestCase
     public function it_can_set_another_address_as_default_upon_delete()
     {
         $this->user->addresses()->save(
-            $address = factory(Address::class)->make()
+            $address = Address::factory()->make()
         );
         
         $this->assertTrue($this->address->isDefault());

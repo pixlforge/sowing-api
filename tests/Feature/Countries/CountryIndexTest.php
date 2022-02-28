@@ -13,9 +13,9 @@ class CountryIndexTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
         
-        $this->country = factory(Country::class)->create();
+        $this->country = Country::factory()->create();
     }
 
     /** @test */

@@ -18,12 +18,12 @@ class OrderTest extends TestCase
     {
         parent::setUp();
 
-        $this->shippingMethod = factory(ShippingMethod::class)->create([
+        $this->shippingMethod = ShippingMethod::factory()->create([
             'price' => 1000
         ]);
 
         $this->shippingMethod->orders()->save(
-            $this->order = factory(Order::class)->make([
+            $this->order = Order::factory()->make([
                 'subtotal' => 1000
             ])
         );
@@ -57,7 +57,7 @@ class OrderTest extends TestCase
     public function it_has_many_transactions()
     {
         $this->order->transactions()->save(
-            factory(Transaction::class)->make()
+            Transaction::factory()->make()
         );
 
         $this->assertInstanceOf(Transaction::class, $this->order->transactions->first());
@@ -73,7 +73,7 @@ class OrderTest extends TestCase
     public function it_has_many_product_variations()
     {
         $this->order->variations()->attach(
-            factory(ProductVariation::class)->create(),
+            ProductVariation::factory()->create(),
             ['quantity' => 1]
         );
 
@@ -84,7 +84,7 @@ class OrderTest extends TestCase
     public function it_has_a_quantity_attached_to_the_product_variations()
     {
         $this->order->variations()->attach(
-            factory(ProductVariation::class)->create(),
+            ProductVariation::factory()->create(),
             ['quantity' => $quantity = 5]
         );
 

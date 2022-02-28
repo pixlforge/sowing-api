@@ -12,7 +12,7 @@ class ShopConnectTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
     
     /** @test */
@@ -35,7 +35,7 @@ class ShopConnectTest extends TestCase
     public function it_fails_if_stripe_code_is_missing()
     {
         $this->user->shop()->save(
-            factory(Shop::class)->create()
+            Shop::factory()->create()
         );
         
         $response = $this->postJsonAs($this->user, route('shops.connect'));

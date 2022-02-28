@@ -19,7 +19,7 @@ class UserAccountIndexTest extends TestCase
     /** @test */
     public function it_returns_a_user_resource()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->getJsonAs($user, route('user.account.index'));
 

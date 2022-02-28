@@ -21,26 +21,26 @@ class OrderStoreTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $stripeCustomer = Customer::create(['email' => $this->user->email]);
 
         $this->user->update(['gateway_customer_id' => $stripeCustomer->id]);
 
-        $this->country = factory(Country::class)->create();
+        $this->country = Country::factory()->create();
 
         $this->country->shippingMethods()->attach(
-            $this->shippingMethod = factory(ShippingMethod::class)->create()
+            $this->shippingMethod = ShippingMethod::factory()->create()
         );
 
         $this->user->addresses()->save(
-            $this->address = factory(Address::class)->make([
+            $this->address = Address::factory()->make([
                 'country_id' => $this->country->id
             ])
         );
 
         $this->user->paymentMethods()->save(
-            $this->paymentMethod = factory(PaymentMethod::class)->make()
+            $this->paymentMethod = PaymentMethod::factory()->make()
         );
 
         $this->user->cart()->sync(
@@ -77,7 +77,7 @@ class OrderStoreTest extends TestCase
     /** @test */
     public function it_requires_an_address_that_belongs_to_the_authenticated_user()
     {
-        $address = factory(Address::class)->create();
+        $address = Address::factory()->create();
 
         $response = $this->postJsonAs($this->user, route('orders.store'), [
             'address_id' => $address->id
@@ -107,7 +107,7 @@ class OrderStoreTest extends TestCase
     /** @test */
     public function it_requires_a_valid_shipping_method_for_the_address()
     {
-        $shippingMethod = factory(ShippingMethod::class)->create();
+        $shippingMethod = ShippingMethod::factory()->create();
 
         $response = $this->postJsonAs($this->user, route('orders.store'), [
             'shipping_method_id' => $shippingMethod->id
@@ -127,7 +127,7 @@ class OrderStoreTest extends TestCase
     /** @test */
     public function it_requires_a_payment_method_that_belongs_to_the_authenticated_user()
     {
-        $paymentMethod = factory(PaymentMethod::class)->create();
+        $paymentMethod = PaymentMethod::factory()->create();
  
         $response = $this->postJsonAs($this->user, route('orders.store'), [
              'payment_method_id' => $paymentMethod->id
@@ -227,9 +227,9 @@ class OrderStoreTest extends TestCase
      */
     public function getProductVariationWithStock()
     {
-        $variation = factory(ProductVariation::class)->create();
+        $variation = ProductVariation::factory()->create();
 
-        $variation->stocks()->save(factory(Stock::class)->make());
+        $variation->stocks()->save(Stock::factory()->make());
 
         return $variation;
     }

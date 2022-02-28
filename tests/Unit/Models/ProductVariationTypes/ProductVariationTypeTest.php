@@ -12,7 +12,7 @@ class ProductVariationTypeTest extends TestCase
     {
         parent::setUp();
 
-        $this->productVariationType = factory(ProductVariationType::class)->create();
+        $this->productVariationType = ProductVariationType::factory()->create();
     }
     
     /** @test */

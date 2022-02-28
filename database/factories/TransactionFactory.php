@@ -6,7 +6,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Transaction::class, function (Faker $faker) {
     return [
-        'order_id' => factory(Order::class),
+        'order_id' => Order::factory(),
         'total' => 1000
     ];
 });

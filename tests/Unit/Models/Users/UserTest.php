@@ -17,7 +17,7 @@ class UserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create([
+        $this->user = User::factory()->create([
             'password' => $this->password = 'password'
         ]);
     }
@@ -32,7 +32,7 @@ class UserTest extends TestCase
     public function it_has_many_cart_product_variations()
     {
         $this->user->cart()->attach(
-            factory(ProductVariation::class)->create()
+            ProductVariation::factory()->create()
         );
 
         $this->assertInstanceOf(ProductVariation::class, $this->user->cart->first());
@@ -42,7 +42,7 @@ class UserTest extends TestCase
     public function it_has_a_quantity_for_each_cart_product_variation()
     {
         $this->user->cart()->attach(
-            factory(ProductVariation::class)->create(),
+            ProductVariation::factory()->create(),
             ['quantity' => $quantity = 5]
         );
 
@@ -53,7 +53,7 @@ class UserTest extends TestCase
     public function it_has_many_addresses()
     {
         $this->user->addresses()->save(
-            factory(Address::class)->make()
+            Address::factory()->make()
         );
 
         $this->assertInstanceOf(Address::class, $this->user->addresses->first());
@@ -63,7 +63,7 @@ class UserTest extends TestCase
     public function it_has_many_orders()
     {
         $this->user->orders()->save(
-            factory(Order::class)->make()
+            Order::factory()->make()
         );
 
         $this->assertInstanceOf(Order::class, $this->user->orders->first());
@@ -73,7 +73,7 @@ class UserTest extends TestCase
     public function it_has_one_shop()
     {
         $this->user->shop()->save(
-            factory(Shop::class)->make()
+            Shop::factory()->make()
         );
 
         $this->assertInstanceOf(Shop::class, $this->user->shop);
@@ -83,7 +83,7 @@ class UserTest extends TestCase
     public function it_can_check_if_the_user_has_a_shop()
     {
         $this->user->shop()->save(
-            factory(Shop::class)->make()
+            Shop::factory()->make()
         );
 
         $this->assertTrue($this->user->hasShop());
@@ -93,7 +93,7 @@ class UserTest extends TestCase
     public function it_has_many_payment_methods()
     {
         $this->user->paymentMethods()->save(
-            factory(PaymentMethod::class)->make()
+            PaymentMethod::factory()->make()
         );
 
         $this->assertInstanceOf(PaymentMethod::class, $this->user->paymentMethods->first());

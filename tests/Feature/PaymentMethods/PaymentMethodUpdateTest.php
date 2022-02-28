@@ -12,10 +12,10 @@ class PaymentMethodUpdateTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->paymentMethods()->save(
-            $this->paymentMethod = factory(PaymentMethod::class)->make()
+            $this->paymentMethod = PaymentMethod::factory()->make()
         );
     }
     
@@ -38,7 +38,7 @@ class PaymentMethodUpdateTest extends TestCase
     /** @test */
     public function it_fails_if_the_payment_method_does_not_belong_to_the_user()
     {
-        $paymentMethod = factory(PaymentMethod::class)->create();
+        $paymentMethod = PaymentMethod::factory()->create();
 
         $response = $this->patchJsonAs($this->user, route('payment-methods.update', $paymentMethod));
 
@@ -49,7 +49,7 @@ class PaymentMethodUpdateTest extends TestCase
     public function it_sets_the_payment_method_as_default()
     {
         $this->user->paymentMethods()->save(
-            $otherPaymentMethod = factory(PaymentMethod::class)->state('default')->make()
+            $otherPaymentMethod = PaymentMethod::factory()->state('default')->make()
         );
 
         $this->assertFalse($this->paymentMethod->fresh()->isDefault());

@@ -15,18 +15,18 @@ class ProductVariationStoreTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
 
         $this->user->shop()->save(
-            $this->shop = factory(Shop::class)->make()
+            $this->shop = Shop::factory()->make()
         );
 
         $this->shop->products()->save(
-            $this->product = factory(Product::class)->make()
+            $this->product = Product::factory()->make()
         );
 
         $this->product->types()->save(
-            $this->productVariationType = factory(ProductVariationType::class)->make()
+            $this->productVariationType = ProductVariationType::factory()->make()
         );
     }
 
@@ -41,9 +41,9 @@ class ProductVariationStoreTest extends TestCase
     /** @test */
     public function it_fails_if_the_user_does_not_own_the_product()
     {
-        $otherProduct = factory(Product::class)->create();
+        $otherProduct = Product::factory()->create();
         $otherProductVariationType = $otherProduct->types()->save(
-            factory(ProductVariationType::class)->make()
+            ProductVariationType::factory()->make()
         );
 
         $response = $this->postJsonAs($this->user, route('product-variations.store', [$otherProduct, $otherProductVariationType]));
