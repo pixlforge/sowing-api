@@ -4,8 +4,8 @@ namespace Tests;
 
 use App\Models\Shop;
 use App\Models\Product;
+use Illuminate\Testing\TestResponse;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Foundation\Testing\TestResponse;
 
 trait CreatesApplication
 {
