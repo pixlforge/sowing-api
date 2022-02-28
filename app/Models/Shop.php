@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Laravel\Scout\Searchable;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Shop extends Model implements HasMedia
 {
-    use HasTranslations, SoftDeletes, HasMediaTrait, Searchable;
+    use HasTranslations, SoftDeletes, InteractsWithMedia, Searchable;
 
     /**
      * The attributes that are mass assignable.

@@ -4,18 +4,18 @@ namespace App\Models;
 
 use Laravel\Scout\Searchable;
 use App\Models\Traits\HasPrice;
+use Spatie\MediaLibrary\HasMedia;
 use App\Models\Traits\HasScopesTrait;
 use App\Scoping\Scopes\CategoryScope;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
 use App\Models\Contracts\HasScopesContract;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Product extends Model implements HasMedia, HasScopesContract
 {
-    use SoftDeletes, HasScopesTrait, HasPrice, HasTranslations, HasMediaTrait, Searchable;
+    use SoftDeletes, HasScopesTrait, HasPrice, HasTranslations, InteractsWithMedia, Searchable;
 
     /**
      * The attributes that are mass assignable.
