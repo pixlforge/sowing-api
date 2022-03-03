@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Shop extends Model implements HasMedia
 {
-    use HasTranslations, SoftDeletes, InteractsWithMedia, Searchable;
+    use Searchable;
+    use HasFactory;
+    use SoftDeletes;
+    use HasTranslations;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.

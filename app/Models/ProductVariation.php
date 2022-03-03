@@ -9,10 +9,14 @@ use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Pivots\ProductVariationStockPivot;
 use App\Models\Collections\ProductVariationCollection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProductVariation extends Model
 {
-    use SoftDeletes, HasPrice, HasTranslations;
+    use HasPrice;
+    use HasFactory;
+    use SoftDeletes;
+    use HasTranslations;
 
     /**
      * The attributes that are mass assignable.

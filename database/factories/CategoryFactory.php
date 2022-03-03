@@ -1,33 +1,56 @@
 <?php
 
-use Faker\Factory;
+namespace Database\Factories;
+
 use App\Models\Category;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$fakerEN = Factory::create('en_US');
-$fakerFR = Factory::create('fr_CH');
-$fakerDE = Factory::create('de_CH');
-$fakerIT = Factory::create('it_IT');
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
+ */
+class CategoryFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Category::class;
 
-$factory->define(Category::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
-    return [
-        'name' => [
-            'en' => $name = $fakerEN->unique()->name,
-            'fr' => $fakerFR->unique()->name,
-            'de' => $fakerDE->unique()->name,
-            'it' => $fakerIT->unique()->name,
-        ],
-        'description' => [
-            'en' => $fakerEN->sentences(2, true),
-            'fr' => $fakerFR->sentences(2, true),
-            'de' => $fakerDE->sentences(2, true),
-            'it' => $fakerIT->sentences(2, true),
-        ],
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'name' => [
+                'en' => $name = $this->faker->unique()->name,
+                'fr' => $name,
+                'de' => $name,
+                'it' => $name,
+            ],
+            'description' => [
+                'en' => $sentences = $this->faker->sentences(2, true),
+                'fr' => $sentences,
+                'de' => $sentences,
+                'it' => $sentences,
+            ],
+        ];
+    }
 
-$factory->state(Category::class, 'hasParent', function () {
-    return [
-        'parent_id' => Category::factory()
-    ];
-});
+    /**
+     * Create a parent category.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function hasParent()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'parent_id' => Category::factory(),
+            ];
+        });
+    }
+}

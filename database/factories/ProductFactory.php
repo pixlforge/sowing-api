@@ -1,29 +1,45 @@
 <?php
 
-use Faker\Factory;
+namespace Database\Factories;
+
 use App\Models\Shop;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$fakerEN = Factory::create('en_US');
-$fakerFR = Factory::create('fr_CH');
-$fakerDE = Factory::create('de_CH');
-$fakerIT = Factory::create('it_IT');
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ */
+class ProductFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Product::class;
 
-$factory->define(Product::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
-    return [
-        'shop_id' => Shop::factory(),
-        'name' => [
-            'en' => $name = $fakerEN->unique()->name,
-            'fr' => $fakerFR->unique()->name,
-            'de' => $fakerDE->unique()->name,
-            'it' => $fakerIT->unique()->name,
-        ],
-        'description' => [
-            'en' => $fakerEN->paragraphs(rand(2, 6), true),
-            'fr' => $fakerFR->paragraphs(rand(2, 6), true),
-            'de' => $fakerDE->paragraphs(rand(2, 6), true),
-            'it' => $fakerIT->paragraphs(rand(2, 6), true),
-        ],
-        'price' => 1000
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'shop_id' => Shop::factory(),
+            'name' => [
+                'en' => $name = $this->faker->unique()->name,
+                'fr' => $name,
+                'de' => $name,
+                'it' => $name,
+            ],
+            'description' => [
+                'en' => $this->faker->paragraphs(rand(2, 6), true),
+                'fr' => $this->faker->paragraphs(rand(2, 6), true),
+                'de' => $this->faker->paragraphs(rand(2, 6), true),
+                'it' => $this->faker->paragraphs(rand(2, 6), true),
+            ],
+            'price' => 1000
+        ];
+    }
+}

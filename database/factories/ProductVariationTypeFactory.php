@@ -1,22 +1,38 @@
 <?php
 
-use Faker\Factory;
+namespace Database\Factories;
+
 use App\Models\Product;
 use App\Models\ProductVariationType;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$fakerEN = Factory::create('en_US');
-$fakerFR = Factory::create('fr_CH');
-$fakerDE = Factory::create('de_CH');
-$fakerIT = Factory::create('it_IT');
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductVariationType>
+ */
+class ProductVariationTypeFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ProductVariationType::class;
 
-$factory->define(ProductVariationType::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
-    return [
-        'product_id' => Product::factory(),
-        'name' => [
-            'en' => $fakerEN->unique()->name,
-            'fr' => $fakerFR->unique()->name,
-            'de' => $fakerDE->unique()->name,
-            'it' => $fakerIT->unique()->name,
-        ]
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'product_id' => Product::factory(),
+            'name' => [
+                'en' => $this->faker->unique()->name,
+                'fr' => $this->faker->unique()->name,
+                'de' => $this->faker->unique()->name,
+                'it' => $this->faker->unique()->name,
+            ]
+        ];
+    }
+}

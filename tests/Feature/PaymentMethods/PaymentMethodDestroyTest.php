@@ -17,7 +17,7 @@ class PaymentMethodDestroyTest extends TestCase
         $this->user = User::factory()->create();
 
         $this->user->paymentMethods()->save(
-            $this->paymentMethod = PaymentMethod::factory()->state('default')->make()
+            $this->paymentMethod = PaymentMethod::factory()->default()->make()
         );
     }
 

@@ -8,10 +8,15 @@ use App\Models\Traits\IsOrderable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model implements HasMedia
 {
-    use HasChildren, IsOrderable, HasTranslations, InteractsWithMedia;
+    use HasFactory;
+    use HasChildren;
+    use IsOrderable;
+    use HasTranslations;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.

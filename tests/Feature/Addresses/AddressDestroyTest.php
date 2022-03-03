@@ -15,7 +15,7 @@ class AddressDestroyTest extends TestCase
         $this->user = User::factory()->create();
 
         $this->user->addresses()->save(
-            $this->address = Address::factory()->state('default')->make()
+            $this->address = Address::factory()->default()->make()
         );
     }
     

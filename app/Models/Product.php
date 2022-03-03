@@ -12,10 +12,17 @@ use Spatie\Translatable\HasTranslations;
 use App\Models\Contracts\HasScopesContract;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model implements HasMedia, HasScopesContract
 {
-    use SoftDeletes, HasScopesTrait, HasPrice, HasTranslations, InteractsWithMedia, Searchable;
+    use HasPrice;
+    use Searchable;
+    use HasFactory;
+    use SoftDeletes;
+    use HasScopesTrait;
+    use HasTranslations;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.

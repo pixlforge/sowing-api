@@ -49,7 +49,7 @@ class PaymentMethodUpdateTest extends TestCase
     public function it_sets_the_payment_method_as_default()
     {
         $this->user->paymentMethods()->save(
-            $otherPaymentMethod = PaymentMethod::factory()->state('default')->make()
+            $otherPaymentMethod = PaymentMethod::factory()->default()->make()
         );
 
         $this->assertFalse($this->paymentMethod->fresh()->isDefault());

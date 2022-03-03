@@ -1,38 +1,53 @@
 <?php
 
-use Faker\Factory;
+namespace Database\Factories;
+
 use App\Models\Shop;
 use App\Models\User;
 use App\Models\Country;
 use Illuminate\Support\Arr;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$fakerEN = Factory::create('en_US');
-$fakerFR = Factory::create('fr_CH');
-$fakerDE = Factory::create('de_CH');
-$fakerIT = Factory::create('it_IT');
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Shop>
+ */
+class ShopFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Shop::class;
 
-$factory->define(Shop::class, function (Faker $faker) use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
-    return [
-        'user_id' => User::factory(),
-        'name' => $name = $faker->sentence,
-        'description_short' => [
-            'en' => $descriptionShort = $fakerEN->unique()->name,
-            'fr' => $fakerFR->unique()->name,
-            'de' => $fakerDE->unique()->name,
-            'it' => $fakerIT->unique()->name,
-        ],
-        'description_long' => [
-            'en' => $descriptionLong = $fakerEN->unique()->name,
-            'fr' => $fakerFR->unique()->name,
-            'de' => $fakerDE->unique()->name,
-            'it' => $fakerIT->unique()->name,
-        ],
-        'theme' => Arr::random([
-            'green', 'pink', 'purple', 'indigo', 'blue', 'brown', 'gray', 'slate'
-        ]),
-        'postal_code' => Arr::random(range(1000, 4000)),
-        'city' => $faker->city,
-        'country_id' => Country::factory()
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => User::factory(),
+            'name' => $name = $this->faker->sentence,
+            'description_short' => [
+                'en' => $descriptionShort = $this->faker->unique()->name,
+                'fr' => $descriptionShort,
+                'de' => $descriptionShort,
+                'it' => $descriptionShort,
+            ],
+            'description_long' => [
+                'en' => $descriptionLong = $this->faker->unique()->name,
+                'fr' => $descriptionLong,
+                'de' => $descriptionLong,
+                'it' => $descriptionLong,
+            ],
+            'theme' => Arr::random([
+                'green', 'pink', 'purple', 'indigo', 'blue', 'brown', 'gray', 'slate'
+            ]),
+            'postal_code' => Arr::random(range(1000, 4000)),
+            'city' => $this->faker->city,
+            'country_id' => Country::factory()
+        ];
+    }
+}

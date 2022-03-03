@@ -334,7 +334,7 @@ class AddressStoreTest extends TestCase
     public function it_unsets_old_addresses_as_default_when_creating()
     {
         $this->user->addresses()->save(
-            Address::factory()->state('default')->make()
+            Address::factory()->default()->make()
         );
 
         $this->assertTrue($this->user->addresses->first()->isDefault());

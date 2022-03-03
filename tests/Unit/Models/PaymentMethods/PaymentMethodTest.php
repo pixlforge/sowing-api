@@ -15,7 +15,7 @@ class PaymentMethodTest extends TestCase
         $this->user = User::factory()->create();
 
         $this->user->paymentMethods()->save(
-            $this->paymentMethod = PaymentMethod::factory()->state('default')->make()
+            $this->paymentMethod = PaymentMethod::factory()->default()->make()
         );
     }
     
@@ -37,7 +37,7 @@ class PaymentMethodTest extends TestCase
         $this->assertTrue($this->user->paymentMethods->first()->isDefault());
 
         $this->user->paymentMethods()->save(
-            PaymentMethod::factory()->state('default')->make()
+            PaymentMethod::factory()->default()->make()
         );
 
         $this->assertFalse($this->user->paymentMethods->first()->fresh()->isDefault());

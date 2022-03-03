@@ -5,10 +5,13 @@ namespace App\Models;
 use App\Models\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ShippingMethod extends Model
 {
-    use SoftDeletes, HasPrice;
+    use HasPrice;
+    use HasFactory;
+    use SoftDeletes;
 
     /**
      * Countries relationship.

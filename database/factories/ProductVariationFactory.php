@@ -1,32 +1,48 @@
 <?php
 
-use Faker\Factory;
+namespace Database\Factories;
+
 use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\ProductVariationType;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$fakerEN = Factory::create('en_US');
-$fakerFR = Factory::create('fr_CH');
-$fakerDE = Factory::create('de_CH');
-$fakerIT = Factory::create('it_IT');
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductVariation>
+ */
+class ProductVariationFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ProductVariation::class;
 
-$factory->define(ProductVariation::class, function () use ($fakerEN, $fakerFR, $fakerDE, $fakerIT) {
-    return [
-        'name' => [
-            'en' => $name = $fakerEN->unique()->name,
-            'fr' => $fakerFR->unique()->name,
-            'de' => $fakerDE->unique()->name,
-            'it' => $fakerIT->unique()->name,
-        ],
-        'description' => [
-            'en' => $fakerEN->sentence,
-            'fr' => $fakerFR->sentence,
-            'de' => $fakerDE->sentence,
-            'it' => $fakerIT->sentence,
-        ],
-        'price' => null,
-        'order' => null,
-        'product_variation_type_id' => ProductVariationType::factory(),
-        'product_id' => Product::factory(),
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'name' => [
+                'en' => $name = $this->faker->unique()->name,
+                'fr' => $name,
+                'de' => $name,
+                'it' => $name,
+            ],
+            'description' => [
+                'en' => $this->faker->sentence,
+                'fr' => $this->faker->sentence,
+                'de' => $this->faker->sentence,
+                'it' => $this->faker->sentence,
+            ],
+            'price' => null,
+            'order' => null,
+            'product_variation_type_id' => ProductVariationType::factory(),
+            'product_id' => Product::factory(),
+        ];
+    }
+}
