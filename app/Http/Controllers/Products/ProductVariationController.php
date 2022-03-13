@@ -51,4 +51,19 @@ class ProductVariationController extends Controller
 
         return ProductVariationResource::make($productVariation);
     }
+
+    /**
+     * Update an existing product variation type.
+     *
+     * @param Product $product
+     * @param ProductVariation $productVariation
+     * @param Request $request
+     * @return void
+     */
+    public function update(Product $product, ProductVariation $productVariation, Request $request)
+    {
+        $this->authorize('update', $product);
+
+        $productVariation->update($request->only('name', 'description', 'price'));
+    }
 }
