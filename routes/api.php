@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Shops\ShopController;
@@ -73,7 +74,6 @@ Route::post('/images/{shop}/upload', ShopImageStoreController::class)->name('sho
  * Newsletters
  */
 Route::get('/newsletter/subscribers', [NewsletterController::class, 'index'])->name('newsletter.subscribers.index');
-Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])->name('newsletter.subscriber.store'); // TODO: Refactor the url
 
 /**
  * Orders
